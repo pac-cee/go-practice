@@ -36,3 +36,11 @@ export class AppComponent {
     this.amount = 0;
     this.description = '';
   }
+}
+
+interface Transaction {
+  type: string;
+  amount: number;
+  description: string;
+  date: Date;
+}
