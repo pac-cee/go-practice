@@ -36,3 +36,22 @@ export class WalletService {
 
   getTransactions(): Observable<Transaction[]> {
     return this.transactions.asObservable();
+  }
+
+  addTransaction(type: 'credit' | 'debit', amount: number, description: string) {
+    const newTransaction: Transaction = {
+      id: Date.now(),
+      type,
+      amount,
+      description,
+      date: new Date()
+    };
+
+    const currentTransactions = this.transactions.getValue();
+    const newTransactions = [...currentTransactions, newTransaction];
+    this.transactions.next(newTransactions);
+
+    const currentBalance = this.balance.getValue();
+    const newBalance = type === 'credit' 
+      ? currentBalance + amount 
+      : currentBalance - amount;
