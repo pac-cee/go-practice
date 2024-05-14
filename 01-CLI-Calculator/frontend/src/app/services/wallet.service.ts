@@ -55,3 +55,10 @@ export class WalletService {
     const newBalance = type === 'credit' 
       ? currentBalance + amount 
       : currentBalance - amount;
+    this.balance.next(newBalance);
+
+    // Save to localStorage
+    localStorage.setItem('balance', newBalance.toString());
+    localStorage.setItem('transactions', JSON.stringify(newTransactions));
+  }
+}
