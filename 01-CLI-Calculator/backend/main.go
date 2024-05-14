@@ -36,3 +36,22 @@ func main() {
 			break
 		}
 
+		if input == "history" {
+			showHistory()
+			continue
+		}
+
+		result, err := calculate(input)
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+			continue
+		}
+
+		fmt.Printf("Result: %.2f\n", result)
+	}
+}
+
+func calculate(input string) (float64, error) {
+	parts := strings.Fields(input)
+	if len(parts) != 3 {
+		return 0, fmt.Errorf("invalid format: please use 'number operator number'")
