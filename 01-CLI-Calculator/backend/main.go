@@ -74,3 +74,22 @@ func calculate(input string) (float64, error) {
 	case "-":
 		result = num1 - num2
 	case "*":
+		result = num1 * num2
+	case "/":
+		if num2 == 0 {
+			return 0, fmt.Errorf("division by zero")
+		}
+		result = num1 / num2
+	default:
+		return 0, fmt.Errorf("invalid operator: use +, -, *, /")
+	}
+
+	// Store calculation in history
+	operation := Operation{
+		FirstNumber:  num1,
+		SecondNumber: num2,
+		Operator:     parts[1],
+		Result:       result,
+	}
+	
+	if len(history) >= 5 {
