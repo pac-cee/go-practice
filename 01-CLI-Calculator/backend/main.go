@@ -93,3 +93,22 @@ func calculate(input string) (float64, error) {
 	}
 	
 	if len(history) >= 5 {
+		history = history[1:]
+	}
+	history = append(history, operation)
+
+	return result, nil
+}
+
+func showHistory() {
+	if len(history) == 0 {
+		fmt.Println("No calculations in history")
+		return
+	}
+
+	fmt.Println("\nCalculation History:")
+	for i, op := range history {
+		fmt.Printf("%d: %.2f %s %.2f = %.2f\n",
+			i+1, op.FirstNumber, op.Operator, op.SecondNumber, op.Result)
+	}
+}
