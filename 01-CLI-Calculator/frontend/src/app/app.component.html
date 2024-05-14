@@ -36,3 +36,10 @@
           <br>
           <small>{{ transaction.date | date:'medium' }}</small>
         </div>
+        <span [ngClass]="{'credit': transaction.type === 'credit', 'debit': transaction.type === 'debit'}">
+          {{ transaction.type === 'credit' ? '+' : '-' }} {{ transaction.amount | currency }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
