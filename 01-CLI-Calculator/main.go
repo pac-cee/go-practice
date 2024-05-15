@@ -93,3 +93,22 @@ func calculate(input string) (float64, error) {
 		SecondNumber: num2,
 		Operator:     parts[1],
 		Result:       result,
+	}
+	addToHistory(operation)
+
+	return result, nil
+}
+
+func addToHistory(op Operation) {
+	history = append([]Operation{op}, history...)
+	if len(history) > 5 {
+		history = history[:5]
+	}
+}
+
+func showHistory() {
+	if len(history) == 0 {
+		fmt.Println("No calculations in history")
+		return
+	}
+
