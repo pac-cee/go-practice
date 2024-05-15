@@ -112,3 +112,9 @@ func showHistory() {
 		return
 	}
 
+	fmt.Println("\nLast 5 calculations:")
+	for i, op := range history {
+		fmt.Printf("%d: %.2f %s %.2f = %.2f\n",
+			i+1, op.FirstNumber, op.Operator, op.SecondNumber, op.Result)
+	}
+}
