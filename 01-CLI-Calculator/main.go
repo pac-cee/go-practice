@@ -55,3 +55,22 @@ func calculate(input string) (float64, error) {
 	parts := strings.Split(strings.TrimSpace(input), " ")
 	if len(parts) != 3 {
 		return 0, fmt.Errorf("invalid input format. Please use: number operator number")
+	}
+
+	// Parse first number
+	num1, err := strconv.ParseFloat(parts[0], 64)
+	if err != nil {
+		return 0, fmt.Errorf("invalid first number")
+	}
+
+	// Parse second number
+	num2, err := strconv.ParseFloat(parts[2], 64)
+	if err != nil {
+		return 0, fmt.Errorf("invalid second number")
+	}
+
+	// Process the operation
+	var result float64
+	switch parts[1] {
+	case "+":
+		result = num1 + num2
