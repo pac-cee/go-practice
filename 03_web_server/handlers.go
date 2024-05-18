@@ -17,3 +17,22 @@ func jsonResponse(w http.ResponseWriter, status int, payload interface{}) {
 	if err != nil {
 		log.Printf("Error marshalling JSON: %v", err)
 		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	w.Write(response)
+}
+
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		jsonResponse(w, http.StatusMethodNotAllowed, Response{
+			Status:  "error",
+			Message: "Method not allowed",
+		})
+		return
+	}
+
+	jsonResponse(w, http.StatusOK, Response{
+		Status:  "success",
