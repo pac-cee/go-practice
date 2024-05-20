@@ -74,3 +74,21 @@ func servicesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	jsonResponse(w, http.StatusOK, Response{
+		Status:  "success",
+		Message: "Our services",
+		Data: []map[string]string{
+			{
+				"name":        "Web Development",
+				"description": "Full-stack web development services",
+			},
+			{
+				"name":        "Cloud Hosting",
+				"description": "Secure and scalable cloud hosting solutions",
+			},
+			{
+				"name":        "API Integration",
+				"description": "Custom API development and integration",
+			},
+		},
+	})
+}
