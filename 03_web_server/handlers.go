@@ -36,3 +36,22 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 	jsonResponse(w, http.StatusOK, Response{
 		Status:  "success",
+		Message: "About page",
+		Data: map[string]string{
+			"description": "This is a professional Go web server",
+			"version":     "1.0.0",
+		},
+	})
+}
+
+func contactHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		jsonResponse(w, http.StatusMethodNotAllowed, Response{
+			Status:  "error",
+			Message: "Method not allowed",
+		})
+		return
+	}
+
+	jsonResponse(w, http.StatusOK, Response{
+		Status:  "success",
