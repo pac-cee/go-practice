@@ -55,3 +55,22 @@ func setupServer(cfg *config.Config) *http.Server {
 func main() {
 	// Setup logging
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	// Load configuration
+	cfg := config.NewConfig()
+
+	// Create server
+	server := setupServer(cfg)
+
+	// Create channel for shutdown signals
+	done := make(chan bool, 1)
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		<-quit
+		log.Println("Server is shutting down...")
+
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
