@@ -36,3 +36,22 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 func servicesHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Services page")
 }
+
+func setupServer(cfg *config.Config) *http.Server {
+	// Register routes with middleware
+	http.HandleFunc("/", middleware.LoggingMiddleware(homeHandler))
+	http.HandleFunc("/about", middleware.LoggingMiddleware(aboutHandler))
+	http.HandleFunc("/contact", middleware.LoggingMiddleware(contactHandler))
+	http.HandleFunc("/services", middleware.LoggingMiddleware(servicesHandler))
+
+	return &http.Server{
+		Addr:         ":" + cfg.Port,
+		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 15 * time.Second,
+		IdleTimeout:  60 * time.Second,
+	}
+}
+
+func main() {
+	// Setup logging
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
