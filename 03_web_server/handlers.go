@@ -55,3 +55,22 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 
 	jsonResponse(w, http.StatusOK, Response{
 		Status:  "success",
+		Message: "Contact information",
+		Data: map[string]string{
+			"email":    "contact@example.com",
+			"phone":    "+1-555-555-5555",
+			"location": "San Francisco, CA",
+		},
+	})
+}
+
+func servicesHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		jsonResponse(w, http.StatusMethodNotAllowed, Response{
+			Status:  "error",
+			Message: "Method not allowed",
+		})
+		return
+	}
+
+	jsonResponse(w, http.StatusOK, Response{
