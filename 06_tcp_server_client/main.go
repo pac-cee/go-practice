@@ -36,3 +36,13 @@ func handleConnection(conn net.Conn) {
     message, _ := bufio.NewReader(conn).ReadString('\n')
     fmt.Printf("Received: %s", message)
     conn.Write([]byte(strings.ToUpper(message)))
+}
+
+func startClient() {
+    conn, _ := net.Dial("tcp", "localhost:9000")
+    fmt.Print("Text to send: ")
+    text, _ := bufio.NewReader(os.Stdin).ReadString('\n')
+    fmt.Fprintf(conn, text+"\n")
+    message, _ := bufio.NewReader(conn).ReadString('\n')
+    fmt.Printf("Server reply: %s", message)
+}
