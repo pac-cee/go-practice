@@ -55,3 +55,22 @@ func readFileBuffered(filename string) ([]string, error) {
 
 // getFileInfo retrieves and displays file information
 func getFileInfo(filename string) error {
+	info, err := os.Stat(filename)
+	if err != nil {
+		return fmt.Errorf("error getting file info: %w", err)
+	}
+
+	fmt.Printf("File Information for %s:\n", filename)
+	fmt.Printf("Size: %d bytes\n", info.Size())
+	fmt.Printf("Permissions: %s\n", info.Mode())
+	fmt.Printf("Last Modified: %s\n", info.ModTime())
+	fmt.Printf("Is Directory: %t\n", info.IsDir())
+
+	return nil
+}
+
+func main() {
+	// Create a directory for our files
+	dataDir := "data"
+	if err := createDirectory(dataDir); err != nil {
+		fmt.Printf("Error creating directory: %v\n", err)
