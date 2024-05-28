@@ -93,3 +93,22 @@ func main() {
 	}
 	fmt.Println("\n=== Direct File I/O Content ===")
 	fmt.Println(string(content))
+
+	// Write data using buffered I/O
+	bufferedFile := filepath.Join(dataDir, "buffered.txt")
+	lines := []string{
+		"Hello, Buffered File I/O!",
+		"This is line 2 written with buffering",
+		"This is line 3 written with buffering",
+		fmt.Sprintf("This line was written at: %s", time.Now().Format(time.RFC3339)),
+	}
+
+	if err := writeFileBuffered(bufferedFile, lines); err != nil {
+		fmt.Printf("Error writing buffered file: %v\n", err)
+		return
+	}
+
+	// Read the buffered file
+	readLines, err := readFileBuffered(bufferedFile)
+	if err != nil {
+		fmt.Printf("Error reading buffered file: %v\n", err)
