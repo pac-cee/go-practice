@@ -74,3 +74,22 @@ func main() {
 	dataDir := "data"
 	if err := createDirectory(dataDir); err != nil {
 		fmt.Printf("Error creating directory: %v\n", err)
+		return
+	}
+
+	// Write data using direct file I/O
+	filename := filepath.Join(dataDir, "direct.txt")
+	data := []byte("Hello, Direct File I/O!\nThis is written without buffering.")
+	if err := os.WriteFile(filename, data, 0644); err != nil {
+		fmt.Printf("Error writing file directly: %v\n", err)
+		return
+	}
+
+	// Read the file directly
+	content, err := os.ReadFile(filename)
+	if err != nil {
+		fmt.Printf("Error reading file directly: %v\n", err)
+		return
+	}
+	fmt.Println("\n=== Direct File I/O Content ===")
+	fmt.Println(string(content))
