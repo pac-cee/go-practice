@@ -131,3 +131,16 @@ func main() {
 	fmt.Println("\n=== Directory Contents ===")
 	entries, err := os.ReadDir(dataDir)
 	if err != nil {
+		fmt.Printf("Error reading directory: %v\n", err)
+		return
+	}
+
+	for _, entry := range entries {
+		info, err := entry.Info()
+		if err != nil {
+			fmt.Printf("Error getting info for %s: %v\n", entry.Name(), err)
+			continue
+		}
+		fmt.Printf("%s - Size: %d bytes\n", entry.Name(), info.Size())
+	}
+}
