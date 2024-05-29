@@ -112,3 +112,22 @@ func main() {
 	readLines, err := readFileBuffered(bufferedFile)
 	if err != nil {
 		fmt.Printf("Error reading buffered file: %v\n", err)
+		return
+	}
+
+	fmt.Println("\n=== Buffered File I/O Content ===")
+	for i, line := range readLines {
+		fmt.Printf("Line %d: %s\n", i+1, line)
+	}
+
+	// Get and display file information
+	fmt.Println("\n=== File Information ===")
+	if err := getFileInfo(bufferedFile); err != nil {
+		fmt.Printf("Error getting file info: %v\n", err)
+		return
+	}
+
+	// List files in the data directory
+	fmt.Println("\n=== Directory Contents ===")
+	entries, err := os.ReadDir(dataDir)
+	if err != nil {
