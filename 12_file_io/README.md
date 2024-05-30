@@ -36,3 +36,22 @@ The project contains two main files:
 - `main.go`: Implementation of file operations
 - `README.md`: Documentation and usage guide
 
+## Implementation Details
+
+### Core Functions
+
+```go
+createDirectory(path string) error
+writeFileBuffered(filename string, data []string) error
+readFileBuffered(filename string) ([]string, error)
+getFileInfo(filename string) error
+```
+
+### Features Implemented
+
+1. **Direct File Operations**
+   - Using `os.WriteFile` and `os.ReadFile`
+   - Unbuffered operations for small files
+
+2. **Buffered Operations**
+   - Using `bufio` package
