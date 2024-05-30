@@ -55,3 +55,22 @@ getFileInfo(filename string) error
 
 2. **Buffered Operations**
    - Using `bufio` package
+   - Efficient for large files
+   - Line-by-line processing
+
+3. **Directory Operations**
+   - Create directories
+   - List contents
+   - Get file information
+
+4. **File Information**
+   - Size
+   - Permissions
+   - Last modified time
+   - Directory status
+
+## Running the Code
+
+```bash
+go run main.go
+```
