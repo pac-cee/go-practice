@@ -74,3 +74,22 @@ getFileInfo(filename string) error
 ```bash
 go run main.go
 ```
+
+The program will:
+
+1. Create a data directory
+2. Demonstrate various file operations
+3. Show file contents and information
+4. List directory contents
+
+## Best Practices Demonstrated
+
+- ✅ Resource cleanup with `defer`
+- ✅ Proper error handling
+- ✅ Cross-platform compatibility
+- ✅ Both buffered and unbuffered I/O
+- ✅ Modern Go package usage
+
+## Original Tasks (Completed)
+
+- ✅ Append to a file
