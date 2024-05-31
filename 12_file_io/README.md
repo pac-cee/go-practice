@@ -93,3 +93,26 @@ The program will:
 ## Original Tasks (Completed)
 
 - ✅ Append to a file
+- ✅ Read line by line
+- ✅ Handle errors gracefully
+- ℹ️ Write tests for file operations (TODO)
+
+## Next Steps
+
+1. Add unit tests for all operations
+2. Implement file watching capabilities
+3. Add concurrent file operations
+4. Implement file compression/decompression
+5. Add file encryption/decryption examples
+
+## Contributing
+
+Feel free to:
+
+- Add more file operation examples
+- Implement the suggested next steps
+- Improve error handling
+- Add test cases
+- Optimize performance
+
+Commit each improvement to track contributions and maintain code quality.
