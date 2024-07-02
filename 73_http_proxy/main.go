@@ -17,3 +17,26 @@ func handleProxy(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.DefaultClient.Do(&http.Request{
 		Method: r.Method,
 		URL:    r.URL,
+		Header: r.Header,
+		Body:   r.Body,
+	})
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		w.Write([]byte("Error forwarding request: " + err.Error()))
+		return
+	}
+	defer resp.Body.Close()
+	for k, v := range resp.Header {
+		for _, vv := range v {
+			w.Header().Add(k, vv)
+		}
+	}
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}
+
+func main() {
+	log.Println("Starting HTTP proxy on :8080")
+	http.HandleFunc("/", handleProxy)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
