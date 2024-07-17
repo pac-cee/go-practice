@@ -36,3 +36,23 @@ func cliExample() {
 	default:
 		fmt.Println("Unknown command:", os.Args[1])
 	}
+}
+
+// Reading environment variables
+func envExample() {
+	val := os.Getenv("MY_ENV_VAR")
+	if val == "" {
+		fmt.Println("MY_ENV_VAR not set")
+	} else {
+		fmt.Println("MY_ENV_VAR:", val)
+	}
+}
+
+// To use these, call the desired function from main()
+func main() {
+	// Uncomment the function you want to run:
+	// minimal()
+	// httpServer()
+	// cliExample()
+	// envExample()
+}
