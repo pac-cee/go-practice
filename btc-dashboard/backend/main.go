@@ -36,3 +36,22 @@ func priceHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodOptions {
 		return
 	}
+	resp, err := http.Get("https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+	var data struct {
+		Symbol string `json:"symbol"`
+		Price  string `json:"price"`
+	}
+	json.NewDecoder(resp.Body).Decode(&data)
+	price, _ := strconv.ParseFloat(data.Price, 64)
+	json.NewEncoder(w).Encode(PriceResponse{Symbol: data.Symbol, Price: price})
+}
+
+func candlesHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
