@@ -93,3 +93,9 @@ func main() {
 	http.HandleFunc("/price", priceHandler)
 	http.HandleFunc("/candles", candlesHandler)
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8088"
+	}
+	fmt.Printf("BTC API backend running at http://localhost:%s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
