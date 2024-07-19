@@ -55,3 +55,22 @@ func candlesHandler(w http.ResponseWriter, r *http.Request) {
 	enableCORS(w)
 	if r.Method == http.MethodOptions {
 		return
+	}
+	// Get last 50 1m candles
+	resp, err := http.Get("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=50")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+	var arr [][]interface{}
+	json.NewDecoder(resp.Body).Decode(&arr)
+	var candles []Candle
+	for _, v := range arr {
+		candles = append(candles, Candle{
+			OpenTime:  int64(v[0].(float64)),
+			Open:      parseStr(v[1]),
+			High:      parseStr(v[2]),
+			Low:       parseStr(v[3]),
+			Close:     parseStr(v[4]),
+			Volume:    parseStr(v[5]),
