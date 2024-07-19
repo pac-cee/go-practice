@@ -74,3 +74,22 @@ func candlesHandler(w http.ResponseWriter, r *http.Request) {
 			Low:       parseStr(v[3]),
 			Close:     parseStr(v[4]),
 			Volume:    parseStr(v[5]),
+			CloseTime: int64(v[6].(float64)),
+		})
+	}
+	json.NewEncoder(w).Encode(candles)
+}
+
+func parseStr(val interface{}) float64 {
+	s, ok := val.(string)
+	if !ok {
+		return 0
+	}
+	f, _ := strconv.ParseFloat(s, 64)
+	return f
+}
+
+func main() {
+	http.HandleFunc("/price", priceHandler)
+	http.HandleFunc("/candles", candlesHandler)
+	port := os.Getenv("PORT")
