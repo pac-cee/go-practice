@@ -17,3 +17,14 @@ cd backend
 # Install dependencies if needed
  go mod tidy
 # Run the server
+ go run main.go
+# Server runs at http://localhost:8088
+```
+
+## Environment
+- Go 1.20+
+- No authentication required (public data)
+
+---
+
+See the frontend folder for the React dashboard.
