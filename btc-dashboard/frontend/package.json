@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@shadcn/ui": "^0.0.4",
+    "autoprefixer": "^10.4.21",
+    "chart.js": "^4.4.9",
+    "frontend": "file:",
+    "postcss": "^8.5.3",
+    "react": "^19.0.0",
+    "react-chartjs-2": "^5.3.0",
