@@ -36,3 +36,22 @@ function renderCandlestickChart(candles) {
         tension: 0.1,
       }
     ]
+  };
+  const config = {
+    type: 'line',
+    data,
+    options: {
+      responsive: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: { display: false },
+        y: { display: true }
+      }
+    }
+  };
+  // Destroy previous chart if exists
+  if(window.candleChart) window.candleChart.destroy();
+  const ctx = document.getElementById('candlestickChart').getContext('2d');
+  window.candleChart = new Chart(ctx, config);
