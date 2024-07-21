@@ -55,3 +55,9 @@ function renderCandlestickChart(candles) {
   if(window.candleChart) window.candleChart.destroy();
   const ctx = document.getElementById('candlestickChart').getContext('2d');
   window.candleChart = new Chart(ctx, config);
+}
+
+fetchPrice();
+fetchCandles();
+setInterval(fetchPrice, 1000); // Fetch price every 1 second
+setInterval(fetchCandles, 5000); // Fetch candles every 5 seconds
