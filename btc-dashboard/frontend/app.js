@@ -17,3 +17,22 @@ async function fetchCandles() {
     renderCandlestickChart(candles);
   } catch (err) {
     const ctx = document.getElementById('candlestickChart').getContext('2d');
+    ctx.font = '16px sans-serif';
+    ctx.fillText('Error loading chart', 50, 150);
+  }
+}
+
+function renderCandlestickChart(candles) {
+  // Prepare data for Chart.js Financial plugin (or use OHLC as bar chart for simplicity)
+  const labels = candles.map(c => new Date(c.open_time).toLocaleTimeString());
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'BTC/USDT (Close)',
+        data: candles.map(c => c.close),
+        borderColor: '#f7931a',
+        backgroundColor: 'rgba(247,147,26,0.1)',
+        tension: 0.1,
+      }
+    ]
