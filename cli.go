@@ -55,3 +55,22 @@ func (c *CLI) registerCommands() {
 			Usage:       "exit",
 			Execute:     c.cmdExit,
 		},
+		"clear": {
+			Name:        "clear",
+			Description: "Clear the screen",
+			Usage:       "clear",
+			Execute:     c.cmdClear,
+		},
+		"time": {
+			Name:        "time",
+			Description: "Show current time and date",
+			Usage:       "time",
+			Execute:     c.cmdTime,
+		},
+		"history": {
+			Name:        "history",
+			Description: "Show command history",
+			Usage:       "history [count]",
+			Execute:     c.cmdHistory,
+		},
+		"cd": {
