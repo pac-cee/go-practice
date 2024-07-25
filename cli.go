@@ -36,3 +36,22 @@ func NewCLI() *CLI {
 		workingDir:  ".",
 		maxHistory:  100,
 		promptStyle: "default",
+	}
+	cli.registerCommands()
+	return cli
+}
+
+func (c *CLI) registerCommands() {
+	c.commands = map[string]Command{
+		"help": {
+			Name:        "help",
+			Description: "Show available commands",
+			Usage:       "help [command]",
+			Execute:     c.cmdHelp,
+		},
+		"exit": {
+			Name:        "exit",
+			Description: "Exit the CLI",
+			Usage:       "exit",
+			Execute:     c.cmdExit,
+		},
