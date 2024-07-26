@@ -93,3 +93,22 @@ func (c *CLI) registerCommands() {
 		},
 		"prompt": {
 			Name:        "prompt",
+			Description: "Change prompt style (default/full)",
+			Usage:       "prompt <style>",
+			Execute:     c.cmdPrompt,
+		},
+	}
+}
+
+func (c *CLI) cmdHelp(args []string) error {
+	if len(args) > 0 {
+		if cmd, ok := c.commands[args[0]]; ok {
+			fmt.Printf("\nCommand: %s\n", cmd.Name)
+			fmt.Printf("Description: %s\n", cmd.Description)
+			fmt.Printf("Usage: %s\n", cmd.Usage)
+			return nil
+		}
+		return fmt.Errorf("unknown command: %s", args[0])
+	}
+
+	fmt.Println("\nAvailable Commands:")
