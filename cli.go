@@ -112,3 +112,22 @@ func (c *CLI) cmdHelp(args []string) error {
 	}
 
 	fmt.Println("\nAvailable Commands:")
+	for _, cmd := range c.commands {
+		fmt.Printf("  %-10s - %s\n", cmd.Name, cmd.Description)
+	}
+	return nil
+}
+
+func (c *CLI) cmdExit(args []string) error {
+	c.running = false
+	fmt.Println("Goodbye!")
+	return nil
+}
+
+func (c *CLI) cmdClear(args []string) error {
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/c", "cls")
+	} else {
+		cmd = exec.Command("clear")
+	}
