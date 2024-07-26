@@ -74,3 +74,22 @@ func (c *CLI) registerCommands() {
 			Execute:     c.cmdHistory,
 		},
 		"cd": {
+			Name:        "cd",
+			Description: "Change working directory",
+			Usage:       "cd <directory>",
+			Execute:     c.cmdCd,
+		},
+		"pwd": {
+			Name:        "pwd",
+			Description: "Print working directory",
+			Usage:       "pwd",
+			Execute:     c.cmdPwd,
+		},
+		"ls": {
+			Name:        "ls",
+			Description: "List directory contents",
+			Usage:       "ls [directory]",
+			Execute:     c.cmdLs,
+		},
+		"prompt": {
+			Name:        "prompt",
