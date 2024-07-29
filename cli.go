@@ -207,3 +207,22 @@ func (c *CLI) cmdLs(args []string) error {
 	return nil
 }
 
+func (c *CLI) cmdPrompt(args []string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("style required (default/full)")
+	}
+	if args[0] != "default" && args[0] != "full" {
+		return fmt.Errorf("invalid style: use 'default' or 'full'")
+	}
+	c.promptStyle = args[0]
+	return nil
+}
+
+func (c *CLI) getPrompt() string {
+	if c.promptStyle == "full" {
+		dir, _ := os.Getwd()
+		return fmt.Sprintf("\n%s > ", filepath.Base(dir))
+	}
+	return "\ncli > "
+}
+
