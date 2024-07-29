@@ -150,3 +150,22 @@ func (c *CLI) cmdHistory(args []string) error {
 			return fmt.Errorf("invalid count: %s", args[0])
 		}
 		if n < count {
+			count = n
+		}
+	}
+
+	fmt.Println("\nCommand History:")
+	for i := len(c.history) - count; i < len(c.history); i++ {
+		fmt.Printf("%3d: %s\n", i+1, c.history[i])
+	}
+	return nil
+}
+
+func (c *CLI) cmdCd(args []string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("directory path required")
+	}
+	err := os.Chdir(args[0])
+	if err != nil {
+		return err
+	}
