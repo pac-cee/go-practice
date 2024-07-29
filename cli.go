@@ -226,3 +226,22 @@ func (c *CLI) getPrompt() string {
 	return "\ncli > "
 }
 
+func (c *CLI) cmdEcho(args []string) error {
+	fmt.Println(strings.Join(args, " "))
+	return nil
+}
+
+func (c *CLI) addToHistory(input string) {
+	if len(input) > 0 {
+		c.history = append(c.history, input)
+		if len(c.history) > c.maxHistory {
+			c.history = c.history[1:]
+		}
+	}
+}
+
+func (c *CLI) Run() {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Enhanced CLI v2.0")
+	fmt.Println("Type 'help' for available commands")
+
