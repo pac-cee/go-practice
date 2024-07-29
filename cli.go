@@ -245,3 +245,22 @@ func (c *CLI) Run() {
 	fmt.Println("Enhanced CLI v2.0")
 	fmt.Println("Type 'help' for available commands")
 
+	for c.running {
+		fmt.Print(c.getPrompt())
+		input, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Printf("Error reading input: %v\n", err)
+			continue
+		}
+
+		input = strings.TrimSpace(input)
+		if input == "" {
+			continue
+		}
+
+		c.addToHistory(input)
+		args := strings.Fields(input)
+		cmdName := args[0]
+
+		if cmd, ok := c.commands[cmdName]; ok {
+			if err := cmd.Execute(args[1:]); err != nil {
