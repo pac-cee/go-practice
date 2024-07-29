@@ -264,3 +264,15 @@ func (c *CLI) Run() {
 
 		if cmd, ok := c.commands[cmdName]; ok {
 			if err := cmd.Execute(args[1:]); err != nil {
+				fmt.Printf("Error: %v\n", err)
+			}
+		} else {
+			fmt.Printf("Unknown command: %s\n", cmdName)
+		}
+	}
+}
+
+func mainCLI() {
+	cli := NewCLI()
+	cli.Run()
+}
