@@ -169,3 +169,22 @@ func (c *CLI) cmdCd(args []string) error {
 	if err != nil {
 		return err
 	}
+	c.workingDir, _ = os.Getwd()
+	return nil
+}
+
+func (c *CLI) cmdPwd(args []string) error {
+	dir, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	fmt.Println(dir)
+	return nil
+}
+
+func (c *CLI) cmdLs(args []string) error {
+	path := "."
+	if len(args) > 0 {
+		path = args[0]
+	}
+
