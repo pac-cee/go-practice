@@ -188,3 +188,22 @@ func (c *CLI) cmdLs(args []string) error {
 		path = args[0]
 	}
 
+	entries, err := os.ReadDir(path)
+	if err != nil {
+		return err
+	}
+
+	for _, entry := range entries {
+		info, err := entry.Info()
+		if err != nil {
+			continue
+		}
+		if info.IsDir() {
+			fmt.Printf("\033[1;34m%s/\033[0m\n", entry.Name())
+		} else {
+			fmt.Println(entry.Name())
+		}
+	}
+	return nil
+}
+
