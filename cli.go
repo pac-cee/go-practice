@@ -131,3 +131,22 @@ func (c *CLI) cmdClear(args []string) error {
 	} else {
 		cmd = exec.Command("clear")
 	}
+	cmd.Stdout = os.Stdout
+	return cmd.Run()
+}
+
+func (c *CLI) cmdTime(args []string) error {
+	now := time.Now()
+	fmt.Printf("Current time: %s\n", now.Format("15:04:05"))
+	fmt.Printf("Current date: %s\n", now.Format("2006-01-02"))
+	return nil
+}
+
+func (c *CLI) cmdHistory(args []string) error {
+	count := len(c.history)
+	if len(args) > 0 {
+		n, err := strconv.Atoi(args[0])
+		if err != nil {
+			return fmt.Errorf("invalid count: %s", args[0])
+		}
+		if n < count {
