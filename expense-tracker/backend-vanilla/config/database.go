@@ -17,3 +17,22 @@ import (
 )
 
 // DatabaseType represents the type of database being used
+type DatabaseType string
+
+const (
+	MongoDB    DatabaseType = "mongodb"
+	PostgreSQL DatabaseType = "postgresql"
+	MySQL      DatabaseType = "mysql"
+)
+
+// Database interface defines common methods that all database implementations must support
+type Database interface {
+	Close() error
+	Ping() error
+	GetType() DatabaseType
+}
+
+// MongoDatabase wraps MongoDB connection
+type MongoDatabase struct {
+	Client *mongo.Client
+	DB     *mongo.Database
