@@ -207,3 +207,21 @@ func (pdb *PostgresDB) Close() error {
 
 func (pdb *PostgresDB) Ping() error {
 	return pdb.DB.Ping()
+}
+
+func (pdb *PostgresDB) GetType() DatabaseType {
+	return PostgreSQL
+}
+
+// MySQLDB methods
+func (mdb *MySQLDB) Close() error {
+	return mdb.DB.Close()
+}
+
+func (mdb *MySQLDB) Ping() error {
+	return mdb.DB.Ping()
+}
+
+func (mdb *MySQLDB) GetType() DatabaseType {
+	return MySQL
+}
