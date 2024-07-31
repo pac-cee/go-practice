@@ -112,3 +112,22 @@ func createMongoIndexes(ctx context.Context, db *mongo.Database) error {
 	// User indexes
 	userColl := db.Collection("users")
 	_, err := userColl.Indexes().CreateOne(ctx, mongo.IndexModel{
+		Keys:    bson.D{{Key: "email", Value: 1}},
+		Options: options.Index().SetUnique(true),
+	})
+	if err != nil {
+		return err
+	}
+
+	// Expense indexes
+	expenseColl := db.Collection("expenses")
+	_, err = expenseColl.Indexes().CreateMany(ctx, []mongo.IndexModel{
+		{
+			Keys: bson.D{
+				{Key: "userId", Value: 1},
+				{Key: "date", Value: -1},
+			},
+		},
+		{
+			Keys: bson.D{{Key: "category", Value: 1}},
+		},
