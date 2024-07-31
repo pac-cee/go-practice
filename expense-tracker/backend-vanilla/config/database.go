@@ -169,3 +169,22 @@ func NewPostgresDB() (*PostgresDB, error) {
 
 	if err := db.Ping(); err != nil {
 		return nil, fmt.Errorf("failed to ping PostgreSQL: %v", err)
+	}
+
+	log.Println("Connected to PostgreSQL")
+
+	return &PostgresDB{DB: db}, nil
+}
+
+// NewMySQLDB establishes a connection to MySQL
+func NewMySQLDB() (*MySQLDB, error) {
+	connStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+		os.Getenv("MYSQL_USER"),
+		os.Getenv("MYSQL_PASSWORD"),
+		os.Getenv("MYSQL_HOST"),
+		os.Getenv("MYSQL_PORT"),
+		os.Getenv("MYSQL_DB"),
+	)
+
+	db, err := sql.Open("mysql", connStr)
+	if err != nil {
