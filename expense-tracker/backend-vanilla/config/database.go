@@ -55,3 +55,22 @@ var (
 
 // ConnectDB establishes a connection to the specified database type
 func ConnectDB(dbType DatabaseType) (Database, error) {
+	switch dbType {
+	case MongoDB:
+		return connectMongoDB()
+	case PostgreSQL:
+		return NewPostgresDB()
+	case MySQL:
+		return NewMySQLDB()
+	default:
+		return nil, fmt.Errorf("unsupported database type: %s", dbType)
+	}
+}
+
+// GetDB returns the active database connection
+func GetDB() Database {
+	return activeDB
+}
+
+// GetDBType returns the current database type
+func GetDBType() DatabaseType {
