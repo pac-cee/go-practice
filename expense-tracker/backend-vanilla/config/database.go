@@ -74,3 +74,22 @@ func GetDB() Database {
 
 // GetDBType returns the current database type
 func GetDBType() DatabaseType {
+	return dbType
+}
+
+// connectMongoDB establishes a connection to MongoDB
+func connectMongoDB() (*MongoDatabase, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Create client
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGODB_URI")))
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to MongoDB: %v", err)
+	}
+
+	// Ping database
+	if err := client.Ping(ctx, nil); err != nil {
+		return nil, fmt.Errorf("failed to ping MongoDB: %v", err)
+	}
+
