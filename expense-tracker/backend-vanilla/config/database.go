@@ -150,3 +150,22 @@ func (mdb *MongoDatabase) Ping() error {
 
 func (mdb *MongoDatabase) GetType() DatabaseType {
 	return MongoDB
+}
+
+// NewPostgresDB establishes a connection to PostgreSQL
+func NewPostgresDB() (*PostgresDB, error) {
+	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		os.Getenv("POSTGRES_HOST"),
+		os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_PASSWORD"),
+		os.Getenv("POSTGRES_DB"),
+	)
+
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to PostgreSQL: %v", err)
+	}
+
+	if err := db.Ping(); err != nil {
+		return nil, fmt.Errorf("failed to ping PostgreSQL: %v", err)
