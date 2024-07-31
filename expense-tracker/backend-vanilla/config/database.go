@@ -36,3 +36,22 @@ type Database interface {
 type MongoDatabase struct {
 	Client *mongo.Client
 	DB     *mongo.Database
+}
+
+// PostgresDB wraps PostgreSQL connection
+type PostgresDB struct {
+	DB *sql.DB
+}
+
+// MySQLDB wraps MySQL connection
+type MySQLDB struct {
+	DB *sql.DB
+}
+
+var (
+	activeDB Database
+	dbType   DatabaseType
+)
+
+// ConnectDB establishes a connection to the specified database type
+func ConnectDB(dbType DatabaseType) (Database, error) {
