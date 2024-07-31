@@ -131,3 +131,22 @@ func createMongoIndexes(ctx context.Context, db *mongo.Database) error {
 		{
 			Keys: bson.D{{Key: "category", Value: 1}},
 		},
+	})
+	return err
+}
+
+// MongoDatabase methods
+func (mdb *MongoDatabase) Close() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	return mdb.Client.Disconnect(ctx)
+}
+
+func (mdb *MongoDatabase) Ping() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	return mdb.Client.Ping(ctx, nil)
+}
+
+func (mdb *MongoDatabase) GetType() DatabaseType {
+	return MongoDB
