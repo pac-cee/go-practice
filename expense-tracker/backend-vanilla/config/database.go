@@ -93,3 +93,22 @@ func connectMongoDB() (*MongoDatabase, error) {
 		return nil, fmt.Errorf("failed to ping MongoDB: %v", err)
 	}
 
+	db := client.Database(os.Getenv("DB_NAME"))
+	log.Printf("Connected to MongoDB: %s\n", os.Getenv("DB_NAME"))
+
+	// Create indexes
+	if err := createMongoIndexes(ctx, db); err != nil {
+		return nil, fmt.Errorf("failed to create MongoDB indexes: %v", err)
+	}
+
+	return &MongoDatabase{
+		Client: client,
+		DB:     db,
+	}, nil
+}
+
+// createMongoIndexes creates necessary indexes for MongoDB
+func createMongoIndexes(ctx context.Context, db *mongo.Database) error {
+	// User indexes
+	userColl := db.Collection("users")
+	_, err := userColl.Indexes().CreateOne(ctx, mongo.IndexModel{
