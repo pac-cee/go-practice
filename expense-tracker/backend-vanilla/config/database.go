@@ -188,3 +188,22 @@ func NewMySQLDB() (*MySQLDB, error) {
 
 	db, err := sql.Open("mysql", connStr)
 	if err != nil {
+		return nil, fmt.Errorf("failed to connect to MySQL: %v", err)
+	}
+
+	if err := db.Ping(); err != nil {
+		return nil, fmt.Errorf("failed to ping MySQL: %v", err)
+	}
+
+	log.Println("Connected to MySQL")
+
+	return &MySQLDB{DB: db}, nil
+}
+
+// PostgresDB methods
+func (pdb *PostgresDB) Close() error {
+	return pdb.DB.Close()
+}
+
+func (pdb *PostgresDB) Ping() error {
+	return pdb.DB.Ping()
