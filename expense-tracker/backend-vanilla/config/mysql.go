@@ -36,3 +36,22 @@ func NewMySQLDB() (*MySQLDB, error) {
 
 	// Test the connection
 	err = db.Ping()
+	if err != nil {
+		return nil, fmt.Errorf("error pinging mysql database: %v", err)
+	}
+
+	// Set connection pool settings
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(5)
+	db.SetConnMaxLifetime(time.Minute * 5)
+
+	log.Println("Successfully connected to MySQL database")
+	return &MySQLDB{db}, nil
+}
+
+// CreateTables creates all necessary tables for the expense tracker
+func (db *MySQLDB) CreateTables() error {
+	// Create users table
+	_, err := db.Exec(`
+		CREATE TABLE IF NOT EXISTS users (
+			id INT AUTO_INCREMENT PRIMARY KEY,
