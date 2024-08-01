@@ -55,3 +55,22 @@ func (db *MySQLDB) CreateTables() error {
 	_, err := db.Exec(`
 		CREATE TABLE IF NOT EXISTS users (
 			id INT AUTO_INCREMENT PRIMARY KEY,
+			email VARCHAR(255) UNIQUE NOT NULL,
+			password_hash VARCHAR(255) NOT NULL,
+			name VARCHAR(255),
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			INDEX idx_email (email)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating users table: %v", err)
+	}
+
+	// Create categories table
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS categories (
+			id INT AUTO_INCREMENT PRIMARY KEY,
+			user_id INT,
+			name VARCHAR(255) NOT NULL,
+			description TEXT,
