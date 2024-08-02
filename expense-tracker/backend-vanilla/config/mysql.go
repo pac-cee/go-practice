@@ -131,3 +131,25 @@ func (db *MySQLDB) CreateTables() error {
 
 	// Create user_settings table
 	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS user_settings (
+			id INT AUTO_INCREMENT PRIMARY KEY,
+			user_id INT UNIQUE,
+			currency VARCHAR(3) DEFAULT 'USD',
+			theme VARCHAR(10) DEFAULT 'light',
+			notification_enabled BOOLEAN DEFAULT true,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+			INDEX idx_user_id (user_id)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating user_settings table: %v", err)
+	}
+
+	return nil
+}
+
+func (mdb *MySQLDB) Exec(s string) (any, any) {
+	panic("unimplemented")
+}
