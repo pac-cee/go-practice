@@ -112,3 +112,22 @@ func (db *MySQLDB) CreateTables() error {
 	// Create budget_alerts table
 	_, err = db.Exec(`
 		CREATE TABLE IF NOT EXISTS budget_alerts (
+			id INT AUTO_INCREMENT PRIMARY KEY,
+			user_id INT,
+			category_id INT,
+			threshold DECIMAL(10,2) NOT NULL,
+			is_active BOOLEAN DEFAULT true,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+			FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+			INDEX idx_user_id (user_id),
+			INDEX idx_category_id (category_id)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating budget_alerts table: %v", err)
+	}
+
+	// Create user_settings table
+	_, err = db.Exec(`
