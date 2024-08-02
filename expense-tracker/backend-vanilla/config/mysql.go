@@ -74,3 +74,22 @@ func (db *MySQLDB) CreateTables() error {
 			user_id INT,
 			name VARCHAR(255) NOT NULL,
 			description TEXT,
+			budget DECIMAL(10,2),
+			color VARCHAR(7),
+			icon VARCHAR(50),
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+			INDEX idx_user_id (user_id)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating categories table: %v", err)
+	}
+
+	// Create expenses table
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS expenses (
+			id INT AUTO_INCREMENT PRIMARY KEY,
+			user_id INT,
+			category_id INT,
