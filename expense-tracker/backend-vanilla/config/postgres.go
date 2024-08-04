@@ -36,3 +36,22 @@ func NewPostgresDB() (*PostgresDB, error) {
 	// Test the connection
 	err = db.Ping()
 	if err != nil {
+		return nil, fmt.Errorf("error pinging postgres database: %v", err)
+	}
+
+	// Set connection pool settings
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(5)
+
+	log.Println("Successfully connected to PostgreSQL database")
+	return &PostgresDB{db}, nil
+}
+
+// CreateTables creates all necessary tables for the expense tracker
+func (db *PostgresDB) CreateTables() error {
+	// Create users table
+	_, err := db.Exec(`
+		CREATE TABLE IF NOT EXISTS users (
+			id SERIAL PRIMARY KEY,
+			email VARCHAR(255) UNIQUE NOT NULL,
+			password_hash VARCHAR(255) NOT NULL,
