@@ -55,3 +55,22 @@ func (db *PostgresDB) CreateTables() error {
 			id SERIAL PRIMARY KEY,
 			email VARCHAR(255) UNIQUE NOT NULL,
 			password_hash VARCHAR(255) NOT NULL,
+			name VARCHAR(255),
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating users table: %v", err)
+	}
+
+	// Create categories table
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS categories (
+			id SERIAL PRIMARY KEY,
+			user_id INTEGER REFERENCES users(id),
+			name VARCHAR(255) NOT NULL,
+			description TEXT,
+			budget DECIMAL(10,2),
+			color VARCHAR(7),
+			icon VARCHAR(50),
