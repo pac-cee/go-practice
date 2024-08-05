@@ -74,3 +74,22 @@ func (db *PostgresDB) CreateTables() error {
 			budget DECIMAL(10,2),
 			color VARCHAR(7),
 			icon VARCHAR(50),
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating categories table: %v", err)
+	}
+
+	// Create expenses table
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS expenses (
+			id SERIAL PRIMARY KEY,
+			user_id INTEGER REFERENCES users(id),
+			category_id INTEGER REFERENCES categories(id),
+			amount DECIMAL(10,2) NOT NULL,
+			description TEXT,
+			date DATE NOT NULL,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
