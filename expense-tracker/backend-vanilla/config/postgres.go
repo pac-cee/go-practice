@@ -112,3 +112,24 @@ func (db *PostgresDB) CreateTables() error {
 		)
 	`)
 	if err != nil {
+		return fmt.Errorf("error creating budget_alerts table: %v", err)
+	}
+
+	// Create user_settings table
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS user_settings (
+			id SERIAL PRIMARY KEY,
+			user_id INTEGER REFERENCES users(id) UNIQUE,
+			currency VARCHAR(3) DEFAULT 'USD',
+			theme VARCHAR(10) DEFAULT 'light',
+			notification_enabled BOOLEAN DEFAULT true,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating user_settings table: %v", err)
+	}
+
+	return nil
+}
