@@ -93,3 +93,22 @@ func (db *PostgresDB) CreateTables() error {
 			date DATE NOT NULL,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)
+	`)
+	if err != nil {
+		return fmt.Errorf("error creating expenses table: %v", err)
+	}
+
+	// Create budget_alerts table
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS budget_alerts (
+			id SERIAL PRIMARY KEY,
+			user_id INTEGER REFERENCES users(id),
+			category_id INTEGER REFERENCES categories(id),
+			threshold DECIMAL(10,2) NOT NULL,
+			is_active BOOLEAN DEFAULT true,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)
+	`)
+	if err != nil {
