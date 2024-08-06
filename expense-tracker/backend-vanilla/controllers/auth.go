@@ -36,3 +36,22 @@ var passwordRules = struct {
 	RequireSpecial: true,
 	AllowedSpecial: "!@#$%^&*(),.?\":{}|<>",
 }
+
+func validatePassword(password string) error {
+	if len(password) < passwordRules.MinLength {
+		return fmt.Errorf("password must be at least %d characters long", passwordRules.MinLength)
+	}
+
+	if len(password) > passwordRules.MaxLength {
+		return fmt.Errorf("password must be less than %d characters", passwordRules.MaxLength)
+	}
+
+	var hasUpper, hasLower, hasNumber, hasSpecial bool
+	for _, char := range password {
+		switch {
+		case unicode.IsUpper(char):
+			hasUpper = true
+		case unicode.IsLower(char):
+			hasLower = true
+		case unicode.IsNumber(char):
+			hasNumber = true
