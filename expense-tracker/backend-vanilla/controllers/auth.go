@@ -55,3 +55,22 @@ func validatePassword(password string) error {
 			hasLower = true
 		case unicode.IsNumber(char):
 			hasNumber = true
+		case strings.ContainsRune(passwordRules.AllowedSpecial, char):
+			hasSpecial = true
+		}
+	}
+
+	if passwordRules.RequireUpper && !hasUpper {
+		return fmt.Errorf("password must contain at least one uppercase letter")
+	}
+
+	if passwordRules.RequireLower && !hasLower {
+		return fmt.Errorf("password must contain at least one lowercase letter")
+	}
+
+	if passwordRules.RequireNumber && !hasNumber {
+		return fmt.Errorf("password must contain at least one number")
+	}
+
+	if passwordRules.RequireSpecial && !hasSpecial {
+		return fmt.Errorf("password must contain at least one special character (%s)", passwordRules.AllowedSpecial)
