@@ -74,3 +74,22 @@ func validatePassword(password string) error {
 
 	if passwordRules.RequireSpecial && !hasSpecial {
 		return fmt.Errorf("password must contain at least one special character (%s)", passwordRules.AllowedSpecial)
+	}
+
+	return nil
+}
+
+func Register(c *gin.Context) {
+	var input struct {
+		Name     string  `json:"name" binding:"required"`
+		Email    string  `json:"email" binding:"required,email"`
+		Password string  `json:"password" binding:"required"`
+		Limit    float64 `json:"spending_limit"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Validate password
