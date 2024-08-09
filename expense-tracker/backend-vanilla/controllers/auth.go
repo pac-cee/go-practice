@@ -188,3 +188,22 @@ func Login(c *gin.Context) {
 	})
 }
 
+func SocialCallback(c *gin.Context) {
+	provider := c.Param("provider")
+	code := c.Query("code")
+	if code == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Authorization code required"})
+		return
+	}
+
+	// Handle OAuth token exchange and user info fetching based on provider
+	var userInfo struct {
+		ID    string `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}
+
+	// Exchange the authorization code for access token
+	var accessToken string
+	var err error
+
