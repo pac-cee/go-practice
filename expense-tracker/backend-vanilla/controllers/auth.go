@@ -131,3 +131,22 @@ func Register(c *gin.Context) {
 
 	user.ID = result.InsertedID.(primitive.ObjectID)
 
+	c.JSON(http.StatusCreated, models.UserResponse{
+		ID:            user.ID.Hex(),
+		Name:          user.Name,
+		Email:         user.Email,
+		SpendingLimit: user.SpendingLimit,
+		CreatedAt:     user.CreatedAt,
+	})
+}
+
+func Login(c *gin.Context) {
+	var input struct {
+		Email      string `json:"email" binding:"required,email"`
+		Password   string `json:"password" binding:"required"`
+		RememberMe bool   `json:"remember_me"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
