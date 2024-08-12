@@ -321,3 +321,22 @@ func fetchGoogleUserInfo(accessToken string) (struct {
 	}{}, nil
 }
 
+func fetchGithubUserInfo(accessToken string) (struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}, error) {
+	// TODO: Implement GitHub user info fetching
+	return struct {
+		ID    string `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}{}, nil
+}
+
+func fetchTwitterUserInfo(accessToken string) (struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}, error) {
+	// TODO: Implement Twitter user info fetching
