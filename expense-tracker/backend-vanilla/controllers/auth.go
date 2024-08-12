@@ -264,3 +264,22 @@ func SocialCallback(c *gin.Context) {
 		}
 
 		user.ID = result.InsertedID.(primitive.ObjectID)
+	}
+
+	// Generate JWT token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id": user.ID.Hex(),
+		"exp":     time.Now().Add(time.Hour * 24 * 30).Unix(), // 30 days
+	})
+
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"token": tokenString,
+		"user": models.UserResponse{
+			ID:            user.ID.Hex(),
+			Name:          user.Name,
