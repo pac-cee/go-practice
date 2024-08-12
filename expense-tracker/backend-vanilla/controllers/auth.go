@@ -245,3 +245,22 @@ func SocialCallback(c *gin.Context) {
 		"provider":    provider,
 		"provider_id": userInfo.ID,
 	}).Decode(&user)
+
+	if err != nil {
+		// Create new user
+		user = models.User{
+			Name:       userInfo.Name,
+			Email:      userInfo.Email,
+			Provider:   provider,
+			ProviderID: userInfo.ID,
+			CreatedAt:  time.Now(),
+			UpdatedAt:  time.Now(),
+		}
+
+		result, err := config.DB.Collection("users").InsertOne(context.Background(), user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+			return
+		}
+
+		user.ID = result.InsertedID.(primitive.ObjectID)
