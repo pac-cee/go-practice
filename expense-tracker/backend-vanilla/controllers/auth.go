@@ -207,3 +207,22 @@ func SocialCallback(c *gin.Context) {
 	var accessToken string
 	var err error
 
+	switch provider {
+	case "google":
+		accessToken, err = exchangeGoogleCode(code)
+	case "github":
+		accessToken, err = exchangeGithubCode(code)
+	case "twitter":
+		accessToken, err = exchangeTwitterCode(code)
+	default:
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid provider"})
+		return
+	}
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to exchange authorization code"})
+		return
+	}
+
+	// Fetch user info using the access token
+	switch provider {
