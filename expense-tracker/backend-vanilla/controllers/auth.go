@@ -226,3 +226,22 @@ func SocialCallback(c *gin.Context) {
 
 	// Fetch user info using the access token
 	switch provider {
+	case "google":
+		userInfo, err = fetchGoogleUserInfo(accessToken)
+	case "github":
+		userInfo, err = fetchGithubUserInfo(accessToken)
+	case "twitter":
+		userInfo, err = fetchTwitterUserInfo(accessToken)
+	}
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user info"})
+		return
+	}
+
+	// Find or create user
+	var user models.User
+	err = config.DB.Collection("users").FindOne(context.Background(), bson.M{
+		"provider":    provider,
+		"provider_id": userInfo.ID,
+	}).Decode(&user)
