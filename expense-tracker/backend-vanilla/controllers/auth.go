@@ -283,3 +283,22 @@ func SocialCallback(c *gin.Context) {
 		"user": models.UserResponse{
 			ID:            user.ID.Hex(),
 			Name:          user.Name,
+			Email:         user.Email,
+			SpendingLimit: user.SpendingLimit,
+			Provider:      user.Provider,
+			CreatedAt:     user.CreatedAt,
+		},
+	})
+}
+
+// Helper functions for OAuth token exchange
+func exchangeGoogleCode(code string) (string, error) {
+	// TODO: Implement Google OAuth token exchange
+	return "", nil
+}
+
+func exchangeGithubCode(code string) (string, error) {
+	// TODO: Implement GitHub OAuth token exchange
+	return "", nil
+}
+
