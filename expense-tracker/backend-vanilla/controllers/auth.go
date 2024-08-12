@@ -302,3 +302,22 @@ func exchangeGithubCode(code string) (string, error) {
 	return "", nil
 }
 
+func exchangeTwitterCode(code string) (string, error) {
+	// TODO: Implement Twitter OAuth token exchange
+	return "", nil
+}
+
+// Helper functions for fetching user info
+func fetchGoogleUserInfo(accessToken string) (struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}, error) {
+	// TODO: Implement Google user info fetching
+	return struct {
+		ID    string `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}{}, nil
+}
+
