@@ -74,3 +74,22 @@ func GetExpenses(c *gin.Context) {
 
 	if query.StartDate != "" && query.EndDate != "" {
 		startDate, _ := time.Parse(time.RFC3339, query.StartDate)
+		endDate, _ := time.Parse(time.RFC3339, query.EndDate)
+		filter["date"] = bson.M{
+			"$gte": startDate,
+			"$lte": endDate,
+		}
+	}
+
+	if query.Category != "" {
+		filter["category"] = query.Category
+	}
+
+	opts := options.Find().SetSort(bson.D{{Key: "date", Value: -1}})
+
+	cursor, err := config.DB.Collection("expenses").Find(context.Background(), filter, opts)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch expenses"})
+		return
+	}
+	defer cursor.Close(context.Background())
