@@ -340,3 +340,9 @@ func fetchTwitterUserInfo(accessToken string) (struct {
 	Email string `json:"email"`
 }, error) {
 	// TODO: Implement Twitter user info fetching
+	return struct {
+		ID    string `json:"id"`
+		Name  string `json:"name"`
+		Email string `json:"email"`
+	}{}, nil
+}
