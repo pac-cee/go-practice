@@ -36,3 +36,22 @@ func CreateExpense(c *gin.Context) {
 		Date:        input.Date,
 		CreatedAt:   time.Now(),
 		UpdatedAt:   time.Now(),
+	}
+
+	result, err := config.DB.Collection("expenses").InsertOne(context.Background(), expense)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create expense"})
+		return
+	}
+
+	expense.ID = result.InsertedID.(primitive.ObjectID)
+
+	c.JSON(http.StatusCreated, models.ExpenseResponse{
+		ID:          expense.ID.Hex(),
+		Amount:      expense.Amount,
+		Category:    expense.Category,
+		Description: expense.Description,
+		Date:        expense.Date,
+		CreatedAt:   expense.CreatedAt,
+	})
+}
