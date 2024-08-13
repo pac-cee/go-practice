@@ -93,3 +93,22 @@ func GetExpenses(c *gin.Context) {
 		return
 	}
 	defer cursor.Close(context.Background())
+
+	var expenses []models.Expense
+	if err := cursor.All(context.Background(), &expenses); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to decode expenses"})
+		return
+	}
+
+	response := make([]models.ExpenseResponse, len(expenses))
+	for i, expense := range expenses {
+		response[i] = models.ExpenseResponse{
+			ID:          expense.ID.Hex(),
+			Amount:      expense.Amount,
+			Category:    expense.Category,
+			Description: expense.Description,
+			Date:        expense.Date,
+			CreatedAt:   expense.CreatedAt,
+		}
+	}
+
