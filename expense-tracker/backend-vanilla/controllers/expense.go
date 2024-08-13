@@ -55,3 +55,22 @@ func CreateExpense(c *gin.Context) {
 		CreatedAt:   expense.CreatedAt,
 	})
 }
+
+func GetExpenses(c *gin.Context) {
+	userID := c.MustGet("user_id").(primitive.ObjectID)
+
+	var query struct {
+		StartDate string `form:"start_date"`
+		EndDate   string `form:"end_date"`
+		Category  string `form:"category"`
+	}
+
+	if err := c.ShouldBindQuery(&query); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	filter := bson.M{"user_id": userID}
+
+	if query.StartDate != "" && query.EndDate != "" {
+		startDate, _ := time.Parse(time.RFC3339, query.StartDate)
