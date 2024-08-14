@@ -131,3 +131,22 @@ func UpdateExpense(c *gin.Context) {
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	update := bson.M{
+		"$set": bson.M{
+			"amount":      input.Amount,
+			"category":    input.Category,
+			"description": input.Description,
+			"date":        input.Date,
+			"updated_at":  time.Now(),
+		},
+	}
+
+	result := config.DB.Collection("expenses").FindOneAndUpdate(
+		context.Background(),
+		bson.M{"_id": expenseID, "user_id": userID},
+		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
