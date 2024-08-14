@@ -150,3 +150,22 @@ func UpdateExpense(c *gin.Context) {
 		bson.M{"_id": expenseID, "user_id": userID},
 		update,
 		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	)
+
+	var expense models.Expense
+	if err := result.Decode(&expense); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Expense not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, models.ExpenseResponse{
+		ID:          expense.ID.Hex(),
+		Amount:      expense.Amount,
+		Category:    expense.Category,
+		Description: expense.Description,
+		Date:        expense.Date,
+		CreatedAt:   expense.CreatedAt,
+	})
+}
+
+func DeleteExpense(c *gin.Context) {
