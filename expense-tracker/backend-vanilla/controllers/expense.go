@@ -169,3 +169,27 @@ func UpdateExpense(c *gin.Context) {
 }
 
 func DeleteExpense(c *gin.Context) {
+	userID := c.MustGet("user_id").(primitive.ObjectID)
+	expenseID, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid expense ID"})
+		return
+	}
+
+	result, err := config.DB.Collection("expenses").DeleteOne(
+		context.Background(),
+		bson.M{"_id": expenseID, "user_id": userID},
+	)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete expense"})
+		return
+	}
+
+	if result.DeletedCount == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Expense not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Expense deleted successfully"})
+}
