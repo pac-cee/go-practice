@@ -112,3 +112,22 @@ func GetExpenses(c *gin.Context) {
 		}
 	}
 
+	c.JSON(http.StatusOK, response)
+}
+
+func UpdateExpense(c *gin.Context) {
+	userID := c.MustGet("user_id").(primitive.ObjectID)
+	expenseID, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid expense ID"})
+		return
+	}
+
+	var input struct {
+		Amount      float64   `json:"amount"`
+		Category    string    `json:"category"`
+		Description string    `json:"description"`
+		Date        time.Time `json:"date"`
+	}
+
+	if err := c.ShouldBindJSON(&input); err != nil {
