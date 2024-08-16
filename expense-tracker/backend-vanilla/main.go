@@ -36,3 +36,22 @@ func main() {
 	auth := r.Group("/api/auth")
 	{
 		auth.POST("/register", controllers.Register)
+		auth.POST("/login", controllers.Login)
+		auth.GET("/:provider/callback", controllers.SocialCallback)
+	}
+
+	// Protected routes
+	api := r.Group("/api")
+	api.Use(middleware.AuthMiddleware())
+	{
+		expenses := api.Group("/expenses")
+		{
+			expenses.POST("", controllers.CreateExpense)
+			expenses.GET("", controllers.GetExpenses)
+			expenses.PUT("/:id", controllers.UpdateExpense)
+			expenses.DELETE("/:id", controllers.DeleteExpense)
+		}
+	}
+
+	// Start server
+	port := os.Getenv("PORT")
