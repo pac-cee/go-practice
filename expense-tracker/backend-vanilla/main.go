@@ -55,3 +55,12 @@ func main() {
 
 	// Start server
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("Server running on port %s\n", port)
+	if err := r.Run(":" + port); err != nil {
+		log.Fatal(err)
+	}
+}
