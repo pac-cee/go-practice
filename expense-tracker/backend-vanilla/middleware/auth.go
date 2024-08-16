@@ -36,3 +36,17 @@ func AuthMiddleware() gin.HandlerFunc {
 		if err != nil || !parsedToken.Valid {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 			c.Abort()
+			return
+		}
+
+		userID, err := primitive.ObjectIDFromHex(claims["user_id"].(string))
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid user ID"})
+			c.Abort()
+			return
+		}
+
+		c.Set("user_id", userID)
+		c.Next()
+	}
+}
