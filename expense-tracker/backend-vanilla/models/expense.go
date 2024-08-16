@@ -17,3 +17,11 @@ type Expense struct {
 	UpdatedAt   time.Time         `bson:"updated_at" json:"updated_at"`
 }
 
+type ExpenseResponse struct {
+	ID          string    `json:"id"`
+	Amount      float64   `json:"amount"`
+	Category    string    `json:"category"`
+	Description string    `json:"description"`
+	Date        time.Time `json:"date"`
+	CreatedAt   time.Time `json:"created_at"`
+}
