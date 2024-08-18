@@ -17,3 +17,12 @@ type User struct {
 	CreatedAt      time.Time         `bson:"created_at" json:"created_at"`
 	UpdatedAt      time.Time         `bson:"updated_at" json:"updated_at"`
 }
+
+type UserResponse struct {
+	ID            string    `json:"id"`
+	Name          string    `json:"name"`
+	Email         string    `json:"email"`
+	SpendingLimit float64   `json:"spending_limit"`
+	Provider      string    `json:"provider,omitempty"`
+	CreatedAt     time.Time `json:"created_at"`
+}
