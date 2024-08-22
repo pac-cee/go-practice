@@ -55,3 +55,22 @@ func (h *BudgetHandler) GetBudget(c *gin.Context) {
 	}
 
 	var budget models.Budget
+	err = h.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&budget)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Budget not found"})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, budget)
+}
+
+func (h *BudgetHandler) CreateBudget(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	var budget models.Budget
+	if err := c.ShouldBindJSON(&budget); err != nil {
