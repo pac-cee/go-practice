@@ -74,3 +74,22 @@ func (h *BudgetHandler) CreateBudget(c *gin.Context) {
 
 	var budget models.Budget
 	if err := c.ShouldBindJSON(&budget); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Set initial values
+	budget.CreatedAt = time.Now()
+	budget.UpdatedAt = time.Now()
+	budget.Spent = 0 // Initialize spent amount to 0
+
+	// Validate budget period
+	switch budget.Period {
+	case "weekly", "monthly", "yearly":
+		// Valid period
+	default:
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid budget period. Must be 'weekly', 'monthly', or 'yearly'"})
+		return
+	}
+
+	// Set start and end dates based on period if not provided
