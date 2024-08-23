@@ -93,3 +93,22 @@ func (h *BudgetHandler) CreateBudget(c *gin.Context) {
 	}
 
 	// Set start and end dates based on period if not provided
+	if budget.StartDate.IsZero() {
+		budget.StartDate = time.Now()
+	}
+	if budget.EndDate.IsZero() {
+		switch budget.Period {
+		case "weekly":
+			budget.EndDate = budget.StartDate.AddDate(0, 0, 7)
+		case "monthly":
+			budget.EndDate = budget.StartDate.AddDate(0, 1, 0)
+		case "yearly":
+			budget.EndDate = budget.StartDate.AddDate(1, 0, 0)
+		}
+	}
+
+	result, err := h.collection.InsertOne(ctx, budget)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
