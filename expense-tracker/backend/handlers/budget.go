@@ -131,3 +131,22 @@ func (h *BudgetHandler) UpdateBudget(c *gin.Context) {
 	if err := c.ShouldBindJSON(&budget); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+
+	budget.UpdatedAt = time.Now()
+
+	// Validate budget period if provided
+	if budget.Period != "" {
+		switch budget.Period {
+		case "weekly", "monthly", "yearly":
+			// Valid period
+		default:
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid budget period. Must be 'weekly', 'monthly', or 'yearly'"})
+			return
+		}
+	}
+
+	update := bson.M{
+		"$set": budget,
+	}
+
