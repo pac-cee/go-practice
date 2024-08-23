@@ -112,3 +112,22 @@ func (h *BudgetHandler) CreateBudget(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
+	budget.ID = result.InsertedID.(primitive.ObjectID)
+	c.JSON(http.StatusCreated, budget)
+}
+
+func (h *BudgetHandler) UpdateBudget(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var budget models.Budget
+	if err := c.ShouldBindJSON(&budget); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
