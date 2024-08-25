@@ -188,3 +188,12 @@ func (h *BudgetHandler) DeleteBudget(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
+	}
+
+	if result.DeletedCount == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Budget not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Budget deleted successfully"})
+}
