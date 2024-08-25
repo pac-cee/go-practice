@@ -74,3 +74,22 @@ func (h *CategoryHandler) CreateCategory(c *gin.Context) {
 
 	var category models.Category
 	if err := c.ShouldBindJSON(&category); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	category.CreatedAt = time.Now()
+	category.UpdatedAt = time.Now()
+
+	result, err := h.collection.InsertOne(ctx, category)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	category.ID = result.InsertedID.(primitive.ObjectID)
+	c.JSON(http.StatusCreated, category)
+}
+
+func (h *CategoryHandler) UpdateCategory(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
