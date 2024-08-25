@@ -55,3 +55,22 @@ func (h *CategoryHandler) GetCategory(c *gin.Context) {
 	}
 
 	var category models.Category
+	err = h.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&category)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, category)
+}
+
+func (h *CategoryHandler) CreateCategory(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	var category models.Category
+	if err := c.ShouldBindJSON(&category); err != nil {
