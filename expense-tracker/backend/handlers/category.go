@@ -36,3 +36,22 @@ func (h *CategoryHandler) GetCategories(c *gin.Context) {
 	defer cursor.Close(ctx)
 
 	var categories []models.Category
+	if err = cursor.All(ctx, &categories); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, categories)
+}
+
+func (h *CategoryHandler) GetCategory(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var category models.Category
