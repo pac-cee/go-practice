@@ -93,3 +93,22 @@ func (h *CategoryHandler) CreateCategory(c *gin.Context) {
 
 func (h *CategoryHandler) UpdateCategory(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var category models.Category
+	if err := c.ShouldBindJSON(&category); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	category.UpdatedAt = time.Now()
+
+	update := bson.M{
+		"$set": category,
+	}
