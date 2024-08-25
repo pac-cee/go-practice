@@ -150,3 +150,13 @@ func (h *CategoryHandler) DeleteCategory(c *gin.Context) {
 	result, err := h.collection.DeleteOne(ctx, bson.M{"_id": id})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if result.DeletedCount == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Category deleted successfully"})
+}
