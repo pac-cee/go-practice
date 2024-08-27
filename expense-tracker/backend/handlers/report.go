@@ -93,3 +93,22 @@ func (h *ReportHandler) GetTransactionReport(c *gin.Context) {
 		categories = append(categories, *summary)
 	}
 
+	report := models.TransactionReport{
+		TotalIncome:   totalIncome,
+		TotalExpenses: totalExpenses,
+		NetAmount:     totalIncome - totalExpenses,
+		Transactions:  transactions,
+		Categories:    categories,
+	}
+
+	c.JSON(http.StatusOK, report)
+}
+
+func (h *ReportHandler) GetCategoryReport(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	startDate := c.Query("startDate")
+	endDate := c.Query("endDate")
+
+	start, err := time.Parse(time.RFC3339, startDate)
