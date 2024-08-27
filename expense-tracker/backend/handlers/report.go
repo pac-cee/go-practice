@@ -36,3 +36,22 @@ func (h *ReportHandler) GetTransactionReport(c *gin.Context) {
 		start = time.Now().AddDate(0, -1, 0) // Default to last month
 	}
 
+	end, err := time.Parse(time.RFC3339, endDate)
+	if err != nil {
+		end = time.Now() // Default to now
+	}
+
+	// Build date filter
+	dateFilter := bson.M{
+		"date": bson.M{
+			"$gte": start,
+			"$lte": end,
+		},
+	}
+
+	// Get transactions
+	transactionsColl := h.db.Collection("transactions")
+	cursor, err := transactionsColl.Find(ctx, dateFilter, options.Find().SetSort(bson.D{{Key: "date", Value: -1}}))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
