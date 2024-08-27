@@ -74,3 +74,22 @@ func (h *ReportHandler) GetTransactionReport(c *gin.Context) {
 		} else {
 			totalExpenses += -t.Amount
 			// Track category expenses
+			if summary, exists := categoryMap[t.Category]; exists {
+				summary.Amount += -t.Amount
+				summary.Count++
+			} else {
+				categoryMap[t.Category] = &models.CategoryExpenseSummary{
+					Category: t.Category,
+					Amount:   -t.Amount,
+					Count:    1,
+				}
+			}
+		}
+	}
+
+	// Convert category map to slice
+	categories := make([]models.CategoryExpenseSummary, 0, len(categoryMap))
+	for _, summary := range categoryMap {
+		categories = append(categories, *summary)
+	}
+
