@@ -55,3 +55,22 @@ func (h *ReportHandler) GetTransactionReport(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
+	}
+	defer cursor.Close(ctx)
+
+	var transactions []models.Transaction
+	if err = cursor.All(ctx, &transactions); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Calculate totals
+	var totalIncome, totalExpenses float64
+	categoryMap := make(map[string]*models.CategoryExpenseSummary)
+
+	for _, t := range transactions {
+		if t.Amount >= 0 {
+			totalIncome += t.Amount
+		} else {
+			totalExpenses += -t.Amount
+			// Track category expenses
