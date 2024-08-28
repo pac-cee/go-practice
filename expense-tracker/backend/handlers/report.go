@@ -169,3 +169,22 @@ func (h *ReportHandler) GetCategoryReport(c *gin.Context) {
 }
 
 func (h *ReportHandler) GetBudgetReport(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Get all budgets
+	budgetsColl := h.db.Collection("budgets")
+	cursor, err := budgetsColl.Find(ctx, bson.M{})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer cursor.Close(ctx)
+
+	var budgets []models.Budget
+	if err = cursor.All(ctx, &budgets); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Calculate current spending for each budget
