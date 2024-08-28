@@ -112,3 +112,22 @@ func (h *ReportHandler) GetCategoryReport(c *gin.Context) {
 	endDate := c.Query("endDate")
 
 	start, err := time.Parse(time.RFC3339, startDate)
+	if err != nil {
+		start = time.Now().AddDate(0, -1, 0)
+	}
+
+	end, err := time.Parse(time.RFC3339, endDate)
+	if err != nil {
+		end = time.Now()
+	}
+
+	pipeline := []bson.M{
+		{
+			"$match": bson.M{
+				"date": bson.M{
+					"$gte": start,
+					"$lte": end,
+				},
+				"amount": bson.M{"$lt": 0}, // Only expenses
+			},
+		},
