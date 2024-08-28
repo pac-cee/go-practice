@@ -150,3 +150,22 @@ func (h *ReportHandler) GetCategoryReport(c *gin.Context) {
 				"_id":      0,
 			},
 		},
+	}
+
+	cursor, err := h.db.Collection("transactions").Aggregate(ctx, pipeline)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer cursor.Close(ctx)
+
+	var categories []models.CategoryExpenseSummary
+	if err = cursor.All(ctx, &categories); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, categories)
+}
+
+func (h *ReportHandler) GetBudgetReport(c *gin.Context) {
