@@ -131,3 +131,22 @@ func (h *ReportHandler) GetCategoryReport(c *gin.Context) {
 				"amount": bson.M{"$lt": 0}, // Only expenses
 			},
 		},
+		{
+			"$group": bson.M{
+				"_id": "$category",
+				"amount": bson.M{
+					"$sum": bson.M{
+						"$abs": "$amount",
+					},
+				},
+				"count": bson.M{"$sum": 1},
+			},
+		},
+		{
+			"$project": bson.M{
+				"category": "$_id",
+				"amount":   1,
+				"count":    1,
+				"_id":      0,
+			},
+		},
