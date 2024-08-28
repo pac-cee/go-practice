@@ -188,3 +188,22 @@ func (h *ReportHandler) GetBudgetReport(c *gin.Context) {
 	}
 
 	// Calculate current spending for each budget
+	var budgetReports []models.BudgetReport
+	for _, budget := range budgets {
+		// Calculate date range based on budget period
+		var startDate time.Time
+		endDate := time.Now()
+
+		switch budget.Period {
+		case "weekly":
+			startDate = time.Now().AddDate(0, 0, -7)
+		case "monthly":
+			startDate = time.Now().AddDate(0, -1, 0)
+		case "yearly":
+			startDate = time.Now().AddDate(-1, 0, 0)
+		}
+
+		// Get total expenses for this category in the period
+		pipeline := []bson.M{
+			{
+				"$match": bson.M{
