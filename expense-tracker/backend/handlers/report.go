@@ -226,3 +226,22 @@ func (h *ReportHandler) GetBudgetReport(c *gin.Context) {
 				},
 			},
 		}
+
+		cursor, err := h.db.Collection("transactions").Aggregate(ctx, pipeline)
+		if err != nil {
+			continue
+		}
+
+		var result []bson.M
+		if err = cursor.All(ctx, &result); err != nil {
+			continue
+		}
+
+		var spentAmount float64
+		if len(result) > 0 {
+			spentAmount = result[0]["total"].(float64)
+		}
+
+		percentage := (spentAmount / budget.Amount) * 100
+
+		budgetReports = append(budgetReports, models.BudgetReport{
