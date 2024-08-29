@@ -36,3 +36,22 @@ func (h *TransactionHandler) GetTransactions(c *gin.Context) {
 
 	// Build filter
 	filter := bson.M{}
+	if startDate != "" {
+		start, err := time.Parse(time.RFC3339, startDate)
+		if err == nil {
+			filter["date"] = bson.M{"$gte": start}
+		}
+	}
+	if endDate != "" {
+		end, err := time.Parse(time.RFC3339, endDate)
+		if err == nil {
+			if _, ok := filter["date"]; ok {
+				filter["date"].(bson.M)["$lte"] = end
+			} else {
+				filter["date"] = bson.M{"$lte": end}
+			}
+		}
+	}
+	if category != "" {
+		filter["category"] = category
+	}
