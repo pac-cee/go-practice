@@ -245,3 +245,14 @@ func (h *ReportHandler) GetBudgetReport(c *gin.Context) {
 		percentage := (spentAmount / budget.Amount) * 100
 
 		budgetReports = append(budgetReports, models.BudgetReport{
+			Category:     budget.Category,
+			BudgetAmount: budget.Amount,
+			SpentAmount:  spentAmount,
+			Percentage:   percentage,
+			StartDate:    startDate,
+			EndDate:      endDate,
+		})
+	}
+
+	c.JSON(http.StatusOK, budgetReports)
+}
