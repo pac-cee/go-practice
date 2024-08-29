@@ -55,3 +55,22 @@ func (h *TransactionHandler) GetTransactions(c *gin.Context) {
 	if category != "" {
 		filter["category"] = category
 	}
+	if account != "" {
+		filter["account"] = account
+	}
+
+	// Set options for sorting
+	opts := options.Find().SetSort(bson.D{{Key: "date", Value: -1}})
+
+	cursor, err := h.collection.Find(ctx, filter, opts)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer cursor.Close(ctx)
+
+	var transactions []models.Transaction
+	if err = cursor.All(ctx, &transactions); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
