@@ -207,3 +207,22 @@ func (h *ReportHandler) GetBudgetReport(c *gin.Context) {
 		pipeline := []bson.M{
 			{
 				"$match": bson.M{
+					"category": budget.Category,
+					"amount":   bson.M{"$lt": 0},
+					"date": bson.M{
+						"$gte": startDate,
+						"$lte": endDate,
+					},
+				},
+			},
+			{
+				"$group": bson.M{
+					"_id": nil,
+					"total": bson.M{
+						"$sum": bson.M{
+							"$abs": "$amount",
+						},
+					},
+				},
+			},
+		}
