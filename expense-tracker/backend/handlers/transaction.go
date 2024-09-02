@@ -112,3 +112,22 @@ func (h *TransactionHandler) CreateTransaction(c *gin.Context) {
 		return
 	}
 
+	transaction.CreatedAt = time.Now()
+	transaction.UpdatedAt = time.Now()
+
+	result, err := h.collection.InsertOne(ctx, transaction)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	transaction.ID = result.InsertedID.(primitive.ObjectID)
+	c.JSON(http.StatusCreated, transaction)
+}
+
+func (h *TransactionHandler) UpdateTransaction(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
