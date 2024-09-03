@@ -131,3 +131,22 @@ func (h *TransactionHandler) UpdateTransaction(c *gin.Context) {
 
 	id, err := primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var transaction models.Transaction
+	if err := c.ShouldBindJSON(&transaction); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	transaction.UpdatedAt = time.Now()
+
+	update := bson.M{
+		"$set": transaction,
+	}
+
+	result := h.collection.FindOneAndUpdate(
+		ctx,
+		bson.M{"_id": id},
