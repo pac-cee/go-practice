@@ -55,3 +55,22 @@ func main() {
 
 	// Initialize handlers
 	transactionHandler := handlers.NewTransactionHandler(db)
+	categoryHandler := handlers.NewCategoryHandler(db)
+	budgetHandler := handlers.NewBudgetHandler(db)
+	reportHandler := handlers.NewReportHandler(db)
+
+	// Initialize Gin router
+	router := gin.Default()
+
+	// Configure CORS
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"} // Frontend URL
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	config.AllowHeaders = []string{"Origin", "Content-Type", "Authorization"}
+	router.Use(cors.New(config))
+
+	// Initialize routes
+	api := router.Group("/api")
+	{
+		// Transaction routes
+		api.GET("/transactions", transactionHandler.GetTransactions)
