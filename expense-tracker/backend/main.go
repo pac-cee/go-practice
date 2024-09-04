@@ -36,3 +36,22 @@ func main() {
 
 	clientOptions := options.Client().ApplyURI(mongoURI)
 	var err error
+	client, err = mongo.Connect(ctx, clientOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Check the connection
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dbName := os.Getenv("DB_NAME")
+	if dbName == "" {
+		dbName = "expense_tracker"
+	}
+	db = client.Database(dbName)
+
+	// Initialize handlers
+	transactionHandler := handlers.NewTransactionHandler(db)
