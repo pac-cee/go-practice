@@ -74,3 +74,22 @@ func main() {
 	{
 		// Transaction routes
 		api.GET("/transactions", transactionHandler.GetTransactions)
+		api.GET("/transactions/:id", transactionHandler.GetTransaction)
+		api.POST("/transactions", transactionHandler.CreateTransaction)
+		api.PUT("/transactions/:id", transactionHandler.UpdateTransaction)
+		api.DELETE("/transactions/:id", transactionHandler.DeleteTransaction)
+
+		// Category routes
+		api.GET("/categories", categoryHandler.GetCategories)
+		api.GET("/categories/:id", categoryHandler.GetCategory)
+		api.POST("/categories", categoryHandler.CreateCategory)
+		api.PUT("/categories/:id", categoryHandler.UpdateCategory)
+		api.DELETE("/categories/:id", categoryHandler.DeleteCategory)
+
+		// Budget routes
+		api.GET("/budgets", budgetHandler.GetBudgets)
+		api.GET("/budgets/:id", budgetHandler.GetBudget)
+		api.POST("/budgets", budgetHandler.CreateBudget)
+		api.PUT("/budgets/:id", budgetHandler.UpdateBudget)
+		api.DELETE("/budgets/:id", budgetHandler.DeleteBudget)
+
