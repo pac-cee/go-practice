@@ -188,3 +188,9 @@ func (h *TransactionHandler) DeleteTransaction(c *gin.Context) {
 	}
 
 	if result.DeletedCount == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Transaction not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Transaction deleted successfully"})
+}
