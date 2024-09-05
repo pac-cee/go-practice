@@ -36,3 +36,22 @@ type Budget struct {
 	StartDate time.Time         `json:"startDate" bson:"startDate"`
 	EndDate   time.Time         `json:"endDate" bson:"endDate"`
 	CreatedAt time.Time         `json:"createdAt" bson:"createdAt"`
+	UpdatedAt time.Time         `json:"updatedAt" bson:"updatedAt"`
+}
+
+type Account struct {
+	ID        primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	Name      string            `json:"name" bson:"name"`
+	Type      string            `json:"type" bson:"type"` // "bank", "cash", "mobile_money"
+	Balance   float64           `json:"balance" bson:"balance"`
+	CreatedAt time.Time         `json:"createdAt" bson:"createdAt"`
+	UpdatedAt time.Time         `json:"updatedAt" bson:"updatedAt"`
+}
+
+type TransactionReport struct {
+	TotalIncome   float64                  `json:"totalIncome"`
+	TotalExpenses float64                  `json:"totalExpenses"`
+	NetAmount     float64                  `json:"netAmount"`
+	Transactions  []Transaction            `json:"transactions"`
+	Categories    []CategoryExpenseSummary `json:"categories"`
+}
