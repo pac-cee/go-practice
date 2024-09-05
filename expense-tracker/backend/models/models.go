@@ -55,3 +55,18 @@ type TransactionReport struct {
 	Transactions  []Transaction            `json:"transactions"`
 	Categories    []CategoryExpenseSummary `json:"categories"`
 }
+
+type CategoryExpenseSummary struct {
+	Category string  `json:"category"`
+	Amount   float64 `json:"amount"`
+	Count    int     `json:"count"`
+}
+
+type BudgetReport struct {
+	Category     string    `json:"category"`
+	BudgetAmount float64   `json:"budgetAmount"`
+	SpentAmount  float64   `json:"spentAmount"`
+	Percentage   float64   `json:"percentage"`
+	StartDate    time.Time `json:"startDate"`
+	EndDate      time.Time `json:"endDate"`
+}
