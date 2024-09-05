@@ -93,3 +93,16 @@ func main() {
 		api.PUT("/budgets/:id", budgetHandler.UpdateBudget)
 		api.DELETE("/budgets/:id", budgetHandler.DeleteBudget)
 
+		// Report routes
+		api.GET("/reports/transactions", reportHandler.GetTransactionReport)
+		api.GET("/reports/categories", reportHandler.GetCategoryReport)
+		api.GET("/reports/budgets", reportHandler.GetBudgetReport)
+	}
+
+	// Start server
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	router.Run(":" + port)
+}
