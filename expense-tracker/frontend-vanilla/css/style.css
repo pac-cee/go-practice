@@ -36,3 +36,22 @@
     --secondary-color: #94a3b8;
     --background-color: #0f172a;
     --surface-color: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --danger-color: #f87171;
+    --success-color: #4ade80;
+    --border-color: #334155;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+}
+
+.dark-theme {
+    --bg-color: #212529;
+    --text-color: #f8f9fa;
+    --text-secondary: #adb5bd;
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --border-color: #495057;
+    --input-bg: #343a40;
+    --card-bg: #343a40;
