@@ -74,3 +74,22 @@ body {
 
 .container {
     min-height: 100vh;
+}
+
+.theme-switch {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    display: flex;
+    gap: 0.5rem;
+    background-color: var(--surface-color);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+}
+
+.theme-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
