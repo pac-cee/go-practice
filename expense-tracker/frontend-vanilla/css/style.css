@@ -169,3 +169,22 @@ body {
     border-radius: 0.375rem;
     font-size: 1rem;
 }
+
+/* Auth Form Styles */
+.auth-form-container {
+    position: relative;
+    width: 100%;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group label {
