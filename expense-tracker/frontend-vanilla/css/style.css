@@ -359,3 +359,22 @@ body {
     width: 33.33%;
     background-color: var(--danger-color);
 }
+
+.strength-meter[data-strength="fair"]::before {
+    width: 66.66%;
+    background-color: var(--warning-color);
+}
+
+.strength-meter[data-strength="strong"]::before {
+    width: 100%;
+    background-color: var(--success-color);
+}
+
+.strength-text {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* ... rest of the code remains the same ... */
