@@ -321,3 +321,22 @@ body {
 .form-group.error label {
     color: var(--danger-color);
 }
+
+/* Success state */
+.form-group.success input {
+    border-color: var(--success-color);
+}
+
+.form-group.success label {
+    color: var(--success-color);
+}
+
+/* Password strength meter */
+.password-strength-meter {
+    margin-top: 0.5rem;
+}
+
+.strength-meter {
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--border-color);
