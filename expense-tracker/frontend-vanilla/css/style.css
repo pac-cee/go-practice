@@ -340,3 +340,22 @@ body {
     height: 4px;
     border-radius: 2px;
     background-color: var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.strength-meter::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: var(--danger-color);
+    transition: all 0.3s ease;
+}
+
+.strength-meter[data-strength="weak"]::before {
+    width: 33.33%;
+    background-color: var(--danger-color);
+}
