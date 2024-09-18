@@ -36,3 +36,22 @@ const auth = {
             throw error;
         }
     },
+
+    async logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/pages/login.html';
+    }
+};
+
+// Expenses API calls
+const expenses = {
+    async getAll(params = {}) {
+        try {
+            const queryString = new URLSearchParams(params).toString();
+            const response = await fetch(`${API_URL}/expenses?${queryString}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            const data = await response.json();
