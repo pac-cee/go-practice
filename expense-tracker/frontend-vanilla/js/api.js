@@ -74,3 +74,22 @@ const expenses = {
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.message);
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async update(id, expenseData) {
+        try {
+            const response = await fetch(`${API_URL}/expenses/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(expenseData),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            return data;
