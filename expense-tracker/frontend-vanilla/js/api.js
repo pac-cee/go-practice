@@ -188,3 +188,22 @@ const categories = {
         }
     }
 };
+
+// User settings API calls
+const settings = {
+    async getProfile() {
+        try {
+            const response = await fetch(`${API_URL}/user/profile`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async updateProfile(profileData) {
