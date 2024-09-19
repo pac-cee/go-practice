@@ -112,3 +112,22 @@ const expenses = {
             }
             return true;
         } catch (error) {
+            throw error;
+        }
+    }
+};
+
+// Categories API calls
+const categories = {
+    async getAll() {
+        try {
+            const response = await fetch(`${API_URL}/categories`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            return data;
+        } catch (error) {
+            throw error;
