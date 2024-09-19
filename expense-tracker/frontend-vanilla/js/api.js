@@ -131,3 +131,22 @@ const categories = {
             return data;
         } catch (error) {
             throw error;
+        }
+    },
+
+    async create(categoryData) {
+        try {
+            const response = await fetch(`${API_URL}/categories`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(categoryData),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            return data;
+        } catch (error) {
+            throw error;
+        }
