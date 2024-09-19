@@ -226,3 +226,21 @@ const settings = {
 
     async updateSettings(settingsData) {
         try {
+            const response = await fetch(`${API_URL}/user/settings`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify(settingsData),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message);
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    }
+};
+
+export { auth, expenses, categories, settings };
