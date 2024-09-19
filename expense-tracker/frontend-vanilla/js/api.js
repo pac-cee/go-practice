@@ -169,3 +169,22 @@ const categories = {
             throw error;
         }
     },
+
+    async delete(id) {
+        try {
+            const response = await fetch(`${API_URL}/categories/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.message);
+            }
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }
+};
