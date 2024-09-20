@@ -93,3 +93,22 @@ function getPasswordFeedback(password) {
         feedback.push({
             type: 'error',
             message: `Add ${passwordRules.minLength - password.length} more characters`
+        });
+    }
+    
+    if (!/[A-Z]/.test(password)) {
+        feedback.push({
+            type: 'error',
+            message: 'Add an uppercase letter'
+        });
+    }
+    
+    if (!/[a-z]/.test(password)) {
+        feedback.push({
+            type: 'error',
+            message: 'Add a lowercase letter'
+        });
+    }
+    
+    if (!/\d/.test(password)) {
+        feedback.push({
