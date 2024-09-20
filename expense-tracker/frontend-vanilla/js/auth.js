@@ -188,3 +188,22 @@ function validatePassword(password) {
         errors.push('Password must contain at least one special character (!@#$%^&*(),.?":{}|<>)');
     }
     
+    return {
+        isValid: errors.length === 0,
+        errors: errors
+    };
+}
+
+// Tab switching
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetTab = btn.dataset.tab;
+        
+        // Update active tab button
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Update tab indicator
+        authTabs.dataset.active = targetTab;
+        
+        // Show/hide forms with fade animation
