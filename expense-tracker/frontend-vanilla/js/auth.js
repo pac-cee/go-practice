@@ -131,3 +131,22 @@ function getPasswordFeedback(password) {
             message: `Adding ${passwordRules.recommendedLength - password.length} more characters would make this stronger`
         });
     }
+    
+    const uniqueChars = new Set(password).size;
+    if (uniqueChars < passwordRules.uniqueCharsMin) {
+        feedback.push({
+            type: 'suggestion',
+            message: 'Try using more unique characters'
+        });
+    }
+    
+    // Check for common patterns
+    for (const pattern of passwordRules.commonPatterns) {
+        if (password.toLowerCase().includes(pattern)) {
+            feedback.push({
+                type: 'warning',
+                message: 'Avoid using common patterns'
+            });
+            break;
+        }
+    }
