@@ -169,3 +169,22 @@ function validatePassword(password) {
     }
     
     if (password.length > passwordRules.maxLength) {
+        errors.push(`Password must be less than ${passwordRules.maxLength} characters`);
+    }
+    
+    if (passwordRules.requireUppercase && !/[A-Z]/.test(password)) {
+        errors.push('Password must contain at least one uppercase letter');
+    }
+    
+    if (passwordRules.requireLowercase && !/[a-z]/.test(password)) {
+        errors.push('Password must contain at least one lowercase letter');
+    }
+    
+    if (passwordRules.requireNumber && !/\d/.test(password)) {
+        errors.push('Password must contain at least one number');
+    }
+    
+    if (passwordRules.requireSpecial && !new RegExp(`[${passwordRules.allowedSpecial}]`).test(password)) {
+        errors.push('Password must contain at least one special character (!@#$%^&*(),.?":{}|<>)');
+    }
+    
