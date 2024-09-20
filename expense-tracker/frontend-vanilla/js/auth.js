@@ -112,3 +112,22 @@ function getPasswordFeedback(password) {
     
     if (!/\d/.test(password)) {
         feedback.push({
+            type: 'error',
+            message: 'Add a number'
+        });
+    }
+    
+    if (!new RegExp(`[${passwordRules.allowedSpecial}]`).test(password)) {
+        feedback.push({
+            type: 'error',
+            message: 'Add a special character'
+        });
+    }
+    
+    // Improvement suggestions
+    if (password.length < passwordRules.recommendedLength) {
+        feedback.push({
+            type: 'suggestion',
+            message: `Adding ${passwordRules.recommendedLength - password.length} more characters would make this stronger`
+        });
+    }
