@@ -17,3 +17,22 @@ const passwordStrengthConfig = {
         hasUppercase: /[A-Z]/,
         hasLowercase: /[a-z]/
     }
+};
+
+// Password validation rules
+const passwordRules = {
+    minLength: 8,
+    maxLength: 32,
+    requireUppercase: true,
+    requireLowercase: true,
+    requireNumber: true,
+    requireSpecial: true,
+    allowedSpecial: "!@#$%^&*(),.?\":{}|<>",
+    recommendedLength: 12,
+    uniqueCharsMin: 6,
+    noCommonPatterns: true,
+    commonPatterns: [
+        '123', '234', '345', '456', '567', '678', '789', '987', '876', '765', '654', '543', '432', '321',
+        'password', 'qwerty', 'asdfgh', 'zxcvbn'
+    ]
+};
