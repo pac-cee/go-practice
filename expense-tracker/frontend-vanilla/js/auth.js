@@ -74,3 +74,22 @@ function calculatePasswordStrength(password) {
     }
     score = Math.max(0, score - patternPenalty);
     
+    // Additional bonuses
+    if (password.length >= passwordRules.recommendedLength && 
+        hasUpper && hasLower && hasNumber && hasSpecial && 
+        uniqueChars >= passwordRules.recommendedLength) {
+        score += 10; // Bonus for excellent password
+    }
+    
+    return Math.min(Math.round(score), maxScore);
+}
+
+function getPasswordFeedback(password) {
+    const feedback = [];
+    const strength = calculatePasswordStrength(password);
+    
+    // Basic requirements
+    if (password.length < passwordRules.minLength) {
+        feedback.push({
+            type: 'error',
+            message: `Add ${passwordRules.minLength - password.length} more characters`
