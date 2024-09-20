@@ -55,3 +55,22 @@ function calculatePasswordStrength(password) {
     score += hasUpper ? 10 : 0;
     score += hasLower ? 10 : 0;
     score += hasNumber ? 10 : 0;
+    score += hasSpecial ? 10 : 0;
+    
+    // Unique characters score (15%)
+    const uniqueChars = new Set(password).size;
+    const uniqueScore = Math.min((uniqueChars - passwordRules.uniqueCharsMin) / 
+        (passwordRules.recommendedLength - passwordRules.uniqueCharsMin), 1) * 15;
+    score += uniqueScore;
+    
+    // Pattern penalty (15%)
+    let patternPenalty = 0;
+    if (passwordRules.noCommonPatterns) {
+        for (const pattern of passwordRules.commonPatterns) {
+            if (password.toLowerCase().includes(pattern)) {
+                patternPenalty += 5;
+            }
+        }
+    }
+    score = Math.max(0, score - patternPenalty);
+    
