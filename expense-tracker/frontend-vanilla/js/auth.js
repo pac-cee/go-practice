@@ -36,3 +36,22 @@ const passwordRules = {
         'password', 'qwerty', 'asdfgh', 'zxcvbn'
     ]
 };
+
+function calculatePasswordStrength(password) {
+    let score = 0;
+    const maxScore = 100;
+    
+    // Length score (30%)
+    const lengthScore = Math.min((password.length - passwordRules.minLength) / 
+        (passwordRules.recommendedLength - passwordRules.minLength), 1) * 30;
+    score += lengthScore;
+    
+    // Character variety score (40%)
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = new RegExp(`[${passwordRules.allowedSpecial}]`).test(password);
+    
+    score += hasUpper ? 10 : 0;
+    score += hasLower ? 10 : 0;
+    score += hasNumber ? 10 : 0;
