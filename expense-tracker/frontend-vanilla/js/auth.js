@@ -150,3 +150,22 @@ function getPasswordFeedback(password) {
             break;
         }
     }
+    
+    return {
+        score: strength,
+        feedback: feedback,
+        strengthText: strength < 40 ? 'Weak' : 
+                     strength < 60 ? 'Fair' :
+                     strength < 80 ? 'Good' :
+                     strength < 90 ? 'Strong' : 'Excellent'
+    };
+}
+
+function validatePassword(password) {
+    const errors = [];
+    
+    if (password.length < passwordRules.minLength) {
+        errors.push(`Password must be at least ${passwordRules.minLength} characters long`);
+    }
+    
+    if (password.length > passwordRules.maxLength) {
