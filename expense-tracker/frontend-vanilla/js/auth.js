@@ -283,3 +283,22 @@ function updatePasswordStrength(password) {
             `;
             feedbackList.appendChild(li);
         });
+    }
+}
+
+// Password input handler
+const passwordInput = registerForm.querySelector('input[type="password"]');
+passwordInput.addEventListener('input', (e) => {
+    updatePasswordStrength(e.target.value);
+});
+
+// Update password input validation
+const passwordInputs = document.querySelectorAll('input[type="password"]');
+passwordInputs.forEach(input => {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'password-error';
+    input.parentElement.appendChild(errorDiv);
+    
+    input.addEventListener('input', (e) => {
+        const result = validatePassword(e.target.value);
+        const errorDiv = e.target.parentElement.querySelector('.password-error');
