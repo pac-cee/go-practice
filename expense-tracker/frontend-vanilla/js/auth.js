@@ -207,3 +207,22 @@ tabBtns.forEach(btn => {
         authTabs.dataset.active = targetTab;
         
         // Show/hide forms with fade animation
+        if (targetTab === 'login') {
+            registerForm.classList.add('fade-out');
+            setTimeout(() => {
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                loginForm.classList.add('fade-in');
+            }, 200);
+        } else {
+            loginForm.classList.add('fade-out');
+            setTimeout(() => {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                registerForm.classList.add('fade-in');
+            }, 200);
+        }
+    });
+});
+
+// Password visibility toggle
