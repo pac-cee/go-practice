@@ -302,3 +302,22 @@ passwordInputs.forEach(input => {
     input.addEventListener('input', (e) => {
         const result = validatePassword(e.target.value);
         const errorDiv = e.target.parentElement.querySelector('.password-error');
+        
+        if (!result.isValid) {
+            errorDiv.textContent = result.errors[0];
+            errorDiv.style.display = 'block';
+            e.target.setCustomValidity(result.errors[0]);
+        } else {
+            errorDiv.style.display = 'none';
+            e.target.setCustomValidity('');
+        }
+        
+        // Update password strength if this is a registration password
+        if (e.target.closest('#register-form')) {
+            updatePasswordStrength(e.target.value);
+        }
+    });
+});
+
+// Form submission animations
+function startLoading(form) {
