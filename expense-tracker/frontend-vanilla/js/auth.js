@@ -264,3 +264,22 @@ function updatePasswordStrength(password) {
     // Update strength meter
     strengthMeter.style.setProperty('--strength', `${result.score}%`);
     strengthMeter.className = `strength-meter ${result.strengthText.toLowerCase()}`;
+    
+    // Update strength text
+    strengthText.textContent = result.strengthText;
+    strengthText.className = `strength-text ${result.strengthText.toLowerCase()}`;
+    
+    // Update feedback list
+    if (feedbackList) {
+        feedbackList.innerHTML = '';
+        result.feedback.forEach(item => {
+            const li = document.createElement('li');
+            li.className = `feedback-item ${item.type}`;
+            li.innerHTML = `
+                <i class="fas fa-${item.type === 'error' ? 'times' : 
+                                  item.type === 'warning' ? 'exclamation' : 
+                                  'info'}-circle"></i>
+                ${item.message}
+            `;
+            feedbackList.appendChild(li);
+        });
