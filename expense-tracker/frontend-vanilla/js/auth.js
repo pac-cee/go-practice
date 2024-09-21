@@ -245,3 +245,22 @@ document.querySelectorAll('.password-toggle').forEach(button => {
 
 // Password strength update
 const registerPassword = document.getElementById('register-password');
+if (registerPassword) {
+    registerPassword.addEventListener('input', (e) => {
+        updatePasswordStrength(e.target.value);
+    });
+}
+
+// Update password strength meter
+function updatePasswordStrength(password) {
+    const strengthMeter = document.querySelector('.strength-meter');
+    const strengthText = document.querySelector('.strength-text');
+    const feedbackList = document.querySelector('.password-feedback');
+    
+    if (!strengthMeter || !strengthText) return;
+    
+    const result = getPasswordFeedback(password);
+    
+    // Update strength meter
+    strengthMeter.style.setProperty('--strength', `${result.score}%`);
+    strengthMeter.className = `strength-meter ${result.strengthText.toLowerCase()}`;
