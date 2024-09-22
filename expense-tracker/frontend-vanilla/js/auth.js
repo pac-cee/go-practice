@@ -321,3 +321,22 @@ passwordInputs.forEach(input => {
 
 // Form submission animations
 function startLoading(form) {
+    const button = form.querySelector('.auth-button');
+    button.classList.add('loading');
+    button.disabled = true;
+}
+
+function stopLoading(form) {
+    const button = form.querySelector('.auth-button');
+    button.classList.remove('loading');
+    button.disabled = false;
+}
+
+// Register form submission
+registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    startLoading(registerForm);
+
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
