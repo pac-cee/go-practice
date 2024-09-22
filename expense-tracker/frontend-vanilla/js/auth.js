@@ -397,3 +397,22 @@ loginForm.addEventListener('submit', async (e) => {
     const rememberMe = document.getElementById('remember-me').checked;
 
     try {
+        const response = await fetch(`${window.location.origin}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+
+        const data = await response.text(); // First get the response as text
+        let jsonData;
+        try {
+            jsonData = JSON.parse(data); // Try to parse it as JSON
+        } catch (err) {
+            console.error('Server response:', data); // Log the actual response
+            throw new Error('Invalid server response');
+        }
