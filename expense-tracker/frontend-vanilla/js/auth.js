@@ -340,3 +340,22 @@ registerForm.addEventListener('submit', async (e) => {
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('register-confirm-password').value;
+
+    // Validate password match
+    if (password !== confirmPassword) {
+        notyf.error('Passwords do not match');
+        stopLoading(registerForm);
+        return;
+    }
+
+    try {
+        const response = await fetch(`${window.location.origin}/api/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password
