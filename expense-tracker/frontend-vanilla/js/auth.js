@@ -435,3 +435,22 @@ loginForm.addEventListener('submit', async (e) => {
         }
 
         notyf.success('Login successful!');
+        loginForm.reset();
+    } catch (error) {
+        console.error('Login error:', error);
+        notyf.error(error.message || 'Login failed. Please try again.');
+    } finally {
+        stopLoading(loginForm);
+    }
+});
+
+// Logout functionality
+document.querySelector('.logout').addEventListener('click', () => {
+    // Clear storage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    
+    // Animate transition
+    dashboardSection.classList.add('fade-out');
