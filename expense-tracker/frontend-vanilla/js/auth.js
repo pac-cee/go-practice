@@ -454,3 +454,22 @@ document.querySelector('.logout').addEventListener('click', () => {
     
     // Animate transition
     dashboardSection.classList.add('fade-out');
+    setTimeout(() => {
+        dashboardSection.classList.add('hidden');
+        authSection.classList.remove('hidden');
+        authSection.classList.add('fade-in');
+    }, 300);
+    
+    notyf.success('Logged out successfully');
+});
+
+// Check authentication status on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    const dashboardLink = document.getElementById('dashboard-link');
+    
+    if (token) {
+        authSection.style.display = 'none';
+        dashboardSection.style.display = 'block';
+        if (dashboardLink) {
+            dashboardLink.style.display = 'block';
