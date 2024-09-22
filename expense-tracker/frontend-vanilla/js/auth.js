@@ -378,3 +378,22 @@ registerForm.addEventListener('submit', async (e) => {
         // Registration successful
         notyf.success('Registration successful! Please login.');
         switchTab('login'); // Switch to login tab
+        registerForm.reset();
+    } catch (error) {
+        console.error('Registration error:', error);
+        notyf.error(error.message || 'Registration failed. Please try again.');
+    } finally {
+        stopLoading(registerForm);
+    }
+});
+
+// Login form submission
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    startLoading(loginForm);
+
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const rememberMe = document.getElementById('remember-me').checked;
+
+    try {
