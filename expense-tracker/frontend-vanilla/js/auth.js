@@ -416,3 +416,22 @@ loginForm.addEventListener('submit', async (e) => {
             console.error('Server response:', data); // Log the actual response
             throw new Error('Invalid server response');
         }
+
+        if (!response.ok) {
+            throw new Error(jsonData.error || 'Login failed');
+        }
+
+        // Store the token
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem('token', jsonData.token);
+        storage.setItem('user', JSON.stringify(jsonData.user));
+
+        // Update UI
+        authSection.style.display = 'none';
+        dashboardSection.style.display = 'block';
+        const dashboardLink = document.getElementById('dashboard-link');
+        if (dashboardLink) {
+            dashboardLink.style.display = 'block';
+        }
+
+        notyf.success('Login successful!');
