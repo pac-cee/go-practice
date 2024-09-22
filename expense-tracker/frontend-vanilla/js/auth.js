@@ -359,3 +359,22 @@ registerForm.addEventListener('submit', async (e) => {
                 name,
                 email,
                 password
+            })
+        });
+
+        const data = await response.text(); // First get the response as text
+        let jsonData;
+        try {
+            jsonData = JSON.parse(data); // Try to parse it as JSON
+        } catch (err) {
+            console.error('Server response:', data); // Log the actual response
+            throw new Error('Invalid server response');
+        }
+
+        if (!response.ok) {
+            throw new Error(jsonData.error || 'Registration failed');
+        }
+
+        // Registration successful
+        notyf.success('Registration successful! Please login.');
+        switchTab('login'); // Switch to login tab
