@@ -473,3 +473,22 @@ document.addEventListener('DOMContentLoaded', () => {
         dashboardSection.style.display = 'block';
         if (dashboardLink) {
             dashboardLink.style.display = 'block';
+        }
+    } else {
+        authSection.style.display = 'block';
+        dashboardSection.style.display = 'none';
+        if (dashboardLink) {
+            dashboardLink.style.display = 'none';
+        }
+    }
+});
+
+// Check if user is already logged in
+window.addEventListener('load', () => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    if (token) {
+        authSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+        const user = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user'));
+        document.getElementById('user-name').textContent = user.name;
+        loadDashboardData();
