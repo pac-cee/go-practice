@@ -492,3 +492,22 @@ window.addEventListener('load', () => {
         const user = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user'));
         document.getElementById('user-name').textContent = user.name;
         loadDashboardData();
+    }
+});
+
+// Social Login Configuration
+const socialConfig = {
+    google: {
+        client_id: 'YOUR_GOOGLE_CLIENT_ID',
+        redirect_uri: `${window.location.origin}/auth/google/callback`,
+        scope: 'email profile'
+    },
+    github: {
+        client_id: 'YOUR_GITHUB_CLIENT_ID',
+        redirect_uri: `${window.location.origin}/auth/github/callback`,
+        scope: 'user:email'
+    },
+    twitter: {
+        client_id: 'YOUR_TWITTER_CLIENT_ID',
+        redirect_uri: `${window.location.origin}/auth/twitter/callback`
+    }
