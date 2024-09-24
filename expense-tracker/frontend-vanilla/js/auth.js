@@ -568,3 +568,22 @@ function openAuthWindow(provider, url) {
         `width=${width},height=${height},left=${left},top=${top},toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0`
     );
     
+    // Handle OAuth callback
+    window.addEventListener('message', async (event) => {
+        if (event.origin !== window.location.origin) return;
+        
+        if (event.data.type === 'social-auth') {
+            authWindow.close();
+            
+            try {
+                const response = await fetch(`${window.location.origin}/api/auth/${provider.toLowerCase()}/callback`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(event.data.code)
+                });
+                
+                if (!response.ok) throw new Error('Authentication failed');
+                
+                const data = await response.json();
