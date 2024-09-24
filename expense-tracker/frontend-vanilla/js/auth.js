@@ -511,3 +511,22 @@ const socialConfig = {
         client_id: 'YOUR_TWITTER_CLIENT_ID',
         redirect_uri: `${window.location.origin}/auth/twitter/callback`
     }
+};
+
+// Social Login Handlers
+function initSocialLogin() {
+    // Google Login
+    document.querySelectorAll('#google-login, #google-signup').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const url = `https://accounts.google.com/o/oauth2/v2/auth?` +
+                `client_id=${socialConfig.google.client_id}&` +
+                `redirect_uri=${encodeURIComponent(socialConfig.google.redirect_uri)}&` +
+                `response_type=code&` +
+                `scope=${encodeURIComponent(socialConfig.google.scope)}&` +
+                `access_type=offline`;
+            
+            openAuthWindow('Google', url);
+        });
+    });
+
+    // GitHub Login
