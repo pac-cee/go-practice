@@ -606,3 +606,22 @@ function openAuthWindow(provider, url) {
                     loadDashboardData();
                 }, 300);
             } catch (error) {
+                notyf.error(`Failed to authenticate with ${provider}`);
+            }
+        }
+    });
+}
+
+// Handle OAuth Callback
+function handleOAuthCallback() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const provider = urlParams.get('provider');
+    
+    if (code && provider) {
+        window.opener.postMessage({
+            type: 'social-auth',
+            code,
+            provider
+        }, window.location.origin);
+        window.close();
