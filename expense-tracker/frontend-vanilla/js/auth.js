@@ -530,3 +530,22 @@ function initSocialLogin() {
     });
 
     // GitHub Login
+    document.querySelectorAll('#github-login, #github-signup').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const url = `https://github.com/login/oauth/authorize?` +
+                `client_id=${socialConfig.github.client_id}&` +
+                `redirect_uri=${encodeURIComponent(socialConfig.github.redirect_uri)}&` +
+                `scope=${encodeURIComponent(socialConfig.github.scope)}`;
+            
+            openAuthWindow('GitHub', url);
+        });
+    });
+
+    // Twitter Login
+    document.querySelectorAll('#twitter-login, #twitter-signup').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const url = `https://twitter.com/i/oauth2/authorize?` +
+                `client_id=${socialConfig.twitter.client_id}&` +
+                `redirect_uri=${encodeURIComponent(socialConfig.twitter.redirect_uri)}&` +
+                `response_type=code&` +
+                `scope=tweet.read%20users.read`;
