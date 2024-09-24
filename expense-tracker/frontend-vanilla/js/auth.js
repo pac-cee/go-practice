@@ -587,3 +587,22 @@ function openAuthWindow(provider, url) {
                 if (!response.ok) throw new Error('Authentication failed');
                 
                 const data = await response.json();
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                notyf.success(`Successfully logged in with ${provider}`);
+                
+                // Animate transition to dashboard
+                authSection.classList.add('fade-out');
+                setTimeout(() => {
+                    authSection.classList.add('hidden');
+                    dashboardSection.classList.remove('hidden');
+                    dashboardSection.classList.add('fade-in');
+                    
+                    // Update user info
+                    document.getElementById('user-name').textContent = data.user.name;
+                    
+                    // Load dashboard data
+                    loadDashboardData();
+                }, 300);
+            } catch (error) {
