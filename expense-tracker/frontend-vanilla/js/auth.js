@@ -549,3 +549,22 @@ function initSocialLogin() {
                 `redirect_uri=${encodeURIComponent(socialConfig.twitter.redirect_uri)}&` +
                 `response_type=code&` +
                 `scope=tweet.read%20users.read`;
+            
+            openAuthWindow('Twitter', url);
+        });
+    });
+}
+
+// Open OAuth Window
+function openAuthWindow(provider, url) {
+    const width = 500;
+    const height = 600;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+    
+    const authWindow = window.open(
+        url,
+        `${provider} Login`,
+        `width=${width},height=${height},left=${left},top=${top},toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0`
+    );
+    
