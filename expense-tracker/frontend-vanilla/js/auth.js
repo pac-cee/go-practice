@@ -625,3 +625,22 @@ function handleOAuthCallback() {
             provider
         }, window.location.origin);
         window.close();
+    }
+}
+
+// Initialize social login
+initSocialLogin();
+
+// Check if this is an OAuth callback
+handleOAuthCallback();
+
+// Initialize Notyf
+const notyf = new Notyf({
+    duration: 3000,
+    position: { x: 'right', y: 'top' },
+    types: [
+        {
+            type: 'success',
+            background: 'var(--success-color)',
+            icon: {
+                className: 'fas fa-check-circle',
