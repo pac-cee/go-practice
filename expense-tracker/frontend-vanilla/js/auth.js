@@ -663,3 +663,18 @@ function switchTab(tab) {
     document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
     authTabs.dataset.active = tab;
     if (tab === 'login') {
+        registerForm.classList.add('fade-out');
+        setTimeout(() => {
+            registerForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            loginForm.classList.add('fade-in');
+        }, 200);
+    } else {
+        loginForm.classList.add('fade-out');
+        setTimeout(() => {
+            loginForm.classList.add('hidden');
+            registerForm.classList.remove('hidden');
+            registerForm.classList.add('fade-in');
+        }, 200);
+    }
+}
