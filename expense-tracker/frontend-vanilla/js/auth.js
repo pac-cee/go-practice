@@ -644,3 +644,22 @@ const notyf = new Notyf({
             background: 'var(--success-color)',
             icon: {
                 className: 'fas fa-check-circle',
+                tagName: 'i'
+            }
+        },
+        {
+            type: 'error',
+            background: 'var(--danger-color)',
+            icon: {
+                className: 'fas fa-times-circle',
+                tagName: 'i'
+            }
+        }
+    ]
+});
+
+function switchTab(tab) {
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.tab-btn[data-tab="${tab}"]`).classList.add('active');
+    authTabs.dataset.active = tab;
+    if (tab === 'login') {
