@@ -17,3 +17,22 @@ const defaultCategories = [
 
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', () => {
+    if (!requireAuth()) return;
+    initializeCategories();
+});
+
+async function initializeCategories() {
+    initializeCategoryForm();
+    await loadCategories();
+}
+
+function initializeCategoryForm() {
+    const addCategoryBtn = document.getElementById('addCategoryBtn');
+    const categoryModal = document.getElementById('categoryModal');
+    const categoryForm = document.getElementById('categoryForm');
+    const cancelCategoryBtn = document.getElementById('cancelCategory');
+    const colorPicker = document.getElementById('categoryColor');
+    const iconPicker = document.getElementById('categoryIcon');
+
+    // Initialize color picker
+    if (colorPicker) {
