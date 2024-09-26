@@ -36,3 +36,22 @@ function initializeCategoryForm() {
 
     // Initialize color picker
     if (colorPicker) {
+        const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+        colorPicker.innerHTML = colors.map(color => `
+            <div class="color-option" style="background-color: ${color}" 
+                 data-color="${color}" onclick="selectColor('${color}')"></div>
+        `).join('');
+    }
+
+    // Initialize icon picker
+    if (iconPicker) {
+        const icons = ['utensils', 'car', 'bolt', 'film', 'shopping-bag', 'heart', 
+                      'home', 'plane', 'gift', 'book', 'graduation-cap', 'briefcase'];
+        iconPicker.innerHTML = icons.map(icon => `
+            <div class="icon-option" data-icon="fa-${icon}" onclick="selectIcon('fa-${icon}')">
+                <i class="fas fa-${icon}"></i>
+            </div>
+        `).join('');
+    }
+
+    addCategoryBtn?.addEventListener('click', () => {
