@@ -55,3 +55,22 @@ function initializeCategoryForm() {
     }
 
     addCategoryBtn?.addEventListener('click', () => {
+        currentCategory = null;
+        categoryForm.reset();
+        categoryModal.classList.remove('hidden');
+    });
+
+    cancelCategoryBtn?.addEventListener('click', () => {
+        categoryModal.classList.add('hidden');
+    });
+
+    categoryForm?.addEventListener('submit', handleCategorySubmit);
+}
+
+async function loadCategories() {
+    try {
+        const response = await categoriesApi.getAll();
+        categories = response.categories;
+        
+        if (categories.length === 0) {
+            // For new users, create default categories
