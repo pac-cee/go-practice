@@ -93,3 +93,22 @@ function renderCategories() {
 
     grid.innerHTML = categories.map(category => `
         <div class="category-card" style="border-color: ${category.color}">
+            <div class="category-header" style="background-color: ${category.color}">
+                <i class="fas ${category.icon}"></i>
+                <h3>${category.name}</h3>
+            </div>
+            <div class="category-body">
+                <div class="budget-info">
+                    <p>Monthly Budget</p>
+                    <h4>$${category.budget.toFixed(2)}</h4>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${(category.spent / category.budget * 100) || 0}%; 
+                         background-color: ${category.color}"></div>
+                </div>
+                <p class="spent-info">
+                    $${(category.spent || 0).toFixed(2)} spent of $${category.budget.toFixed(2)}
+                </p>
+            </div>
+            <div class="category-actions">
+                <button class="icon-btn" onclick="editCategory('${category._id}')">
