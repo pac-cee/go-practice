@@ -112,3 +112,22 @@ function renderCategories() {
             </div>
             <div class="category-actions">
                 <button class="icon-btn" onclick="editCategory('${category._id}')">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-btn" onclick="deleteCategory('${category._id}')">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function handleCategorySubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const categoryData = {
+        name: formData.get('name'),
+        icon: formData.get('icon'),
+        color: formData.get('color'),
