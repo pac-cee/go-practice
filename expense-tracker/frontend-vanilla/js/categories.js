@@ -74,3 +74,22 @@ async function loadCategories() {
         
         if (categories.length === 0) {
             // For new users, create default categories
+            await Promise.all(defaultCategories.map(category => 
+                categoriesApi.create(category)
+            ));
+            categories = (await categoriesApi.getAll()).categories;
+        }
+        
+        renderCategories();
+    } catch (error) {
+        notify.error('Failed to load categories');
+        console.error(error);
+    }
+}
+
+function renderCategories() {
+    const grid = document.getElementById('categoriesGrid');
+    if (!grid) return;
+
+    grid.innerHTML = categories.map(category => `
+        <div class="category-card" style="border-color: ${category.color}">
