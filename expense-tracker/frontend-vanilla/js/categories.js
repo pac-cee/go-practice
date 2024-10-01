@@ -188,3 +188,14 @@ function selectColor(color) {
 }
 
 function selectIcon(icon) {
+    document.querySelectorAll('.icon-option').forEach(opt => 
+        opt.classList.toggle('selected', opt.dataset.icon === icon)
+    );
+    document.querySelector('input[name="icon"]').value = icon;
+}
+
+// Export functions that need to be accessed globally
+window.editCategory = editCategory;
+window.deleteCategory = deleteCategory;
+window.selectColor = selectColor;
+window.selectIcon = selectIcon;
