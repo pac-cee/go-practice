@@ -150,3 +150,22 @@ async function handleCategorySubmit(e) {
     }
 }
 
+async function editCategory(id) {
+    const category = categories.find(c => c._id === id);
+    if (!category) return;
+
+    currentCategory = category;
+    const form = document.getElementById('categoryForm');
+    if (!form) return;
+
+    form.name.value = category.name;
+    form.budget.value = category.budget;
+    selectColor(category.color);
+    selectIcon(category.icon);
+
+    document.getElementById('categoryModal').classList.remove('hidden');
+}
+
+async function deleteCategory(id) {
+    if (!confirm('Are you sure you want to delete this category? All expenses in this category will be set to "Uncategorized".')) 
+        return;
