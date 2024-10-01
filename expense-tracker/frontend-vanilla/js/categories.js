@@ -131,3 +131,22 @@ async function handleCategorySubmit(e) {
         name: formData.get('name'),
         icon: formData.get('icon'),
         color: formData.get('color'),
+        budget: parseFloat(formData.get('budget'))
+    };
+
+    try {
+        if (currentCategory) {
+            await categoriesApi.update(currentCategory._id, categoryData);
+            notify.success('Category updated successfully');
+        } else {
+            await categoriesApi.create(categoryData);
+            notify.success('Category added successfully');
+        }
+
+        document.getElementById('categoryModal').classList.add('hidden');
+        await loadCategories();
+    } catch (error) {
+        notify.error(error.message || 'Failed to save category');
+    }
+}
+
