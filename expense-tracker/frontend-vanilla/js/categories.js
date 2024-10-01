@@ -169,3 +169,22 @@ async function editCategory(id) {
 async function deleteCategory(id) {
     if (!confirm('Are you sure you want to delete this category? All expenses in this category will be set to "Uncategorized".')) 
         return;
+
+    try {
+        await categoriesApi.delete(id);
+        notify.success('Category deleted successfully');
+        await loadCategories();
+    } catch (error) {
+        notify.error('Failed to delete category');
+    }
+}
+
+// Color and Icon selection helpers
+function selectColor(color) {
+    document.querySelectorAll('.color-option').forEach(opt => 
+        opt.classList.toggle('selected', opt.dataset.color === color)
+    );
+    document.querySelector('input[name="color"]').value = color;
+}
+
+function selectIcon(icon) {
