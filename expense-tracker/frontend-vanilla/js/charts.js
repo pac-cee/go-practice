@@ -112,3 +112,18 @@ function updateCategoryChart(data) {
                     position: 'right',
                     labels: {
                         usePointStyle: true,
+                        padding: 20
+                    }
+                }
+            },
+            cutout: '70%'
+        }
+    });
+}
+
+// Initialize charts when page loads
+window.addEventListener('load', () => {
+    if (document.getElementById('trend-chart') && document.getElementById('category-chart')) {
+        updateCharts();
+    }
+});
