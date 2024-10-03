@@ -17,3 +17,22 @@ async function updateCharts() {
         const trendData = await trendResponse.json();
         updateTrendChart(trendData);
 
+        // Fetch data for category distribution
+        const categoryResponse = await fetch(`${API_URL}/expenses/by-category`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const categoryData = await categoryResponse.json();
+        updateCategoryChart(categoryData);
+    } catch (error) {
+        console.error('Failed to update charts:', error);
+    }
+}
+
+// Update expense trend chart
+function updateTrendChart(data) {
+    const ctx = document.getElementById('trend-chart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (trendChart) {
