@@ -74,3 +74,22 @@ function updateTrendChart(data) {
     });
 }
 
+// Update category distribution chart
+function updateCategoryChart(data) {
+    const ctx = document.getElementById('category-chart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (categoryChart) {
+        categoryChart.destroy();
+    }
+
+    // Color palette for categories
+    const colors = [
+        '#2563eb', // Primary blue
+        '#7c3aed', // Purple
+        '#059669', // Green
+        '#dc2626', // Red
+        '#d97706', // Orange
+        '#2563eb', // Blue
+        '#db2777', // Pink
+    ];
