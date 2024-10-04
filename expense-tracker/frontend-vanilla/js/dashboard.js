@@ -36,3 +36,22 @@ function updateSummaryCards(data) {
     const monthlySpending = document.getElementById('monthlySpending');
     if (monthlySpending) {
         monthlySpending.textContent = formatCurrency(data.monthlyTotal);
+        const progress = (data.monthlyTotal / data.monthlyBudget) * 100;
+        const progressBar = monthlySpending.querySelector('.progress');
+        if (progressBar) {
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+            progressBar.style.backgroundColor = progress > 100 ? '#ef4444' : '#10b981';
+        }
+    }
+
+    // Update category spending
+    const categorySpending = document.getElementById('topCategories');
+    if (categorySpending) {
+        categorySpending.innerHTML = data.categoryTotals
+            .slice(0, 3)
+            .map(cat => `
+                <div class="category-item">
+                    <span class="category-name">${cat.name}</span>
+                    <span class="category-amount">${formatCurrency(cat.total)}</span>
+                </div>
+            `).join('');
