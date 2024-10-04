@@ -55,3 +55,22 @@ function updateSummaryCards(data) {
                     <span class="category-amount">${formatCurrency(cat.total)}</span>
                 </div>
             `).join('');
+    }
+}
+
+async function loadExpenseCharts() {
+    try {
+        const [monthlyData, categoryData] = await Promise.all([
+            expensesApi.getMonthlyTrend(),
+            expensesApi.getCategoryDistribution()
+        ]);
+
+        createMonthlyTrendChart(monthlyData);
+        createCategoryDistributionChart(categoryData);
+    } catch (error) {
+        notify.error('Failed to load chart data');
+        console.error(error);
+    }
+}
+
+function createMonthlyTrendChart(data) {
