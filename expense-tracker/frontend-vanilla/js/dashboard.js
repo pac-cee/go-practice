@@ -112,3 +112,22 @@ function createCategoryDistributionChart(data) {
         labels: data.map(d => d.category),
         datasets: [{
             data: data.map(d => d.total),
+            backgroundColor: chartUtils.colors
+        }]
+    }, {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: context => formatCurrency(context.raw)
+                }
+            }
+        }
+    });
+}
+
+async function loadRecentExpenses() {
+    try {
+        const response = await expensesApi.getAll({ limit: 5, sortBy: 'date', sortOrder: 'desc' });
+        updateRecentExpenses(response.expenses);
+    } catch (error) {
+        notify.error('Failed to load recent expenses');
