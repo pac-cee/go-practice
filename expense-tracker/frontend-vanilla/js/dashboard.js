@@ -74,3 +74,22 @@ async function loadExpenseCharts() {
 }
 
 function createMonthlyTrendChart(data) {
+    const ctx = document.getElementById('monthlyTrendChart');
+    if (!ctx) return;
+
+    chartUtils.createChart(ctx, 'line', {
+        labels: data.map(d => d.month),
+        datasets: [{
+            label: 'Monthly Expenses',
+            data: data.map(d => d.total),
+            borderColor: '#3b82f6',
+            tension: 0.1
+        }]
+    }, {
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: value => formatCurrency(value)
+                }
+            }
