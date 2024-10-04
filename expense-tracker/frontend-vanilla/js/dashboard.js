@@ -93,3 +93,22 @@ function createMonthlyTrendChart(data) {
                     callback: value => formatCurrency(value)
                 }
             }
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: context => formatCurrency(context.raw)
+                }
+            }
+        }
+    });
+}
+
+function createCategoryDistributionChart(data) {
+    const ctx = document.getElementById('categoryDistributionChart');
+    if (!ctx) return;
+
+    chartUtils.createChart(ctx, 'doughnut', {
+        labels: data.map(d => d.category),
+        datasets: [{
+            data: data.map(d => d.total),
