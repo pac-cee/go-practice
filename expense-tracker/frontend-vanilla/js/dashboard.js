@@ -131,3 +131,22 @@ async function loadRecentExpenses() {
         updateRecentExpenses(response.expenses);
     } catch (error) {
         notify.error('Failed to load recent expenses');
+        console.error(error);
+    }
+}
+
+function updateRecentExpenses(expenses) {
+    const recentExpensesList = document.getElementById('recentExpenses');
+    if (!recentExpensesList) return;
+
+    recentExpensesList.innerHTML = expenses.map(expense => `
+        <div class="expense-item">
+            <div class="expense-info">
+                <div class="expense-primary">
+                    <span class="expense-description">${expense.description}</span>
+                    <span class="expense-amount">${formatCurrency(expense.amount)}</span>
+                </div>
+                <div class="expense-secondary">
+                    <span class="expense-date">${formatDate(expense.date)}</span>
+                    <span class="expense-category" style="color: ${expense.category.color}">
+                        <i class="fas ${expense.category.icon}"></i>
