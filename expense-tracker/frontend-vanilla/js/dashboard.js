@@ -150,3 +150,10 @@ function updateRecentExpenses(expenses) {
                     <span class="expense-date">${formatDate(expense.date)}</span>
                     <span class="expense-category" style="color: ${expense.category.color}">
                         <i class="fas ${expense.category.icon}"></i>
+                        ${expense.category.name}
+                    </span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
