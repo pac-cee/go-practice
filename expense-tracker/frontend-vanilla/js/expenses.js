@@ -36,3 +36,22 @@ function initializeSearchAndFilters() {
 
     searchInput?.addEventListener('input', debounce(async (e) => {
         filters.search = e.target.value;
+        currentPage = 1;
+        await loadExpenses();
+    }, 300));
+
+    categoryFilter?.addEventListener('change', async (e) => {
+        filters.category = e.target.value;
+        currentPage = 1;
+        await loadExpenses();
+    });
+
+    timeFilter?.addEventListener('change', async (e) => {
+        filters.timeRange = e.target.value;
+        currentPage = 1;
+        await loadExpenses();
+    });
+}
+
+function initializePagination() {
+    const prevPageBtn = document.getElementById('prevPage');
