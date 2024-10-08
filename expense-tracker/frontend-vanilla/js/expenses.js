@@ -55,3 +55,22 @@ function initializeSearchAndFilters() {
 
 function initializePagination() {
     const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+
+    prevPageBtn?.addEventListener('click', async () => {
+        if (currentPage > 1) {
+            currentPage--;
+            await loadExpenses();
+        }
+    });
+
+    nextPageBtn?.addEventListener('click', async () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            await loadExpenses();
+        }
+    });
+}
+
+function initializeExpenseForm() {
+    const addExpenseBtn = document.getElementById('addExpenseBtn');
