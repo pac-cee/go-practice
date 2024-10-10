@@ -112,3 +112,22 @@ async function loadExpenses() {
 }
 
 function renderExpenses() {
+    const tbody = document.getElementById('expensesTableBody');
+    if (!tbody) return;
+
+    tbody.innerHTML = expenses.map(expense => `
+        <tr>
+            <td>${formatDate(expense.date)}</td>
+            <td>${expense.description}</td>
+            <td>
+                <span class="category-badge ${expense.category.toLowerCase()}">
+                    ${expense.category}
+                </span>
+            </td>
+            <td>${formatCurrency(expense.amount)}</td>
+            <td>
+                <button class="icon-btn" onclick="editExpense('${expense._id}')">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-btn" onclick="deleteExpense('${expense._id}')">
+                    <i class="fas fa-trash"></i>
