@@ -74,3 +74,22 @@ function initializePagination() {
 
 function initializeExpenseForm() {
     const addExpenseBtn = document.getElementById('addExpenseBtn');
+    const expenseModal = document.getElementById('expenseModal');
+    const expenseForm = document.getElementById('expenseForm');
+    const cancelExpenseBtn = document.getElementById('cancelExpense');
+
+    addExpenseBtn?.addEventListener('click', () => {
+        currentExpense = null;
+        expenseForm.reset();
+        expenseModal.classList.remove('hidden');
+    });
+
+    cancelExpenseBtn?.addEventListener('click', () => {
+        expenseModal.classList.add('hidden');
+    });
+
+    expenseForm?.addEventListener('submit', handleExpenseSubmit);
+}
+
+async function loadExpenses() {
+    try {
