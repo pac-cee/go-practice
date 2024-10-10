@@ -131,3 +131,22 @@ function renderExpenses() {
                 </button>
                 <button class="icon-btn" onclick="deleteExpense('${expense._id}')">
                     <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function updatePagination() {
+    const paginationText = document.querySelector('.pagination span');
+    if (paginationText) {
+        paginationText.textContent = `Page ${currentPage} of ${totalPages}`;
+    }
+
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+
+    if (prevPageBtn) {
+        prevPageBtn.disabled = currentPage === 1;
+    }
+    if (nextPageBtn) {
