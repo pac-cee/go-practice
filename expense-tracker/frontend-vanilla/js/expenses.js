@@ -150,3 +150,22 @@ function updatePagination() {
         prevPageBtn.disabled = currentPage === 1;
     }
     if (nextPageBtn) {
+        nextPageBtn.disabled = currentPage === totalPages;
+    }
+}
+
+async function handleExpenseSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const expenseData = {
+        description: formData.get('description'),
+        amount: parseFloat(formData.get('amount')),
+        category: formData.get('category'),
+        date: formData.get('date'),
+        notes: formData.get('notes')
+    };
+
+    try {
+        if (currentExpense) {
