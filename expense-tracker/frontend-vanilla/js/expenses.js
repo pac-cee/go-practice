@@ -93,3 +93,22 @@ function initializeExpenseForm() {
 
 async function loadExpenses() {
     try {
+        const params = {
+            page: currentPage,
+            limit: 10,
+            ...filters
+        };
+
+        const response = await expensesApi.getAll(params);
+        expenses = response.expenses;
+        totalPages = response.totalPages;
+        
+        renderExpenses();
+        updatePagination();
+    } catch (error) {
+        notify.error('Failed to load expenses');
+        console.error(error);
+    }
+}
+
+function renderExpenses() {
