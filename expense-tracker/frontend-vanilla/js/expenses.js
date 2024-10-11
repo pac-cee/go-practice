@@ -188,3 +188,22 @@ async function editExpense(id) {
     if (!expense) return;
 
     currentExpense = expense;
+    const form = document.getElementById('expenseForm');
+    if (!form) return;
+
+    form.description.value = expense.description;
+    form.amount.value = expense.amount;
+    form.category.value = expense.category;
+    form.date.value = expense.date.split('T')[0];
+    form.notes.value = expense.notes || '';
+
+    document.getElementById('expenseModal').classList.remove('hidden');
+}
+
+async function deleteExpense(id) {
+    if (!confirm('Are you sure you want to delete this expense?')) return;
+
+    try {
+        await expensesApi.delete(id);
+        notify.success('Expense deleted successfully');
+        await loadExpenses();
