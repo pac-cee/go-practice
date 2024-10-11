@@ -169,3 +169,22 @@ async function handleExpenseSubmit(e) {
 
     try {
         if (currentExpense) {
+            await expensesApi.update(currentExpense._id, expenseData);
+            notify.success('Expense updated successfully');
+        } else {
+            await expensesApi.create(expenseData);
+            notify.success('Expense added successfully');
+        }
+
+        document.getElementById('expenseModal').classList.add('hidden');
+        await loadExpenses();
+    } catch (error) {
+        notify.error(error.message || 'Failed to save expense');
+    }
+}
+
+async function editExpense(id) {
+    const expense = expenses.find(e => e._id === id);
+    if (!expense) return;
+
+    currentExpense = expense;
