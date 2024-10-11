@@ -36,3 +36,22 @@ const navigation = {
             const linkPage = link.getAttribute('href').split('/').pop().replace('.html', '');
             link.classList.toggle('active', linkPage === this.currentPage);
         });
+    },
+
+    // Set up logout functionality
+    setupLogout() {
+        const logoutBtn = document.querySelector('.logout');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleLogout();
+            });
+        }
+    },
+
+    // Handle logout
+    handleLogout() {
+        // Clear authentication
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
