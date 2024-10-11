@@ -207,3 +207,24 @@ async function deleteExpense(id) {
         await expensesApi.delete(id);
         notify.success('Expense deleted successfully');
         await loadExpenses();
+    } catch (error) {
+        notify.error('Failed to delete expense');
+    }
+}
+
+// Utility function for debouncing
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Export functions that need to be accessed globally
+window.editExpense = editExpense;
+window.deleteExpense = deleteExpense;
