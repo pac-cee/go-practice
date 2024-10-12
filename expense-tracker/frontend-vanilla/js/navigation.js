@@ -55,3 +55,14 @@ const navigation = {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         
+        // Redirect to login page
+        window.location.href = '/pages/login.html';
+    }
+};
+
+// Initialize navigation on page load
+document.addEventListener('DOMContentLoaded', () => {
+    navigation.init();
+});
+
+export default navigation;
