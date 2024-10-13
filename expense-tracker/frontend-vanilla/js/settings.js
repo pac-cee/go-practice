@@ -112,3 +112,22 @@ async function handleSpendingLimitsSubmit(e) {
         alertThreshold: parseInt(formData.get('alertThreshold'))
     };
 
+    try {
+        await settingsApi.updateSettings(settings);
+        notify.success('Spending limits updated successfully');
+    } catch (error) {
+        notify.error(error.message || 'Failed to update spending limits');
+    }
+}
+
+async function handleNotificationChange(e) {
+    const setting = e.target.id;
+    const value = e.target.checked;
+
+    try {
+        await settingsApi.updateSettings({
+            notifications: {
+                [setting]: value
+            }
+        });
+        notify.success('Notification settings updated');
