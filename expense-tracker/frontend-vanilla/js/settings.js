@@ -74,3 +74,22 @@ async function loadSettings() {
         populateSettings(settings);
     } catch (error) {
         notify.error('Failed to load settings');
+        console.error(error);
+    }
+}
+
+function populateSettings(settings) {
+    // Spending Limits
+    const monthlyLimit = document.getElementById('monthlyLimit');
+    const alertThreshold = document.getElementById('alertThreshold');
+    
+    if (monthlyLimit) {
+        monthlyLimit.value = settings.monthlyLimit || '';
+    }
+    if (alertThreshold) {
+        alertThreshold.value = settings.alertThreshold || '';
+    }
+
+    // Notification Settings
+    const emailToggle = document.getElementById('emailNotifications');
+    const pushToggle = document.getElementById('pushNotifications');
