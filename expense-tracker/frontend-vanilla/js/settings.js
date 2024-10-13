@@ -93,3 +93,22 @@ function populateSettings(settings) {
     // Notification Settings
     const emailToggle = document.getElementById('emailNotifications');
     const pushToggle = document.getElementById('pushNotifications');
+    const weeklyToggle = document.getElementById('weeklyReports');
+    const monthlyToggle = document.getElementById('monthlyReports');
+
+    if (emailToggle) emailToggle.checked = settings.notifications?.email || false;
+    if (pushToggle) pushToggle.checked = settings.notifications?.push || false;
+    if (weeklyToggle) weeklyToggle.checked = settings.notifications?.weeklyReport || false;
+    if (monthlyToggle) monthlyToggle.checked = settings.notifications?.monthlyReport || false;
+}
+
+async function handleSpendingLimitsSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const settings = {
+        monthlyLimit: parseFloat(formData.get('monthlyLimit')),
+        alertThreshold: parseInt(formData.get('alertThreshold'))
+    };
+
