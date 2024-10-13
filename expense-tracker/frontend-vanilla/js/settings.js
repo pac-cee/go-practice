@@ -55,3 +55,22 @@ function initializeDataManagement() {
     const importBtn = document.getElementById('importData');
     const deleteBtn = document.getElementById('deleteAccount');
 
+    if (exportBtn) {
+        exportBtn.addEventListener('click', handleDataExport);
+    }
+
+    if (importBtn) {
+        importBtn.addEventListener('change', handleDataImport);
+    }
+
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', handleAccountDeletion);
+    }
+}
+
+async function loadSettings() {
+    try {
+        const settings = await settingsApi.getProfile();
+        populateSettings(settings);
+    } catch (error) {
+        notify.error('Failed to load settings');
