@@ -36,3 +36,22 @@ function initializeNotificationSettings() {
     const monthlyToggle = document.getElementById('monthlyReports');
 
     const toggles = [emailToggle, pushToggle, weeklyToggle, monthlyToggle];
+    toggles.forEach(toggle => {
+        if (toggle) {
+            toggle.addEventListener('change', handleNotificationChange);
+        }
+    });
+}
+
+function initializeSpendingLimits() {
+    const limitForm = document.getElementById('spendingLimitsForm');
+    if (limitForm) {
+        limitForm.addEventListener('submit', handleSpendingLimitsSubmit);
+    }
+}
+
+function initializeDataManagement() {
+    const exportBtn = document.getElementById('exportData');
+    const importBtn = document.getElementById('importData');
+    const deleteBtn = document.getElementById('deleteAccount');
+
