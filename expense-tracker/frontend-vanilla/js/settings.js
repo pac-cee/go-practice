@@ -131,3 +131,22 @@ async function handleNotificationChange(e) {
             }
         });
         notify.success('Notification settings updated');
+    } catch (error) {
+        // Revert toggle if update fails
+        e.target.checked = !value;
+        notify.error('Failed to update notification settings');
+    }
+}
+
+async function handleDataExport() {
+    try {
+        const data = await settingsApi.exportData();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `expense-tracker-export-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        notify.success('Data exported successfully');
+    } catch (error) {
