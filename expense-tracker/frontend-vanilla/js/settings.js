@@ -150,3 +150,22 @@ async function handleDataExport() {
         window.URL.revokeObjectURL(url);
         notify.success('Data exported successfully');
     } catch (error) {
+        notify.error('Failed to export data');
+    }
+}
+
+async function handleDataImport(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+        try {
+            const data = JSON.parse(event.target.result);
+            await settingsApi.importData(data);
+            notify.success('Data imported successfully');
+            // Reload settings to reflect imported data
+            await loadSettings();
+        } catch (error) {
+            notify.error('Failed to import data. Please check the file format.');
+        }
