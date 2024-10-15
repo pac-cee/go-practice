@@ -169,3 +169,24 @@ async function handleDataImport(e) {
         } catch (error) {
             notify.error('Failed to import data. Please check the file format.');
         }
+    };
+    reader.readAsText(file);
+}
+
+async function handleAccountDeletion() {
+    const confirmed = confirm(
+        'Are you sure you want to delete your account? This action cannot be undone. ' +
+        'All your data will be permanently deleted.'
+    );
+
+    if (confirmed) {
+        try {
+            await settingsApi.deleteAccount();
+            notify.success('Account deleted successfully');
+            // Redirect to login page
+            window.location.href = '/pages/login.html';
+        } catch (error) {
+            notify.error('Failed to delete account');
+        }
+    }
+}
