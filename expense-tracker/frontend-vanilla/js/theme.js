@@ -36,3 +36,22 @@ const theme = {
         if (metaThemeColor) {
             metaThemeColor.content = isDark ? '#1a1a1a' : '#ffffff';
         }
+
+        // Dispatch theme change event
+        window.dispatchEvent(new CustomEvent('themechange', {
+            detail: { theme: isDark ? 'dark' : 'light' }
+        }));
+    },
+
+    // Initialize theme system
+    init() {
+        // Apply theme on page load
+        this.apply();
+
+        // Add event listener to theme toggle button
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => this.toggle());
+        }
+
+        // Listen for system theme changes
