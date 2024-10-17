@@ -36,3 +36,22 @@ export const notify = {
 };
 
 // Check if user is authenticated
+export function isAuthenticated() {
+    const token = localStorage.getItem('token');
+    return !!token;
+}
+
+// Redirect if not authenticated
+export function requireAuth() {
+    if (!isAuthenticated()) {
+        window.location.href = '/pages/login.html';
+        return false;
+    }
+    return true;
+}
+
+// Handle API errors
+export function handleError(error) {
+    console.error('Error:', error);
+    notify.error(error.message || 'An unexpected error occurred');
+}
