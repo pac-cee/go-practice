@@ -93,3 +93,22 @@ export function checkPasswordStrength(password) {
     if (password.length < 8) {
         feedback.push('Password should be at least 8 characters long');
     } else {
+        strength += 1;
+    }
+
+    // Uppercase check
+    if (!/[A-Z]/.test(password)) {
+        feedback.push('Add uppercase letters');
+    } else {
+        strength += 1;
+    }
+
+    // Lowercase check
+    if (!/[a-z]/.test(password)) {
+        feedback.push('Add lowercase letters');
+    } else {
+        strength += 1;
+    }
+
+    // Number check
+    if (!/\d/.test(password)) {
