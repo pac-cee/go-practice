@@ -112,3 +112,22 @@ export function checkPasswordStrength(password) {
 
     // Number check
     if (!/\d/.test(password)) {
+        feedback.push('Add numbers');
+    } else {
+        strength += 1;
+    }
+
+    // Special character check
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        feedback.push('Add special characters');
+    } else {
+        strength += 1;
+    }
+
+    let strengthText = '';
+    if (strength < 2) strengthText = 'weak';
+    else if (strength < 4) strengthText = 'fair';
+    else strengthText = 'strong';
+
+    return {
+        score: strength,
