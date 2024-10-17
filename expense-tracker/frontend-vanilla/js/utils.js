@@ -17,3 +17,22 @@ export function formatDate(date) {
     });
 }
 
+// Show notification using Notyf
+export const notify = {
+    success(message) {
+        const notyf = new Notyf({
+            duration: 3000,
+            position: { x: 'right', y: 'top' }
+        });
+        notyf.success(message);
+    },
+    error(message) {
+        const notyf = new Notyf({
+            duration: 3000,
+            position: { x: 'right', y: 'top' }
+        });
+        notyf.error(message);
+    }
+};
+
+// Check if user is authenticated
