@@ -55,3 +55,22 @@ const theme = {
         }
 
         // Listen for system theme changes
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    this.set(e.matches ? 'dark' : 'light');
+                }
+            });
+        }
+
+        // Add keyboard shortcut for theme toggle (Ctrl/Cmd + J)
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'j') {
+                e.preventDefault();
+                this.toggle();
+            }
+        });
+    }
+};
+
