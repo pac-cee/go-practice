@@ -74,3 +74,22 @@ export const theme = {
     },
 
     init() {
+        // Apply theme on page load
+        this.apply();
+        // Add event listener to theme toggle button
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => this.toggle());
+        }
+    }
+};
+
+// Password strength checker
+export function checkPasswordStrength(password) {
+    let strength = 0;
+    const feedback = [];
+
+    // Length check
+    if (password.length < 8) {
+        feedback.push('Password should be at least 8 characters long');
+    } else {
