@@ -55,3 +55,22 @@ export function handleError(error) {
     console.error('Error:', error);
     notify.error(error.message || 'An unexpected error occurred');
 }
+
+// Theme management
+export const theme = {
+    toggle() {
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        localStorage.setItem('darkMode', !isDark);
+        this.apply();
+    },
+
+    apply() {
+        const isDark = localStorage.getItem('darkMode') === 'true';
+        document.body.classList.toggle('dark-theme', isDark);
+        const themeIcon = document.querySelector('#theme-toggle i');
+        if (themeIcon) {
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+    },
+
+    init() {
