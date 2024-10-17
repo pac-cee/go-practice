@@ -169,3 +169,22 @@ export const storage = {
         } catch {
             return item;
         }
+    },
+
+    remove(key) {
+        localStorage.removeItem(key);
+    },
+
+    clear() {
+        localStorage.clear();
+    }
+};
+
+// Chart utilities
+export const chartUtils = {
+    colors: [
+        '#4361ee',
+        '#3a0ca3',
+        '#7209b7',
+        '#f72585',
+        '#4cc9f0',
