@@ -188,3 +188,22 @@ export const chartUtils = {
         '#7209b7',
         '#f72585',
         '#4cc9f0',
+        '#4895ef',
+        '#560bad',
+        '#480ca8',
+        '#3f37c9',
+        '#4361ee'
+    ],
+
+    createChart(ctx, type, data, options = {}) {
+        return new Chart(ctx, {
+            type,
+            data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                ...options
+            }
+        });
+    }
+};
