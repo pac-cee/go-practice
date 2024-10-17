@@ -131,3 +131,22 @@ export function checkPasswordStrength(password) {
 
     return {
         score: strength,
+        feedback,
+        strengthText
+    };
+}
+
+// Form validation
+export const validate = {
+    email(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    },
+
+    password(password) {
+        return password.length >= 8;
+    },
+
+    confirmPassword(password, confirmPassword) {
+        return password === confirmPassword;
+    },
