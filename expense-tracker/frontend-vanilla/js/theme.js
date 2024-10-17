@@ -74,3 +74,9 @@ const theme = {
     }
 };
 
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    theme.init();
+});
+
+export default theme;
