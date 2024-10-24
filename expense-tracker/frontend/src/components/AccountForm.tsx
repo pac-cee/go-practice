@@ -17,3 +17,22 @@ import { Account, AccountType } from '../types';
 
 interface AccountFormProps {
   open: boolean;
+  onClose: () => void;
+  account?: Account | null;
+  onSubmit: (data: Omit<Account, 'id' | 'createdAt' | 'updatedAt'>) => Promise<void>;
+}
+
+const initialFormData: Omit<Account, 'id' | 'createdAt' | 'updatedAt'> = {
+  name: '',
+  type: 'checking',
+  balance: 0,
+  currency: 'USD',
+};
+
+export const AccountForm: React.FC<AccountFormProps> = ({
+  open,
+  onClose,
+  account,
+  onSubmit,
+}) => {
+  const [formData, setFormData] = useState<Omit<Account, 'id' | 'createdAt' | 'updatedAt'>>(initialFormData);
