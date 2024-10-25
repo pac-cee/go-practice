@@ -36,3 +36,22 @@ export const AccountForm: React.FC<AccountFormProps> = ({
   onSubmit,
 }) => {
   const [formData, setFormData] = useState<Omit<Account, 'id' | 'createdAt' | 'updatedAt'>>(initialFormData);
+
+  useEffect(() => {
+    if (account) {
+      setFormData({
+        name: account.name,
+        type: account.type,
+        balance: account.balance,
+        currency: account.currency,
+      });
+    } else {
+      setFormData(initialFormData);
+    }
+  }, [account]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSubmit(formData);
+    onClose();
+  };
