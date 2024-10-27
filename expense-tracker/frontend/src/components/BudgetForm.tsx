@@ -17,3 +17,22 @@ import { Budget } from '../types';
 import { useAppContext } from '../context/AppContext';
 import { budgetApi } from '../services/api';
 
+interface BudgetFormProps {
+  open: boolean;
+  onClose: () => void;
+  budget?: Budget;
+}
+
+const BudgetForm = ({ open, onClose, budget }: BudgetFormProps) => {
+  const { state, dispatch } = useAppContext();
+  const [formData, setFormData] = useState({
+    category: '',
+    amount: '',
+    period: 'monthly',
+  });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (budget) {
+      setFormData({
+        category: budget.category,
