@@ -55,3 +55,22 @@ const BudgetForm = ({ open, onClose, budget }: BudgetFormProps) => {
     try {
       setLoading(true);
       const data = {
+        ...formData,
+        amount: Number(formData.amount),
+        spent: budget?.spent || 0,
+      };
+
+      if (budget) {
+        const response = await budgetApi.update(budget.id, data);
+        dispatch({ type: 'UPDATE_BUDGET', payload: response.data });
+      } else {
+        const response = await budgetApi.create(data);
+        dispatch({ type: 'SET_BUDGETS', payload: [...state.budgets, response.data] });
+      }
+      onClose();
+    } catch (error) {
+      console.error('Error saving budget:', error);
+      dispatch({ type: 'SET_ERROR', payload: 'Error saving budget' });
+    } finally {
+      setLoading(false);
+    }
