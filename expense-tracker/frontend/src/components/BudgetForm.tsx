@@ -74,3 +74,22 @@ const BudgetForm = ({ open, onClose, budget }: BudgetFormProps) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    setFormData({
+      category: '',
+      amount: '',
+      period: 'monthly',
+    });
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        {budget ? 'Edit Budget' : 'Set New Budget'}
+      </DialogTitle>
+      <DialogContent>
+        <Grid container spacing={2} sx={{ mt: 1 }}>
+          <Grid item xs={12}>
