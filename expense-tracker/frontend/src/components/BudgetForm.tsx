@@ -36,3 +36,22 @@ const BudgetForm = ({ open, onClose, budget }: BudgetFormProps) => {
     if (budget) {
       setFormData({
         category: budget.category,
+        amount: String(budget.amount),
+        period: budget.period,
+      });
+    }
+  }, [budget]);
+
+  const handleChange = (field: string) => (event: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    if (!formData.category || !formData.amount) return;
+
+    try {
+      setLoading(true);
+      const data = {
