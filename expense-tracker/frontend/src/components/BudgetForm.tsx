@@ -112,3 +112,22 @@ const BudgetForm = ({ open, onClose, budget }: BudgetFormProps) => {
             <TextField
               fullWidth
               label="Budget Amount"
+              type="number"
+              value={formData.amount}
+              onChange={handleChange('amount')}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">$</InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel>Period</InputLabel>
+              <Select
+                value={formData.period}
+                label="Period"
+                onChange={handleChange('period')}
+              >
+                <MenuItem value="weekly">Weekly</MenuItem>
