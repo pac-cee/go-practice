@@ -36,3 +36,22 @@ const CategoryForm = ({ open, onClose, category }: CategoryFormProps) => {
   }, [category]);
 
   const handleAddSubcategory = () => {
+    if (newSubcategory.trim() && !subcategories.includes(newSubcategory.trim())) {
+      setSubcategories([...subcategories, newSubcategory.trim()]);
+      setNewSubcategory('');
+    }
+  };
+
+  const handleDeleteSubcategory = (subcategory: string) => {
+    setSubcategories(subcategories.filter((sub) => sub !== subcategory));
+  };
+
+  const handleSubmit = async () => {
+    if (!name.trim()) return;
+
+    try {
+      setLoading(true);
+      const data = {
+        name: name.trim(),
+        subcategories,
+      };
