@@ -131,3 +131,25 @@ const BudgetForm = ({ open, onClose, budget }: BudgetFormProps) => {
                 onChange={handleChange('period')}
               >
                 <MenuItem value="weekly">Weekly</MenuItem>
+                <MenuItem value="monthly">Monthly</MenuItem>
+                <MenuItem value="yearly">Yearly</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          disabled={loading || !formData.category || !formData.amount}
+        >
+          {loading ? 'Saving...' : 'Save'}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+export default BudgetForm;
