@@ -55,3 +55,22 @@ const CategoryForm = ({ open, onClose, category }: CategoryFormProps) => {
         name: name.trim(),
         subcategories,
       };
+
+      if (category) {
+        const response = await categoryApi.update(category.id, data);
+        dispatch({ type: 'UPDATE_CATEGORY', payload: response.data });
+      } else {
+        const response = await categoryApi.create(data);
+        dispatch({ type: 'ADD_CATEGORY', payload: response.data });
+      }
+      onClose();
+    } catch (error) {
+      console.error('Error saving category:', error);
+      dispatch({ type: 'SET_ERROR', payload: 'Error saving category' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setName('');
