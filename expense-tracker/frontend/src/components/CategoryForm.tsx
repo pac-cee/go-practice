@@ -74,3 +74,22 @@ const CategoryForm = ({ open, onClose, category }: CategoryFormProps) => {
 
   const handleClose = () => {
     setName('');
+    setNewSubcategory('');
+    setSubcategories([]);
+    onClose();
+  };
+
+  return (
+    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        {category ? 'Edit Category' : 'Add New Category'}
+      </DialogTitle>
+      <DialogContent>
+        <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <TextField
+            fullWidth
+            label="Category Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Box sx={{ display: 'flex', gap: 1 }}>
