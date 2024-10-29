@@ -93,3 +93,22 @@ const CategoryForm = ({ open, onClose, category }: CategoryFormProps) => {
             onChange={(e) => setName(e.target.value)}
           />
           <Box sx={{ display: 'flex', gap: 1 }}>
+            <TextField
+              fullWidth
+              label="Add Subcategory"
+              value={newSubcategory}
+              onChange={(e) => setNewSubcategory(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleAddSubcategory();
+                }
+              }}
+            />
+            <IconButton
+              color="primary"
+              onClick={handleAddSubcategory}
+              disabled={!newSubcategory.trim()}
+            >
+              <AddIcon />
+            </IconButton>
+          </Box>
