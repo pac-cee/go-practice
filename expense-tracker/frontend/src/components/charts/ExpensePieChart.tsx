@@ -17,3 +17,22 @@ const ExpensePieChart: React.FC<ExpensePieChartProps> = ({ data }) => {
     labels: data.map((item) => item.category),
     datasets: [
       {
+        data: data.map((item) => item.amount),
+        backgroundColor: [
+          theme.palette.primary.main,
+          theme.palette.secondary.main,
+          theme.palette.error.main,
+          theme.palette.warning.main,
+          theme.palette.info.main,
+          theme.palette.success.main,
+          // Add more colors as needed
+        ],
+        borderColor: theme.palette.background.paper,
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
