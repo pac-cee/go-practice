@@ -112,3 +112,22 @@ const CategoryForm = ({ open, onClose, category }: CategoryFormProps) => {
               <AddIcon />
             </IconButton>
           </Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+            {subcategories.map((subcategory) => (
+              <Chip
+                key={subcategory}
+                label={subcategory}
+                onDelete={() => handleDeleteSubcategory(subcategory)}
+                deleteIcon={<CloseIcon />}
+              />
+            ))}
+          </Box>
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          disabled={loading || !name.trim()}
+        >
