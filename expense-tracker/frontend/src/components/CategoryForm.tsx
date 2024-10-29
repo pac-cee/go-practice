@@ -131,3 +131,11 @@ const CategoryForm = ({ open, onClose, category }: CategoryFormProps) => {
           variant="contained"
           disabled={loading || !name.trim()}
         >
+          {loading ? 'Saving...' : 'Save'}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+export default CategoryForm;
