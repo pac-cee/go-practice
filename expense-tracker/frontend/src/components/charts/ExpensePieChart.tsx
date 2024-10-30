@@ -55,3 +55,14 @@ const ExpensePieChart: React.FC<ExpensePieChartProps> = ({ data }) => {
           },
         },
       },
+    },
+  };
+
+  return (
+    <Box width="100%" height="100%">
+      <Pie data={chartData} options={options} />
+    </Box>
+  );
+};
+
+export default ExpensePieChart;
