@@ -36,3 +36,22 @@ const ExpensePieChart: React.FC<ExpensePieChartProps> = ({ data }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right' as const,
+        labels: {
+          color: theme.palette.text.primary,
+          font: {
+            size: 12,
+          },
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context: any) => {
+            const label = context.label || '';
+            const value = context.raw || 0;
+            return `${label}: $${value.toFixed(2)}`;
+          },
+        },
+      },
