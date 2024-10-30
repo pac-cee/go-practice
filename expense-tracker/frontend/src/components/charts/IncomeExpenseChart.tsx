@@ -17,3 +17,22 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+interface IncomeExpenseChartProps {
+  data: {
+    labels: string[];
+    datasets: {
+      label: string;
+      data: number[];
+      backgroundColor: string[];
+      borderColor: string[];
+      borderWidth: number;
+    }[];
+  };
+}
+
+export const IncomeExpenseChart: React.FC<IncomeExpenseChartProps> = ({ data }) => {
