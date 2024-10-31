@@ -55,3 +55,22 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ data }) => {
         ticks: {
           color: theme.palette.text.secondary,
           callback: function(this: Scale, value: string | number) {
+            return `$${typeof value === 'number' ? value.toFixed(0) : value}`;
+          },
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+          color: theme.palette.divider,
+        },
+        ticks: {
+          color: theme.palette.text.secondary,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        position: 'top' as const,
+        labels: {
+          color: theme.palette.text.secondary,
