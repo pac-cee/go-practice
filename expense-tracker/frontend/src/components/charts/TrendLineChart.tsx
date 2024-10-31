@@ -36,3 +36,22 @@ interface TrendLineChartProps {
       backgroundColor: string;
       fill: boolean;
       tension: number;
+    }[];
+  };
+}
+
+export const TrendLineChart: React.FC<TrendLineChartProps> = ({ data }) => {
+  const theme = useTheme();
+
+  const options: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: theme.palette.divider,
+        },
+        ticks: {
+          color: theme.palette.text.secondary,
+          callback: function(this: Scale, value: string | number) {
