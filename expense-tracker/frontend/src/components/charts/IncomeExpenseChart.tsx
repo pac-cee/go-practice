@@ -74,3 +74,17 @@ export const IncomeExpenseChart: React.FC<IncomeExpenseChartProps> = ({ data }) 
       title: {
         display: true,
         text: 'Income vs Expenses',
+        color: theme.palette.text.primary,
+        font: {
+          size: 16,
+        },
+      },
+    },
+  };
+
+  return (
+    <Box width="100%" height="100%">
+      <Bar data={data} options={options} />
+    </Box>
+  );
+};
