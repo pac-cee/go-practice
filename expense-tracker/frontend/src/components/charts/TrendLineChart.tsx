@@ -74,3 +74,26 @@ export const TrendLineChart: React.FC<TrendLineChartProps> = ({ data }) => {
         position: 'top' as const,
         labels: {
           color: theme.palette.text.secondary,
+        },
+      },
+      title: {
+        display: true,
+        text: 'Spending Trend',
+        color: theme.palette.text.primary,
+        font: {
+          size: 16,
+        },
+      },
+    },
+    interaction: {
+      mode: 'index' as const,
+      intersect: false,
+    },
+  };
+
+  return (
+    <Box width="100%" height="100%">
+      <Line data={data} options={options} />
+    </Box>
+  );
+};
