@@ -55,3 +55,22 @@ export const IncomeExpenseChart: React.FC<IncomeExpenseChartProps> = ({ data }) 
         },
       },
       x: {
+        grid: {
+          display: false,
+          color: theme.palette.divider,
+        },
+        ticks: {
+          color: theme.palette.text.secondary,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        position: 'top' as const,
+        labels: {
+          color: theme.palette.text.secondary,
+        },
+      },
+      title: {
+        display: true,
+        text: 'Income vs Expenses',
