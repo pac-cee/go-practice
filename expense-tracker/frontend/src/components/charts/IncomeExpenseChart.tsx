@@ -36,3 +36,22 @@ interface IncomeExpenseChartProps {
 }
 
 export const IncomeExpenseChart: React.FC<IncomeExpenseChartProps> = ({ data }) => {
+  const theme = useTheme();
+
+  const options: ChartOptions<'bar'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: theme.palette.divider,
+        },
+        ticks: {
+          color: theme.palette.text.secondary,
+          callback: function(this: Scale, value: string | number) {
+            return `$${typeof value === 'number' ? value.toFixed(0) : value}`;
+          },
+        },
+      },
+      x: {
