@@ -17,3 +17,22 @@ interface TransactionFiltersProps {
   filters: TransactionFilters;
   onFilterChange: (filters: TransactionFilters) => void;
 }
+
+export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
+  filters,
+  onFilterChange,
+}) => {
+  const { state } = useAppContext();
+
+  const handleFilterChange = (
+    field: keyof TransactionFilters,
+    value: string | number | undefined
+  ) => {
+    onFilterChange({
+      ...filters,
+      [field]: value,
+    });
+  };
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
