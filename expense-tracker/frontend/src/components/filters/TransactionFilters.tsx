@@ -36,3 +36,22 @@ export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <DatePicker
+          label="Start Date"
+          value={filters.startDate ? dayjs(filters.startDate) : null}
+          onChange={(date: Dayjs | null) =>
+            handleFilterChange('startDate', date?.toISOString())
+          }
+          slotProps={{
+            textField: {
+              fullWidth: true,
+            },
+          }}
+        />
+
+        <DatePicker
+          label="End Date"
+          value={filters.endDate ? dayjs(filters.endDate) : null}
+          onChange={(date: Dayjs | null) =>
+            handleFilterChange('endDate', date?.toISOString())
