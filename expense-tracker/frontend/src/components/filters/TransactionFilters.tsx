@@ -74,3 +74,22 @@ export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
             }
             label="Type"
           >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="expense">Expense</MenuItem>
+            <MenuItem value="income">Income</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel>Category</InputLabel>
+          <Select
+            value={filters.category || ''}
+            onChange={(e) => handleFilterChange('category', e.target.value)}
+            label="Category"
+          >
+            <MenuItem value="">All</MenuItem>
+            {state.categories
+              .filter((category: Category) =>
+                filters.type ? category.type === filters.type : true
+              )
+              .map((category: Category) => (
