@@ -55,3 +55,22 @@ export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
           value={filters.endDate ? dayjs(filters.endDate) : null}
           onChange={(date: Dayjs | null) =>
             handleFilterChange('endDate', date?.toISOString())
+          }
+          slotProps={{
+            textField: {
+              fullWidth: true,
+            },
+          }}
+        />
+      </Box>
+
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <FormControl fullWidth>
+          <InputLabel>Type</InputLabel>
+          <Select
+            value={filters.type || ''}
+            onChange={(e) =>
+              handleFilterChange('type', e.target.value as TransactionType)
+            }
+            label="Type"
+          >
