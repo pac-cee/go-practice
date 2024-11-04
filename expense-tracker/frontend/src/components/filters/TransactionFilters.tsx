@@ -93,3 +93,22 @@ export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
                 filters.type ? category.type === filters.type : true
               )
               .map((category: Category) => (
+                <MenuItem key={category.id} value={category.name}>
+                  {category.name}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel>Account</InputLabel>
+          <Select
+            value={filters.account || ''}
+            onChange={(e) => handleFilterChange('account', e.target.value)}
+            label="Account"
+          >
+            <MenuItem value="">All</MenuItem>
+            {state.accounts.map((account: Account) => (
+              <MenuItem key={account.id} value={account.name}>
+                {account.name}
+              </MenuItem>
