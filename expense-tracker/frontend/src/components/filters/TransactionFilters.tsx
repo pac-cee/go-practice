@@ -131,3 +131,25 @@ export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
           InputProps={{
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
           }}
+          fullWidth
+        />
+
+        <TextField
+          label="Max Amount"
+          type="number"
+          value={filters.maxAmount || ''}
+          onChange={(e) =>
+            handleFilterChange(
+              'maxAmount',
+              e.target.value ? Number(e.target.value) : undefined
+            )
+          }
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
+          fullWidth
+        />
+      </Box>
+    </Box>
+  );
+};
