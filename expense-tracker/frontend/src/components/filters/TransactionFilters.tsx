@@ -112,3 +112,22 @@ export const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
               <MenuItem key={account.id} value={account.name}>
                 {account.name}
               </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <TextField
+          label="Min Amount"
+          type="number"
+          value={filters.minAmount || ''}
+          onChange={(e) =>
+            handleFilterChange(
+              'minAmount',
+              e.target.value ? Number(e.target.value) : undefined
+            )
+          }
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
