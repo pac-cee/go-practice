@@ -74,3 +74,22 @@ export const AccountForm: React.FC<AccountFormProps> = ({
 
             <FormControl fullWidth>
               <InputLabel>Type</InputLabel>
+              <Select
+                value={formData.type}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value as AccountType })}
+                label="Type"
+                required
+              >
+                <MenuItem value="checking">Checking</MenuItem>
+                <MenuItem value="savings">Savings</MenuItem>
+                <MenuItem value="credit">Credit</MenuItem>
+                <MenuItem value="cash">Cash</MenuItem>
+                <MenuItem value="investment">Investment</MenuItem>
+              </Select>
+            </FormControl>
+
+            <TextField
+              label="Balance"
+              type="number"
+              value={formData.balance}
+              onChange={(e) => setFormData({ ...formData, balance: parseFloat(e.target.value) })}
