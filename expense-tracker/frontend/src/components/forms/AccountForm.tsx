@@ -36,3 +36,22 @@ export const AccountForm: React.FC<AccountFormProps> = ({
   });
 
   useEffect(() => {
+    if (account) {
+      setFormData({
+        name: account.name,
+        type: account.type,
+        balance: account.balance,
+        currency: account.currency,
+      });
+    } else {
+      setFormData({
+        name: '',
+        type: 'checking',
+        balance: 0,
+        currency: 'USD',
+      });
+    }
+  }, [account]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
