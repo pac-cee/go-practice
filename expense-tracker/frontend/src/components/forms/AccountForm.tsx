@@ -112,3 +112,15 @@ export const AccountForm: React.FC<AccountFormProps> = ({
                 <MenuItem value="GBP">GBP</MenuItem>
               </Select>
             </FormControl>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained" color="primary">
+            {account ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
+  );
+};
