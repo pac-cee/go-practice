@@ -36,3 +36,22 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
   open,
   onClose,
   budget,
+  onSubmit,
+}) => {
+  const { state } = useAppContext();
+  const [formData, setFormData] = useState<Omit<Budget, 'id' | 'createdAt' | 'updatedAt' | 'spent'>>(
+    initialFormData
+  );
+
+  useEffect(() => {
+    if (budget) {
+      setFormData({
+        amount: budget.amount,
+        category: budget.category,
+        startDate: budget.startDate,
+        endDate: budget.endDate,
+      });
+    } else {
+      setFormData(initialFormData);
+    }
+  }, [budget]);
