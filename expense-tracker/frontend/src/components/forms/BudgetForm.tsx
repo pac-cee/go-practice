@@ -74,3 +74,22 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
       <form onSubmit={handleSubmit}>
         <DialogTitle>{budget ? 'Edit Budget' : 'Add Budget'}</DialogTitle>
         <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
+            <FormControl fullWidth>
+              <InputLabel>Category</InputLabel>
+              <Select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                label="Category"
+                required
+              >
+                {state.categories
+                  .filter((category: Category) => category.type === 'expense')
+                  .map((category: Category) => (
+                    <MenuItem key={category.id} value={category.name}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+
