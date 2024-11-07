@@ -131,3 +131,13 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
             />
           </Box>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained" color="primary">
+            {budget ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
+  );
+};
