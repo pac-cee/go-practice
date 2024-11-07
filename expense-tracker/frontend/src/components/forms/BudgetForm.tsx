@@ -112,3 +112,22 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
               onChange={handleDateChange('startDate')}
               slotProps={{
                 textField: {
+                  fullWidth: true,
+                  required: true,
+                },
+              }}
+            />
+
+            <DatePicker
+              label="End Date"
+              value={formData.endDate ? dayjs(formData.endDate) : null}
+              onChange={handleDateChange('endDate')}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  required: true,
+                },
+              }}
+            />
+          </Box>
+        </DialogContent>
