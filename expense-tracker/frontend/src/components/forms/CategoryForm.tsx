@@ -36,3 +36,22 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   open,
   onClose,
   category,
+  onSubmit,
+}) => {
+  const [formData, setFormData] = useState<Omit<Category, 'id' | 'createdAt' | 'updatedAt'>>(
+    initialFormData
+  );
+  const [newSubcategory, setNewSubcategory] = useState('');
+
+  useEffect(() => {
+    if (category) {
+      setFormData({
+        name: category.name,
+        type: category.type,
+        subcategories: [...category.subcategories],
+      });
+    } else {
+      setFormData(initialFormData);
+    }
+  }, [category]);
+
