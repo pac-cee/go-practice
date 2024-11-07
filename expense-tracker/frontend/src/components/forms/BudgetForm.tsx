@@ -55,3 +55,22 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
       setFormData(initialFormData);
     }
   }, [budget]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSubmit(formData);
+    onClose();
+  };
+
+  const handleDateChange = (field: 'startDate' | 'endDate') => (date: Dayjs | null) => {
+    setFormData({
+      ...formData,
+      [field]: date ? date.toISOString() : '',
+    });
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <form onSubmit={handleSubmit}>
+        <DialogTitle>{budget ? 'Edit Budget' : 'Add Budget'}</DialogTitle>
+        <DialogContent>
