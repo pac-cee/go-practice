@@ -55,3 +55,22 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     }
   }, [category]);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSubmit(formData);
+    onClose();
+  };
+
+  const handleAddSubcategory = () => {
+    if (newSubcategory.trim()) {
+      setFormData({
+        ...formData,
+        subcategories: [...formData.subcategories, newSubcategory.trim()],
+      });
+      setNewSubcategory('');
+    }
+  };
+
+  const handleRemoveSubcategory = (index: number) => {
+    setFormData({
+      ...formData,
