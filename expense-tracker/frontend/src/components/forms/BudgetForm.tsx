@@ -93,3 +93,22 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({
               </Select>
             </FormControl>
 
+            <TextField
+              label="Amount"
+              type="number"
+              value={formData.amount}
+              onChange={(e) =>
+                setFormData({ ...formData, amount: parseFloat(e.target.value) })
+              }
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              }}
+              required
+            />
+
+            <DatePicker
+              label="Start Date"
+              value={formData.startDate ? dayjs(formData.startDate) : null}
+              onChange={handleDateChange('startDate')}
+              slotProps={{
+                textField: {
