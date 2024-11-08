@@ -131,3 +131,24 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                         aria-label="delete"
                         onClick={() => handleRemoveSubcategory(index)}
                       >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                  >
+                    <ListItemText primary={subcategory} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained" color="primary">
+            {category ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
+  );
+};
