@@ -112,3 +112,22 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                   onChange={(e) => setNewSubcategory(e.target.value)}
                   fullWidth
                 />
+                <Button
+                  variant="contained"
+                  onClick={handleAddSubcategory}
+                  disabled={!newSubcategory.trim()}
+                >
+                  Add
+                </Button>
+              </Box>
+
+              <List>
+                {formData.subcategories.map((subcategory, index) => (
+                  <ListItem
+                    key={index}
+                    secondaryAction={
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => handleRemoveSubcategory(index)}
+                      >
