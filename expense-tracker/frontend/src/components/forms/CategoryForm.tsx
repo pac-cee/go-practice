@@ -74,3 +74,22 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const handleRemoveSubcategory = (index: number) => {
     setFormData({
       ...formData,
+      subcategories: formData.subcategories.filter((_, i) => i !== index),
+    });
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <form onSubmit={handleSubmit}>
+        <DialogTitle>{category ? 'Edit Category' : 'Add Category'}</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
+            <TextField
+              label="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
+            />
+
+            <FormControl fullWidth>
+              <InputLabel>Type</InputLabel>
