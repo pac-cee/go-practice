@@ -36,3 +36,22 @@ const initialFormData: Omit<Transaction, 'id' | 'createdAt' | 'updatedAt'> = {
 };
 
 export const TransactionForm: React.FC<TransactionFormProps> = ({
+  open,
+  onClose,
+  transaction,
+  onSubmit,
+}) => {
+  const { state } = useAppContext();
+  const [formData, setFormData] = useState<Omit<Transaction, 'id' | 'createdAt' | 'updatedAt'>>(
+    initialFormData
+  );
+
+  useEffect(() => {
+    if (transaction) {
+      setFormData({
+        amount: transaction.amount,
+        type: transaction.type,
+        category: transaction.category,
+        subcategory: transaction.subcategory,
+        account: transaction.account,
+        description: transaction.description,
