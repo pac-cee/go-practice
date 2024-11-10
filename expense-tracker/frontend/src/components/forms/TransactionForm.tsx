@@ -93,3 +93,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
             <FormControl fullWidth>
               <InputLabel>Category</InputLabel>
+              <Select
+                value={formData.category}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    category: e.target.value,
+                    subcategory: '', // Reset subcategory when category changes
+                  });
+                }}
+                label="Category"
+                required
+              >
+                {state.categories
+                  .filter((category: Category) => category.type === formData.type)
+                  .map((category: Category) => (
+                    <MenuItem key={category.id} value={category.name}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
