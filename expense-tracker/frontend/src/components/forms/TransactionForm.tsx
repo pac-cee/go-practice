@@ -112,3 +112,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                       {category.name}
                     </MenuItem>
                   ))}
+              </Select>
+            </FormControl>
+
+            {selectedCategory && selectedCategory.subcategories.length > 0 && (
+              <FormControl fullWidth>
+                <InputLabel>Subcategory</InputLabel>
+                <Select
+                  value={formData.subcategory}
+                  onChange={(e) =>
+                    setFormData({ ...formData, subcategory: e.target.value })
+                  }
+                  label="Subcategory"
+                >
+                  <MenuItem value="">None</MenuItem>
+                  {selectedCategory.subcategories.map((subcategory: string) => (
+                    <MenuItem key={subcategory} value={subcategory}>
+                      {subcategory}
+                    </MenuItem>
+                  ))}
