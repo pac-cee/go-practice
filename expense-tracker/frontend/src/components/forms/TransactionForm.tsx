@@ -74,3 +74,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <form onSubmit={handleSubmit}>
+        <DialogTitle>{transaction ? 'Edit Transaction' : 'Add Transaction'}</DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
+            <FormControl fullWidth>
+              <InputLabel>Type</InputLabel>
+              <Select
+                value={formData.type}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value as TransactionType })}
+                label="Type"
+                required
+              >
+                <MenuItem value="expense">Expense</MenuItem>
+                <MenuItem value="income">Income</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel>Category</InputLabel>
