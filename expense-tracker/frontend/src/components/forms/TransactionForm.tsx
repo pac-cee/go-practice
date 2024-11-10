@@ -55,3 +55,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
         subcategory: transaction.subcategory,
         account: transaction.account,
         description: transaction.description,
+        date: transaction.date,
+      });
+    } else {
+      setFormData(initialFormData);
+    }
+  }, [transaction]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSubmit(formData);
+    onClose();
+  };
+
+  const selectedCategory = state.categories.find(
+    (category: Category) => category.name === formData.category
+  );
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
