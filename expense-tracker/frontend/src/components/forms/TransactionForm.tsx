@@ -188,3 +188,17 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                   fullWidth: true,
                   required: true,
                 },
+              }}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button type="submit" variant="contained" color="primary">
+            {transaction ? 'Update' : 'Add'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
+  );
+};
