@@ -169,3 +169,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
               value={formData.description}
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
+              }
+              multiline
+              rows={2}
+            />
+
+            <DatePicker
+              label="Date"
+              value={formData.date ? dayjs(formData.date) : null}
+              onChange={(date: Dayjs | null) =>
+                setFormData({
+                  ...formData,
+                  date: date ? date.toISOString() : dayjs().toISOString(),
+                })
+              }
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  required: true,
+                },
