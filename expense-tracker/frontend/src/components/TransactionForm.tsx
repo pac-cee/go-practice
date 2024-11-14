@@ -131,3 +131,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                       {sub}
                     </MenuItem>
                   ))}
+                </Select>
+              </FormControl>
+            )}
+
+            <FormControl fullWidth>
+              <InputLabel>Account</InputLabel>
+              <Select
+                value={formData.account}
+                onChange={(e) => setFormData({ ...formData, account: e.target.value })}
+                label="Account"
+                required
+              >
+                {state.accounts.map((account: Account) => (
+                  <MenuItem key={account.id} value={account.name}>
+                    {account.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
