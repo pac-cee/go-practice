@@ -150,3 +150,22 @@ export const TransactionForm: React.FC<TransactionFormProps> = ({
                 ))}
               </Select>
             </FormControl>
+
+            <TextField
+              label="Amount"
+              type="number"
+              value={formData.amount}
+              onChange={(e) =>
+                setFormData({ ...formData, amount: parseFloat(e.target.value) })
+              }
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+              }}
+              required
+            />
+
+            <TextField
+              label="Description"
+              value={formData.description}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
