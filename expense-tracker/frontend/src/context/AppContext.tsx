@@ -36,3 +36,22 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
 
     case 'UPDATE_TRANSACTION':
       return {
+        ...state,
+        transactions: state.transactions.map((transaction: Transaction) =>
+          transaction.id === action.payload.id ? action.payload : transaction
+        ),
+      };
+
+    case 'DELETE_TRANSACTION':
+      return {
+        ...state,
+        transactions: state.transactions.filter((transaction: Transaction) => transaction.id !== action.payload),
+      };
+
+    case 'SET_CATEGORIES':
+      return {
+        ...state,
+        categories: action.payload,
+      };
+
+    case 'ADD_CATEGORY':
