@@ -74,3 +74,22 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         categories: state.categories.filter((category: Category) => category.id !== action.payload),
       };
 
+    case 'SET_BUDGETS':
+      return {
+        ...state,
+        budgets: action.payload,
+      };
+
+    case 'ADD_BUDGET':
+      return {
+        ...state,
+        budgets: [...state.budgets, action.payload],
+      };
+
+    case 'UPDATE_BUDGET':
+      return {
+        ...state,
+        budgets: state.budgets.map((budget: Budget) =>
+          budget.id === action.payload.id ? action.payload : budget
+        ),
+      };
