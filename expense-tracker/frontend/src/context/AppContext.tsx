@@ -131,3 +131,24 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         ...state,
         loading: action.payload,
       };
+
+    case 'SET_ERROR':
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  return (
+    <AppContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AppContext.Provider>
+  );
+};
