@@ -112,3 +112,22 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         accounts: [...state.accounts, action.payload],
       };
 
+    case 'UPDATE_ACCOUNT':
+      return {
+        ...state,
+        accounts: state.accounts.map((account: Account) =>
+          account.id === action.payload.id ? action.payload : account
+        ),
+      };
+
+    case 'DELETE_ACCOUNT':
+      return {
+        ...state,
+        accounts: state.accounts.filter((account: Account) => account.id !== action.payload),
+      };
+
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: action.payload,
+      };
