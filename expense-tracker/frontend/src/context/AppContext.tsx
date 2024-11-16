@@ -93,3 +93,22 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
           budget.id === action.payload.id ? action.payload : budget
         ),
       };
+
+    case 'DELETE_BUDGET':
+      return {
+        ...state,
+        budgets: state.budgets.filter((budget: Budget) => budget.id !== action.payload),
+      };
+
+    case 'SET_ACCOUNTS':
+      return {
+        ...state,
+        accounts: action.payload,
+      };
+
+    case 'ADD_ACCOUNT':
+      return {
+        ...state,
+        accounts: [...state.accounts, action.payload],
+      };
+
