@@ -36,3 +36,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     { text: 'Transactions', icon: <Receipt />, path: '/transactions' },
     { text: 'Categories', icon: <Category />, path: '/categories' },
     { text: 'Budget', icon: <AccountBalance />, path: '/budget' },
+    { text: 'Reports', icon: <Assessment />, path: '/reports' },
+  ];
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <div>
+      <Toolbar>
+        <Typography variant="h6" noWrap>
+          Expense Tracker
+        </Typography>
+      </Toolbar>
+      <List>
+        {menuItems.map((item) => (
+          <ListItem
+            button
+            key={item.text}
