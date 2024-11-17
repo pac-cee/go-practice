@@ -131,3 +131,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
+      >
+        <Toolbar />
+        <Outlet />
+        {children}
+      </Box>
+    </Box>
+  );
+};
+
+export default MainLayout;
