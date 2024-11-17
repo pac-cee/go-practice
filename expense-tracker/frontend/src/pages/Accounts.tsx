@@ -55,3 +55,22 @@ export const Accounts: React.FC = () => {
   const handleUpdateAccount = async (data: Omit<Account, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (!selectedAccount) return;
     
+    try {
+      const response = await accountApi.update(selectedAccount.id, data);
+      dispatch({ type: 'UPDATE_ACCOUNT', payload: response });
+      setSelectedAccount(null);
+      setOpenForm(false);
+    } catch (error) {
+      console.error('Error updating account:', error);
+    }
+  };
+
+  const handleDeleteAccount = async (id: string) => {
+    try {
+      await accountApi.delete(id);
+      dispatch({ type: 'DELETE_ACCOUNT', payload: id });
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    }
+  };
+
