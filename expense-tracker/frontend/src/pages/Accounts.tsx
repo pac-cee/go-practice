@@ -112,3 +112,22 @@ export const Accounts: React.FC = () => {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Type</TableCell>
+              <TableCell>Currency</TableCell>
+              <TableCell align="right">Balance</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {state.accounts.map((account) => (
+              <TableRow key={account.id}>
+                <TableCell>{account.name}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={account.type}
+                    color={account.type === 'savings' ? 'success' : 'default'}
+                    size="small"
+                  />
+                </TableCell>
+                <TableCell>{account.currency}</TableCell>
+                <TableCell align="right">
+                  <Typography
