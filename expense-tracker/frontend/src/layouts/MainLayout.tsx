@@ -55,3 +55,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <ListItem
             button
             key={item.text}
+            onClick={() => {
+              navigate(item.path);
+              setMobileOpen(false);
+            }}
+          >
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
