@@ -74,3 +74,22 @@ export const Accounts: React.FC = () => {
     }
   };
 
+  const calculateTotalBalance = () => {
+    return state.accounts.reduce((total, account) => total + account.balance, 0);
+  };
+
+  return (
+    <Box>
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h4">Accounts</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={() => {
+            setSelectedAccount(null);
+            setOpenForm(true);
+          }}
+        >
+          Add Account
+        </Button>
