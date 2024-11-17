@@ -93,3 +93,22 @@ export const Accounts: React.FC = () => {
         >
           Add Account
         </Button>
+      </Box>
+
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            Total Balance
+          </Typography>
+          <Typography variant="h4" color="primary">
+            ${calculateTotalBalance().toFixed(2)}
+          </Typography>
+        </CardContent>
+      </Card>
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Type</TableCell>
