@@ -36,3 +36,22 @@ export const Accounts: React.FC = () => {
         dispatch({ type: 'SET_ACCOUNTS', payload: response });
       } catch (error) {
         console.error('Error fetching accounts:', error);
+      }
+    };
+
+    fetchAccounts();
+  }, [dispatch]);
+
+  const handleAddAccount = async (data: Omit<Account, 'id' | 'createdAt' | 'updatedAt'>) => {
+    try {
+      const response = await accountApi.create(data);
+      dispatch({ type: 'ADD_ACCOUNT', payload: response });
+      setOpenForm(false);
+    } catch (error) {
+      console.error('Error adding account:', error);
+    }
+  };
+
+  const handleUpdateAccount = async (data: Omit<Account, 'id' | 'createdAt' | 'updatedAt'>) => {
+    if (!selectedAccount) return;
+    
