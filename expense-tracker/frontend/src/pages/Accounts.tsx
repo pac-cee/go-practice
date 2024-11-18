@@ -131,3 +131,22 @@ export const Accounts: React.FC = () => {
                 <TableCell>{account.currency}</TableCell>
                 <TableCell align="right">
                   <Typography
+                    color={account.balance >= 0 ? 'success.main' : 'error.main'}
+                  >
+                    ${account.balance.toFixed(2)}
+                  </Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      setSelectedAccount(account);
+                      setOpenForm(true);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleDeleteAccount(account.id)}
+                  >
