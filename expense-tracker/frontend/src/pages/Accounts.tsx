@@ -150,3 +150,24 @@ export const Accounts: React.FC = () => {
                     size="small"
                     onClick={() => handleDeleteAccount(account.id)}
                   >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <AccountForm
+        open={openForm}
+        onClose={() => {
+          setOpenForm(false);
+          setSelectedAccount(null);
+        }}
+        account={selectedAccount}
+        onSubmit={selectedAccount ? handleUpdateAccount : handleAddAccount}
+      />
+    </Box>
+  );
+};
