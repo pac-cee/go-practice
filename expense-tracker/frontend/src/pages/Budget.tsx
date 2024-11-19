@@ -55,3 +55,22 @@ export const BudgetPage: React.FC = () => {
           body: JSON.stringify(data),
         });
 
+        if (!response.ok) {
+          throw new Error('Failed to create budget');
+        }
+
+        const newBudget = await response.json();
+        dispatch({ type: 'ADD_BUDGET', payload: newBudget });
+      }
+
+      handleCloseForm();
+    } catch (error) {
+      console.error('Error submitting budget:', error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await fetch(`/api/budgets/${id}`, {
+        method: 'DELETE',
+      });
