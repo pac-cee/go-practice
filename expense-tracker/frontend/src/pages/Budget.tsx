@@ -36,3 +36,22 @@ export const BudgetPage: React.FC = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update budget');
+        }
+
+        const updatedBudget = await response.json();
+        dispatch({ type: 'UPDATE_BUDGET', payload: updatedBudget });
+      } else {
+        // Create new budget
+        const response = await fetch('/api/budgets', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
