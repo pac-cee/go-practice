@@ -74,3 +74,22 @@ export const BudgetPage: React.FC = () => {
       const response = await fetch(`/api/budgets/${id}`, {
         method: 'DELETE',
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete budget');
+      }
+
+      dispatch({ type: 'DELETE_BUDGET', payload: id });
+    } catch (error) {
+      console.error('Error deleting budget:', error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBudgets = async () => {
+      try {
+        const response = await fetch('/api/budgets');
+        if (!response.ok) {
+          throw new Error('Failed to fetch budgets');
+        }
+
