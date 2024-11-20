@@ -131,3 +131,22 @@ export const BudgetPage: React.FC = () => {
                       color={budget.spent > budget.amount ? 'error' : 'primary'}
                     />
                   </Box>
+                  <Box sx={{ minWidth: 35 }}>
+                    <Typography variant="body2" color="textSecondary">
+                      {((budget.spent / budget.amount) * 100).toFixed(0)}%
+                    </Typography>
+                  </Box>
+                </Box>
+                <Typography variant="body2" color="textSecondary">
+                  Spent: ${budget.spent.toFixed(2)}
+                </Typography>
+                <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => handleOpenForm(budget)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    size="small"
