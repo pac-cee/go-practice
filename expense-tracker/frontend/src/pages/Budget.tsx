@@ -150,3 +150,25 @@ export const BudgetPage: React.FC = () => {
                   </Button>
                   <Button
                     size="small"
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDelete(budget.id)}
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      <BudgetForm
+        open={openForm}
+        onClose={handleCloseForm}
+        budget={selectedBudget}
+        onSubmit={handleSubmit}
+      />
+    </Box>
+  );
+};
