@@ -112,3 +112,22 @@ export const BudgetPage: React.FC = () => {
         </Button>
       </Box>
 
+      <Grid container spacing={3}>
+        {state.budgets.map((budget) => (
+          <Grid item xs={12} sm={6} md={4} key={budget.id}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  {budget.category}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
+                  ${budget.amount.toFixed(2)}
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <Box sx={{ width: '100%', mr: 1 }}>
+                    <LinearProgress
+                      variant="determinate"
+                      value={(budget.spent / budget.amount) * 100}
+                      color={budget.spent > budget.amount ? 'error' : 'primary'}
+                    />
+                  </Box>
