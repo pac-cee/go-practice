@@ -93,3 +93,22 @@ export const BudgetPage: React.FC = () => {
           throw new Error('Failed to fetch budgets');
         }
 
+        const budgets = await response.json();
+        dispatch({ type: 'SET_BUDGETS', payload: budgets });
+      } catch (error) {
+        console.error('Error fetching budgets:', error);
+      }
+    };
+
+    fetchBudgets();
+  }, [dispatch]);
+
+  return (
+    <Box sx={{ p: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+        <Typography variant="h4">Budgets</Typography>
+        <Button variant="contained" color="primary" onClick={() => handleOpenForm()}>
+          Add Budget
+        </Button>
+      </Box>
+
