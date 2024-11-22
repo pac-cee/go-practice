@@ -36,3 +36,22 @@ export const Categories: React.FC = () => {
         dispatch({ type: 'SET_CATEGORIES', payload: response });
       } catch (error) {
         console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, [dispatch]);
+
+  const handleAddCategory = async (data: Omit<Category, 'id' | 'createdAt' | 'updatedAt'>) => {
+    try {
+      const response = await categoryApi.create(data);
+      dispatch({ type: 'ADD_CATEGORY', payload: response });
+      setOpenForm(false);
+    } catch (error) {
+      console.error('Error adding category:', error);
+    }
+  };
+
+  const handleUpdateCategory = async (data: Omit<Category, 'id' | 'createdAt' | 'updatedAt'>) => {
+    if (!selectedCategory) return;
+    
