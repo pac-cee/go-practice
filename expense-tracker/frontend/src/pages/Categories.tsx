@@ -93,3 +93,22 @@ export const Categories: React.FC = () => {
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Expense Categories
+              </Typography>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Subcategories</TableCell>
+                      <TableCell align="right">Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {state.categories
+                      .filter((category) => category.type === 'expense')
+                      .map((category) => (
+                        <TableRow key={category.id}>
