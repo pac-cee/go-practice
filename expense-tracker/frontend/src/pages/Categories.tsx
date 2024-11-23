@@ -112,3 +112,22 @@ export const Categories: React.FC = () => {
                       .filter((category) => category.type === 'expense')
                       .map((category) => (
                         <TableRow key={category.id}>
+                          <TableCell>{category.name}</TableCell>
+                          <TableCell>
+                            {category.subcategories?.map((sub) => (
+                              <Chip
+                                key={sub}
+                                label={sub}
+                                size="small"
+                                variant="outlined"
+                                sx={{ mr: 1, mb: 1 }}
+                              />
+                            ))}
+                          </TableCell>
+                          <TableCell align="right">
+                            <IconButton
+                              size="small"
+                              onClick={() => {
+                                setSelectedCategory(category);
+                                setOpenForm(true);
+                              }}
