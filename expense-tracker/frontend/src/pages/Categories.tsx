@@ -55,3 +55,22 @@ export const Categories: React.FC = () => {
   const handleUpdateCategory = async (data: Omit<Category, 'id' | 'createdAt' | 'updatedAt'>) => {
     if (!selectedCategory) return;
     
+    try {
+      const response = await categoryApi.update(selectedCategory.id, data);
+      dispatch({ type: 'UPDATE_CATEGORY', payload: response });
+      setSelectedCategory(null);
+      setOpenForm(false);
+    } catch (error) {
+      console.error('Error updating category:', error);
+    }
+  };
+
+  const handleDeleteCategory = async (id: string) => {
+    try {
+      await categoryApi.delete(id);
+      dispatch({ type: 'DELETE_CATEGORY', payload: id });
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    }
+  };
+
