@@ -150,3 +150,22 @@ export const Categories: React.FC = () => {
           </Card>
         </Grid>
 
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Income Categories
+              </Typography>
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Subcategories</TableCell>
+                      <TableCell align="right">Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {state.categories
+                      .filter((category) => category.type === 'income')
+                      .map((category) => (
