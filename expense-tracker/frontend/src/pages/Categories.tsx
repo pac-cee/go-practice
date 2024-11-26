@@ -207,3 +207,17 @@ export const Categories: React.FC = () => {
             </CardContent>
           </Card>
         </Grid>
+      </Grid>
+
+      <CategoryForm
+        open={openForm}
+        onClose={() => {
+          setOpenForm(false);
+          setSelectedCategory(null);
+        }}
+        category={selectedCategory}
+        onSubmit={selectedCategory ? handleUpdateCategory : handleAddCategory}
+      />
+    </Box>
+  );
+};
