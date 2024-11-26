@@ -36,3 +36,22 @@ const Dashboard: React.FC = () => {
         
         const [transactionReport, categoryReport] = await Promise.all([
           reportApi.getTransactionReport({ startDate: startDate.toISOString() }),
+          reportApi.getCategoryReport({ startDate: startDate.toISOString() })
+        ]);
+
+        setTotalIncome(transactionReport.totalIncome);
+        setTotalExpenses(transactionReport.totalExpenses);
+        setNetAmount(transactionReport.netAmount);
+        setCategoryExpenses(categoryReport);
+
+        // Process monthly data for charts
+        const monthlyTransactions = transactionReport.transactions.reduce((acc: any, transaction: any) => {
+          const date = new Date(transaction.date);
+          const monthYear = `${date.getFullYear()}-${date.getMonth() + 1}`;
+          
+          if (!acc[monthYear]) {
+            acc[monthYear] = {
+              income: 0,
+              expenses: 0,
+            };
+          }
