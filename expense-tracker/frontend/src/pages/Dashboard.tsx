@@ -93,3 +93,22 @@ const Dashboard: React.FC = () => {
         label: 'Expenses',
         data: monthlyData.map(item => Math.abs(item.expenses)),
         backgroundColor: [theme.palette.error.main],
+        borderColor: [theme.palette.error.dark],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const trendData = {
+    labels: monthlyData.map(item => item.date),
+    datasets: [
+      {
+        label: 'Net Balance',
+        data: monthlyData.map(item => item.income - Math.abs(item.expenses)),
+        borderColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.light + '40',
+        fill: true,
+        tension: 0.4,
+      },
+    ],
+  };
