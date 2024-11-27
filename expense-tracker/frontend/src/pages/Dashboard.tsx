@@ -74,3 +74,22 @@ const Dashboard: React.FC = () => {
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  const chartData = {
+    labels: monthlyData.map(item => item.date),
+    datasets: [
+      {
+        label: 'Income',
+        data: monthlyData.map(item => item.income),
+        backgroundColor: [theme.palette.success.main],
+        borderColor: [theme.palette.success.dark],
+        borderWidth: 1,
+      },
+      {
+        label: 'Expenses',
+        data: monthlyData.map(item => Math.abs(item.expenses)),
+        backgroundColor: [theme.palette.error.main],
