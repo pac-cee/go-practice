@@ -131,3 +131,22 @@ const Dashboard: React.FC = () => {
             ${totalIncome.toFixed(2)}
           </Typography>
         </StyledPaper>
+      </Grid>
+
+      <Grid item xs={12} md={4}>
+        <StyledPaper>
+          <Typography variant="h6" gutterBottom>
+            Total Expenses
+          </Typography>
+          <Typography variant="h4" color="error.main">
+            ${totalExpenses.toFixed(2)}
+          </Typography>
+        </StyledPaper>
+      </Grid>
+
+      <Grid item xs={12} md={4}>
+        <StyledPaper>
+          <Typography variant="h6" gutterBottom>
+            Net Amount
+          </Typography>
+          <Typography
