@@ -150,3 +150,22 @@ const Dashboard: React.FC = () => {
             Net Amount
           </Typography>
           <Typography
+            variant="h4"
+            color={netAmount >= 0 ? 'success.main' : 'error.main'}
+          >
+            ${netAmount.toFixed(2)}
+          </Typography>
+        </StyledPaper>
+      </Grid>
+
+      {/* Charts */}
+      <Grid item xs={12} md={6}>
+        <StyledPaper>
+          <Typography variant="h6" gutterBottom>
+            Expense Distribution
+          </Typography>
+          <Box sx={{ height: 300 }}>
+            <ExpensePieChart data={categoryExpenses} />
+          </Box>
+        </StyledPaper>
+      </Grid>
