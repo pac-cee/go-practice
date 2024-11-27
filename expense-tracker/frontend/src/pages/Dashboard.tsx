@@ -112,3 +112,22 @@ const Dashboard: React.FC = () => {
       },
     ],
   };
+
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <Typography variant="h4" gutterBottom>
+          Dashboard
+        </Typography>
+      </Grid>
+
+      {/* Summary Cards */}
+      <Grid item xs={12} md={4}>
+        <StyledPaper>
+          <Typography variant="h6" gutterBottom>
+            Total Income
+          </Typography>
+          <Typography variant="h4" color="success.main">
+            ${totalIncome.toFixed(2)}
+          </Typography>
+        </StyledPaper>
