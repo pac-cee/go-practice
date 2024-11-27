@@ -169,3 +169,22 @@ const Dashboard: React.FC = () => {
           </Box>
         </StyledPaper>
       </Grid>
+
+      <Grid item xs={12} md={6}>
+        <StyledPaper>
+          <Typography variant="h6" gutterBottom>
+            Income vs Expenses
+          </Typography>
+          <Box sx={{ height: 300 }}>
+            <IncomeExpenseChart data={chartData} />
+          </Box>
+        </StyledPaper>
+      </Grid>
+
+      <Grid item xs={12}>
+        <StyledPaper>
+          <Typography variant="h6" gutterBottom>
+            Balance Trend
+          </Typography>
+          <Box sx={{ height: 300 }}>
+            <TrendLineChart data={trendData} />
