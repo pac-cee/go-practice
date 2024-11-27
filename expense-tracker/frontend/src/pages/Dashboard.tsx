@@ -55,3 +55,22 @@ const Dashboard: React.FC = () => {
               expenses: 0,
             };
           }
+
+          if (transaction.amount >= 0) {
+            acc[monthYear].income += transaction.amount;
+          } else {
+            acc[monthYear].expenses += Math.abs(transaction.amount);
+          }
+
+          return acc;
+        }, {});
+
+        const chartData = Object.entries(monthlyTransactions).map(([date, data]: [string, any]) => ({
+          date,
+          ...data,
+        }));
+
+        setMonthlyData(chartData);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+      }
