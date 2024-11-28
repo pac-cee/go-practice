@@ -36,3 +36,22 @@ interface FilterValues {
   endDate: Dayjs | null;
   type: string;
   category: string;
+  account: string;
+}
+
+export const Transactions: React.FC = () => {
+  const { state, dispatch } = useAppContext();
+  const [openForm, setOpenForm] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filters, setFilters] = useState<FilterValues>({
+    startDate: dayjs().startOf('month'),
+    endDate: dayjs().endOf('month'),
+    type: 'all',
+    category: 'all',
+    account: 'all',
+  });
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
