@@ -55,3 +55,11 @@ const Reports = () => {
           </Typography>
           <Box sx={{ height: 300 }}>
             {/* Chart component will be added here */}
+          </Box>
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+};
+
+export default Reports;
