@@ -36,3 +36,22 @@ const Reports = () => {
       </Grid>
 
       {/* Expense by Category Chart */}
+      <Grid item xs={12} md={6}>
+        <Paper sx={{ p: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Expenses by Category
+          </Typography>
+          <Box sx={{ height: 300 }}>
+            {/* Chart component will be added here */}
+          </Box>
+        </Paper>
+      </Grid>
+
+      {/* Monthly Trend Chart */}
+      <Grid item xs={12}>
+        <Paper sx={{ p: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Monthly Trend
+          </Typography>
+          <Box sx={{ height: 300 }}>
+            {/* Chart component will be added here */}
