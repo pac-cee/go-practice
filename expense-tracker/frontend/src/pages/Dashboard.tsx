@@ -188,3 +188,11 @@ const Dashboard: React.FC = () => {
           </Typography>
           <Box sx={{ height: 300 }}>
             <TrendLineChart data={trendData} />
+          </Box>
+        </StyledPaper>
+      </Grid>
+    </Grid>
+  );
+};
+
+export default Dashboard;
