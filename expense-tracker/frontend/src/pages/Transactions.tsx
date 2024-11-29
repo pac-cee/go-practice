@@ -55,3 +55,22 @@ export const Transactions: React.FC = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
+      try {
+        const response = await transactionApi.getAll();
+        dispatch({ type: 'SET_TRANSACTIONS', payload: response });
+      } catch (error) {
+        console.error('Error fetching transactions:', error);
+      }
+    };
+
+    fetchTransactions();
+  }, [dispatch]);
+
+  const handleUpdateTransaction = async (data: Omit<Transaction, 'id' | 'createdAt' | 'updatedAt'>) => {
+    if (!selectedTransaction) return;
+    
+    try {
+      const response = await transactionApi.update(selectedTransaction.id, data);
+      dispatch({ type: 'UPDATE_TRANSACTION', payload: response });
+      setSelectedTransaction(null);
+      setOpenForm(false);
