@@ -112,3 +112,22 @@ export const Transactions: React.FC = () => {
     return matchesType && matchesCategory && matchesAccount && matchesDate;
   });
 
+  const sortedTransactions = [...filteredTransactions].sort(
+    (a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf()
+  );
+
+  const paginatedTransactions = sortedTransactions.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
+  return (
+    <Box>
+      <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h4">Transactions</Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={() => {
+            setSelectedTransaction(null);
