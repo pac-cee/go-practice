@@ -93,3 +93,22 @@ export const Transactions: React.FC = () => {
     try {
       await transactionApi.delete(id);
       dispatch({ type: 'DELETE_TRANSACTION', payload: id });
+    } catch (error) {
+      console.error('Error deleting transaction:', error);
+    }
+  };
+
+  const filteredTransactions = state.transactions.filter((transaction) => {
+    const matchesType =
+      filters.type === 'all' || transaction.type === filters.type;
+    const matchesCategory =
+      filters.category === 'all' || transaction.category === filters.category;
+    const matchesAccount =
+      filters.account === 'all' || transaction.account === filters.account;
+    const matchesDate =
+      (!filters.startDate || dayjs(transaction.date).isAfter(filters.startDate, 'day') || dayjs(transaction.date).isSame(filters.startDate, 'day')) &&
+      (!filters.endDate || dayjs(transaction.date).isBefore(filters.endDate, 'day') || dayjs(transaction.date).isSame(filters.endDate, 'day'));
+
+    return matchesType && matchesCategory && matchesAccount && matchesDate;
+  });
+
