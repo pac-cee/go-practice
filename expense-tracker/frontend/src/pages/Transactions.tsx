@@ -74,3 +74,22 @@ export const Transactions: React.FC = () => {
       dispatch({ type: 'UPDATE_TRANSACTION', payload: response });
       setSelectedTransaction(null);
       setOpenForm(false);
+    } catch (error) {
+      console.error('Error updating transaction:', error);
+    }
+  };
+
+  const handleAddTransaction = async (data: Omit<Transaction, 'id' | 'createdAt' | 'updatedAt'>) => {
+    try {
+      const response = await transactionApi.create(data);
+      dispatch({ type: 'ADD_TRANSACTION', payload: response });
+      setOpenForm(false);
+    } catch (error) {
+      console.error('Error adding transaction:', error);
+    }
+  };
+
+  const handleDeleteTransaction = async (id: string) => {
+    try {
+      await transactionApi.delete(id);
+      dispatch({ type: 'DELETE_TRANSACTION', payload: id });
