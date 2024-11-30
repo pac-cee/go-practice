@@ -188,3 +188,22 @@ export const Transactions: React.FC = () => {
                       {account.name}
                     </MenuItem>
                   ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
+              <DatePicker
+                label="Start Date"
+                value={filters.startDate}
+                onChange={(newValue: Dayjs | null) => setFilters({ ...filters, startDate: newValue })}
+                slotProps={{
+                  textField: {
+                    size: 'small',
+                    fullWidth: true,
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={3}>
