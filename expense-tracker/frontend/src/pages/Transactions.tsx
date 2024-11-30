@@ -131,3 +131,22 @@ export const Transactions: React.FC = () => {
           startIcon={<AddIcon />}
           onClick={() => {
             setSelectedTransaction(null);
+            setOpenForm(true);
+          }}
+        >
+          Add Transaction
+        </Button>
+      </Box>
+
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={12} sm={6} md={2}>
+              <FormControl fullWidth size="small">
+                <InputLabel>Type</InputLabel>
+                <Select
+                  value={filters.type}
+                  onChange={(e) => setFilters({ ...filters, type: e.target.value })}
+                  label="Type"
+                >
+                  <MenuItem value="all">All</MenuItem>
