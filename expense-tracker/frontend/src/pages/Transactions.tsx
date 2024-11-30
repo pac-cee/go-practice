@@ -169,3 +169,22 @@ export const Transactions: React.FC = () => {
                     <MenuItem key={category.id} value={category.name}>
                       {category.name}
                     </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={2}>
+              <FormControl fullWidth size="small">
+                <InputLabel>Account</InputLabel>
+                <Select
+                  value={filters.account}
+                  onChange={(e) => setFilters({ ...filters, account: e.target.value })}
+                  label="Account"
+                >
+                  <MenuItem value="all">All</MenuItem>
+                  {state.accounts.map((account) => (
+                    <MenuItem key={account.id} value={account.name}>
+                      {account.name}
+                    </MenuItem>
+                  ))}
