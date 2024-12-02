@@ -207,3 +207,22 @@ export const Transactions: React.FC = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={3}>
+              <DatePicker
+                label="End Date"
+                value={filters.endDate}
+                onChange={(newValue: Dayjs | null) => setFilters({ ...filters, endDate: newValue })}
+                slotProps={{
+                  textField: {
+                    size: 'small',
+                    fullWidth: true,
+                  },
+                }}
+              />
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
