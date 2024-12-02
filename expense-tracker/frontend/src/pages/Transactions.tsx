@@ -226,3 +226,22 @@ export const Transactions: React.FC = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
+            <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Account</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginatedTransactions.map((transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell>{dayjs(transaction.date).format('YYYY-MM-DD')}</TableCell>
+                <TableCell>
+                  <Chip
+                    label={transaction.type}
+                    color={transaction.type === 'expense' ? 'error' : 'success'}
+                    size="small"
