@@ -245,3 +245,22 @@ export const Transactions: React.FC = () => {
                     label={transaction.type}
                     color={transaction.type === 'expense' ? 'error' : 'success'}
                     size="small"
+                  />
+                </TableCell>
+                <TableCell>{transaction.category}</TableCell>
+                <TableCell>{transaction.account}</TableCell>
+                <TableCell>{transaction.description}</TableCell>
+                <TableCell align="right">
+                  <Typography
+                    color={transaction.type === 'expense' ? 'error' : 'success'}
+                  >
+                    ${Math.abs(transaction.amount).toFixed(2)}
+                  </Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      setSelectedTransaction(transaction);
+                      setOpenForm(true);
+                    }}
