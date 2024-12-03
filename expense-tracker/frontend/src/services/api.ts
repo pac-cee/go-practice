@@ -74,3 +74,22 @@ export const budgetApi = {
   getById: async (id: string) => {
     const response = await api.get<Budget>(`/budgets/${id}`);
     return response.data;
+  },
+
+  create: async (budget: Omit<Budget, 'id' | 'spent' | 'createdAt' | 'updatedAt'>) => {
+    const response = await api.post<Budget>('/budgets', budget);
+    return response.data;
+  },
+
+  update: async (id: string, budget: Partial<Budget>) => {
+    const response = await api.put<Budget>(`/budgets/${id}`, budget);
+    return response.data;
+  },
+
+  delete: async (id: string) => {
+    await api.delete(`/budgets/${id}`);
+  },
+};
+
+// Account API
+export const accountApi = {
