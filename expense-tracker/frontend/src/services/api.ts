@@ -93,3 +93,22 @@ export const budgetApi = {
 
 // Account API
 export const accountApi = {
+  getAll: async () => {
+    const response = await api.get<Account[]>('/accounts');
+    return response.data;
+  },
+
+  getById: async (id: string) => {
+    const response = await api.get<Account>(`/accounts/${id}`);
+    return response.data;
+  },
+
+  create: async (account: Omit<Account, 'id' | 'balance' | 'createdAt' | 'updatedAt'>) => {
+    const response = await api.post<Account>('/accounts', account);
+    return response.data;
+  },
+
+  update: async (id: string, account: Partial<Account>) => {
+    const response = await api.put<Account>(`/accounts/${id}`, account);
+    return response.data;
+  },
