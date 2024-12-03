@@ -36,3 +36,22 @@ export const transactionApi = {
     await api.delete(`/transactions/${id}`);
   },
 };
+
+// Category API
+export const categoryApi = {
+  getAll: async () => {
+    const response = await api.get<Category[]>('/categories');
+    return response.data;
+  },
+
+  getById: async (id: string) => {
+    const response = await api.get<Category>(`/categories/${id}`);
+    return response.data;
+  },
+
+  create: async (category: Omit<Category, 'id' | 'createdAt' | 'updatedAt'>) => {
+    const response = await api.post<Category>('/categories', category);
+    return response.data;
+  },
+
+  update: async (id: string, category: Partial<Category>) => {
