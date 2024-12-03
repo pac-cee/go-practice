@@ -283,3 +283,24 @@ export const Transactions: React.FC = () => {
           component="div"
           count={filteredTransactions.length}
           rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={(_, newPage) => setPage(newPage)}
+          onRowsPerPageChange={(e) => {
+            setRowsPerPage(parseInt(e.target.value, 10));
+            setPage(0);
+          }}
+        />
+      </TableContainer>
+
+      <TransactionForm
+        open={openForm}
+        onClose={() => {
+          setOpenForm(false);
+          setSelectedTransaction(null);
+        }}
+        transaction={selectedTransaction}
+        onSubmit={selectedTransaction ? handleUpdateTransaction : handleAddTransaction}
+      />
+    </Box>
+  );
+};
