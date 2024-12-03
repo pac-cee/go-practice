@@ -55,3 +55,22 @@ export const categoryApi = {
   },
 
   update: async (id: string, category: Partial<Category>) => {
+    const response = await api.put<Category>(`/categories/${id}`, category);
+    return response.data;
+  },
+
+  delete: async (id: string) => {
+    await api.delete(`/categories/${id}`);
+  },
+};
+
+// Budget API
+export const budgetApi = {
+  getAll: async () => {
+    const response = await api.get<Budget[]>('/budgets');
+    return response.data;
+  },
+
+  getById: async (id: string) => {
+    const response = await api.get<Budget>(`/budgets/${id}`);
+    return response.data;
