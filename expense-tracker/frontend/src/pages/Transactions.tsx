@@ -264,3 +264,22 @@ export const Transactions: React.FC = () => {
                       setSelectedTransaction(transaction);
                       setOpenForm(true);
                     }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleDeleteTransaction(transaction.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={filteredTransactions.length}
+          rowsPerPage={rowsPerPage}
