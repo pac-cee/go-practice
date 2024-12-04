@@ -131,3 +131,19 @@ export const reportApi = {
   },
 
   getBudgetReport: async () => {
+    const response = await api.get<BudgetReport[]>('/reports/budgets');
+    return response.data;
+  },
+};
+
+// Error handling interceptor
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const message = error.response?.data?.error || 'An error occurred';
+    console.error('API Error:', message);
+    throw new Error(message);
+  }
+);
+
+export default api;
