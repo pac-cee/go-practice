@@ -17,3 +17,22 @@ export interface Transaction extends BaseModel {
   account: string;
   description: string;
   date: string;
+}
+
+export interface Category extends BaseModel {
+  name: string;
+  type: CategoryType;
+  subcategories: string[];
+}
+
+export interface Budget extends BaseModel {
+  amount: number;
+  spent: number;
+  category: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface Account extends BaseModel {
+  name: string;
+  type: AccountType;
