@@ -112,3 +112,22 @@ export const accountApi = {
     const response = await api.put<Account>(`/accounts/${id}`, account);
     return response.data;
   },
+
+  delete: async (id: string) => {
+    await api.delete(`/accounts/${id}`);
+  },
+};
+
+// Report API
+export const reportApi = {
+  getTransactionReport: async (params?: { startDate?: string; endDate?: string }) => {
+    const response = await api.get<TransactionReport>('/reports/transactions', { params });
+    return response.data;
+  },
+
+  getCategoryReport: async (params?: { startDate?: string; endDate?: string }) => {
+    const response = await api.get<CategoryExpenseSummary[]>('/reports/categories', { params });
+    return response.data;
+  },
+
+  getBudgetReport: async () => {
