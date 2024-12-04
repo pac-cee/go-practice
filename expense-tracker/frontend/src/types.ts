@@ -36,3 +36,22 @@ export interface Budget extends BaseModel {
 export interface Account extends BaseModel {
   name: string;
   type: AccountType;
+  balance: number;
+  currency: string;
+}
+
+export interface CategoryExpenseSummary {
+  category: string;
+  amount: number;
+  percentage: number;
+}
+
+export interface TransactionFilters {
+  startDate?: string;
+  endDate?: string;
+  type?: TransactionType;
+  category?: string;
+  account?: string;
+  minAmount?: number;
+  maxAmount?: number;
+}
