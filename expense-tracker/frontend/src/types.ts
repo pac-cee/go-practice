@@ -55,3 +55,22 @@ export interface TransactionFilters {
   minAmount?: number;
   maxAmount?: number;
 }
+
+export interface TransactionReport {
+  totalIncome: number;
+  totalExpenses: number;
+  netIncome: number;
+  categoryBreakdown: CategoryExpenseSummary[];
+}
+
+export interface BudgetReport {
+  totalBudget: number;
+  totalSpent: number;
+  remaining: number;
+  categories: {
+    category: string;
+    budget: number;
+    spent: number;
+    remaining: number;
+    percentage: number;
+  }[];
