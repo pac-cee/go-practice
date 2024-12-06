@@ -74,3 +74,22 @@ export interface BudgetReport {
     remaining: number;
     percentage: number;
   }[];
+}
+
+export interface AppState {
+  transactions: Transaction[];
+  categories: Category[];
+  budgets: Budget[];
+  accounts: Account[];
+  loading: boolean;
+  error: string | null;
+}
+
+export type AppAction =
+  | { type: 'SET_TRANSACTIONS'; payload: Transaction[] }
+  | { type: 'ADD_TRANSACTION'; payload: Transaction }
+  | { type: 'UPDATE_TRANSACTION'; payload: Transaction }
+  | { type: 'DELETE_TRANSACTION'; payload: string }
+  | { type: 'SET_CATEGORIES'; payload: Category[] }
+  | { type: 'ADD_CATEGORY'; payload: Category }
+  | { type: 'UPDATE_CATEGORY'; payload: Category }
