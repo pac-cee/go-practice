@@ -55,3 +55,22 @@ export interface CategoryExpenseSummary {
 }
 
 export interface BudgetReport {
+  category: string;
+  budgetAmount: number;
+  spentAmount: number;
+  percentage: number;
+  startDate: string;
+  endDate: string;
+}
+
+export interface AppState {
+  transactions: Transaction[];
+  categories: Category[];
+  budgets: Budget[];
+  accounts: Account[];
+  loading: boolean;
+  error: string | null;
+}
+
+export type AppAction =
+  | { type: 'SET_TRANSACTIONS'; payload: Transaction[] }
