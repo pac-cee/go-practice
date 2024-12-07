@@ -36,3 +36,22 @@ export interface Budget extends BaseModel {
   spent: number;
   category: string;
   period: BudgetPeriod;
+  startDate: string;
+  endDate: string;
+}
+
+export interface TransactionReport {
+  totalIncome: number;
+  totalExpenses: number;
+  netAmount: number;
+  transactions: Transaction[];
+  categories: CategoryExpenseSummary[];
+}
+
+export interface CategoryExpenseSummary {
+  category: string;
+  amount: number;
+  count: number;
+}
+
+export interface BudgetReport {
