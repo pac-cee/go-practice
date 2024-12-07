@@ -74,3 +74,22 @@ export interface AppState {
 
 export type AppAction =
   | { type: 'SET_TRANSACTIONS'; payload: Transaction[] }
+  | { type: 'ADD_TRANSACTION'; payload: Transaction }
+  | { type: 'UPDATE_TRANSACTION'; payload: Transaction }
+  | { type: 'DELETE_TRANSACTION'; payload: string }
+  | { type: 'SET_CATEGORIES'; payload: Category[] }
+  | { type: 'ADD_CATEGORY'; payload: Category }
+  | { type: 'UPDATE_CATEGORY'; payload: Category }
+  | { type: 'DELETE_CATEGORY'; payload: string }
+  | { type: 'SET_BUDGETS'; payload: Budget[] }
+  | { type: 'ADD_BUDGET'; payload: Budget }
+  | { type: 'UPDATE_BUDGET'; payload: Budget }
+  | { type: 'DELETE_BUDGET'; payload: string }
+  | { type: 'SET_ACCOUNTS'; payload: Account[] }
+  | { type: 'ADD_ACCOUNT'; payload: Account }
+  | { type: 'UPDATE_ACCOUNT'; payload: Account }
+  | { type: 'DELETE_ACCOUNT'; payload: string }
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_ERROR'; payload: string | null };
+
+export interface ChartData {
