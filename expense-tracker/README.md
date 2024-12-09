@@ -17,3 +17,22 @@ A full-stack web application for tracking personal expenses and income across mu
 - Backend: Golang
 - Database: MongoDB
 - Authentication: JWT
+
+## Project Structure
+
+```
+expense-tracker/
+├── frontend/           # React TypeScript frontend
+│   ├── src/           # Source files
+│   └── public/        # Static files
+└── backend/           # Golang backend
+    ├── api/           # API handlers
+    ├── config/        # Configuration files
+    ├── models/        # Database models
+    ├── routes/        # API routes
+    └── utils/         # Utility functions
+```
+
+## Getting Started
+
+### Prerequisites
