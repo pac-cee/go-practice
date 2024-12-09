@@ -93,3 +93,23 @@ export type AppAction =
   | { type: 'SET_ERROR'; payload: string | null };
 
 export interface ChartData {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor?: string | string[];
+    borderColor?: string | string[];
+    borderWidth?: number;
+    fill?: boolean;
+  }[];
+}
+
+export interface ApiResponse<T> {
+  data: T;
+  message?: string;
+}
+
+export interface ApiError {
+  message: string;
+  errors?: Record<string, string>;
+}
