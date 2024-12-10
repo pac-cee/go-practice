@@ -36,3 +36,22 @@ type SafeCounter struct {
 }
 
 // Increment increases the counter by 1
+func (sc *SafeCounter) Increment() {
+	sc.mu.Lock()
+	defer sc.mu.Unlock()
+	sc.count++
+}
+
+// GetCount returns the current count
+func (sc *SafeCounter) GetCount() int {
+	sc.mu.Lock()
+	defer sc.mu.Unlock()
+	return sc.count
+}
+
+// processUser demonstrates error handling
+func processUser(u *User) error {
+	if u == nil {
+		return fmt.Errorf("user cannot be nil")
+	}
+	if u.Email == "" {
