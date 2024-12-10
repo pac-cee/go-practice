@@ -36,3 +36,11 @@ expense-tracker/
 ## Getting Started
 
 ### Prerequisites
+
+- Node.js (v16 or higher)
+- Go (v1.16 or higher)
+- MongoDB
+
+### Installation
+
+Detailed installation instructions will be added soon.
