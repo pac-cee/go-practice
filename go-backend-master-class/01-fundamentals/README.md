@@ -36,3 +36,22 @@ type UserInterface interface {
 ### 2. Method Receivers
 ```go
 func (u *User) GetEmail() string
+func (u *User) UpdateEmail(newEmail string)
+```
+- Methods are defined with pointer receivers (`*User`) to allow modification of the struct
+- This implements the `UserInterface`, showing Go's interface satisfaction
+
+### 3. Concurrent Programming
+```go
+type SafeCounter struct {
+    mu    sync.Mutex
+    count int
+}
+```
+- `SafeCounter` demonstrates thread-safe operations using mutexes
+- `sync.Mutex` ensures only one goroutine can access the counter at a time
+- Methods `Increment()` and `GetCount()` show proper mutex usage
+
+### 4. Error Handling
+```go
+func processUser(u *User) error {
