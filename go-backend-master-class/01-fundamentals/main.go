@@ -74,3 +74,22 @@ func main() {
 		Username: "johndoe",
 		Email:    "john@example.com",
 	}
+
+	// 2. Interface usage
+	var userInterface UserInterface = user
+	userInterface.UpdateEmail("newemail@example.com")
+	fmt.Printf("Updated email: %s\n", userInterface.GetEmail())
+
+	// 3. Error handling
+	if err := processUser(user); err != nil {
+		fmt.Printf("Error processing user: %v\n", err)
+	}
+
+	// 4. Goroutines and channels
+	done := make(chan bool)
+	go demonstrateChannel(done)
+	<-done
+	fmt.Println("Channel demonstration completed")
+
+	// 5. Mutex and concurrent access
+	counter := &SafeCounter{}
