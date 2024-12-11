@@ -17,3 +17,22 @@ This section covers the essential concepts of Go programming language.
 The `main.go` file demonstrates several key Go concepts:
 
 ### 1. Structs and Interfaces
+```go
+type User struct {
+    ID       int
+    Username string
+    Email    string
+}
+
+type UserInterface interface {
+    GetEmail() string
+    UpdateEmail(newEmail string)
+}
+```
+- The `User` struct represents a basic user data structure with ID, username, and email fields
+- `UserInterface` defines a contract for user-related operations
+- This demonstrates Go's approach to interface implementation (implicit rather than explicit)
+
+### 2. Method Receivers
+```go
+func (u *User) GetEmail() string
