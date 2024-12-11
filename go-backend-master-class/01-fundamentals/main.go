@@ -93,3 +93,17 @@ func main() {
 
 	// 5. Mutex and concurrent access
 	counter := &SafeCounter{}
+	var wg sync.WaitGroup
+
+	// Launch multiple goroutines to increment counter
+	for i := 0; i < 50; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			counter.Increment()
+		}()
+	}
+
+	wg.Wait()
+	fmt.Printf("Final count: %d\n", counter.GetCount())
+}
