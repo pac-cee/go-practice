@@ -55,3 +55,22 @@ func processUser(u *User) error {
 		return fmt.Errorf("user cannot be nil")
 	}
 	if u.Email == "" {
+		return fmt.Errorf("email cannot be empty")
+	}
+	return nil
+}
+
+// demonstrateChannel shows channel usage
+func demonstrateChannel(done chan bool) {
+	fmt.Println("Processing...")
+	time.Sleep(time.Second) // Simulate work
+	done <- true
+}
+
+func main() {
+	// 1. Basic variable declaration and structs
+	user := &User{
+		ID:       1,
+		Username: "johndoe",
+		Email:    "john@example.com",
+	}
