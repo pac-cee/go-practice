@@ -17,3 +17,22 @@ type Response struct {
 - Defines a standard API response structure
 - Uses JSON tags for proper serialization
 - `omitempty` tag skips empty Data field in response
+
+### 2. Middleware Implementation
+```go
+func loggingMiddleware(next http.Handler) http.Handler
+```
+- Demonstrates the middleware pattern in Go
+- Logs request start and completion times
+- Shows how to chain HTTP handlers
+- Uses `time.Since()` for duration measurement
+
+### 3. JSON Response Helper
+```go
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{})
+```
+- Centralizes JSON response handling
+- Sets proper Content-Type header
+- Handles HTTP status codes
+- Marshals payload to JSON
+
