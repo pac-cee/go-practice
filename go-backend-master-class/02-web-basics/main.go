@@ -36,3 +36,22 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		respondWithJSON(w, http.StatusNotFound, Response{
+			Status:  "error",
+			Message: "Route not found",
+		})
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, Response{
+		Status:  "success",
+		Message: "Welcome to the Go Web Server",
+	})
+}
+
+// HealthCheckHandler handles the health check endpoint
+func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	respondWithJSON(w, http.StatusOK, Response{
+		Status:  "success",
+		Message: "Service is healthy",
+		Data: map[string]string{
+			"version": "1.0.0",
