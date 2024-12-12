@@ -55,3 +55,22 @@ type SafeCounter struct {
 ### 4. Error Handling
 ```go
 func processUser(u *User) error {
+    if u == nil {
+        return fmt.Errorf("user cannot be nil")
+    }
+    // ...
+}
+```
+- Shows Go's idiomatic error handling using the `error` interface
+- Demonstrates error creation with `fmt.Errorf`
+- Multiple error conditions are checked and returned
+
+### 5. Goroutines and Channels
+```go
+func demonstrateChannel(done chan bool)
+```
+- Shows how to use channels for goroutine communication
+- Demonstrates synchronization between concurrent operations
+- Uses the channel to signal completion
+
+### 6. Main Function Flow
