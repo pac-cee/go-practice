@@ -55,3 +55,22 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 		Message: "Service is healthy",
 		Data: map[string]string{
 			"version": "1.0.0",
+			"uptime":  time.Now().String(),
+		},
+	})
+}
+
+func main() {
+	// Create a new mux router
+	mux := http.NewServeMux()
+
+	// Register routes
+	mux.HandleFunc("/", HomeHandler)
+	mux.HandleFunc("/health", HealthCheckHandler)
+
+	// Wrap the mux with the logging middleware
+	handler := loggingMiddleware(mux)
+
+	// Configure the server
+	server := &http.Server{
+		Addr:         ":8080",
