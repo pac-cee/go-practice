@@ -74,3 +74,22 @@ func demonstrateChannel(done chan bool)
 - Uses the channel to signal completion
 
 ### 6. Main Function Flow
+The `main` function showcases:
+- Struct initialization
+- Interface usage
+- Error handling patterns
+- Goroutine execution
+- Channel-based communication
+- Concurrent counter operations with WaitGroups
+
+## Best Practices Demonstrated
+1. Proper error handling with meaningful messages
+2. Thread-safe concurrent operations
+3. Clean interface design
+4. Effective use of Go's concurrency primitives
+5. Clear struct organization
+6. Proper method receiver usage
+
+## Running the Code
+```bash
+go run main.go
