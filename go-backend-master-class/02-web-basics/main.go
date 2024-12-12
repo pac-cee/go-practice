@@ -74,3 +74,13 @@ func main() {
 	// Configure the server
 	server := &http.Server{
 		Addr:         ":8080",
+		Handler:      handler,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	log.Printf("Server starting on http://localhost:8080")
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
+}
