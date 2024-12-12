@@ -93,3 +93,9 @@ The `main` function showcases:
 ## Running the Code
 ```bash
 go run main.go
+```
+This will demonstrate:
+- Interface implementation
+- Concurrent operations
+- Channel communication
+- Thread-safe counter operations
