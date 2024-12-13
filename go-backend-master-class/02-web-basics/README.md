@@ -36,3 +36,22 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{})
 - Handles HTTP status codes
 - Marshals payload to JSON
 
+### 4. Route Handlers
+```go
+func HomeHandler(w http.ResponseWriter, r *http.Request)
+func HealthCheckHandler(w http.ResponseWriter, r *http.Request)
+```
+- `HomeHandler`: Basic route handling with path validation
+- `HealthCheckHandler`: System health status endpoint
+- Demonstrates proper error handling
+- Shows how to structure API responses
+
+### 5. Server Configuration
+```go
+server := &http.Server{
+    Addr:         ":8080",
+    Handler:      handler,
+    ReadTimeout:  10 * time.Second,
+    WriteTimeout: 10 * time.Second,
+}
+```
