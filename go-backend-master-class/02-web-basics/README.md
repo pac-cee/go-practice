@@ -55,3 +55,22 @@ server := &http.Server{
     WriteTimeout: 10 * time.Second,
 }
 ```
+- Configures server timeouts
+- Sets up middleware chain
+- Uses proper error handling for server startup
+
+## Best Practices Demonstrated
+1. Structured API responses
+2. Middleware for cross-cutting concerns
+3. Proper timeout configuration
+4. Error handling in HTTP context
+5. Clean route organization
+6. JSON response handling
+
+## API Endpoints
+1. `GET /`: Home endpoint
+   - Returns welcome message
+   - Handles 404 for invalid paths
+   
+2. `GET /health`: Health check endpoint
+   - Returns service status
