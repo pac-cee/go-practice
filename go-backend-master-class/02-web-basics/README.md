@@ -74,3 +74,19 @@ server := &http.Server{
    
 2. `GET /health`: Health check endpoint
    - Returns service status
+   - Includes version and uptime information
+
+## Running the Server
+```bash
+go run main.go
+```
+The server will start on `http://localhost:8080`
+
+## Testing the API
+```bash
+# Test home endpoint
+curl http://localhost:8080/
+
+# Test health endpoint
+curl http://localhost:8080/health
+```
