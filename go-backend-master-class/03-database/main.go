@@ -131,3 +131,22 @@ func (r *UserRepository) UpdateUser(id int, email string) error {
 
 	if rowsAffected == 0 {
 		return fmt.Errorf("user with id %d not found", id)
+	}
+
+	return nil
+}
+
+// DeleteUser removes a user
+func (r *UserRepository) DeleteUser(id int) error {
+	query := `DELETE FROM users WHERE id = $1`
+
+	result, err := r.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
