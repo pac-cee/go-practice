@@ -55,3 +55,22 @@ func initDB() (*sql.DB, error) {
 }
 
 // Create tables
+func (r *UserRepository) createTables() error {
+	query := `
+		CREATE TABLE IF NOT EXISTS users (
+			id SERIAL PRIMARY KEY,
+			username VARCHAR(50) UNIQUE NOT NULL,
+			email VARCHAR(255) UNIQUE NOT NULL,
+			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		)`
+
+	_, err := r.db.Exec(query)
+	return err
+}
+
+// CreateUser inserts a new user
+func (r *UserRepository) CreateUser(username, email string) (*User, error) {
+	query := `
+		INSERT INTO users (username, email)
+		VALUES ($1, $2)
+		RETURNING id, username, email, created_at`
