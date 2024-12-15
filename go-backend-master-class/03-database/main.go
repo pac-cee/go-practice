@@ -112,3 +112,22 @@ func (r *UserRepository) GetUser(id int) (*User, error) {
 	return user, nil
 }
 
+// UpdateUser updates a user's email
+func (r *UserRepository) UpdateUser(id int, email string) error {
+	query := `
+		UPDATE users
+		SET email = $2
+		WHERE id = $1`
+
+	result, err := r.db.Exec(query, id, email)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("user with id %d not found", id)
