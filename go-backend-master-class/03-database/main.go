@@ -93,3 +93,22 @@ func (r *UserRepository) CreateUser(username, email string) (*User, error) {
 // GetUser retrieves a user by ID
 func (r *UserRepository) GetUser(id int) (*User, error) {
 	user := &User{}
+	query := `
+		SELECT id, username, email, created_at
+		FROM users
+		WHERE id = $1`
+
+	err := r.db.QueryRow(query, id).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Email,
+		&user.CreatedAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
