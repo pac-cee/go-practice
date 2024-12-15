@@ -74,3 +74,22 @@ func (r *UserRepository) CreateUser(username, email string) (*User, error) {
 		INSERT INTO users (username, email)
 		VALUES ($1, $2)
 		RETURNING id, username, email, created_at`
+
+	user := &User{}
+	err := r.db.QueryRow(query, username, email).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Email,
+		&user.CreatedAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+// GetUser retrieves a user by ID
+func (r *UserRepository) GetUser(id int) (*User, error) {
+	user := &User{}
