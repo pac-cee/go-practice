@@ -55,3 +55,22 @@ func initDB() (*sql.DB, error)
 ### 5. Schema Management
 ```go
 func (r *UserRepository) createTables() error
+```
+- Creates necessary database tables
+- Uses `IF NOT EXISTS` for idempotency
+- Defines proper constraints (UNIQUE, NOT NULL)
+- Sets up automatic timestamps
+
+### 6. CRUD Operations
+The repository implements full CRUD (Create, Read, Update, Delete) operations:
+
+#### Create
+```go
+func (r *UserRepository) CreateUser(username, email string) (*User, error)
+```
+- Uses parameterized queries for safety
+- Returns complete user object with ID
+- Handles database errors properly
+
+#### Read
+```go
