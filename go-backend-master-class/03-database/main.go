@@ -188,3 +188,17 @@ func main() {
 		log.Printf("Error getting user: %v", err)
 	} else {
 		log.Printf("Retrieved user: %+v", retrievedUser)
+	}
+
+	// Update user
+	err = repo.UpdateUser(user.ID, "john.doe@example.com")
+	if err != nil {
+		log.Printf("Error updating user: %v", err)
+	}
+
+	// Delete user
+	err = repo.DeleteUser(user.ID)
+	if err != nil {
+		log.Printf("Error deleting user: %v", err)
+	}
+}
