@@ -169,3 +169,22 @@ func main() {
 	repo := NewUserRepository(db)
 
 	// Create tables
+	err = repo.createTables()
+	if err != nil {
+		log.Fatalf("Error creating tables: %v", err)
+	}
+
+	// Example usage
+	user, err := repo.CreateUser("johndoe", "john@example.com")
+	if err != nil {
+		log.Printf("Error creating user: %v", err)
+	} else {
+		log.Printf("Created user: %+v", user)
+	}
+
+	// Get user
+	retrievedUser, err := repo.GetUser(user.ID)
+	if err != nil {
+		log.Printf("Error getting user: %v", err)
+	} else {
+		log.Printf("Retrieved user: %+v", retrievedUser)
