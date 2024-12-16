@@ -150,3 +150,22 @@ func (r *UserRepository) DeleteUser(id int) error {
 		return err
 	}
 
+	if rowsAffected == 0 {
+		return fmt.Errorf("user with id %d not found", id)
+	}
+
+	return nil
+}
+
+func main() {
+	// Initialize database connection
+	db, err := initDB()
+	if err != nil {
+		log.Fatalf("Error connecting to database: %v", err)
+	}
+	defer db.Close()
+
+	// Create repository
+	repo := NewUserRepository(db)
+
+	// Create tables
