@@ -17,3 +17,22 @@ type User struct {
 ```
 - Defines the User model structure
 - Maps to the database table columns
+- Uses appropriate Go types for each field
+
+### 2. Database Configuration
+```go
+const (
+    host     = "localhost"
+    port     = 5432
+    user     = "postgres"
+    password = "postgres"
+    dbname   = "gobackend"
+)
+```
+- Centralizes database connection parameters
+- Makes configuration easily modifiable
+- Follows standard PostgreSQL connection format
+
+### 3. Repository Pattern
+```go
+type UserRepository struct {
