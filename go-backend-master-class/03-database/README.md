@@ -74,3 +74,22 @@ func (r *UserRepository) CreateUser(username, email string) (*User, error)
 
 #### Read
 ```go
+func (r *UserRepository) GetUser(id int) (*User, error)
+```
+- Retrieves user by ID
+- Uses proper SQL scanning
+- Returns structured data
+
+#### Update
+```go
+func (r *UserRepository) UpdateUser(id int, email string) error
+```
+- Updates user information
+- Validates existence before update
+- Returns appropriate errors
+
+#### Delete
+```go
+func (r *UserRepository) DeleteUser(id int) error
+```
+- Removes user records
