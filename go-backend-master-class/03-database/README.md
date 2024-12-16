@@ -112,3 +112,19 @@ CREATE DATABASE gobackend;
 ```
 3. Configure connection parameters in the code
 
+## Running the Code
+```bash
+# Install PostgreSQL driver
+go get github.com/lib/pq
+
+# Run the application
+go run main.go
+```
+
+## Testing Database Operations
+The main function includes examples of:
+- Creating new users
+- Retrieving user information
+- Updating user data
+- Deleting users
+- Error handling for each operation
