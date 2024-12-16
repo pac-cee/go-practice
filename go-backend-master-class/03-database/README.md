@@ -36,3 +36,22 @@ const (
 ### 3. Repository Pattern
 ```go
 type UserRepository struct {
+    db *sql.DB
+}
+```
+- Implements the repository pattern for data access
+- Encapsulates all database operations
+- Provides clean separation of concerns
+
+### 4. Database Initialization
+```go
+func initDB() (*sql.DB, error)
+```
+- Establishes database connection
+- Uses connection pooling by default
+- Verifies connection with `db.Ping()`
+- Returns configured database instance
+
+### 5. Schema Management
+```go
+func (r *UserRepository) createTables() error
