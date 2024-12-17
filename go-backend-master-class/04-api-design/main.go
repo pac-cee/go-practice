@@ -74,3 +74,22 @@ func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	api.store.Lock()
 	api.store.products[product.ID] = product
 	api.store.Unlock()
+
+	respondWithJSON(w, http.StatusCreated, APIResponse{
+		Status:  "success",
+		Message: "Product created successfully",
+		Data:    product,
+	})
+}
+
+// GetProduct handles getting a single product
+func (api *API) GetProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	api.store.RLock()
+	product, exists := api.store.products[id]
+	api.store.RUnlock()
+
+	if !exists {
+		respondWithJSON(w, http.StatusNotFound, APIResponse{
