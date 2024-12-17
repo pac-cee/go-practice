@@ -55,3 +55,22 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	w.Write(response)
+}
+
+// CreateProduct handles product creation
+func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, APIResponse{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
+		return
+	}
+
+	product.CreatedAt = time.Now()
+	product.ID = time.Now().Format("20060102150405")
+
+	api.store.Lock()
+	api.store.products[product.ID] = product
+	api.store.Unlock()
