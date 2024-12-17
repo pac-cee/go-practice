@@ -36,3 +36,22 @@ type ProductStore struct {
 func NewProductStore() *ProductStore {
 	return &ProductStore{
 		products: make(map[string]Product),
+	}
+}
+
+// API represents our REST API
+type API struct {
+	store *ProductStore
+}
+
+// NewAPI creates a new API instance
+func NewAPI(store *ProductStore) *API {
+	return &API{store: store}
+}
+
+// respondWithJSON writes JSON response
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+	response, _ := json.Marshal(payload)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	w.Write(response)
