@@ -93,3 +93,22 @@ func (api *API) GetProduct(w http.ResponseWriter, r *http.Request) {
 
 	if !exists {
 		respondWithJSON(w, http.StatusNotFound, APIResponse{
+			Status:  "error",
+			Message: "Product not found",
+		})
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, APIResponse{
+		Status: "success",
+		Data:   product,
+	})
+}
+
+// ListProducts handles listing all products
+func (api *API) ListProducts(w http.ResponseWriter, r *http.Request) {
+	api.store.RLock()
+	products := make([]Product, 0, len(api.store.products))
+	for _, product := range api.store.products {
+		products = append(products, product)
+	}
