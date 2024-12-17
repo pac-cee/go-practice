@@ -131,3 +131,22 @@ func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 			Status:  "error",
 			Message: "Invalid request payload",
 		})
+		return
+	}
+
+	api.store.Lock()
+	if _, exists := api.store.products[id]; !exists {
+		api.store.Unlock()
+		respondWithJSON(w, http.StatusNotFound, APIResponse{
+			Status:  "error",
+			Message: "Product not found",
+		})
+		return
+	}
+
+	// Preserve created time and ID
+	product.ID = id
+	product.CreatedAt = api.store.products[id].CreatedAt
+	api.store.products[id] = product
+	api.store.Unlock()
+
