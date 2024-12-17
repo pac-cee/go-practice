@@ -112,3 +112,22 @@ func (api *API) ListProducts(w http.ResponseWriter, r *http.Request) {
 	for _, product := range api.store.products {
 		products = append(products, product)
 	}
+	api.store.RUnlock()
+
+	respondWithJSON(w, http.StatusOK, APIResponse{
+		Status: "success",
+		Data:   products,
+	})
+}
+
+// UpdateProduct handles updating a product
+func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	var product Product
+	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, APIResponse{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
