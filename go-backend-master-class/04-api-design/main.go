@@ -169,3 +169,22 @@ func (api *API) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 			Status:  "error",
 			Message: "Product not found",
 		})
+		return
+	}
+
+	delete(api.store.products, id)
+	api.store.Unlock()
+
+	respondWithJSON(w, http.StatusOK, APIResponse{
+		Status:  "success",
+		Message: "Product deleted successfully",
+	})
+}
+
+func main() {
+	// Initialize store and API
+	store := NewProductStore()
+	api := NewAPI(store)
+
+	// Create router
+	router := mux.NewRouter()
