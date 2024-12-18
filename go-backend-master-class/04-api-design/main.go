@@ -188,3 +188,24 @@ func main() {
 
 	// Create router
 	router := mux.NewRouter()
+
+	// Register routes
+	router.HandleFunc("/products", api.CreateProduct).Methods("POST")
+	router.HandleFunc("/products", api.ListProducts).Methods("GET")
+	router.HandleFunc("/products/{id}", api.GetProduct).Methods("GET")
+	router.HandleFunc("/products/{id}", api.UpdateProduct).Methods("PUT")
+	router.HandleFunc("/products/{id}", api.DeleteProduct).Methods("DELETE")
+
+	// Configure and start server
+	server := &http.Server{
+		Addr:         ":8080",
+		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	log.Printf("Server starting on http://localhost:8080")
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
+}
