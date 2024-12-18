@@ -150,3 +150,22 @@ func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	api.store.products[id] = product
 	api.store.Unlock()
 
+	respondWithJSON(w, http.StatusOK, APIResponse{
+		Status:  "success",
+		Message: "Product updated successfully",
+		Data:    product,
+	})
+}
+
+// DeleteProduct handles deleting a product
+func (api *API) DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	api.store.Lock()
+	if _, exists := api.store.products[id]; !exists {
+		api.store.Unlock()
+		respondWithJSON(w, http.StatusNotFound, APIResponse{
+			Status:  "error",
+			Message: "Product not found",
+		})
