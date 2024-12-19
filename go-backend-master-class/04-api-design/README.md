@@ -74,3 +74,22 @@ func (api *API) ListProducts(w http.ResponseWriter, r *http.Request)
 - Returns all products
 - Efficient data retrieval
 - Consistent response format
+
+#### Update Product (PUT /products/{id})
+```go
+func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request)
+```
+- Full product update
+- Existence validation
+- Concurrent write access
+- Error handling
+
+#### Delete Product (DELETE /products/{id})
+```go
+func (api *API) DeleteProduct(w http.ResponseWriter, r *http.Request)
+```
+- Resource removal
+- Status code handling
+- Thread-safe deletion
+
+### 5. Helper Functions
