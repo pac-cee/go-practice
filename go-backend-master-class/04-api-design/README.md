@@ -55,3 +55,22 @@ func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request)
 ```
 - Validates request payload
 - Generates unique ID
+- Thread-safe storage
+- Returns created product
+
+#### Get Product (GET /products/{id})
+```go
+func (api *API) GetProduct(w http.ResponseWriter, r *http.Request)
+```
+- URL parameter handling
+- Not found error handling
+- Concurrent read access
+- JSON response
+
+#### List Products (GET /products)
+```go
+func (api *API) ListProducts(w http.ResponseWriter, r *http.Request)
+```
+- Returns all products
+- Efficient data retrieval
+- Consistent response format
