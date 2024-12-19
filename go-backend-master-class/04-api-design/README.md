@@ -17,3 +17,22 @@ type Product struct {
 }
 
 type APIResponse struct {
+    Status  string      `json:"status"`
+    Message string      `json:"message"`
+    Data    interface{} `json:"data,omitempty"`
+}
+```
+- Clean data structures with JSON tags
+- Standardized API response format
+- Proper type definitions for all fields
+
+### 2. In-Memory Store
+```go
+type ProductStore struct {
+    sync.RWMutex
+    products map[string]Product
+}
+```
+- Thread-safe implementation using `sync.RWMutex`
+- Efficient map-based storage
+- Demonstrates concurrent access patterns
