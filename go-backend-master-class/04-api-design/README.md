@@ -36,3 +36,22 @@ type ProductStore struct {
 - Thread-safe implementation using `sync.RWMutex`
 - Efficient map-based storage
 - Demonstrates concurrent access patterns
+
+### 3. API Structure
+```go
+type API struct {
+    store *ProductStore
+}
+```
+- Clean separation of concerns
+- Dependency injection pattern
+- Extensible design
+
+### 4. REST Endpoints
+
+#### Create Product (POST /products)
+```go
+func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request)
+```
+- Validates request payload
+- Generates unique ID
