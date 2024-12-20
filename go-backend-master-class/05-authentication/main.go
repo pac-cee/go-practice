@@ -36,3 +36,22 @@ type Response struct {
 }
 
 // RegisterHandler handles user registration
+func RegisterHandler(w http.ResponseWriter, r *http.Request) {
+	var user User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, Response{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
+		return
+	}
+
+	if _, exists := users[user.Username]; exists {
+		respondWithJSON(w, http.StatusConflict, Response{
+			Status:  "error",
+			Message: "Username already exists",
+		})
+		return
+	}
+
+	// Hash password
