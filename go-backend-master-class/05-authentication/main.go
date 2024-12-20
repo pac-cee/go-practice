@@ -93,3 +93,22 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Compare passwords
+	if err := bcrypt.CompareHashAndPassword([]byte(storedPassword), []byte(user.Password)); err != nil {
+		respondWithJSON(w, http.StatusUnauthorized, Response{
+			Status:  "error",
+			Message: "Invalid credentials",
+		})
+		return
+	}
+
+	// Create token
+	expirationTime := time.Now().Add(24 * time.Hour)
+	claims := &Claims{
+		Username: user.Username,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
