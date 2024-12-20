@@ -131,3 +131,17 @@ curl -X POST http://localhost:8080/products \
   -H "Content-Type: application/json" \
   -d '{"name":"Product 1","description":"Description","price":29.99}'
 
+# Get a product
+curl http://localhost:8080/products/{id}
+
+# List all products
+curl http://localhost:8080/products
+
+# Update a product
+curl -X PUT http://localhost:8080/products/{id} \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Updated Product","description":"New Description","price":39.99}'
+
+# Delete a product
+curl -X DELETE http://localhost:8080/products/{id}
+```
