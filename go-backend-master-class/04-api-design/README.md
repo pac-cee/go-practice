@@ -93,3 +93,22 @@ func (api *API) DeleteProduct(w http.ResponseWriter, r *http.Request)
 - Thread-safe deletion
 
 ### 5. Helper Functions
+```go
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{})
+```
+- Centralizes JSON response handling
+- Sets proper headers
+- Handles HTTP status codes
+
+## Best Practices Demonstrated
+1. RESTful endpoint design
+2. Proper HTTP method usage
+3. Consistent error handling
+4. Thread-safe operations
+5. Clean code organization
+6. Standard response format
+
+## API Endpoints
+- `POST /products`: Create a new product
+- `GET /products/{id}`: Retrieve a specific product
+- `GET /products`: List all products
