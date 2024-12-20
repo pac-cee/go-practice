@@ -74,3 +74,22 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 // LoginHandler handles user login
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	var user User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, Response{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
+		return
+	}
+
+	storedPassword, exists := users[user.Username]
+	if !exists {
+		respondWithJSON(w, http.StatusUnauthorized, Response{
+			Status:  "error",
+			Message: "Invalid credentials",
+		})
+		return
+	}
+
+	// Compare passwords
