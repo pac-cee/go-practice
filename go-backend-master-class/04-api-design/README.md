@@ -112,3 +112,22 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{})
 - `POST /products`: Create a new product
 - `GET /products/{id}`: Retrieve a specific product
 - `GET /products`: List all products
+- `PUT /products/{id}`: Update a product
+- `DELETE /products/{id}`: Delete a product
+
+## Running the API
+```bash
+# Install dependencies
+go get github.com/gorilla/mux
+
+# Run the server
+go run main.go
+```
+
+## Testing the API
+```bash
+# Create a product
+curl -X POST http://localhost:8080/products \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Product 1","description":"Description","price":29.99}'
+
