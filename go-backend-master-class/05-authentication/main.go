@@ -55,3 +55,22 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Hash password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		respondWithJSON(w, http.StatusInternalServerError, Response{
+			Status:  "error",
+			Message: "Error while hashing password",
+		})
+		return
+	}
+
+	users[user.Username] = string(hashedPassword)
+
+	respondWithJSON(w, http.StatusCreated, Response{
+		Status:  "success",
+		Message: "User registered successfully",
+	})
+}
+
+// LoginHandler handles user login
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
