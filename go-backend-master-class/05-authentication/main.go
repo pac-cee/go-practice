@@ -150,3 +150,22 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 				Status:  "error",
 				Message: "Invalid or expired token",
 			})
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	}
+}
+
+// ProtectedHandler is an example of a protected endpoint
+func ProtectedHandler(w http.ResponseWriter, r *http.Request) {
+	respondWithJSON(w, http.StatusOK, Response{
+		Status:  "success",
+		Message: "You have access to protected resource",
+	})
+}
+
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+	response, _ := json.Marshal(payload)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
