@@ -17,3 +17,22 @@ type Claims struct {
     Username string `json:"username"`
     jwt.StandardClaims
 }
+
+type Response struct {
+    Status  string      `json:"status"`
+    Message string      `json:"message"`
+    Data    interface{} `json:"data,omitempty"`
+}
+```
+- User model for authentication
+- JWT claims structure
+- Standardized API response
+
+### 2. User Registration
+```go
+func RegisterHandler(w http.ResponseWriter, r *http.Request)
+```
+- Validates user input
+- Checks for existing users
+- Securely hashes passwords using bcrypt
+- Stores user credentials
