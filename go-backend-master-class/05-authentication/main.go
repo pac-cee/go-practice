@@ -169,3 +169,22 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
+	w.Write(response)
+}
+
+func main() {
+	router := mux.NewRouter()
+
+	// Public routes
+	router.HandleFunc("/register", RegisterHandler).Methods("POST")
+	router.HandleFunc("/login", LoginHandler).Methods("POST")
+
+	// Protected routes
+	router.HandleFunc("/protected", AuthMiddleware(ProtectedHandler)).Methods("GET")
+
+	// Configure and start server
+	server := &http.Server{
+		Addr:         ":8080",
+		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
