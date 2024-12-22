@@ -131,3 +131,22 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 // AuthMiddleware verifies the JWT token
 func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		tokenString := r.Header.Get("Authorization")
+		if tokenString == "" {
+			respondWithJSON(w, http.StatusUnauthorized, Response{
+				Status:  "error",
+				Message: "Missing authorization token",
+			})
+			return
+		}
+
+		claims := &Claims{}
+		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
+		})
+
+		if err != nil || !token.Valid {
+			respondWithJSON(w, http.StatusUnauthorized, Response{
+				Status:  "error",
+				Message: "Invalid or expired token",
+			})
