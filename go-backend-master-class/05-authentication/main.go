@@ -112,3 +112,22 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		respondWithJSON(w, http.StatusInternalServerError, Response{
+			Status:  "error",
+			Message: "Error while generating token",
+		})
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, Response{
+		Status: "success",
+		Data: map[string]string{
+			"token": tokenString,
+		},
+	})
+}
+
+// AuthMiddleware verifies the JWT token
+func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
