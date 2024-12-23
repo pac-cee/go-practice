@@ -93,3 +93,22 @@ func ProtectedHandler(w http.ResponseWriter, r *http.Request)
 1. Secure password storage
 2. Token-based authentication
 3. Middleware pattern
+4. Error handling
+5. Input validation
+6. Clean code organization
+
+## API Endpoints
+
+### Public Routes
+- `POST /register`: User registration
+  ```json
+  {
+    "username": "user",
+    "password": "password"
+  }
+  ```
+
+- `POST /login`: User login
+  ```json
+  {
+    "username": "user",
