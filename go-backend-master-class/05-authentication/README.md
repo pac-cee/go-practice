@@ -36,3 +36,22 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request)
 - Checks for existing users
 - Securely hashes passwords using bcrypt
 - Stores user credentials
+- Handles registration errors
+
+### 3. User Login
+```go
+func LoginHandler(w http.ResponseWriter, r *http.Request)
+```
+- Validates credentials
+- Compares password hashes
+- Generates JWT token
+- Sets token expiration
+- Returns authentication token
+
+### 4. Authentication Middleware
+```go
+func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc
+```
+- Validates JWT tokens
+- Extracts user claims
+- Handles token expiration
