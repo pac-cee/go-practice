@@ -55,3 +55,22 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc
 - Validates JWT tokens
 - Extracts user claims
 - Handles token expiration
+- Protects routes
+- Maintains security context
+
+### 5. Protected Routes
+```go
+func ProtectedHandler(w http.ResponseWriter, r *http.Request)
+```
+- Example of protected endpoint
+- Requires valid JWT
+- Demonstrates middleware usage
+- Shows secure access pattern
+
+## Security Features
+
+### Password Security
+1. Bcrypt hashing
+2. Secure password comparison
+3. Protection against timing attacks
+4. Configurable hash cost
