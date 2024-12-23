@@ -74,3 +74,22 @@ func ProtectedHandler(w http.ResponseWriter, r *http.Request)
 2. Secure password comparison
 3. Protection against timing attacks
 4. Configurable hash cost
+
+### JWT Implementation
+1. Token-based authentication
+2. Expiration handling
+3. Secure signing
+4. Claims validation
+5. Standard JWT claims
+
+### API Security
+1. Protected routes
+2. Middleware chain
+3. Error handling
+4. Status code management
+5. Input validation
+
+## Best Practices Demonstrated
+1. Secure password storage
+2. Token-based authentication
+3. Middleware pattern
