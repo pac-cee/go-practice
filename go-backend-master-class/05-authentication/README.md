@@ -112,3 +112,22 @@ func ProtectedHandler(w http.ResponseWriter, r *http.Request)
   ```json
   {
     "username": "user",
+    "password": "password"
+  }
+  ```
+
+### Protected Routes
+- `GET /protected`: Example protected endpoint
+  - Requires Authorization header
+  - Format: `Bearer <token>`
+
+## Running the Application
+```bash
+# Install dependencies
+go get github.com/dgrijalva/jwt-go
+go get github.com/gorilla/mux
+go get golang.org/x/crypto/bcrypt
+
+# Run the server
+go run main.go
+```
