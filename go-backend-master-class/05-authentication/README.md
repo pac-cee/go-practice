@@ -150,3 +150,9 @@ curl -X GET http://localhost:8080/protected \
 ```
 
 ## Security Notes
+1. Always use HTTPS in production
+2. Store JWT secret key securely
+3. Implement rate limiting
+4. Add password complexity requirements
+5. Consider adding refresh tokens
+6. Monitor for suspicious activities
