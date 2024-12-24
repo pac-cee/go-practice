@@ -131,3 +131,22 @@ go get golang.org/x/crypto/bcrypt
 # Run the server
 go run main.go
 ```
+
+## Testing the Authentication
+```bash
+# Register a new user
+curl -X POST http://localhost:8080/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"testpass"}'
+
+# Login
+curl -X POST http://localhost:8080/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"testpass"}'
+
+# Access protected endpoint
+curl -X GET http://localhost:8080/protected \
+  -H "Authorization: Bearer <token>"
+```
+
+## Security Notes
