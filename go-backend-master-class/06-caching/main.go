@@ -131,3 +131,22 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var product Product
 	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, Response{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
+		return
+	}
+
+	product.LastUpdated = time.Now()
+
+	// Store in "database"
+	api.mutex.Lock()
+	api.store[product.ID] = product
+	api.mutex.Unlock()
+
+	// Cache the product
+	if err := api.cache.Set(api.ctx, fmt.Sprintf("product:%s", product.ID), product, time.Hour); err != nil {
+		log.Printf("Error caching product: %v", err)
+	}
+
