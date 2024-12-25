@@ -74,3 +74,22 @@ func (c *RedisCache) Set(ctx context.Context, key string, value interface{}, exp
 func (c *RedisCache) Delete(ctx context.Context, key string) error {
 	return c.client.Del(ctx, key).Err()
 }
+
+// In-Memory Cache implementation
+func (c *InMemoryCache) Get(ctx context.Context, key string) (string, error) {
+	c.RLock()
+	defer c.RUnlock()
+	if val, ok := c.data[key]; ok {
+		return val, nil
+	}
+	return "", fmt.Errorf("key not found")
+}
+
+func (c *InMemoryCache) Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error {
+	c.Lock()
+	defer c.Unlock()
+	str, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	c.data[key] = string(str)
