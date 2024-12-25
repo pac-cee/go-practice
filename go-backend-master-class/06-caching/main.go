@@ -36,3 +36,22 @@ type Cache interface {
 	Delete(ctx context.Context, key string) error
 }
 
+// RedisCache implements Cache interface using Redis
+type RedisCache struct {
+	client *redis.Client
+}
+
+// InMemoryCache implements Cache interface using a map
+type InMemoryCache struct {
+	sync.RWMutex
+	data map[string]string
+}
+
+// NewRedisCache creates a new Redis cache
+func NewRedisCache(addr string) *RedisCache {
+	client := redis.NewClient(&redis.Options{
+		Addr: addr,
+	})
+	return &RedisCache{client: client}
+}
+
