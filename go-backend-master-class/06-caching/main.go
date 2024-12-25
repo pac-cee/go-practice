@@ -169,3 +169,22 @@ func (api *API) GetProduct(w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal([]byte(cached), &product); err == nil {
 			respondWithJSON(w, http.StatusOK, Response{
 				Status: "success",
+				Data:   product,
+				Source: "cache",
+			})
+			return
+		}
+	}
+
+	// If not in cache, get from "database"
+	api.mutex.RLock()
+	product, exists := api.store[id]
+	api.mutex.RUnlock()
+
+	if !exists {
+		respondWithJSON(w, http.StatusNotFound, Response{
+			Status:  "error",
+			Message: "Product not found",
+		})
+		return
+	}
