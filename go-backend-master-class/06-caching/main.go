@@ -93,3 +93,22 @@ func (c *InMemoryCache) Set(ctx context.Context, key string, value interface{}, 
 		return err
 	}
 	c.data[key] = string(str)
+	return nil
+}
+
+func (c *InMemoryCache) Delete(ctx context.Context, key string) error {
+	c.Lock()
+	defer c.Unlock()
+	delete(c.data, key)
+	return nil
+}
+
+// API represents our REST API
+type API struct {
+	cache  Cache
+	store  map[string]Product // Simulated database
+	mutex  sync.RWMutex
+	ctx    context.Context
+}
+
+// NewAPI creates a new API instance
