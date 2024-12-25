@@ -112,3 +112,22 @@ type API struct {
 }
 
 // NewAPI creates a new API instance
+func NewAPI(cache Cache) *API {
+	return &API{
+		cache:  cache,
+		store:  make(map[string]Product),
+		ctx:    context.Background(),
+	}
+}
+
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+	response, _ := json.Marshal(payload)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	w.Write(response)
+}
+
+// CreateProduct handles product creation
+func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
