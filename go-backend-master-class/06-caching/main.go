@@ -150,3 +150,22 @@ func (api *API) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error caching product: %v", err)
 	}
 
+	respondWithJSON(w, http.StatusCreated, Response{
+		Status:  "success",
+		Message: "Product created successfully",
+		Data:    product,
+	})
+}
+
+// GetProduct handles getting a single product
+func (api *API) GetProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	cacheKey := fmt.Sprintf("product:%s", id)
+
+	// Try to get from cache first
+	if cached, err := api.cache.Get(api.ctx, cacheKey); err == nil {
+		var product Product
+		if err := json.Unmarshal([]byte(cached), &product); err == nil {
+			respondWithJSON(w, http.StatusOK, Response{
+				Status: "success",
