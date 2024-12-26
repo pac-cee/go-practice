@@ -226,3 +226,22 @@ func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	product.ID = id
+	product.LastUpdated = time.Now()
+	api.store[id] = product
+	api.mutex.Unlock()
+
+	// Update cache
+	cacheKey := fmt.Sprintf("product:%s", id)
+	if err := api.cache.Set(api.ctx, cacheKey, product, time.Hour); err != nil {
+		log.Printf("Error updating cache: %v", err)
+	}
+
+	respondWithJSON(w, http.StatusOK, Response{
+		Status:  "success",
+		Message: "Product updated successfully",
+		Data:    product,
+	})
+}
+
+func main() {
+	// Initialize cache (using in-memory cache for demonstration)
