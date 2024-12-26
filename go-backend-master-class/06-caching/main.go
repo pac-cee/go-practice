@@ -207,3 +207,22 @@ func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	id := vars["id"]
 
 	var product Product
+	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, Response{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
+		return
+	}
+
+	api.mutex.Lock()
+	if _, exists := api.store[id]; !exists {
+		api.mutex.Unlock()
+		respondWithJSON(w, http.StatusNotFound, Response{
+			Status:  "error",
+			Message: "Product not found",
+		})
+		return
+	}
+
+	product.ID = id
