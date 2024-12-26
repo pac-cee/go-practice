@@ -188,3 +188,22 @@ func (api *API) GetProduct(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	// Cache the product for future requests
+	if err := api.cache.Set(api.ctx, cacheKey, product, time.Hour); err != nil {
+		log.Printf("Error caching product: %v", err)
+	}
+
+	respondWithJSON(w, http.StatusOK, Response{
+		Status: "success",
+		Data:   product,
+		Source: "database",
+	})
+}
+
+// UpdateProduct handles updating a product
+func (api *API) UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	var product Product
