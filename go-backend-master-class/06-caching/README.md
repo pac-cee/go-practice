@@ -36,3 +36,22 @@ type Cache interface {
 - Generic cache interface
 - Context-aware operations
 - Support for expiration
+
+### 3. Redis Cache Implementation
+```go
+type RedisCache struct {
+    client *redis.Client
+}
+```
+- Redis client integration
+- Implements Cache interface
+- Handles distributed caching
+- Supports TTL
+
+### 4. In-Memory Cache Implementation
+```go
+type InMemoryCache struct {
+    sync.RWMutex
+    data map[string]string
+}
+```
