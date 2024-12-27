@@ -55,3 +55,22 @@ type InMemoryCache struct {
     data map[string]string
 }
 ```
+- Thread-safe implementation
+- Map-based storage
+- Local memory caching
+- Lock-based synchronization
+
+### 5. API Integration
+```go
+type API struct {
+    cache Cache
+    store map[string]Product
+    mutex sync.RWMutex
+    ctx   context.Context
+}
+```
+- Cache-aware API design
+- Strategy pattern for cache selection
+- Thread-safe operations
+- Context propagation
+
