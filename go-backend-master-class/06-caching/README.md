@@ -17,3 +17,22 @@ type Product struct {
 
 type Response struct {
     Status  string      `json:"status"`
+    Message string      `json:"message"`
+    Data    interface{} `json:"data,omitempty"`
+    Source  string      `json:"source,omitempty"` // "cache" or "database"
+}
+```
+- Product model with cache-relevant fields
+- API response with cache source tracking
+
+### 2. Cache Interface
+```go
+type Cache interface {
+    Get(ctx context.Context, key string) (string, error)
+    Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error
+    Delete(ctx context.Context, key string) error
+}
+```
+- Generic cache interface
+- Context-aware operations
+- Support for expiration
