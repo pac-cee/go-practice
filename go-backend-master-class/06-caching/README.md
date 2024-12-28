@@ -112,3 +112,22 @@ func (c *RedisCache) Delete(ctx context.Context, key string) error
 
 ## Caching Strategies
 1. **Cache-Aside (Lazy Loading)**
+   - Check cache first
+   - Load from database on miss
+   - Update cache with new data
+
+2. **Write-Through**
+   - Update cache and database together
+   - Ensures consistency
+   - Handles race conditions
+
+3. **Cache Invalidation**
+   - Delete on update
+   - TTL-based expiration
+   - Atomic operations
+
+## Running the Application
+```bash
+# Install dependencies
+go get github.com/go-redis/redis/v8
+go get github.com/gorilla/mux
