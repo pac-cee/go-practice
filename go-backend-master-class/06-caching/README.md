@@ -74,3 +74,22 @@ type API struct {
 - Thread-safe operations
 - Context propagation
 
+### 6. Cache Operations
+
+#### Create/Update Cache
+```go
+func (c *RedisCache) Set(ctx context.Context, key string, value interface{}, expiration time.Duration) error
+```
+- Atomic operations
+- JSON serialization
+- Expiration handling
+- Error management
+
+#### Read from Cache
+```go
+func (c *RedisCache) Get(ctx context.Context, key string) (string, error)
+```
+- Cache hit/miss handling
+- Fallback strategies
+- Error handling
+- Performance optimization
