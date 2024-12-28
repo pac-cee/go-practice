@@ -93,3 +93,22 @@ func (c *RedisCache) Get(ctx context.Context, key string) (string, error)
 - Fallback strategies
 - Error handling
 - Performance optimization
+
+#### Cache Invalidation
+```go
+func (c *RedisCache) Delete(ctx context.Context, key string) error
+```
+- Key removal
+- Error handling
+- Atomic operations
+
+## Best Practices Demonstrated
+1. Interface-based design
+2. Thread-safe operations
+3. Context propagation
+4. Error handling
+5. Cache invalidation
+6. Performance optimization
+
+## Caching Strategies
+1. **Cache-Aside (Lazy Loading)**
