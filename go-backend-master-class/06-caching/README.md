@@ -131,3 +131,22 @@ func (c *RedisCache) Delete(ctx context.Context, key string) error
 # Install dependencies
 go get github.com/go-redis/redis/v8
 go get github.com/gorilla/mux
+
+# Start Redis (required for Redis cache)
+docker run --name redis -p 6379:6379 -d redis
+
+# Run the application
+go run main.go
+```
+
+## API Endpoints
+
+### Products API
+- `POST /products`: Create product
+  ```json
+  {
+    "name": "Product 1",
+    "price": 29.99
+  }
+  ```
+
