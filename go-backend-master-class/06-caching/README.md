@@ -150,3 +150,22 @@ go run main.go
   }
   ```
 
+- `GET /products/{id}`: Get product
+  - Returns cache source in response
+  ```json
+  {
+    "status": "success",
+    "data": {
+      "id": "123",
+      "name": "Product 1",
+      "price": 29.99
+    },
+    "source": "cache"
+  }
+  ```
+
+- `PUT /products/{id}`: Update product
+  - Invalidates cache on update
+
+## Cache Configuration
+1. Redis Cache
