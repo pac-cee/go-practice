@@ -169,3 +169,19 @@ go run main.go
 
 ## Cache Configuration
 1. Redis Cache
+   - Default address: localhost:6379
+   - Configurable expiration
+   - Distributed caching support
+
+2. In-Memory Cache
+   - Local storage
+   - Thread-safe operations
+   - No automatic expiration
+
+## Performance Considerations
+1. Use appropriate cache strategy
+2. Monitor cache hit/miss ratios
+3. Set reasonable TTL values
+4. Handle cache stampede
+5. Implement circuit breakers
+6. Monitor memory usage
