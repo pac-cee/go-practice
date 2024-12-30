@@ -36,3 +36,22 @@ type Response struct {
 func NewServiceRegistry() *ServiceRegistry {
 	return &ServiceRegistry{
 		Services: make(map[string]Service),
+	}
+}
+
+// RegisterService registers a new service
+func (sr *ServiceRegistry) RegisterService(w http.ResponseWriter, r *http.Request) {
+	var service Service
+	if err := json.NewDecoder(r.Body).Decode(&service); err != nil {
+		respondWithJSON(w, http.StatusBadRequest, Response{
+			Status:  "error",
+			Message: "Invalid request payload",
+		})
+		return
+	}
+
+	service.Status = "healthy"
+	service.LastPing = time.Now()
+	sr.Services[service.Name] = service
+
+	respondWithJSON(w, http.StatusCreated, Response{
