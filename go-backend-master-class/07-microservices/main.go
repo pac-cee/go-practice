@@ -55,3 +55,22 @@ func (sr *ServiceRegistry) RegisterService(w http.ResponseWriter, r *http.Reques
 	sr.Services[service.Name] = service
 
 	respondWithJSON(w, http.StatusCreated, Response{
+		Status:  "success",
+		Message: "Service registered successfully",
+		Data:    service,
+	})
+}
+
+// GetServices returns all registered services
+func (sr *ServiceRegistry) GetServices(w http.ResponseWriter, r *http.Request) {
+	services := make([]Service, 0, len(sr.Services))
+	for _, service := range sr.Services {
+		services = append(services, service)
+	}
+
+	respondWithJSON(w, http.StatusOK, Response{
+		Status: "success",
+		Data:   services,
+	})
+}
+
