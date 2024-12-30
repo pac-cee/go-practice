@@ -74,3 +74,22 @@ func (sr *ServiceRegistry) GetServices(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// HealthCheck handles service health check
+func (sr *ServiceRegistry) HealthCheck(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	serviceName := vars["name"]
+
+	service, exists := sr.Services[serviceName]
+	if !exists {
+		respondWithJSON(w, http.StatusNotFound, Response{
+			Status:  "error",
+			Message: "Service not found",
+		})
+		return
+	}
+
+	// Update last ping
+	service.LastPing = time.Now()
+	sr.Services[serviceName] = service
+
+	respondWithJSON(w, http.StatusOK, Response{
