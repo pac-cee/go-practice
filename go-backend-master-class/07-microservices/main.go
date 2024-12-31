@@ -112,3 +112,22 @@ func NewServiceClient(registry *ServiceRegistry) *ServiceClient {
 		client: &http.Client{
 			Timeout: time.Second * 10,
 		},
+	}
+}
+
+// CallService makes a request to another service
+func (sc *ServiceClient) CallService(serviceName string, path string) (*http.Response, error) {
+	service, exists := sc.registry.Services[serviceName]
+	if !exists {
+		return nil, fmt.Errorf("service %s not found", serviceName)
+	}
+
+	url := service.URL + path
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return sc.client.Do(req)
+}
+
