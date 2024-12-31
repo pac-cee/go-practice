@@ -93,3 +93,22 @@ func (sr *ServiceRegistry) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	sr.Services[serviceName] = service
 
 	respondWithJSON(w, http.StatusOK, Response{
+		Status:  "success",
+		Message: "Service is healthy",
+		Data:    service,
+	})
+}
+
+// ServiceClient represents a client for inter-service communication
+type ServiceClient struct {
+	registry *ServiceRegistry
+	client   *http.Client
+}
+
+// NewServiceClient creates a new service client
+func NewServiceClient(registry *ServiceRegistry) *ServiceClient {
+	return &ServiceClient{
+		registry: registry,
+		client: &http.Client{
+			Timeout: time.Second * 10,
+		},
