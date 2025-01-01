@@ -226,3 +226,12 @@ func main() {
 	server := &http.Server{
 		Addr:         ":" + port,
 		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	log.Printf("Service Registry starting on http://localhost:%s", port)
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
+}
