@@ -17,3 +17,22 @@ type Service struct {
 
 type ServiceRegistry struct {
     Services map[string]Service
+}
+```
+- Service definition
+- Registry for service discovery
+- Health status tracking
+- Last ping monitoring
+
+### 2. Service Registry
+```go
+func (sr *ServiceRegistry) RegisterService(w http.ResponseWriter, r *http.Request)
+func (sr *ServiceRegistry) GetServices(w http.ResponseWriter, r *http.Request)
+func (sr *ServiceRegistry) HealthCheck(w http.ResponseWriter, r *http.Request)
+```
+- Service registration
+- Service discovery
+- Health monitoring
+- Status updates
+
+### 3. Service Client
