@@ -150,3 +150,22 @@ func NewCircuitBreaker(threshold int, timeout time.Duration) *CircuitBreaker {
 // Execute runs the given function with circuit breaker protection
 func (cb *CircuitBreaker) Execute(fn func() error) error {
 	if cb.failures >= cb.threshold {
+		if time.Since(cb.lastError) > cb.timeout {
+			// Try again after timeout
+			cb.failures = 0
+		} else {
+			return fmt.Errorf("circuit breaker is open")
+		}
+	}
+
+	if err := fn(); err != nil {
+		cb.failures++
+		cb.lastError = time.Now()
+		return err
+	}
+
+	cb.failures = 0
+	return nil
+}
+
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
