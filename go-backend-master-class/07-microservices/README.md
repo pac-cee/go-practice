@@ -93,3 +93,22 @@ func (cb *CircuitBreaker) Execute(fn func() error) error
 ### 4. Inter-Service Communication
 - HTTP-based communication
 - Error handling
+- Retry logic
+- Circuit breaker protection
+
+## API Endpoints
+
+### Service Registry
+- `POST /services`: Register a new service
+  ```json
+  {
+    "name": "user-service",
+    "url": "http://localhost:8081"
+  }
+  ```
+
+- `GET /services`: List all services
+- `GET /services/{name}/health`: Check service health
+
+## Best Practices Demonstrated
+1. Service isolation
