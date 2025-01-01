@@ -74,3 +74,22 @@ func (cb *CircuitBreaker) Execute(fn func() error) error
 
 ### 1. Service Discovery
 - Dynamic service registration
+- Health-based service filtering
+- Last ping tracking
+- Service status updates
+
+### 2. Health Checks
+- Regular health monitoring
+- Status updates
+- Ping timestamp tracking
+- Failure detection
+
+### 3. Circuit Breaker
+- Prevents cascade failures
+- Automatic recovery
+- Configurable thresholds
+- Timeout management
+
+### 4. Inter-Service Communication
+- HTTP-based communication
+- Error handling
