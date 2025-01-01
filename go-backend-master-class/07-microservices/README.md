@@ -55,3 +55,22 @@ type CircuitBreaker struct {
     timeout   time.Duration
     lastError time.Time
 }
+```
+- Failure threshold tracking
+- Timeout management
+- Error tracking
+- Circuit state management
+
+### 5. Circuit Breaker Implementation
+```go
+func (cb *CircuitBreaker) Execute(fn func() error) error
+```
+- Failure counting
+- Circuit state transitions
+- Timeout handling
+- Error propagation
+
+## Microservices Patterns
+
+### 1. Service Discovery
+- Dynamic service registration
