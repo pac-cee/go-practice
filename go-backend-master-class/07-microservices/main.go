@@ -207,3 +207,22 @@ func main() {
 				Status:  "error",
 				Message: err.Error(),
 			})
+			return
+		}
+
+		respondWithJSON(w, http.StatusOK, Response{
+			Status:  "success",
+			Message: "Service call successful",
+		})
+	})
+
+	// Get port from environment variable or use default
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	// Configure and start server
+	server := &http.Server{
+		Addr:         ":" + port,
+		Handler:      router,
