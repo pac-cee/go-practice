@@ -131,3 +131,22 @@ func (sc *ServiceClient) CallService(serviceName string, path string) (*http.Res
 	return sc.client.Do(req)
 }
 
+// CircuitBreaker implements basic circuit breaker pattern
+type CircuitBreaker struct {
+	failures  int
+	threshold int
+	timeout   time.Duration
+	lastError time.Time
+}
+
+// NewCircuitBreaker creates a new circuit breaker
+func NewCircuitBreaker(threshold int, timeout time.Duration) *CircuitBreaker {
+	return &CircuitBreaker{
+		threshold: threshold,
+		timeout:   timeout,
+	}
+}
+
+// Execute runs the given function with circuit breaker protection
+func (cb *CircuitBreaker) Execute(fn func() error) error {
+	if cb.failures >= cb.threshold {
