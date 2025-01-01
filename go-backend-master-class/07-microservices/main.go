@@ -188,3 +188,22 @@ func main() {
 	router.HandleFunc("/services", registry.GetServices).Methods("GET")
 	router.HandleFunc("/services/{name}/health", registry.HealthCheck).Methods("GET")
 
+	// Example service endpoint with circuit breaker
+	router.HandleFunc("/example", func(w http.ResponseWriter, r *http.Request) {
+		err := circuitBreaker.Execute(func() error {
+			// Example service call
+			resp, err := client.CallService("example-service", "/api/data")
+			if err != nil {
+				return err
+			}
+			defer resp.Body.Close()
+
+			// Process response...
+			return nil
+		})
+
+		if err != nil {
+			respondWithJSON(w, http.StatusServiceUnavailable, Response{
+				Status:  "error",
+				Message: err.Error(),
+			})
