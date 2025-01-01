@@ -36,3 +36,22 @@ func (sr *ServiceRegistry) HealthCheck(w http.ResponseWriter, r *http.Request)
 - Status updates
 
 ### 3. Service Client
+```go
+type ServiceClient struct {
+    registry *ServiceRegistry
+    client   *http.Client
+}
+```
+- Inter-service communication
+- HTTP client management
+- Service discovery integration
+- Error handling
+
+### 4. Circuit Breaker
+```go
+type CircuitBreaker struct {
+    failures  int
+    threshold int
+    timeout   time.Duration
+    lastError time.Time
+}
