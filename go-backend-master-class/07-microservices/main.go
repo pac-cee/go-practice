@@ -169,3 +169,22 @@ func (cb *CircuitBreaker) Execute(fn func() error) error {
 }
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+	response, _ := json.Marshal(payload)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	w.Write(response)
+}
+
+func main() {
+	// Initialize service registry
+	registry := NewServiceRegistry()
+	client := NewServiceClient(registry)
+	circuitBreaker := NewCircuitBreaker(3, time.Minute)
+
+	router := mux.NewRouter()
+
+	// Service registry endpoints
+	router.HandleFunc("/services", registry.RegisterService).Methods("POST")
+	router.HandleFunc("/services", registry.GetServices).Methods("GET")
+	router.HandleFunc("/services/{name}/health", registry.HealthCheck).Methods("GET")
+
