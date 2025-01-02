@@ -169,3 +169,23 @@ curl http://localhost:8080/services/user-service/health
 2. Circuit Breaker States
    - Closed: Normal operation
    - Open: Failing, no requests allowed
+   - Half-Open: Testing recovery
+
+3. Service States
+   - Healthy: Responding normally
+   - Unhealthy: Failed health checks
+   - Unknown: No recent health data
+
+## Error Handling
+1. Service not found
+2. Communication failures
+3. Timeout errors
+4. Circuit breaker trips
+5. Health check failures
+
+## Scalability Considerations
+1. Service registration capacity
+2. Health check frequency
+3. Circuit breaker thresholds
+4. Network timeout values
+5. Recovery strategies
