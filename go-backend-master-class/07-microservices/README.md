@@ -131,3 +131,22 @@ go run main.go
 export SERVICE_PORT=8080      # Service registry port
 export SERVICE_NAME=registry  # Service name
 ```
+
+## Service Configuration
+1. Circuit Breaker
+   ```go
+   breaker := NewCircuitBreaker(
+       3,                  // Failure threshold
+       time.Second * 30,   // Reset timeout
+   )
+   ```
+
+2. Service Client
+   ```go
+   client := NewServiceClient(registry)
+   ```
+
+## Testing Services
+```bash
+# Register a service
+curl -X POST http://localhost:8080/services \
