@@ -131,3 +131,22 @@ func (wc *WebSocketClient) WritePump()
   {
     "topic": "notifications",
     "data": {
+      "message": "Hello World"
+    }
+  }
+  ```
+
+- `GET /topics/{topic}/history`: Get topic history
+
+### WebSocket Endpoint
+- `WS /ws`: WebSocket connection
+  - Subscribe message:
+    ```json
+    {
+      "action": "subscribe",
+      "topic": "notifications"
+    }
+    ```
+  - Unsubscribe message:
+    ```json
+    {
