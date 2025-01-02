@@ -112,3 +112,22 @@ func (mb *MessageBroker) Publish(msg Message) {
 // GetTopicHistory returns the message history for a topic
 func (mb *MessageBroker) GetTopicHistory(topic string) []Message {
 	mb.RLock()
+	defer mb.RUnlock()
+	return mb.topics[topic]
+}
+
+// NewWebSocketClient creates a new websocket client
+func NewWebSocketClient(conn *websocket.Conn, broker *MessageBroker) *WebSocketClient {
+	return &WebSocketClient{
+		ID:       fmt.Sprintf("client-%d", time.Now().UnixNano()),
+		Conn:     conn,
+		Broker:   broker,
+		Topics:   make([]string, 0),
+		SendChan: make(chan Message, 100),
+	}
+}
+
+// HandleWebSocket upgrades HTTP connection to WebSocket
+func (mb *MessageBroker) HandleWebSocket(w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
