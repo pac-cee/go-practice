@@ -207,3 +207,22 @@ func (c *WebSocketClient) WritePump() {
 
 		case <-ticker.C:
 			if err := c.Conn.WriteMessage(websocket.PingMessage, nil); err != nil {
+				return
+			}
+		}
+	}
+}
+
+// HTTP handler for publishing messages
+func (mb *MessageBroker) PublishHandler(w http.ResponseWriter, r *http.Request) {
+	var msg Message
+	if err := json.NewDecoder(r.Body).Decode(&msg); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	msg.ID = fmt.Sprintf("msg-%d", time.Now().UnixNano())
+	msg.Timestamp = time.Now()
+	mb.Publish(msg)
+
+	w.WriteHeader(http.StatusAccepted)
