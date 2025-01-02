@@ -36,3 +36,22 @@ type MessageBroker struct {
 ```
 - Thread-safe implementation
 - Subscription management
+- Message history
+- Topic organization
+
+### 3. WebSocket Client
+```go
+type WebSocketClient struct {
+    ID       string
+    Conn     *websocket.Conn
+    Broker   *MessageBroker
+    Topics   []string
+    SendChan chan Message
+}
+```
+- Client identification
+- Connection management
+- Topic subscriptions
+- Message buffering
+
+### 4. Pub/Sub Operations
