@@ -226,3 +226,22 @@ func (mb *MessageBroker) PublishHandler(w http.ResponseWriter, r *http.Request) 
 	mb.Publish(msg)
 
 	w.WriteHeader(http.StatusAccepted)
+	json.NewEncoder(w).Encode(map[string]string{
+		"status":  "success",
+		"message": "Message published successfully",
+	})
+}
+
+// HTTP handler for getting topic history
+func (mb *MessageBroker) GetTopicHistoryHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	topic := vars["topic"]
+
+	messages := mb.GetTopicHistory(topic)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"status": "success",
+		"data":   messages,
+	})
+}
+
+func main() {
