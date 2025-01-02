@@ -93,3 +93,22 @@ func (mb *MessageBroker) HandleWebSocket(w http.ResponseWriter, r *http.Request)
 - Error handling
 - Origin checking
 
+#### Message Pumps
+```go
+func (wc *WebSocketClient) ReadPump()
+func (wc *WebSocketClient) WritePump()
+```
+- Bidirectional communication
+- Message processing
+- Connection maintenance
+- Error handling
+
+## Messaging Patterns
+
+### 1. Pub/Sub
+- Topic-based messaging
+- Multiple subscribers
+- Message history
+- Real-time delivery
+
+### 2. WebSocket
