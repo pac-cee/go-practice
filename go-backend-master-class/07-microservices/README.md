@@ -150,3 +150,22 @@ export SERVICE_NAME=registry  # Service name
 ```bash
 # Register a service
 curl -X POST http://localhost:8080/services \
+  -H "Content-Type: application/json" \
+  -d '{"name":"user-service","url":"http://localhost:8081"}'
+
+# List services
+curl http://localhost:8080/services
+
+# Check service health
+curl http://localhost:8080/services/user-service/health
+```
+
+## Monitoring and Maintenance
+1. Health Check Configuration
+   - Regular interval: 30 seconds
+   - Timeout: 5 seconds
+   - Failure threshold: 3 attempts
+
+2. Circuit Breaker States
+   - Closed: Normal operation
+   - Open: Failing, no requests allowed
