@@ -55,3 +55,22 @@ var upgrader = websocket.Upgrader{
 func NewMessageBroker() *MessageBroker {
 	return &MessageBroker{
 		subscriptions: make(map[string][]Subscription),
+		topics:       make(map[string][]Message),
+	}
+}
+
+// Subscribe adds a new subscription for a topic
+func (mb *MessageBroker) Subscribe(topic, clientID string) chan Message {
+	mb.Lock()
+	defer mb.Unlock()
+
+	ch := make(chan Message, 100)
+	sub := Subscription{
+		Topic:    topic,
+		Channel:  ch,
+		ClientID: clientID,
+	}
+
+	mb.subscriptions[topic] = append(mb.subscriptions[topic], sub)
+	return ch
+}
