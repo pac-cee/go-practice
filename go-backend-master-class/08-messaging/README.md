@@ -74,3 +74,22 @@ func (mb *MessageBroker) Publish(msg Message)
 - Concurrent delivery
 - Error handling
 
+#### Unsubscribe
+```go
+func (mb *MessageBroker) Unsubscribe(topic, clientID string)
+```
+- Subscription cleanup
+- Channel closing
+- Resource management
+
+### 5. WebSocket Handlers
+
+#### Connection Handler
+```go
+func (mb *MessageBroker) HandleWebSocket(w http.ResponseWriter, r *http.Request)
+```
+- Connection upgrade
+- Client initialization
+- Error handling
+- Origin checking
+
