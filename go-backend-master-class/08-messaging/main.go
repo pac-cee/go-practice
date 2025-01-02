@@ -169,3 +169,22 @@ func (c *WebSocketClient) ReadPump() {
 			go func() {
 				for message := range ch {
 					c.SendChan <- message
+				}
+			}()
+
+		case "publish":
+			message := Message{
+				ID:        fmt.Sprintf("msg-%d", time.Now().UnixNano()),
+				Topic:     msg.Topic,
+				Data:      msg.Data,
+				Timestamp: time.Now(),
+			}
+			c.Broker.Publish(message)
+		}
+	}
+}
+
+// WritePump sends messages to the WebSocket client
+func (c *WebSocketClient) WritePump() {
+	ticker := time.NewTicker(time.Second * 30)
+	defer func() {
