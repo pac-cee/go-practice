@@ -93,3 +93,22 @@ func (mb *MessageBroker) Unsubscribe(topic, clientID string) {
 // Publish sends a message to all subscribers of a topic
 func (mb *MessageBroker) Publish(msg Message) {
 	mb.Lock()
+	defer mb.Unlock()
+
+	// Store message in topic history
+	mb.topics[msg.Topic] = append(mb.topics[msg.Topic], msg)
+
+	// Send to all subscribers
+	for _, sub := range mb.subscriptions[msg.Topic] {
+		select {
+		case sub.Channel <- msg:
+		default:
+			// Channel is full, skip this subscriber
+			log.Printf("Warning: Subscriber %s's channel is full", sub.ClientID)
+		}
+	}
+}
+
+// GetTopicHistory returns the message history for a topic
+func (mb *MessageBroker) GetTopicHistory(topic string) []Message {
+	mb.RLock()
