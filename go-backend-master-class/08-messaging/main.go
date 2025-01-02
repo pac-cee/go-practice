@@ -245,3 +245,26 @@ func (mb *MessageBroker) GetTopicHistoryHandler(w http.ResponseWriter, r *http.R
 }
 
 func main() {
+	broker := NewMessageBroker()
+	router := mux.NewRouter()
+
+	// REST endpoints
+	router.HandleFunc("/publish", broker.PublishHandler).Methods("POST")
+	router.HandleFunc("/topics/{topic}/history", broker.GetTopicHistoryHandler).Methods("GET")
+
+	// WebSocket endpoint
+	router.HandleFunc("/ws", broker.HandleWebSocket)
+
+	// Start server
+	server := &http.Server{
+		Addr:         ":8080",
+		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	log.Printf("Message broker starting on http://localhost:8080")
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
+}
