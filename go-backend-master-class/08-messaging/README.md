@@ -17,3 +17,22 @@ type Message struct {
 
 type Subscription struct {
     Topic    string
+    Channel  chan Message
+    ClientID string
+}
+```
+- Message structure
+- Subscription management
+- Topic organization
+- Client tracking
+
+### 2. Message Broker
+```go
+type MessageBroker struct {
+    sync.RWMutex
+    subscriptions map[string][]Subscription
+    topics        map[string][]Message
+}
+```
+- Thread-safe implementation
+- Subscription management
