@@ -36,3 +36,22 @@ type MessageBroker struct {
 
 // WebSocketClient represents a connected websocket client
 type WebSocketClient struct {
+	ID       string
+	Conn     *websocket.Conn
+	Broker   *MessageBroker
+	Topics   []string
+	SendChan chan Message
+}
+
+var upgrader = websocket.Upgrader{
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true // Allow all origins for demo
+	},
+}
+
+// NewMessageBroker creates a new message broker
+func NewMessageBroker() *MessageBroker {
+	return &MessageBroker{
+		subscriptions: make(map[string][]Subscription),
