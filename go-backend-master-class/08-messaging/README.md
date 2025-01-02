@@ -112,3 +112,22 @@ func (wc *WebSocketClient) WritePump()
 - Real-time delivery
 
 ### 2. WebSocket
+- Persistent connections
+- Bidirectional communication
+- Connection management
+- Heartbeat mechanism
+
+### 3. Message Queuing
+- Message buffering
+- Ordered delivery
+- Channel management
+- Backpressure handling
+
+## API Endpoints
+
+### HTTP Endpoints
+- `POST /publish`: Publish a message
+  ```json
+  {
+    "topic": "notifications",
+    "data": {
