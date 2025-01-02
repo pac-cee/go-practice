@@ -131,3 +131,22 @@ func NewWebSocketClient(conn *websocket.Conn, broker *MessageBroker) *WebSocketC
 func (mb *MessageBroker) HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
+		log.Printf("WebSocket upgrade failed: %v", err)
+		return
+	}
+
+	client := NewWebSocketClient(conn, mb)
+	go client.WritePump()
+	go client.ReadPump()
+}
+
+// ReadPump handles incoming WebSocket messages
+func (c *WebSocketClient) ReadPump() {
+	defer func() {
+		c.Conn.Close()
+		// Cleanup subscriptions
+		for _, topic := range c.Topics {
+			c.Broker.Unsubscribe(topic, c.ID)
+		}
+	}()
+
