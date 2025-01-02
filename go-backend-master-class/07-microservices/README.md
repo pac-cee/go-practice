@@ -112,3 +112,22 @@ func (cb *CircuitBreaker) Execute(fn func() error) error
 
 ## Best Practices Demonstrated
 1. Service isolation
+2. Failure handling
+3. Health monitoring
+4. Circuit breaking
+5. Service discovery
+6. Error propagation
+
+## Running the Services
+```bash
+# Install dependencies
+go get github.com/gorilla/mux
+go get google.golang.org/grpc
+
+# Run the service registry
+go run main.go
+
+# Environment Variables
+export SERVICE_PORT=8080      # Service registry port
+export SERVICE_NAME=registry  # Service name
+```
