@@ -188,3 +188,22 @@ func (c *WebSocketClient) ReadPump() {
 func (c *WebSocketClient) WritePump() {
 	ticker := time.NewTicker(time.Second * 30)
 	defer func() {
+		ticker.Stop()
+		c.Conn.Close()
+	}()
+
+	for {
+		select {
+		case message, ok := <-c.SendChan:
+			if !ok {
+				c.Conn.WriteMessage(websocket.CloseMessage, []byte{})
+				return
+			}
+
+			if err := c.Conn.WriteJSON(message); err != nil {
+				log.Printf("Error writing message: %v", err)
+				return
+			}
+
+		case <-ticker.C:
+			if err := c.Conn.WriteMessage(websocket.PingMessage, nil); err != nil {
