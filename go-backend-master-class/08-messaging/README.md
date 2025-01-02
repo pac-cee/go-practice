@@ -55,3 +55,22 @@ type WebSocketClient struct {
 - Message buffering
 
 ### 4. Pub/Sub Operations
+
+#### Subscribe
+```go
+func (mb *MessageBroker) Subscribe(topic, clientID string) chan Message
+```
+- Topic subscription
+- Channel creation
+- Client tracking
+- Message buffering
+
+#### Publish
+```go
+func (mb *MessageBroker) Publish(msg Message)
+```
+- Message broadcasting
+- History management
+- Concurrent delivery
+- Error handling
+
