@@ -150,3 +150,22 @@ func (c *WebSocketClient) ReadPump() {
 		}
 	}()
 
+	for {
+		var msg struct {
+			Action string `json:"action"`
+			Topic  string `json:"topic"`
+			Data   string `json:"data,omitempty"`
+		}
+
+		if err := c.Conn.ReadJSON(&msg); err != nil {
+			log.Printf("Error reading message: %v", err)
+			break
+		}
+
+		switch msg.Action {
+		case "subscribe":
+			ch := c.Broker.Subscribe(msg.Topic, c.ID)
+			c.Topics = append(c.Topics, msg.Topic)
+			go func() {
+				for message := range ch {
+					c.SendChan <- message
