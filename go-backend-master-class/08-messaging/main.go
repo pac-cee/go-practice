@@ -74,3 +74,22 @@ func (mb *MessageBroker) Subscribe(topic, clientID string) chan Message {
 	mb.subscriptions[topic] = append(mb.subscriptions[topic], sub)
 	return ch
 }
+
+// Unsubscribe removes a subscription
+func (mb *MessageBroker) Unsubscribe(topic, clientID string) {
+	mb.Lock()
+	defer mb.Unlock()
+
+	subs := mb.subscriptions[topic]
+	for i, sub := range subs {
+		if sub.ClientID == clientID {
+			close(sub.Channel)
+			mb.subscriptions[topic] = append(subs[:i], subs[i+1:]...)
+			break
+		}
+	}
+}
+
+// Publish sends a message to all subscribers of a topic
+func (mb *MessageBroker) Publish(msg Message) {
+	mb.Lock()
