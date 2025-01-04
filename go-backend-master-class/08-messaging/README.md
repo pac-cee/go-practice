@@ -150,3 +150,22 @@ func (wc *WebSocketClient) WritePump()
   - Unsubscribe message:
     ```json
     {
+      "action": "unsubscribe",
+      "topic": "notifications"
+    }
+    ```
+
+## Best Practices Demonstrated
+1. Concurrent message handling
+2. Resource cleanup
+3. Error management
+4. Connection maintenance
+5. Message buffering
+6. Thread safety
+
+## Running the Server
+```bash
+# Install dependencies
+go get github.com/gorilla/mux
+go get github.com/gorilla/websocket
+
