@@ -36,3 +36,22 @@ func NewInMemoryUserStore() *InMemoryUserStore {
 }
 
 // Create adds a new user
+func (s *InMemoryUserStore) Create(user User) error {
+	s.Lock()
+	defer s.Unlock()
+
+	if _, exists := s.users[user.ID]; exists {
+		return errors.New("user already exists")
+	}
+
+	s.users[user.ID] = user
+	return nil
+}
+
+// Get retrieves a user by ID
+func (s *InMemoryUserStore) Get(id int) (User, error) {
+	s.RLock()
+	defer s.RUnlock()
+
+	user, exists := s.users[id]
+	if !exists {
