@@ -188,3 +188,22 @@ ws.send(JSON.stringify({
 
 // Listen for messages
 ws.onmessage = function(event) {
+    console.log('Received:', JSON.parse(event.data));
+};
+```
+
+### Using HTTP
+```bash
+# Publish message
+curl -X POST http://localhost:8080/publish \
+  -H "Content-Type: application/json" \
+  -d '{"topic":"notifications","data":{"message":"Hello"}}'
+
+# Get topic history
+curl http://localhost:8080/topics/notifications/history
+```
+
+## Performance Considerations
+1. Message buffer sizes
+2. Connection limits
+3. History retention
