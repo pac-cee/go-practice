@@ -169,3 +169,22 @@ func (wc *WebSocketClient) WritePump()
 go get github.com/gorilla/mux
 go get github.com/gorilla/websocket
 
+# Run the server
+go run main.go
+```
+
+## Testing the System
+
+### Using WebSocket
+```javascript
+// Connect to WebSocket
+const ws = new WebSocket('ws://localhost:8080/ws');
+
+// Subscribe to topic
+ws.send(JSON.stringify({
+    action: 'subscribe',
+    topic: 'notifications'
+}));
+
+// Listen for messages
+ws.onmessage = function(event) {
