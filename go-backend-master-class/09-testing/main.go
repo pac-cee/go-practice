@@ -112,3 +112,22 @@ func (s *UserService) GetUser(id int) (User, error) {
 
 // UpdateUser updates a user with validation
 func (s *UserService) UpdateUser(user User) error {
+	if err := validateUser(user); err != nil {
+		return err
+	}
+	return s.store.Update(user)
+}
+
+// DeleteUser removes a user
+func (s *UserService) DeleteUser(id int) error {
+	return s.store.Delete(id)
+}
+
+// validateUser performs user validation
+func validateUser(user User) error {
+	if user.Username == "" {
+		return errors.New("username is required")
+	}
+	if user.Email == "" {
+		return errors.New("email is required")
+	}
