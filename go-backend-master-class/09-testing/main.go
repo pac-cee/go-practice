@@ -74,3 +74,22 @@ func (s *InMemoryUserStore) Update(user User) error {
 	return nil
 }
 
+// Delete removes a user
+func (s *InMemoryUserStore) Delete(id int) error {
+	s.Lock()
+	defer s.Unlock()
+
+	if _, exists := s.users[id]; !exists {
+		return errors.New("user not found")
+	}
+
+	delete(s.users, id)
+	return nil
+}
+
+// UserService handles user-related business logic
+type UserService struct {
+	store UserStore
+}
+
+// NewUserService creates a new user service
