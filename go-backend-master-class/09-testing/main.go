@@ -131,3 +131,22 @@ func validateUser(user User) error {
 	if user.Email == "" {
 		return errors.New("email is required")
 	}
+	return nil
+}
+
+// UserHandler handles HTTP requests for users
+type UserHandler struct {
+	service *UserService
+}
+
+// NewUserHandler creates a new user handler
+func NewUserHandler(service *UserService) *UserHandler {
+	return &UserHandler{service: service}
+}
+
+// CreateUser handles user creation requests
+func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
+	var user User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
