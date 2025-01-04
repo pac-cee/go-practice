@@ -207,3 +207,19 @@ curl http://localhost:8080/topics/notifications/history
 1. Message buffer sizes
 2. Connection limits
 3. History retention
+4. Memory management
+5. Concurrent operations
+
+## Error Handling
+1. Connection failures
+2. Message validation
+3. Topic management
+4. Client disconnection
+5. Channel closure
+
+## Scaling Considerations
+1. Multiple broker support
+2. Message persistence
+3. Load balancing
+4. Client distribution
+5. Topic partitioning
