@@ -93,3 +93,22 @@ type UserService struct {
 }
 
 // NewUserService creates a new user service
+func NewUserService(store UserStore) *UserService {
+	return &UserService{store: store}
+}
+
+// CreateUser creates a new user with validation
+func (s *UserService) CreateUser(user User) error {
+	if err := validateUser(user); err != nil {
+		return err
+	}
+	return s.store.Create(user)
+}
+
+// GetUser retrieves a user by ID
+func (s *UserService) GetUser(id int) (User, error) {
+	return s.store.Get(id)
+}
+
+// UpdateUser updates a user with validation
+func (s *UserService) UpdateUser(user User) error {
