@@ -55,3 +55,22 @@ func (s *InMemoryUserStore) Get(id int) (User, error) {
 
 	user, exists := s.users[id]
 	if !exists {
+		return User{}, errors.New("user not found")
+	}
+
+	return user, nil
+}
+
+// Update modifies an existing user
+func (s *InMemoryUserStore) Update(user User) error {
+	s.Lock()
+	defer s.Unlock()
+
+	if _, exists := s.users[user.ID]; !exists {
+		return errors.New("user not found")
+	}
+
+	s.users[user.ID] = user
+	return nil
+}
+
