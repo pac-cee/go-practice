@@ -188,3 +188,22 @@ func TestUserService_GetUser(t *testing.T) {
 		wantErr bool
 	}{
 		{
+			name:    "existing user",
+			id:      1,
+			want:    testUser,
+			wantErr: false,
+		},
+		{
+			name:    "non-existing user",
+			id:      2,
+			want:    User{},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := service.GetUser(tt.id)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetUser() error = %v, wantErr %v", err, tt.wantErr)
+				return
