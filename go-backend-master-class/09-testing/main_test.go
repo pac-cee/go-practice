@@ -150,3 +150,22 @@ func TestUserHandler_CreateUser(t *testing.T) {
 			}
 		})
 	}
+}
+
+// Benchmark example
+func BenchmarkUserService_CreateUser(b *testing.B) {
+	store := NewMockUserStore()
+	service := NewUserService(store)
+	user := User{
+		ID:       1,
+		Username: "testuser",
+		Email:    "test@example.com",
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		service.CreateUser(user)
+	}
+}
+
+// Example of table-driven tests for GetUser
