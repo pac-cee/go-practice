@@ -169,3 +169,22 @@ func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 	user, err := h.service.GetUser(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	json.NewEncoder(w).Encode(user)
+}
+
+func main() {
+	// Initialize dependencies
+	store := NewInMemoryUserStore()
+	service := NewUserService(store)
+	handler := NewUserHandler(service)
+
+	// Setup routes
+	http.HandleFunc("/users", handler.CreateUser)
+	http.HandleFunc("/users/1", handler.GetUser)
+
+	// Start server
+	http.ListenAndServe(":8080", nil)
+}
