@@ -131,3 +131,22 @@ func TestUserHandler_CreateUser(t *testing.T) {
 
 			if w.Code != tt.expectedCode {
 				t.Errorf("Expected status code %d, got %d", tt.expectedCode, w.Code)
+			}
+
+			if tt.expectedError {
+				if w.Code == http.StatusCreated {
+					t.Error("Expected error response, got success")
+				}
+			} else {
+				var response User
+				err := json.NewDecoder(w.Body).Decode(&response)
+				if err != nil {
+					t.Errorf("Failed to decode response: %v", err)
+				}
+
+				if response.ID != tt.user.ID {
+					t.Errorf("Expected user ID %d, got %d", tt.user.ID, response.ID)
+				}
+			}
+		})
+	}
