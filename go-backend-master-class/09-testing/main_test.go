@@ -74,3 +74,22 @@ func TestUserService_CreateUser(t *testing.T) {
 			user: User{
 				ID:       3,
 				Username: "testuser",
+			},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := service.CreateUser(tt.user)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("CreateUser() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+// TestUserHandler_CreateUser tests the CreateUser handler
+func TestUserHandler_CreateUser(t *testing.T) {
+	store := NewMockUserStore()
+	service := NewUserService(store)
