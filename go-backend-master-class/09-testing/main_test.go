@@ -55,3 +55,22 @@ func TestUserService_CreateUser(t *testing.T) {
 		{
 			name: "valid user",
 			user: User{
+				ID:       1,
+				Username: "testuser",
+				Email:    "test@example.com",
+			},
+			wantErr: false,
+		},
+		{
+			name: "missing username",
+			user: User{
+				ID:    2,
+				Email: "test@example.com",
+			},
+			wantErr: true,
+		},
+		{
+			name: "missing email",
+			user: User{
+				ID:       3,
+				Username: "testuser",
