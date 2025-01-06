@@ -36,3 +36,22 @@ func (s *MockUserStore) Update(user User) error {
 	s.users[user.ID] = user
 	return nil
 }
+
+func (s *MockUserStore) Delete(id int) error {
+	delete(s.users, id)
+	return nil
+}
+
+// TestUserService_CreateUser tests the CreateUser method
+func TestUserService_CreateUser(t *testing.T) {
+	store := NewMockUserStore()
+	service := NewUserService(store)
+
+	tests := []struct {
+		name    string
+		user    User
+		wantErr bool
+	}{
+		{
+			name: "valid user",
+			user: User{
