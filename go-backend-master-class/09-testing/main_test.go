@@ -93,3 +93,22 @@ func TestUserService_CreateUser(t *testing.T) {
 func TestUserHandler_CreateUser(t *testing.T) {
 	store := NewMockUserStore()
 	service := NewUserService(store)
+	handler := NewUserHandler(service)
+
+	tests := []struct {
+		name           string
+		user          User
+		expectedCode  int
+		expectedError bool
+	}{
+		{
+			name: "valid user",
+			user: User{
+				ID:       1,
+				Username: "testuser",
+				Email:    "test@example.com",
+			},
+			expectedCode:  http.StatusCreated,
+			expectedError: false,
+		},
+		{
