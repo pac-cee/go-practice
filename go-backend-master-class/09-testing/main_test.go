@@ -169,3 +169,22 @@ func BenchmarkUserService_CreateUser(b *testing.B) {
 }
 
 // Example of table-driven tests for GetUser
+func TestUserService_GetUser(t *testing.T) {
+	store := NewMockUserStore()
+	service := NewUserService(store)
+
+	// Setup test data
+	testUser := User{
+		ID:       1,
+		Username: "testuser",
+		Email:    "test@example.com",
+	}
+	store.Create(testUser)
+
+	tests := []struct {
+		name    string
+		id      int
+		want    User
+		wantErr bool
+	}{
+		{
