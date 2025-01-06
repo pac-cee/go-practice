@@ -112,3 +112,22 @@ func TestUserHandler_CreateUser(t *testing.T) {
 			expectedError: false,
 		},
 		{
+			name: "invalid user",
+			user: User{
+				ID: 2,
+			},
+			expectedCode:  http.StatusBadRequest,
+			expectedError: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			userJSON, _ := json.Marshal(tt.user)
+			req := httptest.NewRequest("POST", "/users", bytes.NewBuffer(userJSON))
+			w := httptest.NewRecorder()
+
+			handler.CreateUser(w, req)
+
+			if w.Code != tt.expectedCode {
+				t.Errorf("Expected status code %d, got %d", tt.expectedCode, w.Code)
