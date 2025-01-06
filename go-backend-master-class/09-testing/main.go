@@ -150,3 +150,22 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
+	}
+
+	if err := h.service.CreateUser(user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(user)
+}
+
+// GetUser handles user retrieval requests
+func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
+	// In a real application, you would parse the ID from the URL
+	id := 1 // Example ID
+
+	user, err := h.service.GetUser(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
