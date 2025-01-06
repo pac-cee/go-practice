@@ -207,3 +207,10 @@ func TestUserService_GetUser(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetUser() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+			if !tt.wantErr && got != tt.want {
+				t.Errorf("GetUser() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
