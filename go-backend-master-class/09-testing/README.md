@@ -169,3 +169,22 @@ func BenchmarkUserService_CreateUser(b *testing.B) {
 
 ### Unit Tests
 ```bash
+# Run all tests
+go test ./...
+
+# Run specific test
+go test -run TestUserService_CreateUser
+
+# Run with coverage
+go test -cover ./...
+
+# Generate coverage report
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out
+```
+
+### Benchmarks
+```bash
+# Run benchmarks
+go test -bench=.
+
