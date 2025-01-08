@@ -17,3 +17,22 @@ type User struct {
 }
 
 type UserStore interface {
+    Create(user User) error
+    Get(id int) (User, error)
+    Update(user User) error
+    Delete(id int) error
+}
+```
+- Clean data structure
+- Interface-based design
+- CRUD operations
+- Error handling
+
+#### Service Layer
+```go
+type UserService struct {
+    store UserStore
+}
+```
+- Business logic
+- Validation
