@@ -55,3 +55,22 @@ type UserHandler struct {
 #### Mock Store
 ```go
 type MockUserStore struct {
+    users map[int]User
+}
+```
+- Interface implementation
+- Controlled behavior
+- Test isolation
+- State verification
+
+#### Test Cases
+```go
+func TestUserService_CreateUser(t *testing.T)
+func TestUserHandler_CreateUser(t *testing.T)
+func TestUserService_GetUser(t *testing.T)
+```
+- Table-driven tests
+- Edge cases
+- Error scenarios
+- HTTP testing
+
