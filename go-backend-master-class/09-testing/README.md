@@ -188,3 +188,22 @@ go tool cover -html=coverage.out
 # Run benchmarks
 go test -bench=.
 
+# Run benchmarks with memory allocation info
+go test -bench=. -benchmem
+```
+
+## Testing Guidelines
+
+### 1. Test Structure
+- Setup phase
+- Operation phase
+- Verification phase
+- Cleanup phase
+
+### 2. Naming Conventions
+- TestPackage_Function
+- Test_specificCase
+- Benchmark_operation
+
+### 3. Coverage Goals
+- Critical paths: 100%
