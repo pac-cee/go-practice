@@ -36,3 +36,22 @@ type UserService struct {
 ```
 - Business logic
 - Validation
+- Store interaction
+- Error management
+
+#### HTTP Handler
+```go
+type UserHandler struct {
+    service *UserService
+}
+```
+- Request handling
+- Response formatting
+- Error responses
+- HTTP methods
+
+### 2. Testing Components
+
+#### Mock Store
+```go
+type MockUserStore struct {
