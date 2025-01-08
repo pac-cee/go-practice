@@ -207,3 +207,22 @@ go test -bench=. -benchmem
 
 ### 3. Coverage Goals
 - Critical paths: 100%
+- Business logic: 90%+
+- Error handling: 80%+
+- Edge cases: Comprehensive
+
+### 4. Performance Benchmarks
+- Response time
+- Memory allocation
+- Resource usage
+- Concurrent operations
+
+## Common Testing Patterns
+
+### 1. Setup/Teardown
+```go
+func TestMain(m *testing.M) {
+    // Setup
+    code := m.Run()
+    // Teardown
+    os.Exit(code)
