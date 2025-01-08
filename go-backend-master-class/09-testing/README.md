@@ -150,3 +150,22 @@ request := httptest.NewRequest(http.MethodPost, "/users", body)
 - Request simulation
 - Response validation
 - Header checking
+- Status codes
+
+### 4. Benchmarking
+```go
+func BenchmarkUserService_CreateUser(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        // Operation to benchmark
+    }
+}
+```
+- Performance metrics
+- Resource usage
+- Optimization
+- Baseline establishment
+
+## Running Tests
+
+### Unit Tests
+```bash
