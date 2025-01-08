@@ -93,3 +93,22 @@ func BenchmarkUserService_CreateUser(b *testing.B)
 
 ### 2. Integration Testing
 - Component interaction
+- HTTP endpoint testing
+- Database operations
+- End-to-end flows
+
+### 3. Table-Driven Tests
+```go
+tests := []struct {
+    name    string
+    user    User
+    wantErr bool
+}{
+    {
+        name: "valid user",
+        user: User{...},
+        wantErr: false,
+    },
+    // More test cases...
+}
+```
