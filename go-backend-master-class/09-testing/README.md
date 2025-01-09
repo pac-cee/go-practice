@@ -245,3 +245,14 @@ func assertError(t *testing.T, got, want error) {
     t.Helper()
     if got != want {
         t.Errorf("got error %v, want %v", got, want)
+    }
+}
+```
+
+## Best Practices
+1. Write tests first (TDD)
+2. Keep tests simple
+3. Test edge cases
+4. Use table-driven tests
+5. Mock external dependencies
+6. Benchmark critical paths
