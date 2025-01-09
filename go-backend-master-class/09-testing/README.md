@@ -226,3 +226,22 @@ func TestMain(m *testing.M) {
     code := m.Run()
     // Teardown
     os.Exit(code)
+}
+```
+
+### 2. Helper Functions
+```go
+func setupTestCase(t *testing.T) func() {
+    // Setup
+    return func() {
+        // Teardown
+    }
+}
+```
+
+### 3. Assertion Helpers
+```go
+func assertError(t *testing.T, got, want error) {
+    t.Helper()
+    if got != want {
+        t.Errorf("got error %v, want %v", got, want)
