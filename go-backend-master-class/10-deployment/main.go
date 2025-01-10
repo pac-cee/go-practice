@@ -74,3 +74,22 @@ func loggingMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			r.URL.Path,
 			time.Since(start),
 		)
+	}
+}
+
+// healthHandler handles health check requests
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	response := Response{
+		Status:  "success",
+		Message: "Service is healthy",
+		Data: map[string]interface{}{
+			"version": os.Getenv("APP_VERSION"),
+			"uptime":  time.Now().String(),
+		},
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+// readinessHandler handles readiness check requests
