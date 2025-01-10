@@ -36,3 +36,22 @@ func init() {
 	prometheus.MustRegister(httpRequestsTotal)
 	prometheus.MustRegister(httpRequestDuration)
 }
+
+// Response represents a standard API response
+type Response struct {
+	Status  string      `json:"status"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
+}
+
+// metricsMiddleware adds Prometheus metrics
+func metricsMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+
+		// Call the next handler
+		next.ServeHTTP(w, r)
+
+		// Record metrics
+		duration := time.Since(start).Seconds()
+		httpRequestDuration.WithLabelValues(r.Method, r.URL.Path).Observe(duration)
