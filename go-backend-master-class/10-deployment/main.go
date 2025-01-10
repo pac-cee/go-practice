@@ -55,3 +55,22 @@ func metricsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		// Record metrics
 		duration := time.Since(start).Seconds()
 		httpRequestDuration.WithLabelValues(r.Method, r.URL.Path).Observe(duration)
+		httpRequestsTotal.WithLabelValues(r.Method, r.URL.Path, "200").Inc()
+	}
+}
+
+// loggingMiddleware adds request logging
+func loggingMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+
+		// Call the next handler
+		next.ServeHTTP(w, r)
+
+		// Log the request
+		log.Printf(
+			"method=%s path=%s duration=%v",
+			r.Method,
+			r.URL.Path,
+			time.Since(start),
+		)
