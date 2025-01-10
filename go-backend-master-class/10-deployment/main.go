@@ -93,3 +93,22 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // readinessHandler handles readiness check requests
+func readinessHandler(w http.ResponseWriter, r *http.Request) {
+	response := Response{
+		Status:  "success",
+		Message: "Service is ready",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+func main() {
+	// Get port from environment variable or use default
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	// Register routes
+	http.Handle("/metrics", promhttp.Handler())
