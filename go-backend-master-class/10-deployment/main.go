@@ -112,3 +112,26 @@ func main() {
 
 	// Register routes
 	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/health", metricsMiddleware(loggingMiddleware(healthHandler)))
+	http.HandleFunc("/ready", metricsMiddleware(loggingMiddleware(readinessHandler)))
+
+	// Add a basic root handler
+	http.HandleFunc("/", metricsMiddleware(loggingMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		response := Response{
+			Status:  "success",
+			Message: "Go Backend Service",
+			Data: map[string]string{
+				"version": os.Getenv("APP_VERSION"),
+			},
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	})))
+
+	// Start server
+	log.Printf("Server starting on :%s", port)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
+}
