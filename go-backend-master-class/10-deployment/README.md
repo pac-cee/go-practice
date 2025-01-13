@@ -17,3 +17,22 @@ var (
         []string{"method", "endpoint", "status"},
     )
 
+    httpRequestDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name:    "http_request_duration_seconds",
+            Help:    "HTTP request duration in seconds",
+            Buckets: prometheus.DefBuckets,
+        },
+        []string{"method", "endpoint"},
+    )
+)
+```
+- Request counting
+- Duration tracking
+- Label-based metrics
+- Prometheus integration
+
+#### Middleware
+```go
+func metricsMiddleware(next http.HandlerFunc) http.HandlerFunc
+func loggingMiddleware(next http.HandlerFunc) http.HandlerFunc
