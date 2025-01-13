@@ -36,3 +36,22 @@ var (
 ```go
 func metricsMiddleware(next http.HandlerFunc) http.HandlerFunc
 func loggingMiddleware(next http.HandlerFunc) http.HandlerFunc
+```
+- Request metrics
+- Response timing
+- Logging
+- Error tracking
+
+#### Health Checks
+```go
+func healthHandler(w http.ResponseWriter, r *http.Request)
+func readinessHandler(w http.ResponseWriter, r *http.Request)
+```
+- Liveness probe
+- Readiness probe
+- Version info
+- Uptime tracking
+
+### 2. Docker Configuration
+
+```dockerfile
