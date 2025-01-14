@@ -169,3 +169,22 @@ curl http://localhost:8080/metrics
 - Key metrics
 - Alert thresholds
 - Dashboard setup
+- Log aggregation
+- Performance tracking
+
+## Configuration Options
+
+### 1. Environment Variables
+```bash
+APP_VERSION=1.0.0
+PORT=8080
+LOG_LEVEL=info
+```
+
+### 2. Resource Limits
+```yaml
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
