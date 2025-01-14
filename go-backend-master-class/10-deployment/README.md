@@ -150,3 +150,22 @@ curl http://localhost:8080/metrics
 ```
 
 ## Best Practices
+
+### 1. Docker Best Practices
+- Multi-stage builds
+- Minimal base images
+- Layer optimization
+- Security considerations
+- Environment variables
+
+### 2. Kubernetes Best Practices
+- Resource limits
+- Health checks
+- Rolling updates
+- Pod anti-affinity
+- Service configuration
+
+### 3. Monitoring Best Practices
+- Key metrics
+- Alert thresholds
+- Dashboard setup
