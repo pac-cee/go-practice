@@ -55,3 +55,22 @@ func readinessHandler(w http.ResponseWriter, r *http.Request)
 ### 2. Docker Configuration
 
 ```dockerfile
+# Multi-stage build
+FROM golang:1.21-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+
+# Final stage
+FROM alpine:latest
+COPY --from=builder /app/main .
+EXPOSE 8080
+CMD ["./main"]
+```
+- Multi-stage build
+- Minimal final image
+- Dependency management
+- Port configuration
+
+### 3. Kubernetes Deployment
