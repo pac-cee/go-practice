@@ -93,3 +93,22 @@ spec:
             cpu: "500m"
             memory: "512Mi"
 ```
+- Replica management
+- Resource limits
+- Container configuration
+- Health probes
+
+#### Service Configuration
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-backend-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+```
+- Load balancing
+- Port mapping
