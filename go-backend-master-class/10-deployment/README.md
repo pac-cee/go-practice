@@ -112,3 +112,22 @@ spec:
 ```
 - Load balancing
 - Port mapping
+- Service discovery
+- External access
+
+## Deployment Process
+
+### 1. Building the Docker Image
+```bash
+# Build the image
+docker build -t go-backend:latest .
+
+# Run locally
+docker run -p 8080:8080 go-backend:latest
+```
+
+### 2. Kubernetes Deployment
+```bash
+# Apply the deployment
+kubectl apply -f k8s/deployment.yaml
+
