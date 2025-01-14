@@ -131,3 +131,22 @@ docker run -p 8080:8080 go-backend:latest
 # Apply the deployment
 kubectl apply -f k8s/deployment.yaml
 
+# Check status
+kubectl get deployments
+kubectl get pods
+kubectl get services
+```
+
+### 3. Monitoring Setup
+```bash
+# Access Prometheus metrics
+curl http://localhost:8080/metrics
+
+# Common metrics:
+- http_requests_total
+- http_request_duration_seconds
+- go_goroutines
+- go_threads
+```
+
+## Best Practices
