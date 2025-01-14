@@ -74,3 +74,22 @@ CMD ["./main"]
 - Port configuration
 
 ### 3. Kubernetes Deployment
+
+#### Deployment Configuration
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-backend-app
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: go-backend
+        image: go-backend:latest
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+```
