@@ -36,3 +36,22 @@ go-backend-master-class/
 - Request handling
 - Response formatting
 
+### 3. Database Integration
+- SQL databases (PostgreSQL)
+- GORM ORM usage
+- Database migrations
+- Connection pooling
+- Query optimization
+- NoSQL databases (MongoDB)
+
+### 4. API Design
+- RESTful principles
+- API versioning
+- Request/Response patterns
+- Documentation (Swagger)
+- Rate limiting
+- Input validation
+
+### 5. Authentication & Authorization
+- JWT implementation
+- OAuth2 integration
