@@ -55,3 +55,22 @@ go-backend-master-class/
 ### 5. Authentication & Authorization
 - JWT implementation
 - OAuth2 integration
+- Session management
+- Password hashing
+- Role-based access control
+
+### 6. Caching
+- Redis integration
+- In-memory caching
+- Cache strategies
+- Cache invalidation
+- Distributed caching
+
+### 7. Microservices
+- Service architecture
+- Inter-service communication
+- Service discovery
+- Load balancing
+- Circuit breaking
+
+### 8. Messaging
