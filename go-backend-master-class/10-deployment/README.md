@@ -245,3 +245,19 @@ livenessProbe:
 ## Security Considerations
 
 ### 1. Container Security
+- Minimal base images
+- Non-root users
+- Read-only filesystems
+- Security scanning
+
+### 2. Network Security
+- Service isolation
+- Network policies
+- TLS configuration
+- API authentication
+
+### 3. Resource Protection
+- Rate limiting
+- Resource quotas
+- Pod security policies
+- Secret management
