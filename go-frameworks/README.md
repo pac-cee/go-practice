@@ -36,3 +36,22 @@ func createUser(c *gin.Context) {
     if err := c.ShouldBindJSON(&user); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
+    }
+    c.JSON(http.StatusCreated, user)
+}
+
+func getUser(c *gin.Context) {
+    id := c.Param("id")
+    c.JSON(http.StatusOK, gin.H{"id": id})
+}
+
+
+2.Fiber framework 
+
+
+package main
+
+import (
+    "github.com/gofiber/fiber/v2"
+)
+
