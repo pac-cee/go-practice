@@ -93,3 +93,22 @@ go-backend-master-class/
 - CI/CD pipelines
 - Monitoring
 - Logging
+
+## Getting Started 🚀
+
+1. Clone this repository
+2. Install Go (1.21+ recommended)
+3. Install required dependencies:
+   ```bash
+   go mod tidy
+   ```
+4. Follow each section sequentially
+5. Complete exercises in each module
+6. Build the final projects
+
+## Prerequisites 📋
+
+- Basic understanding of programming concepts
+- Go installed on your system
+- Basic command line knowledge
+- Text editor or IDE (VSCode recommended)
