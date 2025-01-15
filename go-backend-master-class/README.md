@@ -17,3 +17,22 @@ go-backend-master-class/
 ├── 09-testing/             # Unit, integration, and e2e testing
 ├── 10-deployment/          # Docker, K8s, and CI/CD
 └── projects/               # Real-world project implementations
+```
+
+## Learning Path 🎯
+
+### 1. Fundamentals
+- Go syntax and basic concepts
+- Goroutines and concurrency
+- Error handling
+- Package management
+- Project structure
+
+### 2. Web Basics
+- HTTP server implementation
+- Routing with standard library
+- Popular frameworks (Gin, Echo)
+- Middleware concepts
+- Request handling
+- Response formatting
+
