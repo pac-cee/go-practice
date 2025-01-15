@@ -188,3 +188,22 @@ resources:
     cpu: "500m"
     memory: "512Mi"
   requests:
+    cpu: "200m"
+    memory: "256Mi"
+```
+
+### 3. Health Checks
+```yaml
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+```
+
+## Monitoring and Metrics
+
+### 1. Request Metrics
+- Total requests
+- Request duration
