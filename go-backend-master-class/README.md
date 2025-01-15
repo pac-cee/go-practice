@@ -74,3 +74,22 @@ go-backend-master-class/
 - Circuit breaking
 
 ### 8. Messaging
+- Message queues (RabbitMQ)
+- Pub/Sub patterns
+- Event-driven architecture
+- Async processing
+- WebSocket implementation
+
+### 9. Testing
+- Unit testing
+- Integration testing
+- Mocking
+- Benchmarking
+- Test coverage
+
+### 10. Deployment
+- Docker containerization
+- Kubernetes basics
+- CI/CD pipelines
+- Monitoring
+- Logging
