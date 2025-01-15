@@ -207,3 +207,22 @@ livenessProbe:
 ### 1. Request Metrics
 - Total requests
 - Request duration
+- Status codes
+- Endpoint usage
+
+### 2. System Metrics
+- CPU usage
+- Memory usage
+- Goroutine count
+- GC statistics
+
+### 3. Custom Metrics
+- Business metrics
+- Error rates
+- Cache hits/misses
+- Queue lengths
+
+## Scaling Considerations
+
+### 1. Horizontal Scaling
+- Pod replicas
