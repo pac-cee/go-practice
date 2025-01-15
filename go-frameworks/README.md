@@ -55,3 +55,22 @@ import (
     "github.com/gofiber/fiber/v2"
 )
 
+func main() {
+    app := fiber.New()
+
+    // Middleware
+    app.Use(func(c *fiber.Ctx) error {
+        c.Set("X-Custom-Header", "Hello, Fiber!")
+        return c.Next()
+    })
+
+    // Routes
+    app.Get("/", func(c *fiber.Ctx) error {
+        return c.JSON(fiber.Map{
+            "message": "Hello, World!",
+        })
+    })
+
+    // Route groups
+    api := app.Group("/api")
+    v1 := api.Group("/v1")
