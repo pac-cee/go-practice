@@ -74,3 +74,22 @@ func main() {
     // Route groups
     api := app.Group("/api")
     v1 := api.Group("/v1")
+
+    v1.Post("/users", func(c *fiber.Ctx) error {
+        var user User
+        if err := c.BodyParser(&user); err != nil {
+            return err
+        }
+        return c.Status(201).JSON(user)
+    })
+
+    app.Listen(":3000")
+}
+
+
+
+3.Buffalo framework
+
+
+package actions
+
