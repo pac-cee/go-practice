@@ -112,3 +112,22 @@ func App() *buffalo.App {
     api.GET("/users", UsersHandler)
     api.POST("/users", CreateUserHandler)
 
+    return app
+}
+
+func HomeHandler(c buffalo.Context) error {
+    return c.Render(200, r.JSON(map[string]string{
+        "message": "Welcome to Buffalo!",
+    }))
+}
+
+
+4.Echo framework
+
+
+package main
+
+import (
+    "github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4/middleware"
+    "net/http"
