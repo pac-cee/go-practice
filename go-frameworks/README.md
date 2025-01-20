@@ -93,3 +93,22 @@ func main() {
 
 package actions
 
+import (
+    "github.com/gobuffalo/buffalo"
+    "github.com/gobuffalo/buffalo/middleware"
+)
+
+func App() *buffalo.App {
+    app := buffalo.New(buffalo.Options{
+        Env: "development",
+    })
+
+    app.Use(middleware.PopTransaction)
+    app.Use(middleware.CSRF)
+
+    app.GET("/", HomeHandler)
+
+    api := app.Group("/api")
+    api.GET("/users", UsersHandler)
+    api.POST("/users", CreateUserHandler)
+
