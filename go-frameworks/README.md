@@ -169,3 +169,22 @@ func AuthMiddleware() gin.HandlerFunc {
             return
         }
         c.Next()
+    }
+}
+
+// Fiber Middleware
+func AuthMiddleware(c *fiber.Ctx) error {
+    token := c.Get("Authorization")
+    if token == "" {
+        return c.Status(401).JSON(fiber.Map{"error": "unauthorized"})
+    }
+    return c.Next()
+}
+
+// Echo Middleware
+func AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        token := c.Request().Header.Get("Authorization")
+        if token == "" {
+            return echo.NewHTTPError(401, "unauthorized")
+        }
