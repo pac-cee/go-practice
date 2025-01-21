@@ -150,3 +150,22 @@ func main() {
     // Route groups
     api := e.Group("/api")
     api.POST("/users", createUser)
+    api.GET("/users/:id", getUser)
+
+    e.Logger.Fatal(e.Start(":1323"))
+}
+
+
+5.commo features comparison
+
+
+
+// Gin Middleware
+func AuthMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        token := c.GetHeader("Authorization")
+        if token == "" {
+            c.AbortWithStatusJSON(401, gin.H{"error": "unauthorized"})
+            return
+        }
+        c.Next()
