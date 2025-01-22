@@ -207,3 +207,18 @@ fiber setup
 mkdir fiber-project
 cd fiber-project
 go mod init fiber-project
+go get github.com/gofiber/fiber/v2
+
+buffalo setup
+
+go get github.com/gobuffalo/buffalo/buffalo
+buffalo new my-buffalo-project
+cd my-buffalo-project
+buffalo dev
+
+echo setup
+
+mkdir echo-project
+cd echo-project
+go mod init echo-project
+go get github.com/labstack/echo/v4
