@@ -188,3 +188,22 @@ func AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
         if token == "" {
             return echo.NewHTTPError(401, "unauthorized")
         }
+        return next(c)
+    }
+}
+
+
+framework setup command 
+
+gin setup
+
+mkdir gin-project
+cd gin-project
+go mod init gin-project
+go get -u github.com/gin-gonic/gin
+
+fiber setup 
+
+mkdir fiber-project
+cd fiber-project
+go mod init fiber-project
