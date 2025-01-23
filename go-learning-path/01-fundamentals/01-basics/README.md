@@ -93,3 +93,22 @@ type Reader interface {}
    It can span multiple lines
    Used for longer explanations
 */
+```
+
+### 3. Package Documentation
+```go
+// Package userservice provides user management functionality.
+// It handles user creation, authentication, and authorization.
+package userservice
+```
+
+### 4. Function Documentation
+```go
+// GetUser retrieves a user by their ID.
+// It returns an error if the user is not found.
+func GetUser(id string) (*User, error) {
+    // Implementation
+}
+```
+
+## First Program
