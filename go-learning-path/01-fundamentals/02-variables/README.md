@@ -169,3 +169,22 @@ var (
 ### Arrays
 ```go
 var numbers [5]int          // Array of 5 integers
+scores := [3]int{90, 95, 100} // Array with initial values
+```
+
+### Slices
+```go
+var numbers []int           // Slice of integers
+scores := []int{90, 95, 100} // Slice with initial values
+```
+
+### Maps
+```go
+var m map[string]int       // Map declaration
+scores := map[string]int{  // Map with initial values
+    "Alice": 95,
+    "Bob":   89,
+}
+```
+
+## Exercises
