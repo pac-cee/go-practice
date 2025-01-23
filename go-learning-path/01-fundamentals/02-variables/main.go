@@ -55,3 +55,22 @@ func demonstrateVariables() {
 
 // demonstrateTypeConversion shows type conversion examples
 func demonstrateTypeConversion() {
+	// Numeric conversions
+	var i int = 42
+	var f float64 = float64(i)
+	var u uint = uint(f)
+
+	fmt.Printf("Integer: %d\n", i)
+	fmt.Printf("Float: %f\n", f)
+	fmt.Printf("Unsigned Integer: %d\n", u)
+
+	// String conversions
+	str := strconv.Itoa(i)
+	fmt.Printf("String: %s\n", str)
+
+	num, err := strconv.Atoi(str)
+	if err != nil {
+		fmt.Printf("Error converting string to integer: %v\n", err)
+	} else {
+		fmt.Printf("Back to number: %d\n", num)
+	}
