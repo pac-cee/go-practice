@@ -245,3 +245,22 @@ import "fmt"
 func Add(a, b int) int {
     return a + b
 }
+
+func main() {
+    result := Add(5, 3)
+    fmt.Printf("5 + 3 = %d\n", result)
+}
+```
+
+## Best Practices
+
+1. **Code Organization**
+   - One package per directory
+   - Clear package names
+   - Logical file organization
+
+2. **Documentation**
+   - Document all exported items
+   - Write clear, concise comments
+   - Include examples in docs
+
