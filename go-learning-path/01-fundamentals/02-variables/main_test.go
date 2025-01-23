@@ -74,3 +74,22 @@ func TestUserScore(t *testing.T) {
 // TestGameLevels tests the game level constants
 func TestGameLevels(t *testing.T) {
 	// Test level values
+	if BeginnerLevel != 0 {
+		t.Errorf("Expected BeginnerLevel to be 0, got %d", BeginnerLevel)
+	}
+
+	if IntermediateLevel != 1 {
+		t.Errorf("Expected IntermediateLevel to be 1, got %d", IntermediateLevel)
+	}
+
+	if AdvancedLevel != 2 {
+		t.Errorf("Expected AdvancedLevel to be 2, got %d", AdvancedLevel)
+	}
+
+	if ExpertLevel != 3 {
+		t.Errorf("Expected ExpertLevel to be 3, got %d", ExpertLevel)
+	}
+
+	// Test level ordering
+	if BeginnerLevel >= IntermediateLevel {
+		t.Error("BeginnerLevel should be less than IntermediateLevel")
