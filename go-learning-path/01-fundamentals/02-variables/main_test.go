@@ -93,3 +93,20 @@ func TestGameLevels(t *testing.T) {
 	// Test level ordering
 	if BeginnerLevel >= IntermediateLevel {
 		t.Error("BeginnerLevel should be less than IntermediateLevel")
+	}
+
+	if IntermediateLevel >= AdvancedLevel {
+		t.Error("IntermediateLevel should be less than AdvancedLevel")
+	}
+
+	if AdvancedLevel >= ExpertLevel {
+		t.Error("AdvancedLevel should be less than ExpertLevel")
+	}
+}
+
+// BenchmarkCalculateRank benchmarks the rank calculation
+func BenchmarkCalculateRank(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		calculateRank(85)
+	}
+}
