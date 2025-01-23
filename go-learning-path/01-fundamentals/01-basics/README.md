@@ -188,3 +188,22 @@ require (
 ### 3. Adding Dependencies
 ```bash
 go get github.com/some/dependency
+```
+
+### 4. Updating Dependencies
+```bash
+go get -u        # Update all dependencies
+go mod tidy      # Clean up dependencies
+```
+
+## Exercises
+
+### Exercise 1: Hello World
+Create a program that prints "Hello, [your name]!"
+```go
+// Solution
+package main
+
+import "fmt"
+
+func main() {
