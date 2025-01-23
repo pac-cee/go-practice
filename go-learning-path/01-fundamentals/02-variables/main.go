@@ -93,3 +93,22 @@ func demonstrateZeroValues() {
 	fmt.Printf("Boolean: %v\n", b)
 	fmt.Printf("Pointer: %v\n", p)
 }
+
+func main() {
+	// Create a user score
+	user := UserScore{
+		Username: "GopherGamer",
+		Score:    95,
+		Active:   true,
+	}
+
+	// Calculate and set rank
+	user.Rank = calculateRank(user.Score)
+
+	// Print user information
+	fmt.Printf("\nUser Information:\n")
+	fmt.Printf("Username: %s\n", user.Username)
+	fmt.Printf("Score: %d\n", user.Score)
+	fmt.Printf("Rank: %.2f\n", user.Rank)
+	fmt.Printf("Active: %v\n", user.Active)
+
