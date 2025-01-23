@@ -74,3 +74,22 @@ var name string = "Gopher"
 var age int = 25
 var isActive = true  // Type inference
 ```
+
+### 3. Short Declaration (Inside Functions)
+```go
+func example() {
+    name := "Gopher"    // string
+    age := 25          // int
+    score := 95.5      // float64
+}
+```
+
+### 4. Multiple Assignments
+```go
+var x, y int = 10, 20
+name, age := "Gopher", 25
+```
+
+## Type Conversion
+
+Go requires explicit type conversion:
