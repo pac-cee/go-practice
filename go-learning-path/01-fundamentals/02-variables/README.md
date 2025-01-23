@@ -17,3 +17,22 @@ Go has several basic types:
 ```go
 // Numeric Types
 int8, int16, int32, int64
+uint8, uint16, uint32, uint64
+int  // platform dependent, 32 or 64 bit
+uint // platform dependent, 32 or 64 bit
+float32, float64
+complex64, complex128
+
+// Text Types
+string
+rune   // alias for int32, represents a Unicode code point
+byte   // alias for uint8
+
+// Boolean Type
+bool
+
+// Error Type
+error
+```
+
+### Size and Range Examples
