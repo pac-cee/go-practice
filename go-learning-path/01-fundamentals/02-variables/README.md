@@ -150,3 +150,22 @@ pi := 3.14       // float64
 name := "Gopher" // string
 ```
 
+## Zero Values
+
+Variables declared without an explicit initial value are given their zero value:
+
+```go
+var (
+    i int     // 0
+    f float64 // 0.0
+    s string  // ""
+    b bool    // false
+    p *int    // nil
+)
+```
+
+## Composite Types
+
+### Arrays
+```go
+var numbers [5]int          // Array of 5 integers
