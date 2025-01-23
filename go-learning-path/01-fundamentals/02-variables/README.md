@@ -93,3 +93,22 @@ name, age := "Gopher", 25
 ## Type Conversion
 
 Go requires explicit type conversion:
+
+```go
+var i int = 42
+var f float64 = float64(i)
+var u uint = uint(f)
+
+// String conversions
+str := strconv.Itoa(i)      // int to string
+num, err := strconv.Atoi(str) // string to int
+
+// Float conversions
+s := fmt.Sprintf("%.2f", f) // float to string
+f, err = strconv.ParseFloat(s, 64) // string to float
+```
+
+## Constants
+
+Constants are declared using the `const` keyword:
+
