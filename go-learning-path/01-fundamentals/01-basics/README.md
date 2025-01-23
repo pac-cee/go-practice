@@ -131,3 +131,22 @@ This program demonstrates:
 2. Import statement (`fmt` package)
 3. Main function
 4. Function call (`fmt.Println`)
+
+## Running Go Programs
+
+### 1. Direct Execution
+```bash
+# Run directly
+go run hello.go
+
+# Build and execute
+go build hello.go
+./hello  # or hello.exe on Windows
+```
+
+### 2. Module-based Execution
+```bash
+# Initialize module
+go mod init hello
+
+# Run program
