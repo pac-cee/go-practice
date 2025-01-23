@@ -36,3 +36,22 @@ func demonstrateVariables() {
 	// Declaration with initial value
 	var age int = 25
 
+	// Short declaration
+	score := 95
+
+	// Multiple declaration
+	var (
+		isActive bool = true
+		level    int  = IntermediateLevel
+	)
+
+	// Print variables
+	fmt.Printf("Name: %s\n", name)
+	fmt.Printf("Age: %d\n", age)
+	fmt.Printf("Score: %d\n", score)
+	fmt.Printf("Active: %v\n", isActive)
+	fmt.Printf("Level: %d\n", level)
+}
+
+// demonstrateTypeConversion shows type conversion examples
+func demonstrateTypeConversion() {
