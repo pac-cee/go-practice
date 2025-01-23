@@ -74,3 +74,22 @@ func demonstrateTypeConversion() {
 	} else {
 		fmt.Printf("Back to number: %d\n", num)
 	}
+}
+
+// demonstrateZeroValues shows default values of variables
+func demonstrateZeroValues() {
+	var (
+		i int
+		f float64
+		s string
+		b bool
+		p *int
+	)
+
+	fmt.Printf("Zero Values:\n")
+	fmt.Printf("Integer: %d\n", i)
+	fmt.Printf("Float: %f\n", f)
+	fmt.Printf("String: %q\n", s)
+	fmt.Printf("Boolean: %v\n", b)
+	fmt.Printf("Pointer: %v\n", p)
+}
