@@ -17,3 +17,22 @@ func TestCalculateRank(t *testing.T) {
 			expected: 1.0,
 		},
 		{
+			name:     "zero score",
+			score:    0,
+			expected: 0.0,
+		},
+		{
+			name:     "partial score",
+			score:    75,
+			expected: 0.75,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := calculateRank(tt.score)
+			if result != tt.expected {
+				t.Errorf("calculateRank(%d) = %f, want %f", 
+					tt.score, result, tt.expected)
+			}
+		})
