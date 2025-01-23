@@ -169,3 +169,22 @@ Modern Go uses modules for dependency management:
 
 ### 1. Creating a Module
 ```bash
+mkdir myproject
+cd myproject
+go mod init myproject
+```
+
+### 2. go.mod File
+```go
+module myproject
+
+go 1.21
+
+require (
+    github.com/some/dependency v1.2.3
+)
+```
+
+### 3. Adding Dependencies
+```bash
+go get github.com/some/dependency
