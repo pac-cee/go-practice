@@ -55,3 +55,22 @@ func TestUserScore(t *testing.T) {
 
 	// Test Score
 	if user.Score != 85 {
+		t.Errorf("Expected score 85, got %d", user.Score)
+	}
+
+	// Test Active status
+	if !user.Active {
+		t.Error("Expected user to be active")
+	}
+
+	// Test Rank calculation
+	user.Rank = calculateRank(user.Score)
+	expectedRank := 0.85
+	if user.Rank != expectedRank {
+		t.Errorf("Expected rank %f, got %f", expectedRank, user.Rank)
+	}
+}
+
+// TestGameLevels tests the game level constants
+func TestGameLevels(t *testing.T) {
+	// Test level values
