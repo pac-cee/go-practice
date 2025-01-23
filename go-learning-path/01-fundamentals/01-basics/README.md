@@ -150,3 +150,22 @@ go build hello.go
 go mod init hello
 
 # Run program
+go run .
+```
+
+### 3. Common Commands
+```bash
+go run    # Run program
+go build  # Build executable
+go fmt    # Format code
+go test   # Run tests
+go mod    # Module management
+go get    # Download dependencies
+```
+
+## Go Modules
+
+Modern Go uses modules for dependency management:
+
+### 1. Creating a Module
+```bash
