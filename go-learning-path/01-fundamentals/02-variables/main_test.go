@@ -36,3 +36,22 @@ func TestCalculateRank(t *testing.T) {
 					tt.score, result, tt.expected)
 			}
 		})
+	}
+}
+
+// TestUserScore tests the UserScore struct
+func TestUserScore(t *testing.T) {
+	// Test struct initialization
+	user := UserScore{
+		Username: "TestUser",
+		Score:    85,
+		Active:   true,
+	}
+
+	// Test Username
+	if user.Username != "TestUser" {
+		t.Errorf("Expected username 'TestUser', got %s", user.Username)
+	}
+
+	// Test Score
+	if user.Score != 85 {
