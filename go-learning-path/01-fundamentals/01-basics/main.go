@@ -17,3 +17,22 @@ func Greeting(name string) string {
 		timeOfDay = "morning"
 	case hour < 17:
 		timeOfDay = "afternoon"
+	default:
+		timeOfDay = "evening"
+	}
+
+	// Demonstrate string manipulation
+	name = strings.TrimSpace(name)
+	if name == "" {
+		name = "World"
+	}
+
+	return fmt.Sprintf("Good %s, %s!", timeOfDay, name)
+}
+
+// PrintInfo demonstrates different ways to output information
+func PrintInfo() {
+	// Using Println
+	fmt.Println("Welcome to Go Programming!")
+
+	// Using Printf for formatted output
