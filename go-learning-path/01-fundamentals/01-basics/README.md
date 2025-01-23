@@ -112,3 +112,22 @@ func GetUser(id string) (*User, error) {
 ```
 
 ## First Program
+
+Let's create your first Go program:
+
+```go
+// hello.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, Go!")
+}
+```
+
+This program demonstrates:
+1. Package declaration (`main`)
+2. Import statement (`fmt` package)
+3. Main function
+4. Function call (`fmt.Println`)
