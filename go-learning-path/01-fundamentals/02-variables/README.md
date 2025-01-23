@@ -55,3 +55,22 @@ uint64: 0 to 18446744073709551615
 There are several ways to declare variables in Go:
 
 ### 1. Standard Declaration
+```go
+var name string
+var age int
+var isActive bool
+
+// Multiple declarations
+var (
+    firstName string
+    lastName  string
+    score     int
+)
+```
+
+### 2. Declaration with Initial Value
+```go
+var name string = "Gopher"
+var age int = 25
+var isActive = true  // Type inference
+```
