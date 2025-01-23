@@ -36,3 +36,22 @@ func main() {
 2. **Import Statements**: Required packages are imported
 3. **Functions**: Code is organized into functions
 4. **Main Package**: Executable programs must have a main package and main function
+
+## Basic Syntax
+
+### 1. Statements
+- No semicolons required (inserted automatically)
+- One statement per line (preferred)
+```go
+fmt.Println("Hello")
+fmt.Println("World")
+```
+
+### 2. Code Blocks
+- Defined by curly braces
+- Opening brace must be on the same line
+```go
+func example() {
+    // This is correct
+}
+
