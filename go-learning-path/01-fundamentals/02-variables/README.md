@@ -131,3 +131,22 @@ const (
     Thursday       // 4
     Friday        // 5
     Saturday      // 6
+)
+```
+
+## Type Inference
+
+Go can infer types based on values:
+
+```go
+var x = 42       // int
+var f = 3.14     // float64
+var s = "hello"  // string
+var b = true     // bool
+
+// Short declaration
+num := 42        // int
+pi := 3.14       // float64
+name := "Gopher" // string
+```
+
