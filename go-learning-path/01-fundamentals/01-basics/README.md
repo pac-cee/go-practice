@@ -226,3 +226,22 @@ func main() {
     
     // Using Printf
     fmt.Printf("Line %d\n", 2)
+    
+    // Using Print
+    fmt.Print("Line 3\n")
+}
+```
+
+### Exercise 3: Documentation
+Write a properly documented function that adds two numbers
+```go
+// Solution
+package main
+
+import "fmt"
+
+// Add takes two integers and returns their sum.
+// It demonstrates proper function documentation.
+func Add(a, b int) int {
+    return a + b
+}
