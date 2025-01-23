@@ -207,3 +207,22 @@ package main
 import "fmt"
 
 func main() {
+    name := "Alice"
+    fmt.Printf("Hello, %s!\n", name)
+}
+```
+
+### Exercise 2: Multiple Prints
+Create a program that prints three different lines using different print methods
+```go
+// Solution
+package main
+
+import "fmt"
+
+func main() {
+    // Using Println
+    fmt.Println("Line 1")
+    
+    // Using Printf
+    fmt.Printf("Line %d\n", 2)
