@@ -112,3 +112,12 @@ func main() {
 	fmt.Printf("Rank: %.2f\n", user.Rank)
 	fmt.Printf("Active: %v\n", user.Active)
 
+	fmt.Printf("\nVariable Demonstrations:\n")
+	demonstrateVariables()
+
+	fmt.Printf("\nType Conversion Examples:\n")
+	demonstrateTypeConversion()
+
+	fmt.Printf("\nZero Values:\n")
+	demonstrateZeroValues()
+}
