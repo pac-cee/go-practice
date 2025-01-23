@@ -74,3 +74,22 @@ const MaxLength = 50
 const defaultTimeout = 30
 
 // Function names: camelCase
+func getUserData() {}
+
+// Interface names: usually ends with -er
+type Reader interface {}
+```
+
+## Comments and Documentation
+
+### 1. Single Line Comments
+```go
+// This is a single line comment
+```
+
+### 2. Multi-line Comments
+```go
+/* This is a multi-line comment
+   It can span multiple lines
+   Used for longer explanations
+*/
