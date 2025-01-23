@@ -55,3 +55,22 @@ func example() {
     // This is correct
 }
 
+func incorrect() 
+{
+    // This will cause an error
+}
+```
+
+### 3. Naming Conventions
+```go
+// Package names: lowercase, single word
+package userservice
+
+// Variable names: camelCase
+var userName string
+
+// Constants: camelCase or UPPERCASE for exports
+const MaxLength = 50
+const defaultTimeout = 30
+
+// Function names: camelCase
