@@ -36,3 +36,22 @@ error
 ```
 
 ### Size and Range Examples
+```go
+// Integer ranges
+int8:   -128 to 127
+int16:  -32768 to 32767
+int32:  -2147483648 to 2147483647
+int64:  -9223372036854775808 to 9223372036854775807
+
+// Unsigned integer ranges
+uint8:  0 to 255
+uint16: 0 to 65535
+uint32: 0 to 4294967295
+uint64: 0 to 18446744073709551615
+```
+
+## Variable Declaration
+
+There are several ways to declare variables in Go:
+
+### 1. Standard Declaration
