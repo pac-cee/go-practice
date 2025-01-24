@@ -207,3 +207,22 @@ func main() {
     fmt.Printf("Name: %s\n", name)
     fmt.Printf("Age: %d\n", age)
     fmt.Printf("Height: %.2f\n", height)
+    fmt.Printf("Is Student: %v\n", isStudent)
+}
+```
+
+### Exercise 2: Type Conversion
+Convert between different numeric types:
+
+```go
+package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    // Integer to Float
+    x := 42
+    f := float64(x)
