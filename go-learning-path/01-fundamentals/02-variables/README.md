@@ -226,3 +226,22 @@ func main() {
     // Integer to Float
     x := 42
     f := float64(x)
+    fmt.Printf("Integer %d to Float: %.2f\n", x, f)
+
+    // Float to Integer
+    y := 3.14
+    i := int(y)
+    fmt.Printf("Float %.2f to Integer: %d\n", y, i)
+
+    // Number to String
+    str := strconv.Itoa(x)
+    fmt.Printf("Integer %d to String: %s\n", x, str)
+}
+```
+
+### Exercise 3: Constants and Iota
+Create an enumerated type using constants:
+
+```go
+package main
+
