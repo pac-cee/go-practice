@@ -245,3 +245,22 @@ Create an enumerated type using constants:
 ```go
 package main
 
+import "fmt"
+
+const (
+    January = iota + 1
+    February
+    March
+    April
+    May
+)
+
+func main() {
+    fmt.Printf("January: %d\n", January)
+    fmt.Printf("February: %d\n", February)
+    fmt.Printf("March: %d\n", March)
+}
+```
+
+## Best Practices
+
