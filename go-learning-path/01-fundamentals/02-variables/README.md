@@ -188,3 +188,22 @@ scores := map[string]int{  // Map with initial values
 ```
 
 ## Exercises
+
+### Exercise 1: Variable Declaration
+Create variables of different types and print them:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // Your solution here
+    var name string = "Gopher"
+    age := 25
+    height := 1.75
+    isStudent := true
+
+    fmt.Printf("Name: %s\n", name)
+    fmt.Printf("Age: %d\n", age)
+    fmt.Printf("Height: %.2f\n", height)
