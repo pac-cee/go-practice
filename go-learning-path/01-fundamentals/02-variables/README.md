@@ -264,3 +264,22 @@ func main() {
 
 ## Best Practices
 
+1. **Variable Naming**
+   - Use camelCase for variable names
+   - Use short, descriptive names
+   - Use i, j, k for loop indices
+
+2. **Type Selection**
+   - Use int for integers unless you need a specific size
+   - Use float64 for floating-point numbers
+   - Use rune for characters
+
+3. **Constants**
+   - Use constants for fixed values
+   - Use iota for related constants
+   - Name constants in MixedCaps or ALL_CAPS
+
+4. **Type Conversion**
+   - Always handle errors in string conversions
+   - Be aware of potential data loss in numeric conversions
+   - Use explicit conversions for clarity
