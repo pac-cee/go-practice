@@ -36,3 +36,22 @@ func checkUserAccess(u User, resource string) {
 	// Switch on user role
 	switch u.Role {
 	case Admin:
+		fmt.Printf("Admin %s has full access to %s\n", u.Name, resource)
+	case Moderator:
+		fmt.Printf("Moderator %s has write access to %s\n", u.Name, resource)
+	case User:
+		fmt.Printf("User %s has read access to %s\n", u.Name, resource)
+	default:
+		fmt.Printf("Guest has no access to %s\n", resource)
+	}
+}
+
+// processUsers demonstrates for loops and range
+func processUsers(users []User) {
+	// Range over slice
+	for i, user := range users {
+		fmt.Printf("\nProcessing user %d:\n", i+1)
+		
+		// If-else statement
+		if !user.Active {
+			fmt.Printf("Skipping inactive user: %s\n", user.Name)
