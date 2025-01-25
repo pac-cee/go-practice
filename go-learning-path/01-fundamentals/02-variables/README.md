@@ -283,3 +283,22 @@ func main() {
    - Always handle errors in string conversions
    - Be aware of potential data loss in numeric conversions
    - Use explicit conversions for clarity
+
+## Common Pitfalls
+
+1. **Unused Variables**
+   ```go
+   // This will cause a compilation error
+   var x int  // declared but not used
+   ```
+
+2. **Type Mismatch**
+   ```go
+   var x int = "hello"  // Type mismatch
+   y := 42
+   var f float64 = y    // Need explicit conversion
+   ```
+
+3. **Constant Overflow**
+   ```go
+   const x int8 = 1000  // Overflow: constant 1000 overflows int8
