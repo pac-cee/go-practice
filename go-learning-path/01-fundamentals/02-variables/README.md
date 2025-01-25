@@ -302,3 +302,10 @@ func main() {
 3. **Constant Overflow**
    ```go
    const x int8 = 1000  // Overflow: constant 1000 overflows int8
+   ```
+
+## Next Steps
+- Practice type conversions
+- Experiment with different numeric types
+- Create complex constant declarations
+- Move on to Control Structures
