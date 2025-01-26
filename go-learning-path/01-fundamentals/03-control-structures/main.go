@@ -55,3 +55,22 @@ func processUsers(users []User) {
 		// If-else statement
 		if !user.Active {
 			fmt.Printf("Skipping inactive user: %s\n", user.Name)
+			continue
+		}
+
+		checkUserAccess(user, "system")
+	}
+}
+
+// safeOperation demonstrates defer, panic, and recover
+func safeOperation(operation string) (err error) {
+	// Defer recovery
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("operation %s failed: %v", operation, r)
+		}
+	}()
+
+	// Simulate operations that might panic
+	switch operation {
+	case "dangerous":
