@@ -93,3 +93,22 @@ func demonstrateDefer() {
 	defer fmt.Println("Second defer (executed second)")
 	defer fmt.Println("Third defer (executed first)")
 	
+	fmt.Println("Main function body")
+}
+
+func main() {
+	// Create test users
+	users := []User{
+		{
+			ID:       1,
+			Name:     "Alice",
+			Role:     Admin,
+			Active:   true,
+			JoinDate: time.Now().Add(-48 * time.Hour),
+		},
+		{
+			ID:       2,
+			Name:     "Bob",
+			Role:     User,
+			Active:   true,
+			JoinDate: time.Now().Add(-1 * time.Hour),
