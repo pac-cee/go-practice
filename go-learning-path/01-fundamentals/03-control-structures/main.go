@@ -74,3 +74,22 @@ func safeOperation(operation string) (err error) {
 	// Simulate operations that might panic
 	switch operation {
 	case "dangerous":
+		panic("dangerous operation failed")
+	case "risky":
+		fmt.Println("Risky operation completed")
+	default:
+		fmt.Println("Safe operation completed")
+	}
+
+	return nil
+}
+
+// demonstrateDefer shows defer order
+func demonstrateDefer() {
+	fmt.Println("\nDemonstrating defer:")
+	
+	// Defers are executed in LIFO order
+	defer fmt.Println("First defer (executed last)")
+	defer fmt.Println("Second defer (executed second)")
+	defer fmt.Println("Third defer (executed first)")
+	
