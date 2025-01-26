@@ -112,3 +112,22 @@ func main() {
 			Role:     User,
 			Active:   true,
 			JoinDate: time.Now().Add(-1 * time.Hour),
+		},
+		{
+			ID:       3,
+			Name:     "Charlie",
+			Role:     Moderator,
+			Active:   false,
+			JoinDate: time.Now().Add(-24 * time.Hour),
+		},
+	}
+
+	// Process users
+	processUsers(users)
+
+	// Demonstrate defer
+	demonstrateDefer()
+
+	// Demonstrate safe operations
+	fmt.Println("\nDemonstrating safe operations:")
+	operations := []string{"safe", "risky", "dangerous"}
