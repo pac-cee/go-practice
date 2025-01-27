@@ -131,3 +131,10 @@ func main() {
 	// Demonstrate safe operations
 	fmt.Println("\nDemonstrating safe operations:")
 	operations := []string{"safe", "risky", "dangerous"}
+	
+	for _, op := range operations {
+		if err := safeOperation(op); err != nil {
+			fmt.Printf("Error: %v\n", err)
+		}
+	}
+}
