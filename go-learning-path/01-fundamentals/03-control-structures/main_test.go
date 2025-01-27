@@ -55,3 +55,22 @@ func TestCheckUserAccess(t *testing.T) {
 			expectedParts: []string{
 				"User",
 				"read access",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Capture output
+			var output strings.Builder
+			// Temporarily replace stdout
+			oldStdout := fmt.Stdout
+			fmt.Stdout = &output
+			defer func() { fmt.Stdout = oldStdout }()
+
+			checkUserAccess(tt.user, tt.resource)
+
+			// Check if output contains expected parts
+			for _, part := range tt.expectedParts {
+				if !strings.Contains(output.String(), part) {
+					t.Errorf("Expected output to contain %q", part)
