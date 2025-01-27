@@ -36,3 +36,22 @@ func TestCheckUserAccess(t *testing.T) {
 				Name:     "Alice",
 				Role:     Admin,
 				JoinDate: time.Now(),
+			},
+			resource: "system",
+			expectedParts: []string{
+				"New user detected",
+				"Admin",
+				"full access",
+			},
+		},
+		{
+			name: "old user access",
+			user: User{
+				Name:     "Bob",
+				Role:     User,
+				JoinDate: time.Now().Add(-48 * time.Hour),
+			},
+			resource: "system",
+			expectedParts: []string{
+				"User",
+				"read access",
