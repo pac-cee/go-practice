@@ -74,3 +74,22 @@ func TestCheckUserAccess(t *testing.T) {
 			for _, part := range tt.expectedParts {
 				if !strings.Contains(output.String(), part) {
 					t.Errorf("Expected output to contain %q", part)
+				}
+			}
+		})
+	}
+}
+
+// TestSafeOperation tests the safeOperation function
+func TestSafeOperation(t *testing.T) {
+	tests := []struct {
+		name          string
+		operation     string
+		expectError   bool
+		errorContains string
+	}{
+		{
+			name:          "dangerous operation",
+			operation:     "dangerous",
+			expectError:   true,
+			errorContains: "dangerous operation failed",
