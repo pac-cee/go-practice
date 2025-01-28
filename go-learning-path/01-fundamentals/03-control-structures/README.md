@@ -150,3 +150,22 @@ default:
 ```go
 func example() {
     defer fmt.Println("last")
+    fmt.Println("first")
+}
+```
+
+### Multiple Defers
+```go
+func example() {
+    defer fmt.Println("3")
+    defer fmt.Println("2")
+    defer fmt.Println("1")
+    // Prints: 1, 2, 3
+}
+```
+
+### Defer with Functions
+```go
+func example() {
+    defer func() {
+        // cleanup code
