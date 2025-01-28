@@ -112,3 +112,22 @@ default:
 ```go
 switch os := runtime.GOOS; os {
 case "darwin":
+    // code
+case "linux":
+    // code
+default:
+    // code
+}
+```
+
+### Switch without Expression
+```go
+switch {
+case condition1:
+    // code
+case condition2:
+    // code
+default:
+    // code
+}
+```
