@@ -169,3 +169,22 @@ func example() {
 func example() {
     defer func() {
         // cleanup code
+    }()
+}
+```
+
+## Panic and Recover
+
+### Panic
+```go
+func example() {
+    panic("something went wrong")
+}
+```
+
+### Recover
+```go
+func example() {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Printf("Recovered from: %v\n", r)
