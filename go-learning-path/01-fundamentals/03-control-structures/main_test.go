@@ -93,3 +93,22 @@ func TestSafeOperation(t *testing.T) {
 			operation:     "dangerous",
 			expectError:   true,
 			errorContains: "dangerous operation failed",
+		},
+		{
+			name:        "safe operation",
+			operation:   "safe",
+			expectError: false,
+		},
+		{
+			name:        "risky operation",
+			operation:   "risky",
+			expectError: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := safeOperation(tt.operation)
+			
+			if tt.expectError {
+				if err == nil {
