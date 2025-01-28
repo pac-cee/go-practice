@@ -150,3 +150,20 @@ func TestDeferOrder(t *testing.T) {
 		"First defer",
 	}
 
+	for i, expected := range expectedOrder {
+		if !strings.Contains(lines[i], expected) {
+			t.Errorf("Line %d: expected %q, got %q", i, expected, lines[i])
+		}
+	}
+}
+
+// BenchmarkSafeOperation benchmarks the safeOperation function
+func BenchmarkSafeOperation(b *testing.B) {
+	operations := []string{"safe", "risky", "dangerous"}
+	
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		op := operations[i%len(operations)]
+		_ = safeOperation(op)
+	}
+}
