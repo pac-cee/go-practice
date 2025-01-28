@@ -74,3 +74,22 @@ for {
 ### Range Loop
 ```go
 // Slice/Array
+for index, value := range slice {
+    // code
+}
+
+// Map
+for key, value := range map {
+    // code
+}
+
+// String
+for index, char := range string {
+    // code
+}
+
+// Channel
+for value := range channel {
+    // code
+}
+```
