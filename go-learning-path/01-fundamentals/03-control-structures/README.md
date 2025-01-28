@@ -17,3 +17,22 @@ if condition {
     // code
 }
 ```
+
+### If-Else Statement
+```go
+if condition {
+    // code
+} else {
+    // code
+}
+```
+
+### If with Initialization
+```go
+if value := getValue(); value > 10 {
+    // code
+}
+```
+
+### Multiple Conditions
+```go
