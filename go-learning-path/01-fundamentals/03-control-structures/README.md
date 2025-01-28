@@ -93,3 +93,22 @@ for value := range channel {
     // code
 }
 ```
+
+## Switch Statements
+
+### Basic Switch
+```go
+switch value {
+case 1:
+    // code
+case 2:
+    // code
+default:
+    // code
+}
+```
+
+### Switch with Initialization
+```go
+switch os := runtime.GOOS; os {
+case "darwin":
