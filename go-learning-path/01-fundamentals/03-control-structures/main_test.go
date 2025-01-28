@@ -112,3 +112,22 @@ func TestSafeOperation(t *testing.T) {
 			
 			if tt.expectError {
 				if err == nil {
+					t.Error("Expected error but got none")
+				} else if !strings.Contains(err.Error(), tt.errorContains) {
+					t.Errorf("Expected error to contain %q, got %v", 
+						tt.errorContains, err)
+				}
+			} else if err != nil {
+				t.Errorf("Expected no error but got: %v", err)
+			}
+		})
+	}
+}
+
+// TestDeferOrder tests the order of defer statements
+func TestDeferOrder(t *testing.T) {
+	var output strings.Builder
+	// Temporarily replace stdout
+	oldStdout := fmt.Stdout
+	fmt.Stdout = &output
+	defer func() { fmt.Stdout = oldStdout }()
