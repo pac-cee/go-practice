@@ -131,3 +131,22 @@ default:
     // code
 }
 ```
+
+### Type Switch
+```go
+switch v := interface{}.(type) {
+case int:
+    // code
+case string:
+    // code
+default:
+    // code
+}
+```
+
+## Defer
+
+### Basic Defer
+```go
+func example() {
+    defer fmt.Println("last")
