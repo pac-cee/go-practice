@@ -131,3 +131,22 @@ func TestDeferOrder(t *testing.T) {
 	oldStdout := fmt.Stdout
 	fmt.Stdout = &output
 	defer func() { fmt.Stdout = oldStdout }()
+
+	demonstrateDefer()
+
+	lines := strings.Split(strings.TrimSpace(output.String()), "\n")
+	
+	// Check if we have the expected number of lines
+	if len(lines) != 4 {
+		t.Errorf("Expected 4 lines of output, got %d", len(lines))
+	}
+
+	// Check the order of defer statements
+	expectedOrder := []string{
+		"Demonstrating defer:",
+		"Main function body",
+		"Third defer",
+		"Second defer",
+		"First defer",
+	}
+
