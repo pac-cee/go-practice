@@ -36,3 +36,22 @@ if value := getValue(); value > 10 {
 
 ### Multiple Conditions
 ```go
+if condition1 && condition2 {
+    // both true
+} else if condition1 || condition2 {
+    // at least one true
+} else {
+    // none true
+}
+```
+
+## For Loops
+
+### Basic For Loop
+```go
+for i := 0; i < 10; i++ {
+    // code
+}
+```
+
+### While-style Loop
