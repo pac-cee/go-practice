@@ -55,3 +55,22 @@ for i := 0; i < 10; i++ {
 ```
 
 ### While-style Loop
+```go
+for condition {
+    // code
+}
+```
+
+### Infinite Loop
+```go
+for {
+    // code
+    if shouldBreak {
+        break
+    }
+}
+```
+
+### Range Loop
+```go
+// Slice/Array
