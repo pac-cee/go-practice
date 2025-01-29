@@ -131,3 +131,22 @@ func main() {
 
 	// Demonstrate shape interface
 	shapes := []Shape{
+		Circle{radius: 5},
+		Rectangle{width: 4, height: 6},
+	}
+
+	for _, shape := range shapes {
+		logger.Log(fmt.Sprintf("Processing %s", shape))
+		logger.Log(fmt.Sprintf("Area: %.2f", shape.Area()))
+		logger.Log(fmt.Sprintf("Perimeter: %.2f", shape.Perimeter()))
+	}
+
+	// Demonstrate calculator
+	calc := Calculator{logger: logger}
+	
+	// Basic operations
+	logger.Log("\nPerforming calculations:")
+	fmt.Printf("Addition: %.2f\n", calc.Calculate(10, 5, add))
+	fmt.Printf("Subtraction: %.2f\n", calc.Calculate(10, 5, subtract))
+	fmt.Printf("Multiplication: %.2f\n", calc.Calculate(10, 5, multiply))
+
