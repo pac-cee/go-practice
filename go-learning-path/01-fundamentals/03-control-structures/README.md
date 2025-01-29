@@ -207,3 +207,22 @@ func example() {
 - Use continue and break appropriately
 
 ### 3. Switch Statements
+- Use switch instead of long if-else chains
+- Take advantage of case grouping
+- Consider type switches for interface handling
+
+### 4. Defer
+- Use defer for cleanup operations
+- Remember LIFO (Last In, First Out) order
+- Don't defer in loops
+
+### 5. Panic and Recover
+- Use panic only for unrecoverable errors
+- Always recover in deferred functions
+- Consider error returns instead of panic
+
+## Exercises
+
+### Exercise 1: Control Flow
+```go
+// Implement FizzBuzz
