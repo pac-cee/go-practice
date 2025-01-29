@@ -112,3 +112,22 @@ func createCounter(start int) func() int {
 	count := start
 	return func() int {
 		count++
+		return count
+	}
+}
+
+// TimeIt is a higher-order function for timing operations
+func TimeIt(name string, logger Logger) func() {
+	start := time.Now()
+	return func() {
+		duration := time.Since(start)
+		logger.Log(fmt.Sprintf("%s took %v", name, duration))
+	}
+}
+
+func main() {
+	// Create a logger
+	logger := ConsoleLogger{prefix: time.Now().Format("15:04:05")}
+
+	// Demonstrate shape interface
+	shapes := []Shape{
