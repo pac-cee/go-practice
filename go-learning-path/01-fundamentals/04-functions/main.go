@@ -74,3 +74,22 @@ type Calculator struct {
 	logger Logger
 }
 
+// Operation represents a mathematical operation
+type Operation func(a, b float64) float64
+
+// Basic operations
+func add(a, b float64) float64      { return a + b }
+func subtract(a, b float64) float64 { return a - b }
+func multiply(a, b float64) float64 { return a * b }
+
+func divide(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, errors.New("division by zero")
+	}
+	return a / b, nil
+}
+
+// Calculate performs the operation and logs the result
+func (c Calculator) Calculate(a, b float64, op Operation) float64 {
+	result := op(a, b)
+	c.logger.Log(fmt.Sprintf("Calculated result: %.2f", result))
