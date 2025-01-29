@@ -302,3 +302,9 @@ func main() {
     // Main program logic
 }
 ```
+
+## Next Steps
+- Practice writing clean control structures
+- Experiment with different loop patterns
+- Understand panic and recovery
+- Move on to Functions and Methods
