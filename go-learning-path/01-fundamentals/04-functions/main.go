@@ -93,3 +93,22 @@ func divide(a, b float64) (float64, error) {
 func (c Calculator) Calculate(a, b float64, op Operation) float64 {
 	result := op(a, b)
 	c.logger.Log(fmt.Sprintf("Calculated result: %.2f", result))
+	return result
+}
+
+// StringProcessor demonstrates variadic functions and string manipulation
+type StringProcessor struct {
+	logger Logger
+}
+
+func (sp StringProcessor) Join(sep string, parts ...string) string {
+	result := strings.Join(parts, sep)
+	sp.logger.Log(fmt.Sprintf("Joined strings: %s", result))
+	return result
+}
+
+// Counter demonstrates closure
+func createCounter(start int) func() int {
+	count := start
+	return func() int {
+		count++
