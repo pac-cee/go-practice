@@ -283,3 +283,22 @@ if err != nil {
 
 ### 2. Resource Cleanup
 ```go
+func processResource() error {
+    resource, err := acquireResource()
+    if err != nil {
+        return err
+    }
+    defer resource.Release()
+
+    return resource.Process()
+}
+```
+
+### 3. Graceful Shutdown
+```go
+func main() {
+    defer cleanup()
+
+    // Main program logic
+}
+```
