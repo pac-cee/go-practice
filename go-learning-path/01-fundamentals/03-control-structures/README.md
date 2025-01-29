@@ -188,3 +188,22 @@ func example() {
     defer func() {
         if r := recover(); r != nil {
             fmt.Printf("Recovered from: %v\n", r)
+        }
+    }()
+    panic("something went wrong")
+}
+```
+
+## Best Practices
+
+### 1. If Statements
+- Keep conditions simple and readable
+- Use initialization when possible
+- Avoid nested if statements when possible
+
+### 2. For Loops
+- Use range when iterating over collections
+- Break long loops into smaller functions
+- Use continue and break appropriately
+
+### 3. Switch Statements
