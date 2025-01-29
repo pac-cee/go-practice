@@ -55,3 +55,22 @@ type Logger interface {
 	Log(message string)
 	Error(message string)
 }
+
+// ConsoleLogger implements Logger
+type ConsoleLogger struct {
+	prefix string
+}
+
+func (l ConsoleLogger) Log(message string) {
+	fmt.Printf("[%s] LOG: %s\n", l.prefix, message)
+}
+
+func (l ConsoleLogger) Error(message string) {
+	fmt.Printf("[%s] ERROR: %s\n", l.prefix, message)
+}
+
+// Calculator demonstrates function types and closures
+type Calculator struct {
+	logger Logger
+}
+
