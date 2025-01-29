@@ -245,3 +245,22 @@ func fizzBuzz(n int) {
 ### Exercise 2: Defer and Files
 ```go
 func readFile(filename string) error {
+    file, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    defer file.Close()
+
+    // Read file operations
+    return nil
+}
+```
+
+### Exercise 3: Panic Recovery
+```go
+func safeDivide(a, b int) (result int, err error) {
+    defer func() {
+        if r := recover(); r != nil {
+            err = fmt.Errorf("division error: %v", r)
+        }
+    }()
