@@ -264,3 +264,22 @@ func safeDivide(a, b int) (result int, err error) {
             err = fmt.Errorf("division error: %v", r)
         }
     }()
+
+    if b == 0 {
+        panic("division by zero")
+    }
+    return a / b, nil
+}
+```
+
+## Common Patterns
+
+### 1. Error Handling
+```go
+if err != nil {
+    return fmt.Errorf("failed to process: %w", err)
+}
+```
+
+### 2. Resource Cleanup
+```go
