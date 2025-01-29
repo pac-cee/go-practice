@@ -169,3 +169,12 @@ func main() {
 	logger.Log("\nDemonstrating counter:")
 	for i := 0; i < 3; i++ {
 		fmt.Printf("Count: %d\n", counter())
+	}
+
+	// Demonstrate timing function
+	logger.Log("\nDemonstrating time measurement:")
+	defer TimeIt("Main function", logger)()
+
+	// Simulate some work
+	time.Sleep(100 * time.Millisecond)
+}
