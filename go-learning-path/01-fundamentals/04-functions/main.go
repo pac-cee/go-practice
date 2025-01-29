@@ -150,3 +150,22 @@ func main() {
 	fmt.Printf("Subtraction: %.2f\n", calc.Calculate(10, 5, subtract))
 	fmt.Printf("Multiplication: %.2f\n", calc.Calculate(10, 5, multiply))
 
+	// Division with error handling
+	if result, err := divide(10, 5); err != nil {
+		logger.Error(fmt.Sprintf("Division error: %v", err))
+	} else {
+		fmt.Printf("Division: %.2f\n", result)
+	}
+
+	// Demonstrate string processor
+	sp := StringProcessor{logger: logger}
+	
+	logger.Log("\nProcessing strings:")
+	result := sp.Join(", ", "apple", "banana", "cherry")
+	fmt.Printf("Joined string: %s\n", result)
+
+	// Demonstrate counter closure
+	counter := createCounter(0)
+	logger.Log("\nDemonstrating counter:")
+	for i := 0; i < 3; i++ {
+		fmt.Printf("Count: %d\n", counter())
