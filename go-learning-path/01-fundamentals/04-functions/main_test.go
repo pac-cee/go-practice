@@ -74,3 +74,22 @@ func TestCalculator(t *testing.T) {
 		{"addition", 10, 5, add, 15},
 		{"subtraction", 10, 5, subtract, 5},
 		{"multiplication", 10, 5, multiply, 50},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := calc.Calculate(tt.a, tt.b, tt.op)
+			if result != tt.expected {
+				t.Errorf("Calculate() = %v, want %v", result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestDivide tests the divide function
+func TestDivide(t *testing.T) {
+	tests := []struct {
+		name        string
+		a, b        float64
+		expected    float64
+		expectError bool
