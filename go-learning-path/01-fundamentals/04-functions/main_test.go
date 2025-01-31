@@ -55,3 +55,22 @@ func TestShapes(t *testing.T) {
 
 		if str := r.String(); !strings.Contains(str, "width=4") || 
 			!strings.Contains(str, "height=6") {
+			t.Errorf("Rectangle.String() = %v, want to contain 'width=4' and 'height=6'", str)
+		}
+	})
+}
+
+// TestCalculator tests the Calculator type
+func TestCalculator(t *testing.T) {
+	mock := &MockLogger{}
+	calc := Calculator{logger: mock}
+
+	tests := []struct {
+		name     string
+		a, b     float64
+		op       Operation
+		expected float64
+	}{
+		{"addition", 10, 5, add, 15},
+		{"subtraction", 10, 5, subtract, 5},
+		{"multiplication", 10, 5, multiply, 50},
