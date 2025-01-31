@@ -93,3 +93,22 @@ func TestDivide(t *testing.T) {
 		a, b        float64
 		expected    float64
 		expectError bool
+	}{
+		{"valid division", 10, 2, 5, false},
+		{"division by zero", 10, 0, 0, true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := divide(tt.a, tt.b)
+			
+			if tt.expectError {
+				if err == nil {
+					t.Error("Expected error but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+				if result != tt.expected {
+					t.Errorf("divide() = %v, want %v", result, tt.expected)
