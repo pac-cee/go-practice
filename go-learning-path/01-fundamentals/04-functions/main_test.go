@@ -112,3 +112,22 @@ func TestDivide(t *testing.T) {
 				}
 				if result != tt.expected {
 					t.Errorf("divide() = %v, want %v", result, tt.expected)
+				}
+			}
+		})
+	}
+}
+
+// TestStringProcessor tests the StringProcessor type
+func TestStringProcessor(t *testing.T) {
+	mock := &MockLogger{}
+	sp := StringProcessor{logger: mock}
+
+	tests := []struct {
+		name     string
+		sep      string
+		parts    []string
+		expected string
+	}{
+		{
+			name:     "comma separated",
