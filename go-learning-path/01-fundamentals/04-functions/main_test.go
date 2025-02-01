@@ -150,3 +150,22 @@ func TestStringProcessor(t *testing.T) {
 				t.Errorf("Join() = %v, want %v", result, tt.expected)
 			}
 		})
+	}
+}
+
+// TestCounter tests the counter closure
+func TestCounter(t *testing.T) {
+	counter := createCounter(0)
+	expected := []int{1, 2, 3}
+
+	for i, want := range expected {
+		if got := counter(); got != want {
+			t.Errorf("counter() iteration %d = %v, want %v", i, got, want)
+		}
+	}
+}
+
+// BenchmarkCalculator benchmarks the Calculator operations
+func BenchmarkCalculator(b *testing.B) {
+	mock := &MockLogger{}
+	calc := Calculator{logger: mock}
