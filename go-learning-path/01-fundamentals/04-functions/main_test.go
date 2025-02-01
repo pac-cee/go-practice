@@ -169,3 +169,21 @@ func TestCounter(t *testing.T) {
 func BenchmarkCalculator(b *testing.B) {
 	mock := &MockLogger{}
 	calc := Calculator{logger: mock}
+
+	operations := []struct {
+		name string
+		op   Operation
+	}{
+		{"add", add},
+		{"subtract", subtract},
+		{"multiply", multiply},
+	}
+
+	for _, op := range operations {
+		b.Run(op.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				calc.Calculate(10, 5, op.op)
+			}
+		})
+	}
+}
