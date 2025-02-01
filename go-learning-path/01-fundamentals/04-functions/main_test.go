@@ -131,3 +131,22 @@ func TestStringProcessor(t *testing.T) {
 	}{
 		{
 			name:     "comma separated",
+			sep:      ",",
+			parts:    []string{"a", "b", "c"},
+			expected: "a,b,c",
+		},
+		{
+			name:     "space separated",
+			sep:      " ",
+			parts:    []string{"hello", "world"},
+			expected: "hello world",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := sp.Join(tt.sep, tt.parts...)
+			if result != tt.expected {
+				t.Errorf("Join() = %v, want %v", result, tt.expected)
+			}
+		})
