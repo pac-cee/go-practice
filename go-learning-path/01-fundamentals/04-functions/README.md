@@ -207,3 +207,22 @@ func processData() error {
 - Use composition over inheritance
 
 ### 4. Error Handling
+- Always check errors
+- Wrap errors with context
+- Use custom error types when needed
+- Don't panic in libraries
+
+## Exercises
+
+### Exercise 1: Function Basics
+```go
+// Implement a function that takes a slice of integers
+// and returns the sum and average
+func calculateStats(numbers []int) (sum int, avg float64) {
+    for _, num := range numbers {
+        sum += num
+    }
+    avg = float64(sum) / float64(len(numbers))
+    return
+}
+```
