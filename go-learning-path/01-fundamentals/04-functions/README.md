@@ -188,3 +188,22 @@ func processData() error {
 
 ## Best Practices
 
+### 1. Function Design
+- Keep functions focused and small
+- Use meaningful parameter names
+- Return early for errors
+- Use named returns judiciously
+
+### 2. Method Design
+- Choose receiver type appropriately
+- Be consistent with receiver names
+- Use pointer receivers for mutations
+- Use value receivers for transformations
+
+### 3. Interface Design
+- Keep interfaces small
+- Follow the interface segregation principle
+- Design for behavior, not objects
+- Use composition over inheritance
+
+### 4. Error Handling
