@@ -150,3 +150,22 @@ func counter() func() int {
 
 ## Error Handling
 
+### Error Return Pattern
+```go
+func processFile(path string) error {
+    file, err := os.Open(path)
+    if err != nil {
+        return fmt.Errorf("failed to open file: %w", err)
+    }
+    defer file.Close()
+    
+    return nil
+}
+```
+
+### Custom Errors
+```go
+type ValidationError struct {
+    Field string
+    Error string
+}
