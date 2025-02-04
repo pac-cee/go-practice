@@ -36,3 +36,22 @@ func split(sum int) (x, y int) {
     y = sum - x
     return  // naked return
 }
+```
+
+### Variadic Functions
+```go
+func sum(nums ...int) int {
+    total := 0
+    for _, num := range nums {
+        total += num
+    }
+    return total
+}
+```
+
+## Methods
+
+### Method Declaration
+```go
+type Rectangle struct {
+    width, height float64
