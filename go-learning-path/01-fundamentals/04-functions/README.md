@@ -131,3 +131,22 @@ func Calculate(a, b int, op Operation) int {
 func main() {
     sum := func(a, b int) int {
         return a + b
+    }
+    
+    result := sum(3, 4)
+}
+```
+
+### Closures
+```go
+func counter() func() int {
+    count := 0
+    return func() int {
+        count++
+        return count
+    }
+}
+```
+
+## Error Handling
+
