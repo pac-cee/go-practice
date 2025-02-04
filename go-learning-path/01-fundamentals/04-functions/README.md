@@ -55,3 +55,22 @@ func sum(nums ...int) int {
 ```go
 type Rectangle struct {
     width, height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.width * r.height
+}
+```
+
+### Pointer Receivers
+```go
+func (r *Rectangle) Scale(factor float64) {
+    r.width *= factor
+    r.height *= factor
+}
+```
+
+### Value vs Pointer Receivers
+```go
+// Value receiver - gets a copy
+func (r Rectangle) Area() float64 {
