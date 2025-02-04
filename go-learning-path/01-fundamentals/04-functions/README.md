@@ -264,3 +264,22 @@ func (l ConsoleLogger) Error(message string) {
 
 ## Common Patterns
 
+### 1. Options Pattern
+```go
+type ServerOption func(*Server)
+
+func WithPort(port int) ServerOption {
+    return func(s *Server) {
+        s.port = port
+    }
+}
+
+func NewServer(options ...ServerOption) *Server {
+    s := &Server{}
+    for _, opt := range options {
+        opt(s)
+    }
+    return s
+}
+```
+
