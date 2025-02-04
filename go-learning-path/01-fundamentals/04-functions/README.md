@@ -112,3 +112,22 @@ func (c Circle) Perimeter() float64 {
 ```go
 func PrintAnything(v interface{}) {
     fmt.Printf("Type: %T, Value: %v\n", v, v)
+}
+```
+
+## Function Types
+
+### Function as a Type
+```go
+type Operation func(a, b int) int
+
+func Calculate(a, b int, op Operation) int {
+    return op(a, b)
+}
+```
+
+### Anonymous Functions
+```go
+func main() {
+    sum := func(a, b int) int {
+        return a + b
