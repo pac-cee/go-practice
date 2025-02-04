@@ -226,3 +226,22 @@ func calculateStats(numbers []int) (sum int, avg float64) {
     return
 }
 ```
+
+### Exercise 2: Methods
+```go
+// Implement a BankAccount type with methods
+type BankAccount struct {
+    balance float64
+}
+
+func (b *BankAccount) Deposit(amount float64) error {
+    if amount <= 0 {
+        return errors.New("invalid deposit amount")
+    }
+    b.balance += amount
+    return nil
+}
+```
+
+### Exercise 3: Interfaces
+```go
