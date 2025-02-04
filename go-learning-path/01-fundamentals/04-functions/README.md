@@ -245,3 +245,22 @@ func (b *BankAccount) Deposit(amount float64) error {
 
 ### Exercise 3: Interfaces
 ```go
+// Implement a Logger interface
+type Logger interface {
+    Log(message string)
+    Error(message string)
+}
+
+type ConsoleLogger struct{}
+
+func (l ConsoleLogger) Log(message string) {
+    fmt.Printf("LOG: %s\n", message)
+}
+
+func (l ConsoleLogger) Error(message string) {
+    fmt.Printf("ERROR: %s\n", message)
+}
+```
+
+## Common Patterns
+
