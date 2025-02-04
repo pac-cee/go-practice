@@ -169,3 +169,22 @@ type ValidationError struct {
     Field string
     Error string
 }
+
+func (v *ValidationError) Error() string {
+    return fmt.Sprintf("%s: %s", v.Field, v.Error)
+}
+```
+
+### Error Wrapping
+```go
+func processData() error {
+    err := doSomething()
+    if err != nil {
+        return fmt.Errorf("processing failed: %w", err)
+    }
+    return nil
+}
+```
+
+## Best Practices
+
