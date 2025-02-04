@@ -74,3 +74,22 @@ func (r *Rectangle) Scale(factor float64) {
 ```go
 // Value receiver - gets a copy
 func (r Rectangle) Area() float64 {
+    return r.width * r.height
+}
+
+// Pointer receiver - can modify the original
+func (r *Rectangle) SetWidth(w float64) {
+    r.width = w
+}
+```
+
+## Interfaces
+
+### Interface Declaration
+```go
+type Shape interface {
+    Area() float64
+    Perimeter() float64
+}
+```
+
