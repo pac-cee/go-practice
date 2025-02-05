@@ -36,3 +36,22 @@ func TestCalculator(t *testing.T) {
 
 // TestDivision tests division including error cases
 func TestDivision(t *testing.T) {
+	calc := NewCalculator(2)
+
+	tests := []struct {
+		name        string
+		a, b        float64
+		expected    float64
+		expectError bool
+	}{
+		{"normal division", 6.0, 2.0, 3.00, false},
+		{"division by zero", 6.0, 0.0, 0.00, true},
+		{"decimal division", 5.0, 2.0, 2.50, false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := calc.Divide(tt.a, tt.b)
+
+			// Check error cases
+			if tt.expectError {
