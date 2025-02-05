@@ -74,3 +74,22 @@ func TestDivision(t *testing.T) {
 			}
 		})
 	}
+}
+
+// TestSquareRoot tests square root including error cases
+func TestSquareRoot(t *testing.T) {
+	calc := NewCalculator(2)
+
+	tests := []struct {
+		name        string
+		input       float64
+		expected    float64
+		expectError bool
+	}{
+		{"perfect square", 9.0, 3.00, false},
+		{"decimal number", 2.0, 1.41, false},
+		{"negative number", -1.0, 0.00, true},
+		{"zero", 0.0, 0.00, false},
+	}
+
+	for _, tt := range tests {
