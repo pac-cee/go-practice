@@ -283,3 +283,22 @@ func NewServer(options ...ServerOption) *Server {
 }
 ```
 
+### 2. Builder Pattern
+```go
+type QueryBuilder struct {
+    table string
+    where string
+    limit int
+}
+
+func (q *QueryBuilder) From(table string) *QueryBuilder {
+    q.table = table
+    return q
+}
+
+func (q *QueryBuilder) Where(condition string) *QueryBuilder {
+    q.where = condition
+    return q
+}
+```
+
