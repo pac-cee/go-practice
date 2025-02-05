@@ -55,3 +55,22 @@ func (c *Calculator) Divide(a, b float64) (float64, error) {
 	}
 	return c.round(a / b), nil
 }
+
+// Power returns a raised to the power of b
+func (c *Calculator) Power(a, b float64) float64 {
+	return c.round(math.Pow(a, b))
+}
+
+// SquareRoot returns the square root of a number
+// Returns an error if the number is negative
+func (c *Calculator) SquareRoot(a float64) (float64, error) {
+	if a < 0 {
+		return 0, ErrNegativeNumber
+	}
+	return c.round(math.Sqrt(a)), nil
+}
+
+// round rounds a number to the calculator's precision
+func (c *Calculator) round(n float64) float64 {
+	ratio := math.Pow(10, float64(c.precision))
+	return math.Round(n*ratio) / ratio
