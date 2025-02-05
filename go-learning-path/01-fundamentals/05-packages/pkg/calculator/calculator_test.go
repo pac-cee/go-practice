@@ -55,3 +55,22 @@ func TestDivision(t *testing.T) {
 
 			// Check error cases
 			if tt.expectError {
+				if err == nil {
+					t.Error("expected error but got none")
+				}
+				if err != ErrDivisionByZero {
+					t.Errorf("expected ErrDivisionByZero but got %v", err)
+				}
+				return
+			}
+
+			// Check successful cases
+			if err != nil {
+				t.Errorf("unexpected error: %v", err)
+			}
+			if result != tt.expected {
+				t.Errorf("Divide(%v, %v) = %v; want %v",
+					tt.a, tt.b, result, tt.expected)
+			}
+		})
+	}
