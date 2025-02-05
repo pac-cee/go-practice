@@ -74,3 +74,13 @@ func (c *Calculator) SquareRoot(a float64) (float64, error) {
 func (c *Calculator) round(n float64) float64 {
 	ratio := math.Pow(10, float64(c.precision))
 	return math.Round(n*ratio) / ratio
+}
+
+// WithOperation performs a custom operation with logging
+func (c *Calculator) WithOperation(name string, op Operation, a, b float64) (float64, error) {
+	result, err := op(a, b)
+	if err != nil {
+		return 0, err
+	}
+	return c.round(result), nil
+}
