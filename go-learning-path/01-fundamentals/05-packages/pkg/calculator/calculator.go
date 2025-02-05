@@ -17,3 +17,22 @@ var (
 type Operation func(float64, float64) (float64, error)
 
 // Calculator provides mathematical operations with optional logging
+type Calculator struct {
+	// EnableLogging determines if operations should be logged
+	EnableLogging bool
+	
+	// precision specifies decimal places for rounding
+	precision int
+}
+
+// NewCalculator creates a new Calculator with the specified precision
+func NewCalculator(precision int) *Calculator {
+	return &Calculator{
+		precision: precision,
+	}
+}
+
+// Add returns the sum of two numbers
+func (c *Calculator) Add(a, b float64) float64 {
+	return c.round(a + b)
+}
