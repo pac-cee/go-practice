@@ -17,3 +17,22 @@ func TestCalculator(t *testing.T) {
 		op       func(float64, float64) float64
 		expected float64
 	}{
+		{"addition", 3.14159, 2.0, calc.Add, 5.14},
+		{"subtraction", 5.0, 3.14159, calc.Subtract, 1.86},
+		{"multiplication", 2.0, 3.14159, calc.Multiply, 6.28},
+		{"power", 2.0, 3.0, calc.Power, 8.00},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := tt.op(tt.a, tt.b)
+			if result != tt.expected {
+				t.Errorf("%s(%v, %v) = %v; want %v",
+					tt.name, tt.a, tt.b, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestDivision tests division including error cases
+func TestDivision(t *testing.T) {
