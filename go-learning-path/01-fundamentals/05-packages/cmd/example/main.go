@@ -55,3 +55,15 @@ func main() {
 	}
 
 	// Error handling examples
+	fmt.Println("\nError handling examples:")
+
+	// Division by zero
+	if _, err := calc.Divide(a, 0); err != nil {
+		fmt.Printf("Division by zero error: %v\n", err)
+	}
+
+	// Square root of negative number
+	if _, err := calc.SquareRoot(-a); err != nil {
+		fmt.Printf("Negative square root error: %v\n", err)
+	}
+}
