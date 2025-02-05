@@ -36,3 +36,22 @@ func main() {
 		log.Printf("Square root error: %v\n", err)
 	} else {
 		fmt.Printf("Square root of %.2f: %.2f\n", a, sqrt)
+	}
+
+	// Custom operation using WithOperation
+	// Define a custom operation that calculates percentage
+	percentage := func(value, total float64) (float64, error) {
+		if total == 0 {
+			return 0, calculator.ErrDivisionByZero
+		}
+		return (value / total) * 100, nil
+	}
+
+	// Calculate what percentage a is of b
+	if result, err := calc.WithOperation("percentage", percentage, a, b); err != nil {
+		log.Printf("Percentage calculation error: %v\n", err)
+	} else {
+		fmt.Printf("%.2f is %.2f%% of %.2f\n", a, result, b)
+	}
+
+	// Error handling examples
