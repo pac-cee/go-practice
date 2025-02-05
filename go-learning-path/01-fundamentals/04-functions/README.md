@@ -302,3 +302,26 @@ func (q *QueryBuilder) Where(condition string) *QueryBuilder {
 }
 ```
 
+### 3. Factory Pattern
+```go
+type PaymentMethod interface {
+    Pay(amount float64) error
+}
+
+func NewPaymentMethod(method string) PaymentMethod {
+    switch method {
+    case "credit":
+        return &CreditCardPayment{}
+    case "debit":
+        return &DebitCardPayment{}
+    default:
+        return &CashPayment{}
+    }
+}
+```
+
+## Next Steps
+- Practice writing clean functions
+- Implement common interfaces
+- Understand error handling patterns
+- Move on to Packages and Modules
