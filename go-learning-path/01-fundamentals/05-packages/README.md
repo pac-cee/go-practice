@@ -169,3 +169,22 @@ go get github.com/pkg/errors@master
 # Update all dependencies
 go get -u ./...
 
+# Update specific dependency
+go get -u github.com/pkg/errors
+
+# Update patch releases only
+go get -u=patch ./...
+```
+
+### Versioning
+```bash
+# Tag a new version
+git tag v1.0.0
+git push origin v1.0.0
+
+# Use semantic versioning
+v1.0.0  # Major.Minor.Patch
+```
+
+## Best Practices
+
