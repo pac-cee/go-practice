@@ -264,3 +264,22 @@ import (
 
 func main() {
     // Use imported packages
+}
+EOF
+```
+
+### Exercise 2: Package Organization
+Create a well-organized package structure:
+
+```go
+// pkg/models/user.go
+package models
+
+type User struct {
+    ID    int
+    Name  string
+    Email string
+}
+
+// internal/auth/auth.go
+package auth
