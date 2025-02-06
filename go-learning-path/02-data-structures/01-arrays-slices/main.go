@@ -55,3 +55,22 @@ func (dp *DataProcessor) Map(transform func(int) int) []int {
 	return result
 }
 
+// RemoveDuplicates removes duplicate elements while preserving order
+func (dp *DataProcessor) RemoveDuplicates() {
+	if len(dp.data) == 0 {
+		return
+	}
+
+	// Use a map to track seen values
+	seen := make(map[int]bool)
+	result := make([]int, 0, len(dp.data))
+
+	for _, value := range dp.data {
+		if !seen[value] {
+			seen[value] = true
+			result = append(result, value)
+		}
+	}
+
+	dp.data = result
+}
