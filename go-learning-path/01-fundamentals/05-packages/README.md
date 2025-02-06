@@ -340,3 +340,22 @@ func WithPort(port int) ServerOption {
     return func(s *Server) {
         s.port = port
     }
+}
+
+func NewServer(options ...ServerOption) *Server {
+    s := &Server{
+        port: 8080, // default
+    }
+    for _, opt := range options {
+        opt(s)
+    }
+    return s
+}
+```
+
+### 3. Builder Pattern
+```go
+// pkg/query/builder.go
+package query
+
+type QueryBuilder struct {
