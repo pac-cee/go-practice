@@ -36,3 +36,22 @@ func (dp *DataProcessor) Reverse() {
 }
 
 // Filter returns elements that satisfy the predicate
+func (dp *DataProcessor) Filter(predicate func(int) bool) []int {
+	result := make([]int, 0, len(dp.data)) // Preallocate capacity
+	for _, value := range dp.data {
+		if predicate(value) {
+			result = append(result, value)
+		}
+	}
+	return result
+}
+
+// Map applies a transformation to each element
+func (dp *DataProcessor) Map(transform func(int) int) []int {
+	result := make([]int, len(dp.data))
+	for i, value := range dp.data {
+		result[i] = transform(value)
+	}
+	return result
+}
+
