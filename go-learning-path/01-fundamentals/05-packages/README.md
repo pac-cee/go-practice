@@ -321,3 +321,22 @@ func NewDB(driver string) DB {
     switch driver {
     case "postgres":
         return &PostgresDB{}
+    case "mysql":
+        return &MySQLDB{}
+    default:
+        return &SQLiteDB{}
+    }
+}
+```
+
+### 2. Options Pattern
+```go
+// pkg/server/server.go
+package server
+
+type ServerOption func(*Server)
+
+func WithPort(port int) ServerOption {
+    return func(s *Server) {
+        s.port = port
+    }
