@@ -302,3 +302,22 @@ package calculator
 // It demonstrates proper function documentation.
 func Add(a, b int) int {
     return a + b
+}
+```
+
+## Common Patterns
+
+### 1. Factory Pattern
+```go
+// pkg/database/database.go
+package database
+
+type DB interface {
+    Connect() error
+    Close() error
+}
+
+func NewDB(driver string) DB {
+    switch driver {
+    case "postgres":
+        return &PostgresDB{}
