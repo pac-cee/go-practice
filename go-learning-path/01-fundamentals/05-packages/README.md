@@ -283,3 +283,22 @@ type User struct {
 
 // internal/auth/auth.go
 package auth
+
+import "example.com/myapp/pkg/models"
+
+func Authenticate(user *models.User) bool {
+    // Implementation
+}
+```
+
+### Exercise 3: Documentation
+Write well-documented packages:
+
+```go
+// Package calculator provides basic mathematical operations.
+package calculator
+
+// Add returns the sum of two integers.
+// It demonstrates proper function documentation.
+func Add(a, b int) int {
+    return a + b
