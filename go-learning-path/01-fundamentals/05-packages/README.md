@@ -226,3 +226,22 @@ package mypackage // import "example.com/myproject/pkg/mypackage"
 // User represents a system user with authentication information.
 type User struct {
     // Name is the user's full name
+    Name string
+    
+    // Email must be a valid email address
+    Email string
+}
+
+// Function documentation
+// CreateUser creates a new user with the given name and email.
+// It returns an error if the email is invalid.
+func CreateUser(name, email string) (*User, error) {
+    // ...
+}
+```
+
+## Exercises
+
+### Exercise 1: Create a Module
+Create a new module with multiple packages:
+
