@@ -131,3 +131,22 @@ func TestCustomOperation(t *testing.T) {
 		return math.Mod(a, b), nil
 	}
 
+	tests := []struct {
+		name        string
+		a, b        float64
+		expected    float64
+		expectError bool
+	}{
+		{"normal modulo", 5.0, 2.0, 1.00, false},
+		{"zero modulo", 5.0, 0.0, 0.00, true},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := calc.WithOperation("modulo", modulo, tt.a, tt.b)
+
+			// Check error cases
+			if tt.expectError {
+				if err == nil {
+					t.Error("expected error but got none")
+				}
