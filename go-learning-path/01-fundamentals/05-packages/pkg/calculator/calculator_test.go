@@ -150,3 +150,22 @@ func TestCustomOperation(t *testing.T) {
 				if err == nil {
 					t.Error("expected error but got none")
 				}
+				return
+			}
+
+			// Check successful cases
+			if err != nil {
+				t.Errorf("unexpected error: %v", err)
+			}
+			if result != tt.expected {
+				t.Errorf("modulo(%v, %v) = %v; want %v",
+					tt.a, tt.b, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestPrecision tests different precision levels
+func TestPrecision(t *testing.T) {
+	tests := []struct {
+		name      string
