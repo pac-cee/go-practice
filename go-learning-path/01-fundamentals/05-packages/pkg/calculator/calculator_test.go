@@ -112,3 +112,22 @@ func TestSquareRoot(t *testing.T) {
 				t.Errorf("unexpected error: %v", err)
 			}
 			if result != tt.expected {
+				t.Errorf("SquareRoot(%v) = %v; want %v",
+					tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+// TestCustomOperation tests the WithOperation function
+func TestCustomOperation(t *testing.T) {
+	calc := NewCalculator(2)
+
+	// Define a custom operation
+	modulo := func(a, b float64) (float64, error) {
+		if b == 0 {
+			return 0, ErrDivisionByZero
+		}
+		return math.Mod(a, b), nil
+	}
+
