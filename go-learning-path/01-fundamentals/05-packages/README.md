@@ -36,3 +36,22 @@ package user_utils    // underscores
 ```go
 // Package user provides user management functionality.
 // It handles user creation, authentication, and authorization.
+package user
+```
+
+## Module System
+
+### Creating a New Module
+```bash
+# Initialize a new module
+go mod init example.com/myproject
+
+# Add dependencies
+go get github.com/some/dependency
+
+# Update dependencies
+go get -u ./...
+
+# Clean up dependencies
+go mod tidy
+```
