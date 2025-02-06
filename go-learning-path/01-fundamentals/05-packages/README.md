@@ -55,3 +55,22 @@ go get -u ./...
 # Clean up dependencies
 go mod tidy
 ```
+
+### Module File (go.mod)
+```go
+module example.com/myproject
+
+go 1.21
+
+require (
+    github.com/gin-gonic/gin v1.9.1
+    github.com/go-sql-driver/mysql v1.7.1
+)
+```
+
+### Workspace File (go.work)
+```go
+go 1.21
+
+use (
+    ./pkg1
