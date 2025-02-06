@@ -207,3 +207,11 @@ func BenchmarkCalculator(b *testing.B) {
 		{"SquareRoot", func() { calc.SquareRoot(9.0) }},
 	}
 
+	for _, op := range operations {
+		b.Run(op.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				op.fn()
+			}
+		})
+	}
+}
