@@ -245,3 +245,22 @@ func CreateUser(name, email string) (*User, error) {
 ### Exercise 1: Create a Module
 Create a new module with multiple packages:
 
+```bash
+# Create module structure
+mkdir -p myapp/{cmd/server,internal/auth,pkg/models}
+cd myapp
+
+# Initialize module
+go mod init example.com/myapp
+
+# Create main package
+cat > cmd/server/main.go << EOF
+package main
+
+import (
+    "example.com/myapp/internal/auth"
+    "example.com/myapp/pkg/models"
+)
+
+func main() {
+    // Use imported packages
