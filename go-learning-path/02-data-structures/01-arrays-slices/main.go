@@ -74,3 +74,22 @@ func (dp *DataProcessor) RemoveDuplicates() {
 
 	dp.data = result
 }
+
+// SlidingWindow returns all possible windows of the specified size
+func (dp *DataProcessor) SlidingWindow(windowSize int) [][]int {
+	if windowSize <= 0 || windowSize > len(dp.data) {
+		return nil
+	}
+
+	windows := make([][]int, 0, len(dp.data)-windowSize+1)
+	
+	for i := 0; i <= len(dp.data)-windowSize; i++ {
+		// Create a new window with copied data
+		window := make([]int, windowSize)
+		copy(window, dp.data[i:i+windowSize])
+		windows = append(windows, window)
+	}
+
+	return windows
+}
+
