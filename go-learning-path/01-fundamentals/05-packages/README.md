@@ -150,3 +150,22 @@ import (
 )
 ```
 
+## Dependency Management
+
+### Adding Dependencies
+```bash
+# Add a specific version
+go get github.com/pkg/errors@v0.9.1
+
+# Add latest version
+go get github.com/pkg/errors
+
+# Add from specific branch
+go get github.com/pkg/errors@master
+```
+
+### Updating Dependencies
+```bash
+# Update all dependencies
+go get -u ./...
+
