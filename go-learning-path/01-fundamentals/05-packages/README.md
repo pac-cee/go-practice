@@ -74,3 +74,22 @@ go 1.21
 
 use (
     ./pkg1
+    ./pkg2
+    ./cmd/server
+)
+```
+
+## Package Organization
+
+### Standard Layout
+```
+myproject/
+├── cmd/                    # Command applications
+│   └── server/
+│       └── main.go
+├── internal/               # Private packages
+│   ├── auth/
+│   └── database/
+├── pkg/                    # Public packages
+│   ├── models/
+│   └── utils/
