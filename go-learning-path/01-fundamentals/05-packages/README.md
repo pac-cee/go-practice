@@ -112,3 +112,22 @@ myproject/
 func ExportedFunction() {}
 type ExportedType struct {}
 
+// Unexported (private) names start with lowercase
+func unexportedFunction() {}
+type unexportedType struct {}
+```
+
+## Import Patterns
+
+### Basic Import
+```go
+import "fmt"
+import "strings"
+
+// Or grouped
+import (
+    "fmt"
+    "strings"
+)
+```
+
