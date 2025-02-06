@@ -207,3 +207,22 @@ import (
     
     // Local packages
     "example.com/myproject/internal/auth"
+    "example.com/myproject/pkg/models"
+)
+```
+
+### 3. Module Management
+- Use go.mod for dependency management
+- Keep dependencies up to date
+- Use go mod tidy regularly
+- Pin dependency versions
+
+### 4. Documentation
+```go
+// Package level documentation
+package mypackage // import "example.com/myproject/pkg/mypackage"
+
+// Type documentation
+// User represents a system user with authentication information.
+type User struct {
+    // Name is the user's full name
