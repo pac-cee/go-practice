@@ -359,3 +359,20 @@ func NewServer(options ...ServerOption) *Server {
 package query
 
 type QueryBuilder struct {
+    table  string
+    where  string
+    limit  int
+}
+
+func (q *QueryBuilder) From(table string) *QueryBuilder {
+    q.table = table
+    return q
+}
+```
+
+## Next Steps
+- Create a multi-package project
+- Practice package organization
+- Write package documentation
+- Use dependency management
+- Move on to Data Structures and Algorithms
