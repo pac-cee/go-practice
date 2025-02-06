@@ -17,3 +17,22 @@
 package mypackage
 
 // Main package for executables
+package main
+```
+
+### Package Naming Conventions
+```go
+// Good package names
+package user
+package database
+package httputil
+
+// Avoid package names like
+package userUtils     // mixed caps
+package user_utils    // underscores
+```
+
+### Package Documentation
+```go
+// Package user provides user management functionality.
+// It handles user creation, authentication, and authorization.
