@@ -188,3 +188,22 @@ v1.0.0  # Major.Minor.Patch
 
 ## Best Practices
 
+### 1. Package Organization
+- One package per directory
+- Package name matches directory name
+- Keep packages focused and cohesive
+- Use internal/ for private packages
+
+### 2. Import Organization
+```go
+import (
+    // Standard library
+    "fmt"
+    "strings"
+    
+    // Third party
+    "github.com/gin-gonic/gin"
+    "github.com/go-sql-driver/mysql"
+    
+    // Local packages
+    "example.com/myproject/internal/auth"
