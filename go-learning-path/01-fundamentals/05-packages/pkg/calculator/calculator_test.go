@@ -188,3 +188,22 @@ func TestPrecision(t *testing.T) {
 					tt.input, tt.precision, result, tt.expected)
 			}
 		})
+	}
+}
+
+// BenchmarkCalculator benchmarks basic calculator operations
+func BenchmarkCalculator(b *testing.B) {
+	calc := NewCalculator(2)
+
+	operations := []struct {
+		name string
+		fn   func()
+	}{
+		{"Add", func() { calc.Add(3.14159, 2.0) }},
+		{"Subtract", func() { calc.Subtract(5.0, 3.14159) }},
+		{"Multiply", func() { calc.Multiply(2.0, 3.14159) }},
+		{"Divide", func() { calc.Divide(6.0, 2.0) }},
+		{"Power", func() { calc.Power(2.0, 3.0) }},
+		{"SquareRoot", func() { calc.SquareRoot(9.0) }},
+	}
+
