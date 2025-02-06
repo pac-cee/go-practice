@@ -93,3 +93,22 @@ func TestSquareRoot(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, err := calc.SquareRoot(tt.input)
+
+			// Check error cases
+			if tt.expectError {
+				if err == nil {
+					t.Error("expected error but got none")
+				}
+				if err != ErrNegativeNumber {
+					t.Errorf("expected ErrNegativeNumber but got %v", err)
+				}
+				return
+			}
+
+			// Check successful cases
+			if err != nil {
+				t.Errorf("unexpected error: %v", err)
+			}
+			if result != tt.expected {
