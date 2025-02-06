@@ -93,3 +93,22 @@ myproject/
 ├── pkg/                    # Public packages
 │   ├── models/
 │   └── utils/
+├── api/                    # API definitions
+│   └── openapi.yaml
+├── web/                    # Web assets
+│   ├── templates/
+│   └── static/
+├── configs/                # Configuration files
+├── docs/                   # Documentation
+├── scripts/                # Build scripts
+├── test/                   # Additional test files
+├── go.mod
+└── README.md
+```
+
+### Package Visibility
+```go
+// Exported (public) names start with uppercase
+func ExportedFunction() {}
+type ExportedType struct {}
+
