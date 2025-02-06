@@ -131,3 +131,22 @@ import (
 )
 ```
 
+### Named Imports
+```go
+import (
+    "fmt"
+    maths "math"
+    . "strings"      // dot import (avoid)
+    _ "image/png"    // blank import
+)
+```
+
+### Relative Imports
+```go
+// Inside example.com/myproject/cmd/server/main.go
+import (
+    "example.com/myproject/internal/auth"
+    "example.com/myproject/pkg/models"
+)
+```
+
