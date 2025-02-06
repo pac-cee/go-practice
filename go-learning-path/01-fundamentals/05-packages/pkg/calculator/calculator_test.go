@@ -169,3 +169,22 @@ func TestCustomOperation(t *testing.T) {
 func TestPrecision(t *testing.T) {
 	tests := []struct {
 		name      string
+		precision int
+		input     float64
+		expected  float64
+	}{
+		{"zero precision", 0, 3.14159, 3.0},
+		{"one decimal", 1, 3.14159, 3.1},
+		{"two decimals", 2, 3.14159, 3.14},
+		{"three decimals", 3, 3.14159, 3.142},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			calc := NewCalculator(tt.precision)
+			result := calc.round(tt.input)
+			if result != tt.expected {
+				t.Errorf("round(%v) with precision %d = %v; want %v",
+					tt.input, tt.precision, result, tt.expected)
+			}
+		})
