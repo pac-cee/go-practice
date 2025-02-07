@@ -169,3 +169,20 @@ func main() {
 		return x * 2
 	})
 	fmt.Printf("Doubled: %v\n", doubled)
+
+	// Demonstrate duplicate removal
+	processor.RemoveDuplicates()
+	fmt.Printf("Without duplicates: %v\n", processor)
+
+	// Demonstrate sliding window
+	windows := processor.SlidingWindow(3)
+	fmt.Printf("Sliding windows (size 3): %v\n", windows)
+
+	// Demonstrate chunking
+	chunks := processor.Chunk(2)
+	fmt.Printf("Chunks (size 2): %v\n", chunks)
+
+	// Demonstrate rotation
+	processor.Rotate(2)
+	fmt.Printf("Rotated by 2 positions: %v\n", processor)
+}
