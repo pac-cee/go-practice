@@ -112,3 +112,22 @@ func (dp *DataProcessor) Chunk(size int) [][]int {
 		chunks = append(chunks, chunk)
 	}
 
+	return chunks
+}
+
+// Rotate rotates the elements by the specified positions
+func (dp *DataProcessor) Rotate(positions int) {
+	if len(dp.data) == 0 {
+		return
+	}
+
+	// Normalize positions
+	positions = positions % len(dp.data)
+	if positions < 0 {
+		positions += len(dp.data)
+	}
+
+	// Create a temporary slice with copied data
+	temp := make([]int, len(dp.data))
+	copy(temp, dp.data)
+
