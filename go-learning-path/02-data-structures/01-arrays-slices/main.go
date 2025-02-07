@@ -150,3 +150,22 @@ func main() {
 
 	fmt.Printf("Original data: %v\n", processor)
 
+	// Demonstrate sorting
+	processor.Sort()
+	fmt.Printf("Sorted: %v\n", processor)
+
+	// Demonstrate reversing
+	processor.Reverse()
+	fmt.Printf("Reversed: %v\n", processor)
+
+	// Demonstrate filtering (even numbers)
+	evens := processor.Filter(func(x int) bool {
+		return x%2 == 0
+	})
+	fmt.Printf("Even numbers: %v\n", evens)
+
+	// Demonstrate mapping (double each number)
+	doubled := processor.Map(func(x int) int {
+		return x * 2
+	})
+	fmt.Printf("Doubled: %v\n", doubled)
