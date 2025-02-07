@@ -74,3 +74,22 @@ func TestDataProcessor(t *testing.T) {
 
 	t.Run("SlidingWindow", func(t *testing.T) {
 		processor := NewDataProcessor([]int{1, 2, 3, 4, 5})
+		windows := processor.SlidingWindow(3)
+		expected := [][]int{
+			{1, 2, 3},
+			{2, 3, 4},
+			{3, 4, 5},
+		}
+		if !reflect.DeepEqual(windows, expected) {
+			t.Errorf("SlidingWindow(3) = %v, want %v", windows, expected)
+		}
+	})
+
+	t.Run("Chunk", func(t *testing.T) {
+		processor := NewDataProcessor([]int{1, 2, 3, 4, 5})
+		chunks := processor.Chunk(2)
+		expected := [][]int{
+			{1, 2},
+			{3, 4},
+			{5},
+		}
