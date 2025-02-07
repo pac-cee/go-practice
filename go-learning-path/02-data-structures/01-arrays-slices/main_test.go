@@ -112,3 +112,22 @@ func TestDataProcessor(t *testing.T) {
 				expected: []int{4, 5, 1, 2, 3},
 			},
 			{
+				name:      "rotate left by 2",
+				input:     []int{1, 2, 3, 4, 5},
+				positions: -2,
+				expected: []int{3, 4, 5, 1, 2},
+			},
+			{
+				name:      "rotate by length",
+				input:     []int{1, 2, 3},
+				positions: 3,
+				expected: []int{1, 2, 3},
+			},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.name, func(t *testing.T) {
+				processor := NewDataProcessor(tt.input)
+				processor.Rotate(tt.positions)
+				if !reflect.DeepEqual(processor.data, tt.expected) {
+					t.Errorf("Rotate(%d) = %v, want %v", 
