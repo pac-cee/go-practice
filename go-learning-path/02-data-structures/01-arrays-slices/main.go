@@ -93,3 +93,22 @@ func (dp *DataProcessor) SlidingWindow(windowSize int) [][]int {
 	return windows
 }
 
+// Chunk splits the data into chunks of the specified size
+func (dp *DataProcessor) Chunk(size int) [][]int {
+	if size <= 0 {
+		return nil
+	}
+
+	chunks := make([][]int, 0, (len(dp.data)+size-1)/size)
+	
+	for i := 0; i < len(dp.data); i += size {
+		end := i + size
+		if end > len(dp.data) {
+			end = len(dp.data)
+		}
+		
+		chunk := make([]int, end-i)
+		copy(chunk, dp.data[i:end])
+		chunks = append(chunks, chunk)
+	}
+
