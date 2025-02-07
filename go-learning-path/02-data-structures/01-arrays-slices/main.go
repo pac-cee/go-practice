@@ -131,3 +131,22 @@ func (dp *DataProcessor) Rotate(positions int) {
 	temp := make([]int, len(dp.data))
 	copy(temp, dp.data)
 
+	// Perform rotation
+	for i := 0; i < len(dp.data); i++ {
+		newPos := (i + positions) % len(dp.data)
+		dp.data[newPos] = temp[i]
+	}
+}
+
+// String returns a string representation of the data
+func (dp *DataProcessor) String() string {
+	return fmt.Sprintf("%v", dp.data)
+}
+
+func main() {
+	// Create sample data
+	data := []int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5}
+	processor := NewDataProcessor(data)
+
+	fmt.Printf("Original data: %v\n", processor)
+
