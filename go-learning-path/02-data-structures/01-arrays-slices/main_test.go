@@ -93,3 +93,22 @@ func TestDataProcessor(t *testing.T) {
 			{3, 4},
 			{5},
 		}
+		if !reflect.DeepEqual(chunks, expected) {
+			t.Errorf("Chunk(2) = %v, want %v", chunks, expected)
+		}
+	})
+
+	t.Run("Rotate", func(t *testing.T) {
+		tests := []struct {
+			name      string
+			input     []int
+			positions int
+			expected  []int
+		}{
+			{
+				name:      "rotate right by 2",
+				input:     []int{1, 2, 3, 4, 5},
+				positions: 2,
+				expected: []int{4, 5, 1, 2, 3},
+			},
+			{
