@@ -17,3 +17,22 @@ func TestDataProcessor(t *testing.T) {
 		}
 
 		// Verify it's a copy
+		data[0] = 100
+		if processor.data[0] == 100 {
+			t.Error("NewDataProcessor() did not create a copy of the data")
+		}
+	})
+
+	t.Run("Sort", func(t *testing.T) {
+		processor := NewDataProcessor(data)
+		processor.Sort()
+		expected := []int{1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9}
+		if !reflect.DeepEqual(processor.data, expected) {
+			t.Errorf("Sort() = %v, want %v", processor.data, expected)
+		}
+	})
+
+	t.Run("Reverse", func(t *testing.T) {
+		processor := NewDataProcessor([]int{1, 2, 3, 4, 5})
+		processor.Reverse()
+		expected := []int{5, 4, 3, 2, 1}
