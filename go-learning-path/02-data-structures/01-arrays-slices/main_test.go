@@ -55,3 +55,22 @@ func TestDataProcessor(t *testing.T) {
 	t.Run("Map", func(t *testing.T) {
 		processor := NewDataProcessor([]int{1, 2, 3})
 		doubled := processor.Map(func(x int) int {
+			return x * 2
+		})
+		expected := []int{2, 4, 6}
+		if !reflect.DeepEqual(doubled, expected) {
+			t.Errorf("Map(double) = %v, want %v", doubled, expected)
+		}
+	})
+
+	t.Run("RemoveDuplicates", func(t *testing.T) {
+		processor := NewDataProcessor(data)
+		processor.RemoveDuplicates()
+		expected := []int{3, 1, 4, 5, 9, 2, 6}
+		if !reflect.DeepEqual(processor.data, expected) {
+			t.Errorf("RemoveDuplicates() = %v, want %v", processor.data, expected)
+		}
+	})
+
+	t.Run("SlidingWindow", func(t *testing.T) {
+		processor := NewDataProcessor([]int{1, 2, 3, 4, 5})
