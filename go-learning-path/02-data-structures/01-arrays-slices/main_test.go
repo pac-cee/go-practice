@@ -36,3 +36,22 @@ func TestDataProcessor(t *testing.T) {
 		processor := NewDataProcessor([]int{1, 2, 3, 4, 5})
 		processor.Reverse()
 		expected := []int{5, 4, 3, 2, 1}
+		if !reflect.DeepEqual(processor.data, expected) {
+			t.Errorf("Reverse() = %v, want %v", processor.data, expected)
+		}
+	})
+
+	t.Run("Filter", func(t *testing.T) {
+		processor := NewDataProcessor(data)
+		evens := processor.Filter(func(x int) bool {
+			return x%2 == 0
+		})
+		expected := []int{4, 2, 6}
+		if !reflect.DeepEqual(evens, expected) {
+			t.Errorf("Filter(evens) = %v, want %v", evens, expected)
+		}
+	})
+
+	t.Run("Map", func(t *testing.T) {
+		processor := NewDataProcessor([]int{1, 2, 3})
+		doubled := processor.Map(func(x int) int {
