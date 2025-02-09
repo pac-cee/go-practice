@@ -207,3 +207,22 @@ copy(trimmed, slice)
 ```
 
 ### 4. Append
+```go
+// Efficient append
+var buffer []byte
+buffer = append(buffer, data...)
+
+// Append multiple values
+slice = append(slice, 1, 2, 3)
+```
+
+## Exercises
+
+### Exercise 1: Array Operations
+```go
+// Implement a function to reverse an array
+func reverse(arr [5]int) [5]int {
+    var reversed [5]int
+    for i := 0; i < len(arr); i++ {
+        reversed[i] = arr[len(arr)-1-i]
+    }
