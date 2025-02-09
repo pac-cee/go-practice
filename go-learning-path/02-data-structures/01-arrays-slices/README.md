@@ -150,3 +150,22 @@ numbers := make([]int, 0, 1000)
 for i := 0; i < 1000; i++ {
     numbers = append(numbers, i)
 }
+```
+
+### Memory Leaks
+```go
+// Potential memory leak
+original := []int{1, 2, 3, 4, 5}
+subset := original[2:4]  // Keeps reference to original
+
+// Better approach
+subset = append([]int(nil), original[2:4]...)
+```
+
+### Slice Internals
+```go
+// Understanding slice header
+type sliceHeader struct {
+    Data uintptr
+    Len  int
+    Cap  int
