@@ -36,3 +36,22 @@ var matrix [3][3]int
 // Initialize 2D array
 grid := [2][3]int{
     {1, 2, 3},
+    {4, 5, 6},
+}
+```
+
+## Slices
+
+### Slice Declaration
+```go
+// Empty slice
+var numbers []int
+
+// Slice with initialization
+scores := []int{90, 95, 100}
+
+// Make with length and capacity
+buffer := make([]byte, 5, 10)
+```
+
+### Slice Properties
