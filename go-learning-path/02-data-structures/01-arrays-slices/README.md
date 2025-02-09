@@ -226,3 +226,22 @@ func reverse(arr [5]int) [5]int {
     for i := 0; i < len(arr); i++ {
         reversed[i] = arr[len(arr)-1-i]
     }
+    return reversed
+}
+```
+
+### Exercise 2: Slice Operations
+```go
+// Implement a function to remove duplicates
+func removeDuplicates(slice []int) []int {
+    seen := make(map[int]bool)
+    result := make([]int, 0)
+    
+    for _, value := range slice {
+        if !seen[value] {
+            seen[value] = true
+            result = append(result, value)
+        }
+    }
+    return result
+}
