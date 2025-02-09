@@ -93,3 +93,22 @@ copy(dst, src)
 // Using range
 for index, value := range slice {
     fmt.Printf("Index: %d, Value: %d\n", index, value)
+}
+
+// Using traditional for loop
+for i := 0; i < len(slice); i++ {
+    fmt.Printf("Value at %d: %d\n", i, slice[i])
+}
+```
+
+### Sorting
+```go
+// Sort integers
+numbers := []int{3, 1, 4, 1, 5, 9}
+sort.Ints(numbers)
+
+// Sort strings
+names := []string{"Charlie", "Alice", "Bob"}
+sort.Strings(names)
+
+// Custom sort
