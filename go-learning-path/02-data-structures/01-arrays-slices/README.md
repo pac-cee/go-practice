@@ -169,3 +169,22 @@ type sliceHeader struct {
     Data uintptr
     Len  int
     Cap  int
+}
+```
+
+## Best Practices
+
+### 1. Initialization
+```go
+// Prefer make for slices with known size
+slice := make([]int, 0, expectedSize)
+
+// Use literal for small, known values
+small := []int{1, 2, 3}
+```
+
+### 2. Capacity Management
+```go
+// Preallocate when size is known
+users := make([]User, 0, len(records))
+
