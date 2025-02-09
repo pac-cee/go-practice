@@ -169,3 +169,22 @@ func TestEdgeCases(t *testing.T) {
 		// Test invalid window size
 		if windows := processor.SlidingWindow(0); windows != nil {
 			t.Error("SlidingWindow with size 0 should return nil")
+		}
+
+		if windows := processor.SlidingWindow(4); windows != nil {
+			t.Error("SlidingWindow with size > len should return nil")
+		}
+
+		// Test invalid chunk size
+		if chunks := processor.Chunk(0); chunks != nil {
+			t.Error("Chunk with size 0 should return nil")
+		}
+	})
+}
+
+// BenchmarkDataProcessor benchmarks the DataProcessor methods
+func BenchmarkDataProcessor(b *testing.B) {
+	data := make([]int, 1000)
+	for i := range data {
+		data[i] = i
+	}
