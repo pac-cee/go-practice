@@ -74,3 +74,22 @@ numbers = append(numbers, 5, 6, 7)
 
 #### Slicing
 ```go
+// Slice syntax: slice[startIndex:endIndex]
+numbers := []int{0, 1, 2, 3, 4, 5}
+subset := numbers[2:4]  // [2, 3]
+```
+
+#### Copy
+```go
+src := []int{1, 2, 3}
+dst := make([]int, len(src))
+copy(dst, src)
+```
+
+## Operations
+
+### Iteration
+```go
+// Using range
+for index, value := range slice {
+    fmt.Printf("Index: %d, Value: %d\n", index, value)
