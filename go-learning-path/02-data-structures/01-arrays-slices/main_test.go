@@ -150,3 +150,22 @@ func TestEdgeCases(t *testing.T) {
 		processor.Rotate(5)
 
 		if len(processor.data) != 0 {
+			t.Error("Operations on empty slice should maintain empty slice")
+		}
+
+		// Test window operations
+		if windows := processor.SlidingWindow(1); windows != nil {
+			t.Error("SlidingWindow on empty slice should return nil")
+		}
+
+		if chunks := processor.Chunk(1); chunks != nil {
+			t.Error("Chunk on empty slice should return nil")
+		}
+	})
+
+	t.Run("invalid parameters", func(t *testing.T) {
+		processor := NewDataProcessor([]int{1, 2, 3})
+
+		// Test invalid window size
+		if windows := processor.SlidingWindow(0); windows != nil {
+			t.Error("SlidingWindow with size 0 should return nil")
