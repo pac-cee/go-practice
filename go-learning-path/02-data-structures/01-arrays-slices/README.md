@@ -188,3 +188,22 @@ small := []int{1, 2, 3}
 // Preallocate when size is known
 users := make([]User, 0, len(records))
 
+// Double capacity when unknown
+if cap(slice) == len(slice) {
+    newSlice := make([]int, len(slice), 2*cap(slice))
+    copy(newSlice, slice)
+    slice = newSlice
+}
+```
+
+### 3. Slicing
+```go
+// Full slice expression
+slice := array[2:4:4]  // Controls capacity
+
+// Avoid memory leaks
+trimmed := make([]byte, len(slice))
+copy(trimmed, slice)
+```
+
+### 4. Append
