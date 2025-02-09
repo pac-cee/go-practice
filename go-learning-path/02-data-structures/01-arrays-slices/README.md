@@ -55,3 +55,22 @@ buffer := make([]byte, 5, 10)
 ```
 
 ### Slice Properties
+- Dynamic length
+- Reference type
+- Built on arrays
+- Three components:
+  - Pointer to array
+  - Length
+  - Capacity
+
+### Slice Operations
+
+#### Append
+```go
+numbers := []int{1, 2, 3}
+numbers = append(numbers, 4)
+numbers = append(numbers, 5, 6, 7)
+```
+
+#### Slicing
+```go
