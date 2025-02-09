@@ -207,3 +207,15 @@ func BenchmarkDataProcessor(b *testing.B) {
 		processor := NewDataProcessor(data)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
+			processor.SlidingWindow(10)
+		}
+	})
+
+	b.Run("Rotate", func(b *testing.B) {
+		processor := NewDataProcessor(data)
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			processor.Rotate(10)
+		}
+	})
+}
