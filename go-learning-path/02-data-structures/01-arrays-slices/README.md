@@ -131,3 +131,22 @@ for _, n := range numbers {
 
 ### Mapping
 ```go
+// Double all numbers
+numbers := []int{1, 2, 3, 4, 5}
+doubled := make([]int, len(numbers))
+for i, n := range numbers {
+    doubled[i] = n * 2
+}
+```
+
+## Memory Management
+
+### Capacity Growth
+```go
+// Preallocate with expected capacity
+numbers := make([]int, 0, 1000)
+
+// Append efficiently
+for i := 0; i < 1000; i++ {
+    numbers = append(numbers, i)
+}
