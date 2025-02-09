@@ -131,3 +131,22 @@ func TestDataProcessor(t *testing.T) {
 				processor.Rotate(tt.positions)
 				if !reflect.DeepEqual(processor.data, tt.expected) {
 					t.Errorf("Rotate(%d) = %v, want %v", 
+						tt.positions, processor.data, tt.expected)
+				}
+			})
+		}
+	})
+}
+
+// TestEdgeCases tests edge cases for DataProcessor methods
+func TestEdgeCases(t *testing.T) {
+	t.Run("empty slice", func(t *testing.T) {
+		processor := NewDataProcessor([]int{})
+
+		// Test all methods with empty slice
+		processor.Sort()
+		processor.Reverse()
+		processor.RemoveDuplicates()
+		processor.Rotate(5)
+
+		if len(processor.data) != 0 {
