@@ -112,3 +112,22 @@ names := []string{"Charlie", "Alice", "Bob"}
 sort.Strings(names)
 
 // Custom sort
+sort.Slice(items, func(i, j int) bool {
+    return items[i].Value < items[j].Value
+})
+```
+
+### Filtering
+```go
+// Filter even numbers
+numbers := []int{1, 2, 3, 4, 5, 6}
+evens := make([]int, 0)
+for _, n := range numbers {
+    if n%2 == 0 {
+        evens = append(evens, n)
+    }
+}
+```
+
+### Mapping
+```go
