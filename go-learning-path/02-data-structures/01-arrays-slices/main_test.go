@@ -188,3 +188,22 @@ func BenchmarkDataProcessor(b *testing.B) {
 	for i := range data {
 		data[i] = i
 	}
+
+	b.Run("Sort", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			processor := NewDataProcessor(data)
+			processor.Sort()
+		}
+	})
+
+	b.Run("RemoveDuplicates", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			processor := NewDataProcessor(data)
+			processor.RemoveDuplicates()
+		}
+	})
+
+	b.Run("SlidingWindow", func(b *testing.B) {
+		processor := NewDataProcessor(data)
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
