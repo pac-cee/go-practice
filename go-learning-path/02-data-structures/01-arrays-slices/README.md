@@ -245,3 +245,22 @@ func removeDuplicates(slice []int) []int {
     }
     return result
 }
+```
+
+### Exercise 3: Advanced Operations
+```go
+// Implement a sliding window
+func slidingWindow(slice []int, windowSize int) [][]int {
+    var windows [][]int
+    for i := 0; i <= len(slice)-windowSize; i++ {
+        window := make([]int, windowSize)
+        copy(window, slice[i:i+windowSize])
+        windows = append(windows, window)
+    }
+    return windows
+}
+```
+
+## Common Patterns
+
+### 1. Stack Implementation
