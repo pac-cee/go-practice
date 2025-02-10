@@ -302,3 +302,26 @@ func (q *Queue) Dequeue() interface{} {
     return item
 }
 ```
+
+### 3. Ring Buffer
+```go
+type RingBuffer struct {
+    data     []interface{}
+    size     int
+    readPos  int
+    writePos int
+}
+
+func NewRingBuffer(size int) *RingBuffer {
+    return &RingBuffer{
+        data: make([]interface{}, size),
+        size: size,
+    }
+}
+```
+
+## Next Steps
+- Practice array and slice operations
+- Implement common data structures
+- Study memory management
+- Move on to Maps and Sets
