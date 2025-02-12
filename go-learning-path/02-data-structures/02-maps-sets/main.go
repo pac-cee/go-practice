@@ -169,3 +169,22 @@ func (c *Cache) Get(key string) (interface{}, bool) {
 func (c *Cache) Delete(key string) {
 	c.Lock()
 	defer c.Unlock()
+	delete(c.data, key)
+	delete(c.expires, key)
+}
+
+// cleanup periodically removes expired items
+func (c *Cache) cleanup() {
+	ticker := time.NewTicker(time.Minute)
+	for range ticker.C {
+		c.Lock()
+		now := time.Now()
+		for key, expiry := range c.expires {
+			if now.After(expiry) {
+				delete(c.data, key)
+				delete(c.expires, key)
+			}
+		}
+		c.Unlock()
+	}
+}
