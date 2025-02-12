@@ -112,3 +112,22 @@ func TestCache(t *testing.T) {
 
 // TestFrequencyCounter tests the FrequencyCounter
 func TestFrequencyCounter(t *testing.T) {
+	t.Run("basic counting", func(t *testing.T) {
+		counter := NewFrequencyCounter()
+
+		// Add words
+		words := []string{"apple", "banana", "apple", "cherry", "apple", "date"}
+		for _, word := range words {
+			counter.Add(word)
+		}
+
+		// Test counts
+		tests := []struct {
+			word     string
+			expected int
+		}{
+			{"apple", 3},
+			{"banana", 1},
+			{"cherry", 1},
+			{"date", 1},
+			{"fig", 0}, // non-existent word
