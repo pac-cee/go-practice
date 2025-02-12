@@ -112,3 +112,22 @@ func (s *Set) Difference(other *Set) *Set {
 	result := NewSet()
 	
 	s.RLock()
+	defer s.RUnlock()
+	
+	other.RLock()
+	defer other.RUnlock()
+
+	for item := range s.data {
+		if _, exists := other.data[item]; !exists {
+			result.Add(item)
+		}
+	}
+
+	return result
+}
+
+// Cache represents a thread-safe cache with expiration
+type Cache struct {
+	sync.RWMutex
+	data    map[string]interface{}
+	expires map[string]time.Time
