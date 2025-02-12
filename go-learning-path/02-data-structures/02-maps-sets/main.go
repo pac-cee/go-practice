@@ -245,3 +245,22 @@ func (fc *FrequencyCounter) TopN(n int) map[string]int {
 	for i := 0; i < n && i < len(pairs); i++ {
 		result[pairs[i].word] = pairs[i].count
 	}
+	return result
+}
+
+func main() {
+	// Demonstrate Set operations
+	set1 := NewSet()
+	set1.Add("apple")
+	set1.Add("banana")
+	set1.Add("cherry")
+
+	set2 := NewSet()
+	set2.Add("banana")
+	set2.Add("cherry")
+	set2.Add("date")
+
+	fmt.Printf("Set 1: %v\n", set1.Items())
+	fmt.Printf("Set 2: %v\n", set2.Items())
+	
+	union := set1.Union(set2)
