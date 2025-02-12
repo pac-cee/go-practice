@@ -36,3 +36,22 @@ func (s *Set) Remove(item string) {
 
 // Contains checks if an item exists in the set
 func (s *Set) Contains(item string) bool {
+	s.RLock()
+	defer s.RUnlock()
+	_, exists := s.data[item]
+	return exists
+}
+
+// Size returns the number of items in the set
+func (s *Set) Size() int {
+	s.RLock()
+	defer s.RUnlock()
+	return len(s.data)
+}
+
+// Items returns all items in the set
+func (s *Set) Items() []string {
+	s.RLock()
+	defer s.RUnlock()
+	items := make([]string, 0, len(s.data))
+	for item := range s.data {
