@@ -150,3 +150,22 @@ func (c *Cache) Set(key string, value interface{}, ttl time.Duration) {
 	c.data[key] = value
 	c.expires[key] = time.Now().Add(ttl)
 }
+
+// Get retrieves an item from the cache
+func (c *Cache) Get(key string) (interface{}, bool) {
+	c.RLock()
+	defer c.RUnlock()
+	
+	expiry, exists := c.expires[key]
+	if !exists || time.Now().After(expiry) {
+		return nil, false
+	}
+	
+	value, exists := c.data[key]
+	return value, exists
+}
+
+// Delete removes an item from the cache
+func (c *Cache) Delete(key string) {
+	c.Lock()
+	defer c.Unlock()
