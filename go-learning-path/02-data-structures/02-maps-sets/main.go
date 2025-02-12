@@ -55,3 +55,22 @@ func (s *Set) Items() []string {
 	defer s.RUnlock()
 	items := make([]string, 0, len(s.data))
 	for item := range s.data {
+		items = append(items, item)
+	}
+	return items
+}
+
+// Union returns a new set containing all items from both sets
+func (s *Set) Union(other *Set) *Set {
+	result := NewSet()
+	
+	s.RLock()
+	for item := range s.data {
+		result.Add(item)
+	}
+	s.RUnlock()
+
+	other.RLock()
+	for item := range other.data {
+		result.Add(item)
+	}
