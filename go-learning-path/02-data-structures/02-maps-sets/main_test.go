@@ -93,3 +93,22 @@ func TestCache(t *testing.T) {
 			t.Error("cache should not contain key1 after deletion")
 		}
 	})
+
+	t.Run("expiration", func(t *testing.T) {
+		cache := NewCache()
+
+		// Add item with short TTL
+		cache.Set("key1", "value1", time.Millisecond*100)
+
+		// Wait for expiration
+		time.Sleep(time.Millisecond * 200)
+
+		// Check if item has expired
+		if _, exists := cache.Get("key1"); exists {
+			t.Error("cache item should have expired")
+		}
+	})
+}
+
+// TestFrequencyCounter tests the FrequencyCounter
+func TestFrequencyCounter(t *testing.T) {
