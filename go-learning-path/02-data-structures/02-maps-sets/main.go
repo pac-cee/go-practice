@@ -74,3 +74,22 @@ func (s *Set) Union(other *Set) *Set {
 	for item := range other.data {
 		result.Add(item)
 	}
+	other.RUnlock()
+
+	return result
+}
+
+// Intersection returns a new set containing items present in both sets
+func (s *Set) Intersection(other *Set) *Set {
+	result := NewSet()
+	
+	s.RLock()
+	defer s.RUnlock()
+	
+	other.RLock()
+	defer other.RUnlock()
+
+	// Iterate over the smaller set for efficiency
+	if len(s.data) < len(other.data) {
+		for item := range s.data {
+			if _, exists := other.data[item]; exists {
