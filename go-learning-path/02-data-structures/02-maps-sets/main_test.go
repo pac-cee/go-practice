@@ -55,3 +55,22 @@ func TestSet(t *testing.T) {
 			t.Errorf("Union = %v; want %v", union.Items(), expectedUnion)
 		}
 
+		// Test Intersection
+		intersection := set1.Intersection(set2)
+		expectedIntersection := []string{"banana", "cherry"}
+		if !sameElements(intersection.Items(), expectedIntersection) {
+			t.Errorf("Intersection = %v; want %v", intersection.Items(), expectedIntersection)
+		}
+
+		// Test Difference
+		difference := set1.Difference(set2)
+		expectedDifference := []string{"apple"}
+		if !sameElements(difference.Items(), expectedDifference) {
+			t.Errorf("Difference = %v; want %v", difference.Items(), expectedDifference)
+		}
+	})
+}
+
+// TestCache tests the Cache data structure
+func TestCache(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
