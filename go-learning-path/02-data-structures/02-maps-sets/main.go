@@ -207,3 +207,22 @@ func (fc *FrequencyCounter) Add(word string) {
 	fc.Lock()
 	defer fc.Unlock()
 	fc.counts[word]++
+}
+
+// Count returns the count for a word
+func (fc *FrequencyCounter) Count(word string) int {
+	fc.RLock()
+	defer fc.RUnlock()
+	return fc.counts[word]
+}
+
+// TopN returns the n most frequent words
+func (fc *FrequencyCounter) TopN(n int) map[string]int {
+	fc.RLock()
+	defer fc.RUnlock()
+
+	// Create pairs for sorting
+	type pair struct {
+		word  string
+		count int
+	}
