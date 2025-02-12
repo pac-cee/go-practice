@@ -207,3 +207,22 @@ func BenchmarkCache(b *testing.B) {
 	b.Run("Set", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			key := fmt.Sprintf("key%d", i)
+			cache.Set(key, i, time.Minute)
+		}
+	})
+
+	b.Run("Get", func(b *testing.B) {
+		key := "testKey"
+		cache.Set(key, "value", time.Minute)
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			cache.Get(key)
+		}
+	})
+}
+
+func BenchmarkFrequencyCounter(b *testing.B) {
+	counter := NewFrequencyCounter()
+	words := []string{"apple", "banana", "cherry", "date"}
+
+	b.Run("Add", func(b *testing.B) {
