@@ -226,3 +226,22 @@ func BenchmarkFrequencyCounter(b *testing.B) {
 	words := []string{"apple", "banana", "cherry", "date"}
 
 	b.Run("Add", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			counter.Add(words[i%len(words)])
+		}
+	})
+
+	b.Run("TopN", func(b *testing.B) {
+		// Pre-populate counter
+		for _, word := range words {
+			counter.Add(word)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			counter.TopN(3)
+		}
+	})
+}
+
+// Helper function to compare slices regardless of order
+func sameElements(a, b []string) bool {
