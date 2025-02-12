@@ -169,3 +169,22 @@ func TestFrequencyCounter(t *testing.T) {
 
 // Benchmark tests
 func BenchmarkSet(b *testing.B) {
+	set := NewSet()
+	items := []string{"apple", "banana", "cherry", "date"}
+
+	b.Run("Add", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			set.Add(items[i%len(items)])
+		}
+	})
+
+	b.Run("Contains", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			set.Contains(items[i%len(items)])
+		}
+	})
+
+	b.Run("Union", func(b *testing.B) {
+		set1 := NewSet()
+		set2 := NewSet()
+		for _, item := range items[:2] {
