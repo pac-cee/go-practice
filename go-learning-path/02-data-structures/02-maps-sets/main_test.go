@@ -36,3 +36,22 @@ func TestSet(t *testing.T) {
 			t.Errorf("items length = %d; want 2", len(items))
 		}
 	})
+
+	t.Run("set operations", func(t *testing.T) {
+		set1 := NewSet()
+		set1.Add("apple")
+		set1.Add("banana")
+		set1.Add("cherry")
+
+		set2 := NewSet()
+		set2.Add("banana")
+		set2.Add("cherry")
+		set2.Add("date")
+
+		// Test Union
+		union := set1.Union(set2)
+		expectedUnion := []string{"apple", "banana", "cherry", "date"}
+		if !sameElements(union.Items(), expectedUnion) {
+			t.Errorf("Union = %v; want %v", union.Items(), expectedUnion)
+		}
+
