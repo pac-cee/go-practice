@@ -245,3 +245,19 @@ func BenchmarkFrequencyCounter(b *testing.B) {
 
 // Helper function to compare slices regardless of order
 func sameElements(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	aMap := make(map[string]int)
+	for _, item := range a {
+		aMap[item]++
+	}
+
+	bMap := make(map[string]int)
+	for _, item := range b {
+		bMap[item]++
+	}
+
+	return reflect.DeepEqual(aMap, bMap)
+}
