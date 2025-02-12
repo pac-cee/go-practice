@@ -93,3 +93,22 @@ func (s *Set) Intersection(other *Set) *Set {
 	if len(s.data) < len(other.data) {
 		for item := range s.data {
 			if _, exists := other.data[item]; exists {
+				result.Add(item)
+			}
+		}
+	} else {
+		for item := range other.data {
+			if _, exists := s.data[item]; exists {
+				result.Add(item)
+			}
+		}
+	}
+
+	return result
+}
+
+// Difference returns a new set containing items in s that are not in other
+func (s *Set) Difference(other *Set) *Set {
+	result := NewSet()
+	
+	s.RLock()
