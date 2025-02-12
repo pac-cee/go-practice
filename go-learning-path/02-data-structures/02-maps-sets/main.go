@@ -131,3 +131,22 @@ type Cache struct {
 	sync.RWMutex
 	data    map[string]interface{}
 	expires map[string]time.Time
+}
+
+// NewCache creates a new cache
+func NewCache() *Cache {
+	cache := &Cache{
+		data:    make(map[string]interface{}),
+		expires: make(map[string]time.Time),
+	}
+	go cache.cleanup()
+	return cache
+}
+
+// Set adds an item to the cache with expiration
+func (c *Cache) Set(key string, value interface{}, ttl time.Duration) {
+	c.Lock()
+	defer c.Unlock()
+	c.data[key] = value
+	c.expires[key] = time.Now().Add(ttl)
+}
