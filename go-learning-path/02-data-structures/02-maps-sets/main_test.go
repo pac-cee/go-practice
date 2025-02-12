@@ -188,3 +188,22 @@ func BenchmarkSet(b *testing.B) {
 		set1 := NewSet()
 		set2 := NewSet()
 		for _, item := range items[:2] {
+			set1.Add(item)
+		}
+		for _, item := range items[2:] {
+			set2.Add(item)
+		}
+
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			set1.Union(set2)
+		}
+	})
+}
+
+func BenchmarkCache(b *testing.B) {
+	cache := NewCache()
+
+	b.Run("Set", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			key := fmt.Sprintf("key%d", i)
