@@ -226,3 +226,22 @@ func (fc *FrequencyCounter) TopN(n int) map[string]int {
 		word  string
 		count int
 	}
+	pairs := make([]pair, 0, len(fc.counts))
+	for word, count := range fc.counts {
+		pairs = append(pairs, pair{word, count})
+	}
+
+	// Sort pairs by count (descending)
+	for i := 0; i < len(pairs)-1; i++ {
+		for j := i + 1; j < len(pairs); j++ {
+			if pairs[i].count < pairs[j].count {
+				pairs[i], pairs[j] = pairs[j], pairs[i]
+			}
+		}
+	}
+
+	// Take top N
+	result := make(map[string]int)
+	for i := 0; i < n && i < len(pairs); i++ {
+		result[pairs[i].word] = pairs[i].count
+	}
