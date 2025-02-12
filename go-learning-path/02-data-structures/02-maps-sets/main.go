@@ -264,3 +264,22 @@ func main() {
 	fmt.Printf("Set 2: %v\n", set2.Items())
 	
 	union := set1.Union(set2)
+	fmt.Printf("Union: %v\n", union.Items())
+	
+	intersection := set1.Intersection(set2)
+	fmt.Printf("Intersection: %v\n", intersection.Items())
+	
+	difference := set1.Difference(set2)
+	fmt.Printf("Difference (set1 - set2): %v\n", difference.Items())
+
+	// Demonstrate Cache operations
+	cache := NewCache()
+	cache.Set("user1", map[string]string{"name": "Alice"}, time.Minute)
+	
+	if value, exists := cache.Get("user1"); exists {
+		fmt.Printf("Cache hit: %v\n", value)
+	}
+
+	// Demonstrate FrequencyCounter
+	counter := NewFrequencyCounter()
+	words := []string{"apple", "banana", "apple", "cherry", "apple", "date"}
