@@ -131,3 +131,22 @@ func TestFrequencyCounter(t *testing.T) {
 			{"cherry", 1},
 			{"date", 1},
 			{"fig", 0}, // non-existent word
+		}
+
+		for _, tt := range tests {
+			if count := counter.Count(tt.word); count != tt.expected {
+				t.Errorf("Count(%s) = %d; want %d", tt.word, count, tt.expected)
+			}
+		}
+	})
+
+	t.Run("top N", func(t *testing.T) {
+		counter := NewFrequencyCounter()
+
+		// Add words with different frequencies
+		words := []string{
+			"apple", "apple", "apple",
+			"banana", "banana",
+			"cherry",
+		}
+		for _, word := range words {
