@@ -283,3 +283,14 @@ func main() {
 	// Demonstrate FrequencyCounter
 	counter := NewFrequencyCounter()
 	words := []string{"apple", "banana", "apple", "cherry", "apple", "date"}
+	
+	for _, word := range words {
+		counter.Add(word)
+	}
+
+	fmt.Println("\nWord frequencies:")
+	topWords := counter.TopN(3)
+	for word, count := range topWords {
+		fmt.Printf("%s: %d\n", word, count)
+	}
+}
