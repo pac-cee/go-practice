@@ -74,3 +74,22 @@ func TestSet(t *testing.T) {
 // TestCache tests the Cache data structure
 func TestCache(t *testing.T) {
 	t.Run("basic operations", func(t *testing.T) {
+		cache := NewCache()
+
+		// Test Set and Get
+		cache.Set("key1", "value1", time.Minute)
+		if value, exists := cache.Get("key1"); !exists || value != "value1" {
+			t.Errorf("cache.Get(key1) = %v, %v; want value1, true", value, exists)
+		}
+
+		// Test non-existent key
+		if _, exists := cache.Get("key2"); exists {
+			t.Error("cache should not contain key2")
+		}
+
+		// Test Delete
+		cache.Delete("key1")
+		if _, exists := cache.Get("key1"); exists {
+			t.Error("cache should not contain key1 after deletion")
+		}
+	})
