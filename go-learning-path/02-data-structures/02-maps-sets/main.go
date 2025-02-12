@@ -188,3 +188,22 @@ func (c *Cache) cleanup() {
 		c.Unlock()
 	}
 }
+
+// FrequencyCounter counts occurrences of words
+type FrequencyCounter struct {
+	sync.RWMutex
+	counts map[string]int
+}
+
+// NewFrequencyCounter creates a new frequency counter
+func NewFrequencyCounter() *FrequencyCounter {
+	return &FrequencyCounter{
+		counts: make(map[string]int),
+	}
+}
+
+// Add increments the count for a word
+func (fc *FrequencyCounter) Add(word string) {
+	fc.Lock()
+	defer fc.Unlock()
+	fc.counts[word]++
