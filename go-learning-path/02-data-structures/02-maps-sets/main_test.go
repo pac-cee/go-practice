@@ -150,3 +150,22 @@ func TestFrequencyCounter(t *testing.T) {
 			"cherry",
 		}
 		for _, word := range words {
+			counter.Add(word)
+		}
+
+		// Test TopN
+		top2 := counter.TopN(2)
+		if len(top2) != 2 {
+			t.Errorf("TopN(2) returned %d items; want 2", len(top2))
+		}
+		if top2["apple"] != 3 {
+			t.Errorf("TopN(2)['apple'] = %d; want 3", top2["apple"])
+		}
+		if top2["banana"] != 2 {
+			t.Errorf("TopN(2)['banana'] = %d; want 2", top2["banana"])
+		}
+	})
+}
+
+// Benchmark tests
+func BenchmarkSet(b *testing.B) {
