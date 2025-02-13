@@ -131,3 +131,22 @@ func (s Set) Contains(item string) bool {
 ### Set Operations
 ```go
 // Union
+func (s Set) Union(other Set) Set {
+    result := NewSet()
+    for item := range s {
+        result.Add(item)
+    }
+    for item := range other {
+        result.Add(item)
+    }
+    return result
+}
+
+// Intersection
+func (s Set) Intersection(other Set) Set {
+    result := NewSet()
+    for item := range s {
+        if other.Contains(item) {
+            result.Add(item)
+        }
+    }
