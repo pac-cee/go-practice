@@ -17,3 +17,22 @@ var scores map[string]int
 
 // Map with make
 users := make(map[string]User)
+
+// Map literal
+capitals := map[string]string{
+    "USA": "Washington",
+    "UK":  "London",
+    "FR":  "Paris",
+}
+```
+
+### Map Properties
+- Key-value pairs
+- Unordered collection
+- Reference type
+- Fast lookups (O(1) average)
+- Dynamic size
+
+### Key Types
+Valid key types:
+- Comparable types
