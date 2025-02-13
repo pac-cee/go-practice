@@ -112,3 +112,22 @@ func NewSet() Set {
 }
 
 // Add element
+func (s Set) Add(item string) {
+    s[item] = struct{}{}
+}
+
+// Remove element
+func (s Set) Remove(item string) {
+    delete(s, item)
+}
+
+// Contains element
+func (s Set) Contains(item string) bool {
+    _, exists := s[item]
+    return exists
+}
+```
+
+### Set Operations
+```go
+// Union
