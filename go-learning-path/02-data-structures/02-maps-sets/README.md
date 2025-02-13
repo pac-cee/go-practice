@@ -226,3 +226,22 @@ scores := map[string]int{
 value, exists := scores["Alice"]
 if !exists {
     // Key doesn't exist
+}
+
+// Or use zero value directly
+score := scores["Alice"] // 0 if not found
+```
+
+### 3. Memory Management
+```go
+// Clear map
+for key := range scores {
+    delete(scores, key)
+}
+
+// Or reassign
+scores = make(map[string]int)
+```
+
+### 4. Key Design
+```go
