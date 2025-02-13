@@ -150,3 +150,22 @@ func (s Set) Intersection(other Set) Set {
             result.Add(item)
         }
     }
+    return result
+}
+
+// Difference
+func (s Set) Difference(other Set) Set {
+    result := NewSet()
+    for item := range s {
+        if !other.Contains(item) {
+            result.Add(item)
+        }
+    }
+    return result
+}
+```
+
+## Concurrency
+
+### Sync.Map
+```go
