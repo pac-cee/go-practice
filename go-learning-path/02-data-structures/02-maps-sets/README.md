@@ -169,3 +169,22 @@ func (s Set) Difference(other Set) Set {
 
 ### Sync.Map
 ```go
+// Thread-safe map
+var cache sync.Map
+
+// Store
+cache.Store("key", value)
+
+// Load
+value, ok := cache.Load("key")
+
+// Delete
+cache.Delete("key")
+
+// Load or Store
+value, loaded := cache.LoadOrStore("key", defaultValue)
+```
+
+### Map Mutex
+```go
+type SafeMap struct {
