@@ -188,3 +188,22 @@ value, loaded := cache.LoadOrStore("key", defaultValue)
 ### Map Mutex
 ```go
 type SafeMap struct {
+    sync.RWMutex
+    data map[string]interface{}
+}
+
+func (m *SafeMap) Set(key string, value interface{}) {
+    m.Lock()
+    defer m.Unlock()
+    m.data[key] = value
+}
+
+func (m *SafeMap) Get(key string) (interface{}, bool) {
+    m.RLock()
+    defer m.RUnlock()
+    value, ok := m.data[key]
+    return value, ok
+}
+```
+
+## Best Practices
