@@ -36,3 +36,22 @@ capitals := map[string]string{
 ### Key Types
 Valid key types:
 - Comparable types
+- Numbers
+- Strings
+- Pointers
+- Interfaces
+- Structs
+- Arrays
+
+Invalid key types:
+- Slices
+- Maps
+- Functions
+
+## Operations
+
+### Basic Operations
+```go
+// Insert or update
+scores["Alice"] = 100
+
