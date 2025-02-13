@@ -93,3 +93,22 @@ for _, value := range scores {
 ```go
 // Nested maps
 graph := map[string]map[string]int{
+    "A": {"B": 5, "C": 3},
+    "B": {"A": 5, "C": 2},
+    "C": {"A": 3, "B": 2},
+}
+```
+
+## Sets
+
+### Set Implementation
+```go
+// Set using map
+type Set map[string]struct{}
+
+// Create new set
+func NewSet() Set {
+    return make(Set)
+}
+
+// Add element
