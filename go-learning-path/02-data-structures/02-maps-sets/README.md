@@ -207,3 +207,22 @@ func (m *SafeMap) Get(key string) (interface{}, bool) {
 ```
 
 ## Best Practices
+
+### 1. Initialization
+```go
+// Always initialize maps
+scores := make(map[string]int)
+
+// Or use literal for known values
+scores := map[string]int{
+    "Alice": 100,
+    "Bob":   95,
+}
+```
+
+### 2. Zero Values
+```go
+// Check zero value
+value, exists := scores["Alice"]
+if !exists {
+    // Key doesn't exist
