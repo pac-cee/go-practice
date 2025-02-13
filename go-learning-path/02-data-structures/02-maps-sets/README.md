@@ -74,3 +74,22 @@ size := len(scores)
 ### Iteration
 ```go
 // Range over map
+for key, value := range scores {
+    fmt.Printf("%s: %d\n", key, value)
+}
+
+// Keys only
+for key := range scores {
+    fmt.Println(key)
+}
+
+// Values only
+for _, value := range scores {
+    fmt.Println(value)
+}
+```
+
+### Map of Maps
+```go
+// Nested maps
+graph := map[string]map[string]int{
