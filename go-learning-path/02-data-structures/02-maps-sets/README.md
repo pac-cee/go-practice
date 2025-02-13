@@ -55,3 +55,22 @@ Invalid key types:
 // Insert or update
 scores["Alice"] = 100
 
+// Retrieve value
+score := scores["Bob"]
+
+// Check existence
+score, exists := scores["Charlie"]
+if !exists {
+    fmt.Println("Charlie not found")
+}
+
+// Delete
+delete(scores, "David")
+
+// Length
+size := len(scores)
+```
+
+### Iteration
+```go
+// Range over map
