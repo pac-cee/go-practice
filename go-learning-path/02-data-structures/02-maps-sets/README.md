@@ -245,3 +245,22 @@ scores = make(map[string]int)
 
 ### 4. Key Design
 ```go
+// Good key design
+type UserKey struct {
+    ID      int
+    Version int
+}
+
+cache := make(map[UserKey]User)
+```
+
+## Exercises
+
+### Exercise 1: Frequency Counter
+```go
+func frequency(text string) map[rune]int {
+    freq := make(map[rune]int)
+    for _, char := range text {
+        freq[char]++
+    }
+    return freq
