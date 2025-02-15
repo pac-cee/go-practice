@@ -55,3 +55,22 @@ func (bst *BinarySearchTree) Search(value int) bool {
 func (bst *BinarySearchTree) searchNode(node *BinaryNode[int], value int) bool {
 	if node == nil {
 		return false
+	}
+	if node.Value == value {
+		return true
+	}
+	if value < node.Value {
+		return bst.searchNode(node.Left, value)
+	}
+	return bst.searchNode(node.Right, value)
+}
+
+// InOrderTraversal performs in-order traversal of the BST
+func (bst *BinarySearchTree) InOrderTraversal() []int {
+	var result []int
+	bst.inOrder(bst.Root, &result)
+	return result
+}
+
+func (bst *BinarySearchTree) inOrder(node *BinaryNode[int], result *[]int) {
+	if node != nil {
