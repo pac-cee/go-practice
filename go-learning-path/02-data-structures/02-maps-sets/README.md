@@ -302,3 +302,22 @@ func (c *Cache) Set(key string, value interface{}, ttl time.Duration) {
 ### 1. Default Values
 ```go
 type Config struct {
+    defaults map[string]interface{}
+    custom   map[string]interface{}
+}
+
+func (c *Config) Get(key string) interface{} {
+    if value, ok := c.custom[key]; ok {
+        return value
+    }
+    return c.defaults[key]
+}
+```
+
+### 2. Counting/Grouping
+```go
+// Count occurrences
+counts := make(map[string]int)
+for _, item := range items {
+    counts[item]++
+}
