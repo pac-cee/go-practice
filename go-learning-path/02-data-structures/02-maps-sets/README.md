@@ -340,3 +340,14 @@ func (m *Memoizer) Compute(key string, fn func() interface{}) interface{} {
     if value, ok := m.cache[key]; ok {
         return value
     }
+    value := fn()
+    m.cache[key] = value
+    return value
+}
+```
+
+## Next Steps
+- Practice map operations
+- Implement custom set types
+- Study concurrent map usage
+- Move on to Trees and Graphs
