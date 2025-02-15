@@ -321,3 +321,22 @@ counts := make(map[string]int)
 for _, item := range items {
     counts[item]++
 }
+
+// Group by property
+groups := make(map[string][]Item)
+for _, item := range items {
+    key := item.Category
+    groups[key] = append(groups[key], item)
+}
+```
+
+### 3. Memoization
+```go
+type Memoizer struct {
+    cache map[string]interface{}
+}
+
+func (m *Memoizer) Compute(key string, fn func() interface{}) interface{} {
+    if value, ok := m.cache[key]; ok {
+        return value
+    }
