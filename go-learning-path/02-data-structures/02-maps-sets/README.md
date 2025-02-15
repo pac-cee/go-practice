@@ -283,3 +283,22 @@ func (g *Graph) AddEdge(from, to string, weight int) {
 
 ### Exercise 3: Cache Implementation
 ```go
+type Cache struct {
+    sync.RWMutex
+    data    map[string]interface{}
+    expires map[string]time.Time
+}
+
+func (c *Cache) Set(key string, value interface{}, ttl time.Duration) {
+    c.Lock()
+    defer c.Unlock()
+    c.data[key] = value
+    c.expires[key] = time.Now().Add(ttl)
+}
+```
+
+## Common Patterns
+
+### 1. Default Values
+```go
+type Config struct {
