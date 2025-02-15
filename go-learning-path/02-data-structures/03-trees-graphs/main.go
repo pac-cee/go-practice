@@ -36,3 +36,22 @@ func (bst *BinarySearchTree) insertNode(node *BinaryNode[int], value int) {
 		if node.Left == nil {
 			node.Left = &BinaryNode[int]{Value: value}
 		} else {
+			bst.insertNode(node.Left, value)
+		}
+	} else {
+		if node.Right == nil {
+			node.Right = &BinaryNode[int]{Value: value}
+		} else {
+			bst.insertNode(node.Right, value)
+		}
+	}
+}
+
+// Search looks for a value in the BST
+func (bst *BinarySearchTree) Search(value int) bool {
+	return bst.searchNode(bst.Root, value)
+}
+
+func (bst *BinarySearchTree) searchNode(node *BinaryNode[int], value int) bool {
+	if node == nil {
+		return false
