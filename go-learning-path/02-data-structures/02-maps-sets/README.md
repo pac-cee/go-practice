@@ -264,3 +264,22 @@ func frequency(text string) map[rune]int {
         freq[char]++
     }
     return freq
+}
+```
+
+### Exercise 2: Graph Implementation
+```go
+type Graph struct {
+    edges map[string]map[string]int
+}
+
+func (g *Graph) AddEdge(from, to string, weight int) {
+    if g.edges[from] == nil {
+        g.edges[from] = make(map[string]int)
+    }
+    g.edges[from][to] = weight
+}
+```
+
+### Exercise 3: Cache Implementation
+```go
