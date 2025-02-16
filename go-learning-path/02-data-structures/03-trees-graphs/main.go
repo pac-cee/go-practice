@@ -131,3 +131,22 @@ func (n *AVLNode) getBalance() int {
 	}
 	return getHeight(n.Left) - getHeight(n.Right)
 }
+
+// RotateRight performs a right rotation
+func (avl *AVLTree) rotateRight(y *AVLNode) *AVLNode {
+	x := y.Left
+	T2 := x.Right
+
+	x.Right = y
+	y.Left = T2
+
+	y.updateHeight()
+	x.updateHeight()
+
+	return x
+}
+
+// RotateLeft performs a left rotation
+func (avl *AVLTree) rotateLeft(x *AVLNode) *AVLNode {
+	y := x.Right
+	T2 := y.Left
