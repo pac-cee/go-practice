@@ -169,3 +169,22 @@ func (avl *AVLTree) insertNode(node *AVLNode, value int) *AVLNode {
 	if node == nil {
 		return &AVLNode{Value: value, Height: 1}
 	}
+
+	if value < node.Value {
+		node.Left = avl.insertNode(node.Left, value)
+	} else if value > node.Value {
+		node.Right = avl.insertNode(node.Right, value)
+	} else {
+		return node // Duplicate values not allowed
+	}
+
+	node.updateHeight()
+
+	balance := node.getBalance()
+
+	// Left Left Case
+	if balance > 1 && value < node.Left.Value {
+		return avl.rotateRight(node)
+	}
+
+	// Right Right Case
