@@ -188,3 +188,22 @@ func (avl *AVLTree) insertNode(node *AVLNode, value int) *AVLNode {
 	}
 
 	// Right Right Case
+	if balance < -1 && value > node.Right.Value {
+		return avl.rotateLeft(node)
+	}
+
+	// Left Right Case
+	if balance > 1 && value > node.Left.Value {
+		node.Left = avl.rotateLeft(node.Left)
+		return avl.rotateRight(node)
+	}
+
+	// Right Left Case
+	if balance < -1 && value < node.Right.Value {
+		node.Right = avl.rotateRight(node.Right)
+		return avl.rotateLeft(node)
+	}
+
+	return node
+}
+
