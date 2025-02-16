@@ -112,3 +112,22 @@ func (n *AVLNode) updateHeight() {
 
 func getHeight(n *AVLNode) int {
 	if n == nil {
+		return 0
+	}
+	return n.Height
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+// GetBalance returns the balance factor of a node
+func (n *AVLNode) getBalance() int {
+	if n == nil {
+		return 0
+	}
+	return getHeight(n.Left) - getHeight(n.Right)
+}
