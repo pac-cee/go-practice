@@ -93,3 +93,22 @@ type AVLTree struct {
 }
 
 // NewAVL creates a new AVL tree
+func NewAVL() *AVLTree {
+	return &AVLTree{}
+}
+
+// Height returns the height of a node
+func (n *AVLNode) height() int {
+	if n == nil {
+		return 0
+	}
+	return n.Height
+}
+
+// UpdateHeight updates the height of a node
+func (n *AVLNode) updateHeight() {
+	n.Height = 1 + max(getHeight(n.Left), getHeight(n.Right))
+}
+
+func getHeight(n *AVLNode) int {
+	if n == nil {
