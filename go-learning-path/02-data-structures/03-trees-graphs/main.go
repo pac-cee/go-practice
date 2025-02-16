@@ -74,3 +74,22 @@ func (bst *BinarySearchTree) InOrderTraversal() []int {
 
 func (bst *BinarySearchTree) inOrder(node *BinaryNode[int], result *[]int) {
 	if node != nil {
+		bst.inOrder(node.Left, result)
+		*result = append(*result, node.Value)
+		bst.inOrder(node.Right, result)
+	}
+}
+
+// AVLNode represents a node in an AVL tree
+type AVLNode struct {
+	Value       int
+	Left, Right *AVLNode
+	Height      int
+}
+
+// AVLTree represents an AVL tree
+type AVLTree struct {
+	Root *AVLNode
+}
+
+// NewAVL creates a new AVL tree
