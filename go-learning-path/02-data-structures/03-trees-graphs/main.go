@@ -150,3 +150,22 @@ func (avl *AVLTree) rotateRight(y *AVLNode) *AVLNode {
 func (avl *AVLTree) rotateLeft(x *AVLNode) *AVLNode {
 	y := x.Right
 	T2 := y.Left
+
+	y.Left = x
+	x.Right = T2
+
+	x.updateHeight()
+	y.updateHeight()
+
+	return y
+}
+
+// Insert adds a new value to the AVL tree
+func (avl *AVLTree) Insert(value int) {
+	avl.Root = avl.insertNode(avl.Root, value)
+}
+
+func (avl *AVLTree) insertNode(node *AVLNode, value int) *AVLNode {
+	if node == nil {
+		return &AVLNode{Value: value, Height: 1}
+	}
