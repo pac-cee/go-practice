@@ -226,3 +226,22 @@ func (g *Graph) AddVertex(vertex int) {
 	}
 }
 
+// AddEdge adds a weighted edge to the graph
+func (g *Graph) AddEdge(from, to, weight int) {
+	g.AddVertex(from)
+	g.AddVertex(to)
+	g.vertices[from][to] = weight
+}
+
+// DFS performs depth-first search starting from a vertex
+func (g *Graph) DFS(start int) []int {
+	visited := make(map[int]bool)
+	var result []int
+	g.dfsUtil(start, visited, &result)
+	return result
+}
+
+func (g *Graph) dfsUtil(vertex int, visited map[int]bool, result *[]int) {
+	visited[vertex] = true
+	*result = append(*result, vertex)
+
