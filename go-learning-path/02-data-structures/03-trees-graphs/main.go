@@ -321,3 +321,22 @@ func main() {
 	// Demonstrate BST operations
 	bst := NewBST()
 	values := []int{5, 3, 7, 2, 4, 6, 8}
+	fmt.Println("Building BST with values:", values)
+	for _, v := range values {
+		bst.Insert(v)
+	}
+
+	fmt.Println("BST In-order traversal:", bst.InOrderTraversal())
+	fmt.Println("Search for 4:", bst.Search(4))
+	fmt.Println("Search for 9:", bst.Search(9))
+
+	// Demonstrate AVL Tree operations
+	avl := NewAVL()
+	fmt.Println("\nBuilding AVL tree with values:", values)
+	for _, v := range values {
+		avl.Insert(v)
+	}
+
+	// Demonstrate Graph operations
+	graph := NewGraph()
+	fmt.Println("\nBuilding weighted graph...")
