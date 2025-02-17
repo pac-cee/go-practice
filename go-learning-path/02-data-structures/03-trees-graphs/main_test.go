@@ -17,3 +17,22 @@ func TestBinarySearchTree(t *testing.T) {
 		}
 
 		// Test Search
+		for _, v := range values {
+			if !bst.Search(v) {
+				t.Errorf("Search(%d) = false; want true", v)
+			}
+		}
+
+		// Test non-existent value
+		if bst.Search(9) {
+			t.Error("Search(9) = true; want false")
+		}
+
+		// Test InOrderTraversal
+		expected := []int{2, 3, 4, 5, 6, 7, 8}
+		result := bst.InOrderTraversal()
+		if !reflect.DeepEqual(result, expected) {
+			t.Errorf("InOrderTraversal() = %v; want %v", result, expected)
+		}
+	})
+}
