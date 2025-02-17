@@ -264,3 +264,22 @@ func (g *Graph) BFS(start int) []int {
 		queue = queue[1:]
 		result = append(result, vertex)
 
+		for neighbor := range g.vertices[vertex] {
+			if !visited[neighbor] {
+				visited[neighbor] = true
+				queue = append(queue, neighbor)
+			}
+		}
+	}
+
+	return result
+}
+
+// Dijkstra finds shortest paths from start vertex to all other vertices
+func (g *Graph) Dijkstra(start int) map[int]int {
+	distances := make(map[int]int)
+	visited := make(map[int]bool)
+
+	// Initialize distances
+	for vertex := range g.vertices {
+		distances[vertex] = math.MaxInt32
