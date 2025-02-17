@@ -340,3 +340,17 @@ func main() {
 	// Demonstrate Graph operations
 	graph := NewGraph()
 	fmt.Println("\nBuilding weighted graph...")
+	graph.AddEdge(0, 1, 4)
+	graph.AddEdge(0, 2, 2)
+	graph.AddEdge(1, 2, 1)
+	graph.AddEdge(1, 3, 5)
+	graph.AddEdge(2, 3, 8)
+	graph.AddEdge(2, 4, 10)
+	graph.AddEdge(3, 4, 2)
+
+	fmt.Println("DFS starting from vertex 0:", graph.DFS(0))
+	fmt.Println("BFS starting from vertex 0:", graph.BFS(0))
+	
+	distances := graph.Dijkstra(0)
+	fmt.Println("Shortest distances from vertex 0:", distances)
+}
