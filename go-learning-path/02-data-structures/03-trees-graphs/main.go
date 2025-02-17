@@ -302,3 +302,22 @@ func (g *Graph) Dijkstra(start int) map[int]int {
 		}
 
 		visited[u] = true
+
+		// Update distances to neighbors
+		for v, weight := range g.vertices[u] {
+			if !visited[v] {
+				newDist := distances[u] + weight
+				if newDist < distances[v] {
+					distances[v] = newDist
+				}
+			}
+		}
+	}
+
+	return distances
+}
+
+func main() {
+	// Demonstrate BST operations
+	bst := NewBST()
+	values := []int{5, 3, 7, 2, 4, 6, 8}
