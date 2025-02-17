@@ -245,3 +245,22 @@ func (g *Graph) dfsUtil(vertex int, visited map[int]bool, result *[]int) {
 	visited[vertex] = true
 	*result = append(*result, vertex)
 
+	for neighbor := range g.vertices[vertex] {
+		if !visited[neighbor] {
+			g.dfsUtil(neighbor, visited, result)
+		}
+	}
+}
+
+// BFS performs breadth-first search starting from a vertex
+func (g *Graph) BFS(start int) []int {
+	visited := make(map[int]bool)
+	var result []int
+	queue := []int{start}
+	visited[start] = true
+
+	for len(queue) > 0 {
+		vertex := queue[0]
+		queue = queue[1:]
+		result = append(result, vertex)
+
