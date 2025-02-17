@@ -283,3 +283,22 @@ func (g *Graph) Dijkstra(start int) map[int]int {
 	// Initialize distances
 	for vertex := range g.vertices {
 		distances[vertex] = math.MaxInt32
+	}
+	distances[start] = 0
+
+	for len(visited) < len(g.vertices) {
+		// Find vertex with minimum distance
+		u := -1
+		minDist := math.MaxInt32
+		for vertex := range g.vertices {
+			if !visited[vertex] && distances[vertex] < minDist {
+				u = vertex
+				minDist = distances[vertex]
+			}
+		}
+
+		if u == -1 {
+			break
+		}
+
+		visited[u] = true
