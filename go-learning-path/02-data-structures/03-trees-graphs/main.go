@@ -207,3 +207,22 @@ func (avl *AVLTree) insertNode(node *AVLNode, value int) *AVLNode {
 	return node
 }
 
+// Graph represents a weighted directed graph
+type Graph struct {
+	vertices map[int]map[int]int // adjacency list with weights
+}
+
+// NewGraph creates a new graph
+func NewGraph() *Graph {
+	return &Graph{
+		vertices: make(map[int]map[int]int),
+	}
+}
+
+// AddVertex adds a new vertex to the graph
+func (g *Graph) AddVertex(vertex int) {
+	if _, exists := g.vertices[vertex]; !exists {
+		g.vertices[vertex] = make(map[int]int)
+	}
+}
+
