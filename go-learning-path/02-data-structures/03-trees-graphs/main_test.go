@@ -55,3 +55,22 @@ func TestAVLTree(t *testing.T) {
 		if height := avl.Root.height(); height > 4 {
 			t.Errorf("Tree height = %d; want <= 4", height)
 		}
+	})
+
+	t.Run("rotations", func(t *testing.T) {
+		avl := NewAVL()
+		
+		// Test Left-Left case
+		values := []int{30, 20, 10}
+		for _, v := range values {
+			avl.Insert(v)
+		}
+		if avl.Root.Value != 20 {
+			t.Errorf("Root value after LL rotation = %d; want 20", avl.Root.Value)
+		}
+
+		// Test Right-Right case
+		avl = NewAVL()
+		values = []int{10, 20, 30}
+		for _, v := range values {
+			avl.Insert(v)
