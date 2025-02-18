@@ -169,3 +169,22 @@ func BenchmarkBST(b *testing.B) {
 	b.Run("Insert", func(b *testing.B) {
 		bst := NewBST()
 		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			bst.Insert(values[i%len(values)])
+		}
+	})
+
+	b.Run("Search", func(b *testing.B) {
+		bst := NewBST()
+		for _, v := range values {
+			bst.Insert(v)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			bst.Search(values[i%len(values)])
+		}
+	})
+}
+
+func BenchmarkAVL(b *testing.B) {
+	values := []int{5, 3, 7, 2, 4, 6, 8}
