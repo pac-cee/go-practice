@@ -207,3 +207,21 @@ func BenchmarkGraph(b *testing.B) {
 		graph.AddEdge(e.from, e.to, e.weight)
 	}
 
+	b.Run("DFS", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			graph.DFS(0)
+		}
+	})
+
+	b.Run("BFS", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			graph.BFS(0)
+		}
+	})
+
+	b.Run("Dijkstra", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			graph.Dijkstra(0)
+		}
+	})
+}
