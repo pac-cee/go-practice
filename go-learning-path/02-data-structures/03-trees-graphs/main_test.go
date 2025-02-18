@@ -150,3 +150,22 @@ func TestGraph(t *testing.T) {
 			0: 0,  // Distance to self
 			1: 4,  // Direct edge
 			2: 2,  // Direct edge
+			3: 9,  // Path: 0->1->3
+		}
+
+		for vertex, distance := range expectedDistances {
+			if distances[vertex] != distance {
+				t.Errorf("Shortest distance to %d = %d; want %d",
+					vertex, distances[vertex], distance)
+			}
+		}
+	})
+}
+
+// Benchmark tests
+func BenchmarkBST(b *testing.B) {
+	values := []int{5, 3, 7, 2, 4, 6, 8}
+	
+	b.Run("Insert", func(b *testing.B) {
+		bst := NewBST()
+		b.ResetTimer()
