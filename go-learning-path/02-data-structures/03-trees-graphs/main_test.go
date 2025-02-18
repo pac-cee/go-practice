@@ -36,3 +36,22 @@ func TestBinarySearchTree(t *testing.T) {
 		}
 	})
 }
+
+// TestAVLTree tests AVL tree operations
+func TestAVLTree(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
+		avl := NewAVL()
+		values := []int{5, 3, 7, 2, 4, 6, 8}
+
+		// Test Insert and balance
+		for _, v := range values {
+			avl.Insert(v)
+			if !isBalanced(avl.Root) {
+				t.Errorf("Tree not balanced after inserting %d", v)
+			}
+		}
+
+		// Test height property
+		if height := avl.Root.height(); height > 4 {
+			t.Errorf("Tree height = %d; want <= 4", height)
+		}
