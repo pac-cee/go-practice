@@ -74,3 +74,22 @@ func TestAVLTree(t *testing.T) {
 		values = []int{10, 20, 30}
 		for _, v := range values {
 			avl.Insert(v)
+		}
+		if avl.Root.Value != 20 {
+			t.Errorf("Root value after RR rotation = %d; want 20", avl.Root.Value)
+		}
+	})
+}
+
+// Helper function to check if AVL tree is balanced
+func isBalanced(node *AVLNode) bool {
+	if node == nil {
+		return true
+	}
+
+	balance := node.getBalance()
+	if balance < -1 || balance > 1 {
+		return false
+	}
+
+	return isBalanced(node.Left) && isBalanced(node.Right)
