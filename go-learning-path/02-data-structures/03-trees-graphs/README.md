@@ -74,3 +74,22 @@ func PreOrder(node *BinaryNode) {
 }
 
 // In-order traversal
+func InOrder(node *BinaryNode) {
+    if node == nil {
+        return
+    }
+    InOrder(node.Left)
+    fmt.Println(node.Value)
+    InOrder(node.Right)
+}
+
+// Post-order traversal
+func PostOrder(node *BinaryNode) {
+    if node == nil {
+        return
+    }
+    PostOrder(node.Left)
+    PostOrder(node.Right)
+    fmt.Println(node.Value)
+}
+
