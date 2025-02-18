@@ -17,3 +17,22 @@ type Node struct {
     Value    interface{}
     Children []*Node
 }
+
+// Generic tree node
+type TreeNode[T any] struct {
+    Value    T
+    Children []*TreeNode[T]
+}
+```
+
+### Tree Operations
+```go
+// Add child
+func (n *Node) AddChild(value interface{}) *Node {
+    child := &Node{Value: value}
+    n.Children = append(n.Children, child)
+    return child
+}
+
+// Remove child
+func (n *Node) RemoveChild(child *Node) {
