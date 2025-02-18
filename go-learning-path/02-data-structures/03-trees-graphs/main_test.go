@@ -188,3 +188,22 @@ func BenchmarkBST(b *testing.B) {
 
 func BenchmarkAVL(b *testing.B) {
 	values := []int{5, 3, 7, 2, 4, 6, 8}
+	
+	b.Run("Insert", func(b *testing.B) {
+		avl := NewAVL()
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			avl.Insert(values[i%len(values)])
+		}
+	})
+}
+
+func BenchmarkGraph(b *testing.B) {
+	graph := NewGraph()
+	edges := []struct{ from, to, weight int }{
+		{0, 1, 4}, {0, 2, 2}, {1, 2, 1}, {1, 3, 5}, {2, 3, 8},
+	}
+	for _, e := range edges {
+		graph.AddEdge(e.from, e.to, e.weight)
+	}
+
