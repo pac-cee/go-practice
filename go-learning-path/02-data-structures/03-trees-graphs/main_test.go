@@ -131,3 +131,22 @@ func TestGraph(t *testing.T) {
 		// Test BFS
 		bfs := graph.BFS(0)
 		if len(bfs) != 4 {
+			t.Errorf("BFS visited %d vertices; want 4", len(bfs))
+		}
+	})
+
+	t.Run("dijkstra", func(t *testing.T) {
+		graph := NewGraph()
+		edges := []struct{ from, to, weight int }{
+			{0, 1, 4}, {0, 2, 2}, {1, 2, 1}, {1, 3, 5}, {2, 3, 8},
+		}
+
+		for _, e := range edges {
+			graph.AddEdge(e.from, e.to, e.weight)
+		}
+
+		distances := graph.Dijkstra(0)
+		expectedDistances := map[int]int{
+			0: 0,  // Distance to self
+			1: 4,  // Direct edge
+			2: 2,  // Direct edge
