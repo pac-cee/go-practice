@@ -93,3 +93,22 @@ func isBalanced(node *AVLNode) bool {
 	}
 
 	return isBalanced(node.Left) && isBalanced(node.Right)
+}
+
+// TestGraph tests graph operations
+func TestGraph(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
+		graph := NewGraph()
+
+		// Test AddVertex and AddEdge
+		graph.AddEdge(0, 1, 4)
+		graph.AddEdge(0, 2, 2)
+		graph.AddEdge(1, 2, 1)
+		graph.AddEdge(1, 3, 5)
+
+		// Verify edges exist
+		if weight := graph.vertices[0][1]; weight != 4 {
+			t.Errorf("Edge weight (0->1) = %d; want 4", weight)
+		}
+	})
+
