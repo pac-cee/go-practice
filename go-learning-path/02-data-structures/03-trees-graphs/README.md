@@ -55,3 +55,22 @@ type BinaryNode struct {
 }
 
 // Generic binary node
+type BinaryNode[T any] struct {
+    Value       T
+    Left, Right *BinaryNode[T]
+}
+```
+
+### Traversal Methods
+```go
+// Pre-order traversal
+func PreOrder(node *BinaryNode) {
+    if node == nil {
+        return
+    }
+    fmt.Println(node.Value)
+    PreOrder(node.Left)
+    PreOrder(node.Right)
+}
+
+// In-order traversal
