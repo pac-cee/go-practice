@@ -36,3 +36,22 @@ func (n *Node) AddChild(value interface{}) *Node {
 
 // Remove child
 func (n *Node) RemoveChild(child *Node) {
+    for i, c := range n.Children {
+        if c == child {
+            n.Children = append(n.Children[:i], n.Children[i+1:]...)
+            return
+        }
+    }
+}
+```
+
+## Binary Trees
+
+### Binary Tree Node
+```go
+type BinaryNode struct {
+    Value       interface{}
+    Left, Right *BinaryNode
+}
+
+// Generic binary node
