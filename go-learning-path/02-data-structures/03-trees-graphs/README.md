@@ -378,3 +378,22 @@ func (g *Graph) DFSIterative(start int) {
 }
 ```
 
+## Exercises
+
+### Exercise 1: Binary Tree Height
+```go
+func (n *BinaryNode) Height() int {
+    if n == nil {
+        return 0
+    }
+    leftHeight := n.Left.Height()
+    rightHeight := n.Right.Height()
+    if leftHeight > rightHeight {
+        return leftHeight + 1
+    }
+    return rightHeight + 1
+}
+```
+
+### Exercise 2: Check BST
+```go
