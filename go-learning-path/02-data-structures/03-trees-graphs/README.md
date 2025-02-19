@@ -188,3 +188,22 @@ func (n *BSTNode) findMin() int {
     current := n
     for current.Left != nil {
         current = current.Left
+    }
+    return current.Value
+}
+```
+
+## Graphs
+
+### Graph Types
+```go
+// Adjacency List
+type Graph struct {
+    vertices map[int][]int
+}
+
+// Adjacency Matrix
+type GraphMatrix struct {
+    vertices int
+    matrix   [][]bool
+}
