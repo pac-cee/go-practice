@@ -264,3 +264,22 @@ func (g *Graph) BFS(start int) {
     
     for len(queue) > 0 {
         vertex := queue[0]
+        queue = queue[1:]
+        fmt.Println(vertex)
+        
+        for _, neighbor := range g.vertices[vertex] {
+            if !visited[neighbor] {
+                visited[neighbor] = true
+                queue = append(queue, neighbor)
+            }
+        }
+    }
+}
+```
+
+### Dijkstra's Algorithm
+```go
+func (g *WeightedGraph) Dijkstra(start int) map[int]int {
+    distances := make(map[int]int)
+    visited := make(map[int]bool)
+    
