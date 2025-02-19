@@ -283,3 +283,22 @@ func (g *WeightedGraph) Dijkstra(start int) map[int]int {
     distances := make(map[int]int)
     visited := make(map[int]bool)
     
+    // Initialize distances
+    for vertex := range g.vertices {
+        distances[vertex] = math.MaxInt32
+    }
+    distances[start] = 0
+    
+    for len(visited) < len(g.vertices) {
+        // Find minimum distance vertex
+        u := minDistance(distances, visited)
+        visited[u] = true
+        
+        // Update distances to neighbors
+        for v, weight := range g.vertices[u] {
+            if !visited[v] && 
+               distances[u] != math.MaxInt32 &&
+               distances[u]+weight < distances[v] {
+                distances[v] = distances[u] + weight
+            }
+        }
