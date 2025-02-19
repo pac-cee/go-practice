@@ -321,3 +321,22 @@ type Tree interface {
 
 // Use generics for type safety
 type BinaryTree[T comparable] struct {
+    Root *BinaryNode[T]
+}
+```
+
+### 2. Graph Implementation
+```go
+// Use appropriate representation
+type Graph interface {
+    AddEdge(from, to int)
+    RemoveEdge(from, to int)
+    HasEdge(from, to int) bool
+    Neighbors(vertex int) []int
+}
+
+// Consider memory vs performance
+type SparseGraph struct {
+    vertices map[int][]int    // Good for sparse graphs
+}
+
