@@ -435,3 +435,22 @@ func (g *Graph) hasCycleUtil(vertex int, visited, recStack map[int]bool) bool {
                 return true
             }
         } else if recStack[neighbor] {
+            return true
+        }
+    }
+    
+    recStack[vertex] = false
+    return false
+}
+```
+
+## Common Patterns
+
+### 1. Tree Balancing
+```go
+// AVL Tree Node
+type AVLNode struct {
+    Value       int
+    Left, Right *AVLNode
+    Height      int
+}
