@@ -340,3 +340,22 @@ type SparseGraph struct {
     vertices map[int][]int    // Good for sparse graphs
 }
 
+type DenseGraph struct {
+    matrix [][]bool           // Good for dense graphs
+}
+```
+
+### 3. Algorithm Implementation
+```go
+// Use efficient data structures
+type PriorityQueue struct {
+    items    []int
+    priority map[int]int
+}
+
+// Consider time/space complexity
+func (g *Graph) DFSIterative(start int) {
+    stack := []int{start}
+    visited := make(map[int]bool)
+    
+    for len(stack) > 0 {
