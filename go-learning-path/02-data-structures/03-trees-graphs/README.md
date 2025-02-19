@@ -397,3 +397,22 @@ func (n *BinaryNode) Height() int {
 
 ### Exercise 2: Check BST
 ```go
+func (n *BSTNode) IsBST(min, max int) bool {
+    if n == nil {
+        return true
+    }
+    if n.Value <= min || n.Value >= max {
+        return false
+    }
+    return n.Left.IsBST(min, n.Value) &&
+           n.Right.IsBST(n.Value, max)
+}
+```
+
+### Exercise 3: Graph Cycle Detection
+```go
+func (g *Graph) HasCycle() bool {
+    visited := make(map[int]bool)
+    recStack := make(map[int]bool)
+    
+    for vertex := range g.vertices {
