@@ -112,3 +112,22 @@ func LevelOrder(root *BinaryNode) {
     }
 }
 ```
+
+## Binary Search Trees
+
+### BST Node
+```go
+type BSTNode struct {
+    Value       int
+    Left, Right *BSTNode
+}
+
+// Insert value
+func (n *BSTNode) Insert(value int) {
+    if value <= n.Value {
+        if n.Left == nil {
+            n.Left = &BSTNode{Value: value}
+        } else {
+            n.Left.Insert(value)
+        }
+    } else {
