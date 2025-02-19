@@ -302,3 +302,22 @@ func (g *WeightedGraph) Dijkstra(start int) map[int]int {
                 distances[v] = distances[u] + weight
             }
         }
+    }
+    
+    return distances
+}
+```
+
+## Best Practices
+
+### 1. Tree Implementation
+```go
+// Use interfaces for flexibility
+type Tree interface {
+    Insert(value interface{})
+    Delete(value interface{})
+    Search(value interface{}) bool
+}
+
+// Use generics for type safety
+type BinaryTree[T comparable] struct {
