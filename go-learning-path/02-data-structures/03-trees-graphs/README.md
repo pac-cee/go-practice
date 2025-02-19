@@ -416,3 +416,22 @@ func (g *Graph) HasCycle() bool {
     recStack := make(map[int]bool)
     
     for vertex := range g.vertices {
+        if !visited[vertex] {
+            if g.hasCycleUtil(vertex, visited, recStack) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+func (g *Graph) hasCycleUtil(vertex int, visited, recStack map[int]bool) bool {
+    visited[vertex] = true
+    recStack[vertex] = true
+    
+    for _, neighbor := range g.vertices[vertex] {
+        if !visited[neighbor] {
+            if g.hasCycleUtil(neighbor, visited, recStack) {
+                return true
+            }
+        } else if recStack[neighbor] {
