@@ -169,3 +169,22 @@ func (n *BSTNode) Delete(value int) *BSTNode {
     } else {
         // Node to delete found
         if n.Left == nil {
+            return n.Right
+        }
+        if n.Right == nil {
+            return n.Left
+        }
+        
+        // Node has two children
+        minRight := n.Right.findMin()
+        n.Value = minRight
+        n.Right = n.Right.Delete(minRight)
+    }
+    return n
+}
+
+// Find minimum value
+func (n *BSTNode) findMin() int {
+    current := n
+    for current.Left != nil {
+        current = current.Left
