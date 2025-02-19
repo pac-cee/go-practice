@@ -93,3 +93,22 @@ func PostOrder(node *BinaryNode) {
     fmt.Println(node.Value)
 }
 
+// Level-order traversal
+func LevelOrder(root *BinaryNode) {
+    if root == nil {
+        return
+    }
+    queue := []*BinaryNode{root}
+    for len(queue) > 0 {
+        node := queue[0]
+        queue = queue[1:]
+        fmt.Println(node.Value)
+        if node.Left != nil {
+            queue = append(queue, node.Left)
+        }
+        if node.Right != nil {
+            queue = append(queue, node.Right)
+        }
+    }
+}
+```
