@@ -245,3 +245,22 @@ func (g *Graph) DFS(start int, visited map[int]bool) {
     }
     
     visited[start] = true
+    fmt.Println(start)
+    
+    for _, neighbor := range g.vertices[start] {
+        if !visited[neighbor] {
+            g.DFS(neighbor, visited)
+        }
+    }
+}
+```
+
+### Breadth-First Search (BFS)
+```go
+func (g *Graph) BFS(start int) {
+    visited := make(map[int]bool)
+    queue := []int{start}
+    visited[start] = true
+    
+    for len(queue) > 0 {
+        vertex := queue[0]
