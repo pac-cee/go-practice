@@ -207,3 +207,22 @@ type GraphMatrix struct {
     vertices int
     matrix   [][]bool
 }
+
+// Weighted Graph
+type WeightedGraph struct {
+    vertices map[int]map[int]int
+}
+```
+
+### Graph Operations
+```go
+// Add edge (Adjacency List)
+func (g *Graph) AddEdge(from, to int) {
+    g.vertices[from] = append(g.vertices[from], to)
+}
+
+// Add edge (Adjacency Matrix)
+func (g *GraphMatrix) AddEdge(from, to int) {
+    g.matrix[from][to] = true
+}
+
