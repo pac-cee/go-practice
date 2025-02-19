@@ -226,3 +226,22 @@ func (g *GraphMatrix) AddEdge(from, to int) {
     g.matrix[from][to] = true
 }
 
+// Add weighted edge
+func (g *WeightedGraph) AddEdge(from, to, weight int) {
+    if g.vertices[from] == nil {
+        g.vertices[from] = make(map[int]int)
+    }
+    g.vertices[from][to] = weight
+}
+```
+
+## Common Algorithms
+
+### Depth-First Search (DFS)
+```go
+func (g *Graph) DFS(start int, visited map[int]bool) {
+    if visited == nil {
+        visited = make(map[int]bool)
+    }
+    
+    visited[start] = true
