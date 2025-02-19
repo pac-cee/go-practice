@@ -359,3 +359,22 @@ func (g *Graph) DFSIterative(start int) {
     visited := make(map[int]bool)
     
     for len(stack) > 0 {
+        vertex := stack[len(stack)-1]
+        stack = stack[:len(stack)-1]
+        
+        if !visited[vertex] {
+            visited[vertex] = true
+            fmt.Println(vertex)
+            
+            // Add neighbors in reverse order
+            neighbors := g.vertices[vertex]
+            for i := len(neighbors)-1; i >= 0; i-- {
+                if !visited[neighbors[i]] {
+                    stack = append(stack, neighbors[i])
+                }
+            }
+        }
+    }
+}
+```
+
