@@ -150,3 +150,22 @@ func (n *BSTNode) Search(value int) bool {
     if value < n.Value {
         return n.Left.Search(value)
     }
+    return n.Right.Search(value)
+}
+```
+
+### BST Operations
+```go
+// Delete value
+func (n *BSTNode) Delete(value int) *BSTNode {
+    if n == nil {
+        return nil
+    }
+    
+    if value < n.Value {
+        n.Left = n.Left.Delete(value)
+    } else if value > n.Value {
+        n.Right = n.Right.Delete(value)
+    } else {
+        // Node to delete found
+        if n.Left == nil {
