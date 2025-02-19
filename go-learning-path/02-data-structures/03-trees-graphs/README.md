@@ -131,3 +131,22 @@ func (n *BSTNode) Insert(value int) {
             n.Left.Insert(value)
         }
     } else {
+        if n.Right == nil {
+            n.Right = &BSTNode{Value: value}
+        } else {
+            n.Right.Insert(value)
+        }
+    }
+}
+
+// Search value
+func (n *BSTNode) Search(value int) bool {
+    if n == nil {
+        return false
+    }
+    if n.Value == value {
+        return true
+    }
+    if value < n.Value {
+        return n.Left.Search(value)
+    }
