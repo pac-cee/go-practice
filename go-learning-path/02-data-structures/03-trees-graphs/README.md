@@ -473,3 +473,22 @@ func (n *AVLNode) balance() {
 
 ### 2. Graph Traversal Patterns
 ```go
+// Topological Sort
+func (g *Graph) TopologicalSort() []int {
+    visited := make(map[int]bool)
+    stack := make([]int, 0)
+    
+    for vertex := range g.vertices {
+        if !visited[vertex] {
+            g.topologicalSortUtil(vertex, visited, &stack)
+        }
+    }
+    
+    // Reverse stack for correct order
+    for i := 0; i < len(stack)/2; i++ {
+        j := len(stack) - 1 - i
+        stack[i], stack[j] = stack[j], stack[i]
+    }
+    
+    return stack
+}
