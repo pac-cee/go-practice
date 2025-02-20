@@ -454,3 +454,22 @@ type AVLNode struct {
     Left, Right *AVLNode
     Height      int
 }
+
+func (n *AVLNode) balance() {
+    balance := n.getBalance()
+    if balance > 1 {
+        if n.Left.getBalance() < 0 {
+            n.Left.rotateLeft()
+        }
+        n.rotateRight()
+    } else if balance < -1 {
+        if n.Right.getBalance() > 0 {
+            n.Right.rotateRight()
+        }
+        n.rotateLeft()
+    }
+}
+```
+
+### 2. Graph Traversal Patterns
+```go
