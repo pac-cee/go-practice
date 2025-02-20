@@ -492,3 +492,26 @@ func (g *Graph) TopologicalSort() []int {
     
     return stack
 }
+```
+
+### 3. Path Finding
+```go
+// A* Algorithm
+type PathNode struct {
+    vertex    int
+    gScore    int // Cost from start
+    hScore    int // Estimated cost to goal
+    fScore    int // gScore + hScore
+    parent    *PathNode
+}
+
+func (g *WeightedGraph) AStar(start, goal int, heuristic func(int) int) []int {
+    // Implementation of A* algorithm
+}
+```
+
+## Next Steps
+- Practice tree and graph implementations
+- Study advanced algorithms
+- Implement real-world applications
+- Move on to Advanced Data Structures
