@@ -74,3 +74,22 @@ func (h *MinHeap) heapifyDown(index int) {
 		}
 
 		if smallest == index {
+			break
+		}
+
+		h.items[index], h.items[smallest] = h.items[smallest], h.items[index]
+		index = smallest
+	}
+}
+
+// Trie implements a trie data structure
+type TrieNode struct {
+	children map[rune]*TrieNode
+	isEnd    bool
+}
+
+type Trie struct {
+	root *TrieNode
+}
+
+// NewTrie creates a new trie
