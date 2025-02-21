@@ -55,3 +55,22 @@ func (h *MinHeap) heapifyUp(index int) {
 			h.items[parent], h.items[index] = h.items[index], h.items[parent]
 			index = parent
 		} else {
+			break
+		}
+	}
+}
+
+func (h *MinHeap) heapifyDown(index int) {
+	for {
+		smallest := index
+		left := 2*index + 1
+		right := 2*index + 2
+
+		if left < h.size && h.items[left] < h.items[smallest] {
+			smallest = left
+		}
+		if right < h.size && h.items[right] < h.items[smallest] {
+			smallest = right
+		}
+
+		if smallest == index {
