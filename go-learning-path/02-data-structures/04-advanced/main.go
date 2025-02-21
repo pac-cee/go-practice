@@ -17,3 +17,22 @@ type MinHeap struct {
 	size  int
 }
 
+// NewMinHeap creates a new min heap
+func NewMinHeap() *MinHeap {
+	return &MinHeap{
+		items: make([]int, 0),
+	}
+}
+
+// Insert adds an item to the heap
+func (h *MinHeap) Insert(key int) {
+	h.items = append(h.items, key)
+	h.size++
+	h.heapifyUp(h.size - 1)
+}
+
+// ExtractMin removes and returns the minimum element
+func (h *MinHeap) ExtractMin() (int, error) {
+	if h.size == 0 {
+		return 0, errors.New("heap is empty")
+	}
