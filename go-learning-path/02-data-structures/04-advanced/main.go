@@ -36,3 +36,22 @@ func (h *MinHeap) ExtractMin() (int, error) {
 	if h.size == 0 {
 		return 0, errors.New("heap is empty")
 	}
+
+	min := h.items[0]
+	h.items[0] = h.items[h.size-1]
+	h.size--
+	h.items = h.items[:h.size]
+	if h.size > 0 {
+		h.heapifyDown(0)
+	}
+
+	return min, nil
+}
+
+func (h *MinHeap) heapifyUp(index int) {
+	for index > 0 {
+		parent := (index - 1) / 2
+		if h.items[parent] > h.items[index] {
+			h.items[parent], h.items[index] = h.items[index], h.items[parent]
+			index = parent
+		} else {
