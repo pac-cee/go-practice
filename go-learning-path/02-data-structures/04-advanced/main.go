@@ -188,3 +188,22 @@ func (ds *DisjointSet) Union(x, y int) {
 type BloomFilter struct {
 	bits []bool
 	k    int // Number of hash functions
+}
+
+// NewBloomFilter creates a new bloom filter
+func NewBloomFilter(size, k int) *BloomFilter {
+	return &BloomFilter{
+		bits: make([]bool, size),
+		k:    k,
+	}
+}
+
+// Add adds an item to the bloom filter
+func (bf *BloomFilter) Add(item string) {
+	for i := 0; i < bf.k; i++ {
+		position := bf.hash(item, i) % len(bf.bits)
+		bf.bits[position] = true
+	}
+}
+
+// Contains checks if an item might be in the set
