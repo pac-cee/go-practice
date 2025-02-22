@@ -302,3 +302,22 @@ func main() {
 
 	searchWords := []string{"apple", "app", "apt", "ban"}
 	for _, word := range searchWords {
+		fmt.Printf("Search '%s': %v\n", word, trie.Search(word))
+	}
+
+	prefixes := []string{"ap", "ban", "cat"}
+	for _, prefix := range prefixes {
+		fmt.Printf("Prefix '%s' exists: %v\n", prefix, trie.StartsWith(prefix))
+	}
+
+	// Demonstrate DisjointSet
+	ds := NewDisjointSet(5)
+	fmt.Println("\nPerforming Union operations on DisjointSet")
+	unions := [][2]int{{0, 1}, {2, 3}, {1, 2}}
+	for _, u := range unions {
+		ds.Union(u[0], u[1])
+		fmt.Printf("Union(%d, %d)\n", u[0], u[1])
+	}
+
+	// Check if elements are in the same set
+	pairs := [][2]int{{0, 3}, {1, 4}}
