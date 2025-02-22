@@ -245,3 +245,22 @@ func NewLRUCache(capacity int) *LRUCache {
 		lru:      list.New(),
 	}
 }
+
+// Get retrieves a value from the cache
+func (c *LRUCache) Get(key string) (interface{}, bool) {
+	if elem, ok := c.cache[key]; ok {
+		c.lru.MoveToFront(elem)
+		return elem.Value.(*entry).value, true
+	}
+	return nil, false
+}
+
+// Put adds a value to the cache
+func (c *LRUCache) Put(key string, value interface{}) {
+	if elem, ok := c.cache[key]; ok {
+		c.lru.MoveToFront(elem)
+		elem.Value.(*entry).value = value
+		return
+	}
+
+	if c.lru.Len() >= c.capacity {
