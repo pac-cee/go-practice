@@ -264,3 +264,22 @@ func (c *LRUCache) Put(key string, value interface{}) {
 	}
 
 	if c.lru.Len() >= c.capacity {
+		oldest := c.lru.Back()
+		if oldest != nil {
+			delete(c.cache, oldest.Value.(*entry).key)
+			c.lru.Remove(oldest)
+		}
+	}
+
+	elem := c.lru.PushFront(&entry{key, value})
+	c.cache[key] = elem
+}
+
+func main() {
+	// Demonstrate MinHeap
+	heap := NewMinHeap()
+	fmt.Println("Adding numbers to MinHeap: 5, 3, 7, 1, 4")
+	numbers := []int{5, 3, 7, 1, 4}
+	for _, n := range numbers {
+		heap.Insert(n)
+	}
