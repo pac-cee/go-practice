@@ -131,3 +131,22 @@ func (t *Trie) Search(word string) bool {
 func (t *Trie) StartsWith(prefix string) bool {
 	node := t.root
 	for _, ch := range prefix {
+		if node.children[ch] == nil {
+			return false
+		}
+		node = node.children[ch]
+	}
+	return true
+}
+
+// DisjointSet implements a union-find data structure
+type DisjointSet struct {
+	parent []int
+	rank   []int
+}
+
+// NewDisjointSet creates a new disjoint set
+func NewDisjointSet(size int) *DisjointSet {
+	parent := make([]int, size)
+	rank := make([]int, size)
+	for i := range parent {
