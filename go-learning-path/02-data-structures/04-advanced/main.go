@@ -207,3 +207,22 @@ func (bf *BloomFilter) Add(item string) {
 }
 
 // Contains checks if an item might be in the set
+func (bf *BloomFilter) Contains(item string) bool {
+	for i := 0; i < bf.k; i++ {
+		position := bf.hash(item, i) % len(bf.bits)
+		if !bf.bits[position] {
+			return false
+		}
+	}
+	return true
+}
+
+// hash generates different hash values for the same input
+func (bf *BloomFilter) hash(s string, seed int) uint32 {
+	h := fnv.New32a()
+	h.Write([]byte(s))
+	h.Write([]byte{byte(seed)})
+	return h.Sum32()
+}
+
+// LRUCache implements a Least Recently Used cache
