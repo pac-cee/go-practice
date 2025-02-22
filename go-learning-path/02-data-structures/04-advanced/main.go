@@ -226,3 +226,22 @@ func (bf *BloomFilter) hash(s string, seed int) uint32 {
 }
 
 // LRUCache implements a Least Recently Used cache
+type LRUCache struct {
+	capacity int
+	cache    map[string]*list.Element
+	lru      *list.List
+}
+
+type entry struct {
+	key   string
+	value interface{}
+}
+
+// NewLRUCache creates a new LRU cache
+func NewLRUCache(capacity int) *LRUCache {
+	return &LRUCache{
+		capacity: capacity,
+		cache:    make(map[string]*list.Element),
+		lru:      list.New(),
+	}
+}
