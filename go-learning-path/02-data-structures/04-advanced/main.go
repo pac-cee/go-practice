@@ -112,3 +112,22 @@ func (t *Trie) Insert(word string) {
 		}
 		node = node.children[ch]
 	}
+	node.isEnd = true
+}
+
+// Search checks if a word exists in the trie
+func (t *Trie) Search(word string) bool {
+	node := t.root
+	for _, ch := range word {
+		if node.children[ch] == nil {
+			return false
+		}
+		node = node.children[ch]
+	}
+	return node.isEnd
+}
+
+// StartsWith checks if any word starts with the given prefix
+func (t *Trie) StartsWith(prefix string) bool {
+	node := t.root
+	for _, ch := range prefix {
