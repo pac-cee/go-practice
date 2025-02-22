@@ -169,3 +169,22 @@ func (ds *DisjointSet) Find(x int) int {
 // Union combines the sets containing x and y
 func (ds *DisjointSet) Union(x, y int) {
 	px, py := ds.Find(x), ds.Find(y)
+	if px == py {
+		return
+	}
+
+	// Union by rank
+	if ds.rank[px] < ds.rank[py] {
+		ds.parent[px] = py
+	} else if ds.rank[px] > ds.rank[py] {
+		ds.parent[py] = px
+	} else {
+		ds.parent[py] = px
+		ds.rank[px]++
+	}
+}
+
+// BloomFilter implements a bloom filter
+type BloomFilter struct {
+	bits []bool
+	k    int // Number of hash functions
