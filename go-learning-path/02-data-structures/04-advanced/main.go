@@ -150,3 +150,22 @@ func NewDisjointSet(size int) *DisjointSet {
 	parent := make([]int, size)
 	rank := make([]int, size)
 	for i := range parent {
+		parent[i] = i
+	}
+	return &DisjointSet{
+		parent: parent,
+		rank:   rank,
+	}
+}
+
+// Find returns the representative of the set containing x
+func (ds *DisjointSet) Find(x int) int {
+	if ds.parent[x] != x {
+		ds.parent[x] = ds.Find(ds.parent[x]) // Path compression
+	}
+	return ds.parent[x]
+}
+
+// Union combines the sets containing x and y
+func (ds *DisjointSet) Union(x, y int) {
+	px, py := ds.Find(x), ds.Find(y)
