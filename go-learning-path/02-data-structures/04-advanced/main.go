@@ -283,3 +283,22 @@ func main() {
 	for _, n := range numbers {
 		heap.Insert(n)
 	}
+
+	fmt.Print("Extracting sorted numbers: ")
+	for heap.size > 0 {
+		if min, err := heap.ExtractMin(); err == nil {
+			fmt.Printf("%d ", min)
+		}
+	}
+	fmt.Println()
+
+	// Demonstrate Trie
+	trie := NewTrie()
+	words := []string{"apple", "app", "apricot", "banana"}
+	fmt.Println("\nAdding words to Trie:", strings.Join(words, ", "))
+	for _, word := range words {
+		trie.Insert(word)
+	}
+
+	searchWords := []string{"apple", "app", "apt", "ban"}
+	for _, word := range searchWords {
