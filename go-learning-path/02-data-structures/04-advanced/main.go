@@ -321,3 +321,22 @@ func main() {
 
 	// Check if elements are in the same set
 	pairs := [][2]int{{0, 3}, {1, 4}}
+	for _, p := range pairs {
+		fmt.Printf("Elements %d and %d in same set: %v\n",
+			p[0], p[1], ds.Find(p[0]) == ds.Find(p[1]))
+	}
+
+	// Demonstrate BloomFilter
+	bf := NewBloomFilter(100, 3)
+	items := []string{"apple", "banana", "orange"}
+	fmt.Println("\nAdding items to BloomFilter:", strings.Join(items, ", "))
+	for _, item := range items {
+		bf.Add(item)
+	}
+
+	checks := []string{"apple", "banana", "grape"}
+	for _, item := range checks {
+		fmt.Printf("'%s' might be in set: %v\n", item, bf.Contains(item))
+	}
+
+	// Demonstrate LRUCache
