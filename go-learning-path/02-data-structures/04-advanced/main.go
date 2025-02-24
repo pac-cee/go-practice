@@ -340,3 +340,27 @@ func main() {
 	}
 
 	// Demonstrate LRUCache
+	cache := NewLRUCache(3)
+	fmt.Println("\nAdding items to LRUCache")
+	cache.Put("A", 1)
+	cache.Put("B", 2)
+	cache.Put("C", 3)
+	fmt.Println("Added: A=1, B=2, C=3")
+
+	if val, ok := cache.Get("A"); ok {
+		fmt.Printf("Get 'A': %v\n", val)
+	}
+
+	cache.Put("D", 4)
+	fmt.Println("Added: D=4 (should evict B)")
+
+	// Check cache contents
+	keys := []string{"A", "B", "C", "D"}
+	for _, key := range keys {
+		if val, ok := cache.Get(key); ok {
+			fmt.Printf("Key '%s' in cache: %v\n", key, val)
+		} else {
+			fmt.Printf("Key '%s' not in cache\n", key)
+		}
+	}
+}
