@@ -74,3 +74,22 @@ func TestTrie(t *testing.T) {
 		}{
 			{"ap", true, "existing prefix"},
 			{"ban", true, "existing prefix"},
+			{"cat", false, "non-existing prefix"},
+		}
+
+		for _, tt := range prefixes {
+			t.Run(tt.message, func(t *testing.T) {
+				if got := trie.StartsWith(tt.prefix); got != tt.exists {
+					t.Errorf("StartsWith(%q) = %v, want %v", tt.prefix, got, tt.exists)
+				}
+			})
+		}
+	})
+}
+
+// TestDisjointSet tests union-find operations
+func TestDisjointSet(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
+		ds := NewDisjointSet(5)
+
+		// Test initial state
