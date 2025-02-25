@@ -112,3 +112,22 @@ func TestDisjointSet(t *testing.T) {
 			message  string
 		}{
 			{0, 3, true, "should be connected"},
+			{1, 4, false, "should not be connected"},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.message, func(t *testing.T) {
+				if got := ds.Find(tt.x) == ds.Find(tt.y); got != tt.connected {
+					t.Errorf("Find(%d) == Find(%d) = %v, want %v", 
+						tt.x, tt.y, got, tt.connected)
+				}
+			})
+		}
+	})
+}
+
+// TestBloomFilter tests bloom filter operations
+func TestBloomFilter(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
+		bf := NewBloomFilter(100, 3)
+		items := []string{"apple", "banana", "orange"}
