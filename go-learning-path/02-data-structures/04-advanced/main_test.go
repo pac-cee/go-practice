@@ -36,3 +36,22 @@ func TestMinHeap(t *testing.T) {
 	})
 }
 
+// TestTrie tests trie operations
+func TestTrie(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
+		trie := NewTrie()
+		words := []string{"apple", "app", "apricot", "banana"}
+
+		// Test Insert and Search
+		for _, word := range words {
+			trie.Insert(word)
+		}
+
+		tests := []struct {
+			word     string
+			exists   bool
+			message  string
+		}{
+			{"apple", true, "existing word"},
+			{"app", true, "existing word"},
+			{"apt", false, "non-existing word"},
