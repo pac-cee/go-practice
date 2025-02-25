@@ -150,3 +150,22 @@ func TestBloomFilter(t *testing.T) {
 		for _, item := range nonExistingItems {
 			if bf.Contains(item) {
 				falsePositives++
+			}
+		}
+
+		// Check false positive rate (should be reasonable)
+		falsePositiveRate := float64(falsePositives) / float64(len(nonExistingItems))
+		if falsePositiveRate > 0.1 {
+			t.Errorf("False positive rate too high: %v", falsePositiveRate)
+		}
+	})
+}
+
+// TestLRUCache tests LRU cache operations
+func TestLRUCache(t *testing.T) {
+	t.Run("basic operations", func(t *testing.T) {
+		cache := NewLRUCache(3)
+
+		// Test Put and Get
+		cache.Put("A", 1)
+		cache.Put("B", 2)
