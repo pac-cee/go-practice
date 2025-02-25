@@ -93,3 +93,22 @@ func TestDisjointSet(t *testing.T) {
 		ds := NewDisjointSet(5)
 
 		// Test initial state
+		for i := 0; i < 5; i++ {
+			if got := ds.Find(i); got != i {
+				t.Errorf("Find(%d) = %d, want %d", i, got, i)
+			}
+		}
+
+		// Test Union
+		unions := [][2]int{{0, 1}, {2, 3}, {1, 2}}
+		for _, u := range unions {
+			ds.Union(u[0], u[1])
+		}
+
+		// Test connected components
+		tests := []struct {
+			x, y     int
+			connected bool
+			message  string
+		}{
+			{0, 3, true, "should be connected"},
