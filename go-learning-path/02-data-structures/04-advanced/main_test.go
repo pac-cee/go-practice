@@ -55,3 +55,22 @@ func TestTrie(t *testing.T) {
 			{"apple", true, "existing word"},
 			{"app", true, "existing word"},
 			{"apt", false, "non-existing word"},
+			{"", true, "empty string"},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.message, func(t *testing.T) {
+				if got := trie.Search(tt.word); got != tt.exists {
+					t.Errorf("Search(%q) = %v, want %v", tt.word, got, tt.exists)
+				}
+			})
+		}
+
+		// Test StartsWith
+		prefixes := []struct {
+			prefix   string
+			exists   bool
+			message  string
+		}{
+			{"ap", true, "existing prefix"},
+			{"ban", true, "existing prefix"},
