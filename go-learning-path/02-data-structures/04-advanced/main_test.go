@@ -131,3 +131,22 @@ func TestBloomFilter(t *testing.T) {
 	t.Run("basic operations", func(t *testing.T) {
 		bf := NewBloomFilter(100, 3)
 		items := []string{"apple", "banana", "orange"}
+
+		// Test Add and Contains
+		for _, item := range items {
+			bf.Add(item)
+		}
+
+		// Test existing items
+		for _, item := range items {
+			if !bf.Contains(item) {
+				t.Errorf("Contains(%q) = false, want true", item)
+			}
+		}
+
+		// Test false positives
+		falsePositives := 0
+		nonExistingItems := []string{"grape", "melon", "peach"}
+		for _, item := range nonExistingItems {
+			if bf.Contains(item) {
+				falsePositives++
