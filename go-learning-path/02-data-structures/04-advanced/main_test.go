@@ -17,3 +17,22 @@ func TestMinHeap(t *testing.T) {
 		}
 
 		// Test ExtractMin
+		expected := []int{1, 3, 4, 5, 7}
+		for _, want := range expected {
+			got, err := heap.ExtractMin()
+			if err != nil {
+				t.Errorf("ExtractMin() error = %v", err)
+			}
+			if got != want {
+				t.Errorf("ExtractMin() = %v, want %v", got, want)
+			}
+		}
+
+		// Test empty heap
+		_, err := heap.ExtractMin()
+		if err == nil {
+			t.Error("ExtractMin() on empty heap should return error")
+		}
+	})
+}
+
