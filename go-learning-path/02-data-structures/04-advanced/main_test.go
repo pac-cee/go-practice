@@ -226,3 +226,22 @@ func BenchmarkMinHeap(b *testing.B) {
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
 			heap.ExtractMin()
+		}
+	})
+}
+
+func BenchmarkTrie(b *testing.B) {
+	words := []string{"apple", "application", "append", "banana", "ball"}
+	
+	b.Run("Insert", func(b *testing.B) {
+		trie := NewTrie()
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			trie.Insert(words[i%len(words)])
+		}
+	})
+
+	b.Run("Search", func(b *testing.B) {
+		trie := NewTrie()
+		for _, word := range words {
+			trie.Insert(word)
