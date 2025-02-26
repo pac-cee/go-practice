@@ -245,3 +245,22 @@ func BenchmarkTrie(b *testing.B) {
 		trie := NewTrie()
 		for _, word := range words {
 			trie.Insert(word)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			trie.Search(words[i%len(words)])
+		}
+	})
+}
+
+func BenchmarkDisjointSet(b *testing.B) {
+	size := 1000
+	
+	b.Run("Union", func(b *testing.B) {
+		ds := NewDisjointSet(size)
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			ds.Union(i%size, (i+1)%size)
+		}
+	})
+
