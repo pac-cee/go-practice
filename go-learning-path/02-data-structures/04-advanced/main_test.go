@@ -207,3 +207,22 @@ func TestLRUCache(t *testing.T) {
 		}
 	})
 }
+
+// Benchmark tests
+func BenchmarkMinHeap(b *testing.B) {
+	heap := NewMinHeap()
+	
+	b.Run("Insert", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			heap.Insert(i)
+		}
+	})
+
+	b.Run("ExtractMin", func(b *testing.B) {
+		heap := NewMinHeap()
+		for i := 0; i < b.N; i++ {
+			heap.Insert(i)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			heap.ExtractMin()
