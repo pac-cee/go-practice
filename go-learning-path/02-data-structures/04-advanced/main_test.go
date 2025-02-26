@@ -302,3 +302,20 @@ func BenchmarkBloomFilter(b *testing.B) {
 func BenchmarkLRUCache(b *testing.B) {
 	cache := NewLRUCache(1000)
 	
+	b.Run("Put", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			cache.Put(string(rune(i%26+'A')), i)
+		}
+	})
+
+	b.Run("Get", func(b *testing.B) {
+		cache := NewLRUCache(1000)
+		for i := 0; i < 1000; i++ {
+			cache.Put(string(rune(i%26+'A')), i)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			cache.Get(string(rune(i%26+'A')))
+		}
+	})
+}
