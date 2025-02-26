@@ -188,3 +188,22 @@ func TestLRUCache(t *testing.T) {
 				if exists != tt.exists {
 					t.Errorf("Get(%q) exists = %v, want %v", tt.key, exists, tt.exists)
 				}
+				if exists && !reflect.DeepEqual(got, tt.want) {
+					t.Errorf("Get(%q) = %v, want %v", tt.key, got, tt.want)
+				}
+			})
+		}
+
+		// Test eviction
+		cache.Put("D", 4) // Should evict A
+		if _, exists := cache.Get("A"); exists {
+			t.Error("Key 'A' should have been evicted")
+		}
+
+		// Test update existing
+		cache.Put("B", 20)
+		if val, _ := cache.Get("B"); val != 20 {
+			t.Errorf("Get(B) = %v, want 20", val)
+		}
+	})
+}
