@@ -264,3 +264,22 @@ func BenchmarkDisjointSet(b *testing.B) {
 		}
 	})
 
+	b.Run("Find", func(b *testing.B) {
+		ds := NewDisjointSet(size)
+		for i := 0; i < size-1; i++ {
+			ds.Union(i, i+1)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			ds.Find(i % size)
+		}
+	})
+}
+
+func BenchmarkBloomFilter(b *testing.B) {
+	items := []string{"apple", "banana", "orange", "grape", "melon"}
+	
+	b.Run("Add", func(b *testing.B) {
+		bf := NewBloomFilter(1000, 3)
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
