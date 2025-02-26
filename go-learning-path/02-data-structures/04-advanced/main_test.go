@@ -283,3 +283,22 @@ func BenchmarkBloomFilter(b *testing.B) {
 		bf := NewBloomFilter(1000, 3)
 		b.ResetTimer()
 		for i := 0; i < b.N; i++ {
+			bf.Add(items[i%len(items)])
+		}
+	})
+
+	b.Run("Contains", func(b *testing.B) {
+		bf := NewBloomFilter(1000, 3)
+		for _, item := range items {
+			bf.Add(item)
+		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			bf.Contains(items[i%len(items)])
+		}
+	})
+}
+
+func BenchmarkLRUCache(b *testing.B) {
+	cache := NewLRUCache(1000)
+	
