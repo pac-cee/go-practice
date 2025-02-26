@@ -169,3 +169,22 @@ func TestLRUCache(t *testing.T) {
 		// Test Put and Get
 		cache.Put("A", 1)
 		cache.Put("B", 2)
+		cache.Put("C", 3)
+
+		tests := []struct {
+			key      string
+			want     interface{}
+			exists   bool
+			message  string
+		}{
+			{"A", 1, true, "existing key"},
+			{"B", 2, true, "existing key"},
+			{"D", nil, false, "non-existing key"},
+		}
+
+		for _, tt := range tests {
+			t.Run(tt.message, func(t *testing.T) {
+				got, exists := cache.Get(tt.key)
+				if exists != tt.exists {
+					t.Errorf("Get(%q) exists = %v, want %v", tt.key, exists, tt.exists)
+				}
