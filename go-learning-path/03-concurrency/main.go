@@ -74,3 +74,22 @@ func (r *RateLimiter) Stop() {
 	close(r.stop)
 }
 
+// Worker represents a worker pool worker
+type Worker struct {
+	id      int
+	jobs    <-chan int
+	results chan<- int
+}
+
+// NewWorker creates a new worker
+func NewWorker(id int, jobs <-chan int, results chan<- int) *Worker {
+	return &Worker{
+		id:      id,
+		jobs:    jobs,
+		results: results,
+	}
+}
+
+// Start starts the worker
+func (w *Worker) Start() {
+	go func() {
