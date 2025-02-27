@@ -93,3 +93,22 @@ func NewWorker(id int, jobs <-chan int, results chan<- int) *Worker {
 // Start starts the worker
 func (w *Worker) Start() {
 	go func() {
+		for j := range w.jobs {
+			fmt.Printf("worker %d processing job %d\n", w.id, j)
+			time.Sleep(time.Duration(rand.Intn(1000)) * time.Millisecond)
+			w.results <- j * 2
+		}
+	}()
+}
+
+// Pipeline demonstrates a simple pipeline pattern
+type Pipeline struct {
+	done <-chan struct{}
+}
+
+// NewPipeline creates a new pipeline
+func NewPipeline(done <-chan struct{}) *Pipeline {
+	return &Pipeline{done: done}
+}
+
+// Generator generates integers from 1 to n
