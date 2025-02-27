@@ -55,3 +55,22 @@ func (h *Heap) Insert(key int) error {
     i := h.size - 1
     h.items[i] = key
 
+    // Fix min heap property
+    for i != 0 && h.items[h.Parent(i)] > h.items[i] {
+        h.Swap(i, h.Parent(i))
+        i = h.Parent(i)
+    }
+    return nil
+}
+
+// Extract minimum element
+func (h *Heap) ExtractMin() (int, error) {
+    if h.size <= 0 {
+        return 0, errors.New("heap is empty")
+    }
+    if h.size == 1 {
+        h.size--
+        return h.items[0], nil
+    }
+
+    root := h.items[0]
