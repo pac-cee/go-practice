@@ -245,3 +245,22 @@ func (sl *SkipList) Insert(value int) {
         sl.level = level
     }
 
+    // Create new node
+    newNode := &SkipListNode{
+        value:   value,
+        forward: make([]*SkipListNode, level),
+    }
+
+    // Insert node at each level
+    for i := 0; i < level; i++ {
+        newNode.forward[i] = update[i].forward[i]
+        update[i].forward[i] = newNode
+    }
+}
+```
+
+## Bloom Filter
+
+### Bloom Filter Implementation
+```go
+type BloomFilter struct {
