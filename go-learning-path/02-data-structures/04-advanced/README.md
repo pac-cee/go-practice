@@ -188,3 +188,22 @@ func (ds *DisjointSet) Union(x, y int) {
         ds.parent[px] = py
     } else if ds.rank[px] > ds.rank[py] {
         ds.parent[py] = px
+    } else {
+        ds.parent[py] = px
+        ds.rank[px]++
+    }
+}
+```
+
+## Skip List
+
+### Skip List Node
+```go
+type SkipListNode struct {
+    value    int
+    forward  []*SkipListNode
+}
+
+type SkipList struct {
+    head     *SkipListNode
+    level    int
