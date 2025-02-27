@@ -454,3 +454,14 @@ type AutoComplete struct {
 func (ac *AutoComplete) AddWord(word string) {
     ac.trie.Insert(word)
 }
+
+func (ac *AutoComplete) GetSuggestions(prefix string) []string {
+    // Implementation
+}
+```
+
+## Next Steps
+- Practice implementing advanced data structures
+- Study time and space complexity analysis
+- Apply structures to real-world problems
+- Move on to Concurrency Patterns
