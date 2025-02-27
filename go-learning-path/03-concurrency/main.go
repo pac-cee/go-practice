@@ -131,3 +131,22 @@ func (p *Pipeline) Generator(n int) <-chan int {
 func (p *Pipeline) Square(in <-chan int) <-chan int {
 	out := make(chan int)
 	go func() {
+		defer close(out)
+		for n := range in {
+			select {
+			case <-p.done:
+				return
+			case out <- n * n:
+			}
+		}
+	}()
+	return out
+}
+
+// Filter filters out odd numbers
+func (p *Pipeline) Filter(in <-chan int) <-chan int {
+	out := make(chan int)
+	go func() {
+		defer close(out)
+		for n := range in {
+			if n%2 == 0 {
