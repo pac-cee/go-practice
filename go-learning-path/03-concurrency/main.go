@@ -17,3 +17,22 @@ type SafeCounter struct {
 
 // NewSafeCounter creates a new thread-safe counter
 func NewSafeCounter() *SafeCounter {
+	c := &SafeCounter{
+		value: make(chan int),
+		read:  make(chan chan int),
+	}
+	go c.run()
+	return c
+}
+
+func (c *SafeCounter) run() {
+	value := 0
+	for {
+		select {
+		case <-c.value:
+			value++
+		case reader := <-c.read:
+			reader <- value
+		}
+	}
+}
