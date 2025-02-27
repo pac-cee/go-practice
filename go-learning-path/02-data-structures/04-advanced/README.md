@@ -340,3 +340,22 @@ func (c *LRUCache) Put(key, value int) {
         node.value = value
         c.moveToFront(node)
         return
+    }
+
+    newNode := &Node{key: key, value: value}
+    c.cache[key] = newNode
+    c.addNode(newNode)
+
+    if len(c.cache) > c.capacity {
+        tail := c.popTail()
+        delete(c.cache, tail.key)
+    }
+}
+```
+
+## Exercises
+
+### Exercise 1: Priority Queue
+```go
+// Implement a priority queue for a task scheduler
+type Task struct {
