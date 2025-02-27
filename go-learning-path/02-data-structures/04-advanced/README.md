@@ -264,3 +264,22 @@ func (sl *SkipList) Insert(value int) {
 ### Bloom Filter Implementation
 ```go
 type BloomFilter struct {
+    bits    []bool
+    k       int // Number of hash functions
+    m       int // Size of bit array
+}
+
+func NewBloomFilter(size, k int) *BloomFilter {
+    return &BloomFilter{
+        bits: make([]bool, size),
+        k:    k,
+        m:    size,
+    }
+}
+
+// Add element
+func (bf *BloomFilter) Add(item string) {
+    for i := 0; i < bf.k; i++ {
+        position := bf.hash(item, i)
+        bf.bits[position] = true
+    }
