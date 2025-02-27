@@ -226,3 +226,22 @@ func AsyncOperation(ctx context.Context) <-chan Result {
 			results <- Result{Err: ctx.Err()}
 			return
 		case <-time.After(time.Duration(rand.Intn(1000)) * time.Millisecond):
+			if rand.Float32() < 0.3 { // 30% chance of error
+				results <- Result{Err: fmt.Errorf("random error occurred")}
+				return
+			}
+			results <- Result{Value: rand.Intn(100)}
+		}
+	}()
+	return results
+}
+
+func main() {
+	// Demonstrate SafeCounter
+	counter := NewSafeCounter()
+	var wg sync.WaitGroup
+	for i := 0; i < 50; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			counter.Increment()
