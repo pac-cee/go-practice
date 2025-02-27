@@ -74,3 +74,22 @@ func (h *Heap) ExtractMin() (int, error) {
     }
 
     root := h.items[0]
+    h.items[0] = h.items[h.size-1]
+    h.size--
+    h.MinHeapify(0)
+
+    return root, nil
+}
+```
+
+## Trie
+
+### Trie Node
+```go
+type TrieNode struct {
+    children map[rune]*TrieNode
+    isEnd    bool
+}
+
+type Trie struct {
+    root *TrieNode
