@@ -36,3 +36,22 @@ func (c *SafeCounter) run() {
 		}
 	}
 }
+
+// Increment increases the counter by one
+func (c *SafeCounter) Increment() {
+	c.value <- 1
+}
+
+// Value returns the current value of the counter
+func (c *SafeCounter) Value() int {
+	reader := make(chan int)
+	c.read <- reader
+	return <-reader
+}
+
+// RateLimiter implements a simple rate limiter
+type RateLimiter struct {
+	ticker *time.Ticker
+	stop   chan struct{}
+}
+
