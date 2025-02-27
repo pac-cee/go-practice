@@ -283,3 +283,22 @@ func main() {
 
 	// Demonstrate Pipeline
 	done := make(chan struct{})
+	defer close(done)
+
+	pipeline := NewPipeline(done)
+	numbers := pipeline.Generator(10)
+	squares := pipeline.Square(numbers)
+	filtered := pipeline.Filter(squares)
+
+	fmt.Println("\nPipeline results:")
+	for n := range filtered {
+		fmt.Printf("%d ", n)
+	}
+	fmt.Println()
+
+	// Demonstrate Fan-out, Fan-in
+	generator := func() <-chan int {
+		out := make(chan int)
+		go func() {
+			defer close(out)
+			for i := 1; i <= 10; i++ {
