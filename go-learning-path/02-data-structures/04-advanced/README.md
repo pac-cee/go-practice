@@ -131,3 +131,22 @@ func (t *Trie) Search(word string) bool {
     }
     return node.isEnd
 }
+
+// Search prefix
+func (t *Trie) StartsWith(prefix string) bool {
+    node := t.root
+    for _, ch := range prefix {
+        if node.children[ch] == nil {
+            return false
+        }
+        node = node.children[ch]
+    }
+    return true
+}
+```
+
+## Union-Find
+
+### Disjoint Set
+```go
+type DisjointSet struct {
