@@ -245,3 +245,22 @@ func main() {
 		go func() {
 			defer wg.Done()
 			counter.Increment()
+		}()
+	}
+	wg.Wait()
+	fmt.Printf("Counter value: %d\n", counter.Value())
+
+	// Demonstrate RateLimiter
+	limiter := NewRateLimiter(200 * time.Millisecond)
+	go func() {
+		for i := 1; i <= 5; i++ {
+			<-limiter.Allow()
+			fmt.Printf("Action %d allowed\n", i)
+		}
+		limiter.Stop()
+	}()
+
+	// Demonstrate Worker Pool
+	jobs := make(chan int, 100)
+	results := make(chan int, 100)
+
