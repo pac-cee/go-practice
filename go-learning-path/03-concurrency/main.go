@@ -302,3 +302,22 @@ func main() {
 		go func() {
 			defer close(out)
 			for i := 1; i <= 10; i++ {
+				out <- i
+			}
+		}()
+		return out
+	}
+
+	channels := FanOut(generator(), 3)
+	merged := FanIn(done, channels...)
+
+	fmt.Println("\nFan-out, Fan-in results:")
+	for n := range merged {
+		fmt.Printf("%d ", n)
+	}
+	fmt.Println()
+
+	// Demonstrate error handling with context
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
