@@ -169,3 +169,22 @@ func NewDisjointSet(size int) *DisjointSet {
 
 ### Union-Find Operations
 ```go
+// Find with path compression
+func (ds *DisjointSet) Find(x int) int {
+    if ds.parent[x] != x {
+        ds.parent[x] = ds.Find(ds.parent[x])
+    }
+    return ds.parent[x]
+}
+
+// Union by rank
+func (ds *DisjointSet) Union(x, y int) {
+    px, py := ds.Find(x), ds.Find(y)
+    if px == py {
+        return
+    }
+    
+    if ds.rank[px] < ds.rank[py] {
+        ds.parent[px] = py
+    } else if ds.rank[px] > ds.rank[py] {
+        ds.parent[py] = px
