@@ -416,3 +416,22 @@ func (n *Network) IsConnected(x, y int) bool {
 type SpellChecker struct {
     filter *BloomFilter
 }
+
+func (sc *SpellChecker) AddWord(word string) {
+    sc.filter.Add(word)
+}
+
+func (sc *SpellChecker) CheckWord(word string) bool {
+    return sc.filter.MightContain(word)
+}
+```
+
+### 2. Caching Strategies
+```go
+// Combining LRU with time-based expiration
+type CacheEntry struct {
+    value      interface{}
+    expiration time.Time
+}
+
+type TimedLRUCache struct {
