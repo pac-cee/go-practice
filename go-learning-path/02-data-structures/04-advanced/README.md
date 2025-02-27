@@ -283,3 +283,22 @@ func (bf *BloomFilter) Add(item string) {
         position := bf.hash(item, i)
         bf.bits[position] = true
     }
+}
+
+// Check if element might exist
+func (bf *BloomFilter) MightContain(item string) bool {
+    for i := 0; i < bf.k; i++ {
+        position := bf.hash(item, i)
+        if !bf.bits[position] {
+            return false
+        }
+    }
+    return true
+}
+```
+
+## LRU Cache
+
+### LRU Implementation
+```go
+type Node struct {
