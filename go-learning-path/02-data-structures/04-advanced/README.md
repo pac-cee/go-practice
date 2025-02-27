@@ -302,3 +302,22 @@ func (bf *BloomFilter) MightContain(item string) bool {
 ### LRU Implementation
 ```go
 type Node struct {
+    key, value int
+    prev, next *Node
+}
+
+type LRUCache struct {
+    capacity int
+    cache    map[int]*Node
+    head     *Node
+    tail     *Node
+}
+
+func NewLRUCache(capacity int) *LRUCache {
+    return &LRUCache{
+        capacity: capacity,
+        cache:    make(map[int]*Node),
+        head:     &Node{},
+        tail:     &Node{},
+    }
+}
