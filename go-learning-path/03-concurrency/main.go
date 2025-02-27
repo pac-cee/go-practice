@@ -150,3 +150,22 @@ func (p *Pipeline) Filter(in <-chan int) <-chan int {
 		defer close(out)
 		for n := range in {
 			if n%2 == 0 {
+				select {
+				case <-p.done:
+					return
+				case out <- n:
+				}
+			}
+		}
+	}()
+	return out
+}
+
+// FanOut demonstrates the fan-out pattern
+func FanOut(in <-chan int, n int) []<-chan int {
+	channels := make([]<-chan int, n)
+	for i := 0; i < n; i++ {
+		channels[i] = processChannel(in)
+	}
+	return channels
+}
