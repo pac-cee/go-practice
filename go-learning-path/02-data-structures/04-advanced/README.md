@@ -321,3 +321,22 @@ func NewLRUCache(capacity int) *LRUCache {
         tail:     &Node{},
     }
 }
+```
+
+### LRU Operations
+```go
+// Get value
+func (c *LRUCache) Get(key int) int {
+    if node, exists := c.cache[key]; exists {
+        c.moveToFront(node)
+        return node.value
+    }
+    return -1
+}
+
+// Put value
+func (c *LRUCache) Put(key, value int) {
+    if node, exists := c.cache[key]; exists {
+        node.value = value
+        c.moveToFront(node)
+        return
