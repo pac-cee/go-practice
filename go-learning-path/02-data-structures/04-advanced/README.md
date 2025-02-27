@@ -93,3 +93,22 @@ type TrieNode struct {
 
 type Trie struct {
     root *TrieNode
+}
+
+func NewTrie() *Trie {
+    return &Trie{
+        root: &TrieNode{
+            children: make(map[rune]*TrieNode),
+        },
+    }
+}
+```
+
+### Trie Operations
+```go
+// Insert a word
+func (t *Trie) Insert(word string) {
+    node := t.root
+    for _, ch := range word {
+        if node.children[ch] == nil {
+            node.children[ch] = &TrieNode{
