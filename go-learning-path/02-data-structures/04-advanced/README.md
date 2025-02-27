@@ -150,3 +150,22 @@ func (t *Trie) StartsWith(prefix string) bool {
 ### Disjoint Set
 ```go
 type DisjointSet struct {
+    parent []int
+    rank   []int
+}
+
+func NewDisjointSet(size int) *DisjointSet {
+    parent := make([]int, size)
+    rank := make([]int, size)
+    for i := range parent {
+        parent[i] = i
+    }
+    return &DisjointSet{
+        parent: parent,
+        rank:   rank,
+    }
+}
+```
+
+### Union-Find Operations
+```go
