@@ -55,3 +55,22 @@ type RateLimiter struct {
 	stop   chan struct{}
 }
 
+// NewRateLimiter creates a new rate limiter
+func NewRateLimiter(limit time.Duration) *RateLimiter {
+	return &RateLimiter{
+		ticker: time.NewTicker(limit),
+		stop:   make(chan struct{}),
+	}
+}
+
+// Allow returns a channel that receives when action is allowed
+func (r *RateLimiter) Allow() <-chan time.Time {
+	return r.ticker.C
+}
+
+// Stop stops the rate limiter
+func (r *RateLimiter) Stop() {
+	r.ticker.Stop()
+	close(r.stop)
+}
+
