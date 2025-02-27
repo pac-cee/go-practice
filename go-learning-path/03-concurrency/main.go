@@ -112,3 +112,22 @@ func NewPipeline(done <-chan struct{}) *Pipeline {
 }
 
 // Generator generates integers from 1 to n
+func (p *Pipeline) Generator(n int) <-chan int {
+	out := make(chan int)
+	go func() {
+		defer close(out)
+		for i := 1; i <= n; i++ {
+			select {
+			case <-p.done:
+				return
+			case out <- i:
+			}
+		}
+	}()
+	return out
+}
+
+// Square squares numbers from in channel
+func (p *Pipeline) Square(in <-chan int) <-chan int {
+	out := make(chan int)
+	go func() {
