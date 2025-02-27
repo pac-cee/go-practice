@@ -321,3 +321,16 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
+	fmt.Println("\nAsync operations results:")
+	for i := 0; i < 5; i++ {
+		result := <-AsyncOperation(ctx)
+		if result.Err != nil {
+			fmt.Printf("Operation %d failed: %v\n", i+1, result.Err)
+		} else {
+			fmt.Printf("Operation %d succeeded: %d\n", i+1, result.Value)
+		}
+	}
+
+	// Allow some time for goroutines to finish
+	time.Sleep(time.Second)
+}
