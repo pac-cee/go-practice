@@ -264,3 +264,22 @@ func main() {
 	jobs := make(chan int, 100)
 	results := make(chan int, 100)
 
+	// Start 3 workers
+	for w := 1; w <= 3; w++ {
+		worker := NewWorker(w, jobs, results)
+		worker.Start()
+	}
+
+	// Send 5 jobs
+	for j := 1; j <= 5; j++ {
+		jobs <- j
+	}
+	close(jobs)
+
+	// Collect results
+	for a := 1; a <= 5; a++ {
+		<-results
+	}
+
+	// Demonstrate Pipeline
+	done := make(chan struct{})
