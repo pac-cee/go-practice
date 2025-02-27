@@ -112,3 +112,22 @@ func (t *Trie) Insert(word string) {
     for _, ch := range word {
         if node.children[ch] == nil {
             node.children[ch] = &TrieNode{
+                children: make(map[rune]*TrieNode),
+            }
+        }
+        node = node.children[ch]
+    }
+    node.isEnd = true
+}
+
+// Search for a word
+func (t *Trie) Search(word string) bool {
+    node := t.root
+    for _, ch := range word {
+        if node.children[ch] == nil {
+            return false
+        }
+        node = node.children[ch]
+    }
+    return node.isEnd
+}
