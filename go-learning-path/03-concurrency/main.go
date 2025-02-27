@@ -169,3 +169,22 @@ func FanOut(in <-chan int, n int) []<-chan int {
 	}
 	return channels
 }
+
+func processChannel(in <-chan int) <-chan int {
+	out := make(chan int)
+	go func() {
+		defer close(out)
+		for n := range in {
+			out <- n * n
+		}
+	}()
+	return out
+}
+
+// FanIn combines multiple channels into one
+func FanIn(done <-chan struct{}, channels ...<-chan int) <-chan int {
+	var wg sync.WaitGroup
+	multiplexedStream := make(chan int)
+
+	multiplex := func(c <-chan int) {
+		defer wg.Done()
