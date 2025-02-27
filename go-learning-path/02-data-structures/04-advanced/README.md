@@ -207,3 +207,22 @@ type SkipListNode struct {
 type SkipList struct {
     head     *SkipListNode
     level    int
+    maxLevel int
+}
+
+func NewSkipList(maxLevel int) *SkipList {
+    return &SkipList{
+        head: &SkipListNode{
+            forward: make([]*SkipListNode, maxLevel),
+        },
+        maxLevel: maxLevel,
+    }
+}
+```
+
+### Skip List Operations
+```go
+// Insert element
+func (sl *SkipList) Insert(value int) {
+    update := make([]*SkipListNode, sl.maxLevel)
+    current := sl.head
