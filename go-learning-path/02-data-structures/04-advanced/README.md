@@ -378,3 +378,22 @@ func (tq *TaskQueue) Pop() *Task {
 
 ### Exercise 2: Word Dictionary
 ```go
+// Implement a word dictionary using Trie
+type WordDictionary struct {
+    root *TrieNode
+}
+
+func (wd *WordDictionary) AddWord(word string) {
+    // Implementation
+}
+
+func (wd *WordDictionary) Search(pattern string) bool {
+    // Implementation with wildcard support
+}
+```
+
+### Exercise 3: Network Connectivity
+```go
+// Use Union-Find to detect network connectivity
+type Network struct {
+    ds *DisjointSet
