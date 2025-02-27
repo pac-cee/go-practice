@@ -207,3 +207,22 @@ func FanIn(done <-chan struct{}, channels ...<-chan int) <-chan int {
 		close(multiplexedStream)
 	}()
 
+	return multiplexedStream
+}
+
+// Result represents a computation result with possible error
+type Result struct {
+	Value int
+	Err   error
+}
+
+// AsyncOperation demonstrates error handling in concurrent operations
+func AsyncOperation(ctx context.Context) <-chan Result {
+	results := make(chan Result)
+	go func() {
+		defer close(results)
+		select {
+		case <-ctx.Done():
+			results <- Result{Err: ctx.Err()}
+			return
+		case <-time.After(time.Duration(rand.Intn(1000)) * time.Millisecond):
