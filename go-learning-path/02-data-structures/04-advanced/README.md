@@ -397,3 +397,22 @@ func (wd *WordDictionary) Search(pattern string) bool {
 // Use Union-Find to detect network connectivity
 type Network struct {
     ds *DisjointSet
+}
+
+func (n *Network) Connect(x, y int) {
+    // Implementation
+}
+
+func (n *Network) IsConnected(x, y int) bool {
+    // Implementation
+}
+```
+
+## Common Patterns
+
+### 1. Memory Efficient Sets
+```go
+// Using Bloom Filter for large sets
+type SpellChecker struct {
+    filter *BloomFilter
+}
