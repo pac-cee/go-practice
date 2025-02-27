@@ -435,3 +435,22 @@ type CacheEntry struct {
 }
 
 type TimedLRUCache struct {
+    lru       *LRUCache
+    ttl       time.Duration
+}
+
+func (c *TimedLRUCache) Get(key int) interface{} {
+    // Implementation with expiration check
+}
+```
+
+### 3. Prefix Matching
+```go
+// Using Trie for autocomplete
+type AutoComplete struct {
+    trie *Trie
+}
+
+func (ac *AutoComplete) AddWord(word string) {
+    ac.trie.Insert(word)
+}
