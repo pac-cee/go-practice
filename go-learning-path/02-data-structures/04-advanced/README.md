@@ -226,3 +226,22 @@ func NewSkipList(maxLevel int) *SkipList {
 func (sl *SkipList) Insert(value int) {
     update := make([]*SkipListNode, sl.maxLevel)
     current := sl.head
+
+    // Find position to insert
+    for i := sl.level - 1; i >= 0; i-- {
+        for current.forward[i] != nil && 
+            current.forward[i].value < value {
+            current = current.forward[i]
+        }
+        update[i] = current
+    }
+
+    // Generate random level
+    level := sl.randomLevel()
+    if level > sl.level {
+        for i := sl.level; i < level; i++ {
+            update[i] = sl.head
+        }
+        sl.level = level
+    }
+
