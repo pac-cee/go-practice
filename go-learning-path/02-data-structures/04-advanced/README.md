@@ -359,3 +359,22 @@ func (c *LRUCache) Put(key, value int) {
 ```go
 // Implement a priority queue for a task scheduler
 type Task struct {
+    ID       int
+    Priority int
+}
+
+type TaskQueue struct {
+    heap []*Task
+}
+
+func (tq *TaskQueue) Push(task *Task) {
+    // Implementation
+}
+
+func (tq *TaskQueue) Pop() *Task {
+    // Implementation
+}
+```
+
+### Exercise 2: Word Dictionary
+```go
