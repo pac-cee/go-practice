@@ -93,3 +93,22 @@ func TestWorker(t *testing.T) {
 // TestPipeline tests the pipeline pattern
 func TestPipeline(t *testing.T) {
 	t.Run("pipeline processing", func(t *testing.T) {
+		done := make(chan struct{})
+		defer close(done)
+
+		pipeline := NewPipeline(done)
+		numbers := pipeline.Generator(5)
+		squares := pipeline.Square(numbers)
+		filtered := pipeline.Filter(squares)
+
+		// Collect results
+		var results []int
+		for n := range filtered {
+			results = append(results, n)
+		}
+
+		// Verify results
+		expected := []int{4, 16} // Only even squares of 1-5
+		if len(results) != len(expected) {
+			t.Errorf("Got %d results; want %d", len(results), len(expected))
+		}
