@@ -188,3 +188,22 @@ func TestAsyncOperation(t *testing.T) {
 
 		result := <-AsyncOperation(ctx)
 		if result.Err != context.Canceled {
+			t.Errorf("Expected context.Canceled error, got: %v", result.Err)
+		}
+	})
+}
+
+// Benchmark tests
+func BenchmarkSafeCounter(b *testing.B) {
+	counter := NewSafeCounter()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			counter.Increment()
+		}
+	})
+}
+
+func BenchmarkWorkerPool(b *testing.B) {
+	jobs := make(chan int, b.N)
+	results := make(chan int, b.N)
+
