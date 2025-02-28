@@ -17,3 +17,22 @@ func TestSafeCounter(t *testing.T) {
 		// Launch n goroutines to increment
 		for i := 0; i < n; i++ {
 			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				counter.Increment()
+			}()
+		}
+
+		wg.Wait()
+		value := counter.Value()
+		if value != n {
+			t.Errorf("Counter = %d; want %d", value, n)
+		}
+	})
+}
+
+// TestRateLimiter tests the rate limiter
+func TestRateLimiter(t *testing.T) {
+	t.Run("rate limiting", func(t *testing.T) {
+		limiter := NewRateLimiter(100 * time.Millisecond)
+		defer limiter.Stop()
