@@ -150,3 +150,22 @@ func TestFanOutFanIn(t *testing.T) {
 		// Collect and verify results
 		results := make(map[int]bool)
 		for i := 0; i < 5; i++ {
+			result := <-merged
+			results[result] = true
+		}
+
+		// Verify all squares are present
+		for i := 1; i <= 5; i++ {
+			square := i * i
+			if !results[square] {
+				t.Errorf("Missing square: %d", square)
+			}
+		}
+	})
+}
+
+// TestAsyncOperation tests async operations with error handling
+func TestAsyncOperation(t *testing.T) {
+	t.Run("async operation", func(t *testing.T) {
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
