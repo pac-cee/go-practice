@@ -36,3 +36,22 @@ func TestRateLimiter(t *testing.T) {
 	t.Run("rate limiting", func(t *testing.T) {
 		limiter := NewRateLimiter(100 * time.Millisecond)
 		defer limiter.Stop()
+
+		start := time.Now()
+		count := 0
+		timeout := time.After(550 * time.Millisecond)
+
+		// Should allow ~5 actions in 500ms
+		for {
+			select {
+			case <-timeout:
+				if count < 4 || count > 6 {
+					t.Errorf("Got %d actions; want 5 ±1", count)
+				}
+				return
+			case <-limiter.Allow():
+				count++
+			}
+		}
+	})
+}
