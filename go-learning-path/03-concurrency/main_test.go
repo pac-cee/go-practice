@@ -169,3 +169,22 @@ func TestAsyncOperation(t *testing.T) {
 	t.Run("async operation", func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
+
+		result := <-AsyncOperation(ctx)
+		if result.Err != nil {
+			// Error is acceptable
+			return
+		}
+
+		// If no error, value should be in range [0, 100)
+		if result.Value < 0 || result.Value >= 100 {
+			t.Errorf("Value %d out of expected range [0, 100)", result.Value)
+		}
+	})
+
+	t.Run("context cancellation", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel() // Cancel immediately
+
+		result := <-AsyncOperation(ctx)
+		if result.Err != context.Canceled {
