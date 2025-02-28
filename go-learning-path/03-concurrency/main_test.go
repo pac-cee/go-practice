@@ -112,3 +112,22 @@ func TestPipeline(t *testing.T) {
 		if len(results) != len(expected) {
 			t.Errorf("Got %d results; want %d", len(results), len(expected))
 		}
+
+		resultMap := make(map[int]bool)
+		for _, r := range results {
+			resultMap[r] = true
+		}
+
+		for _, e := range expected {
+			if !resultMap[e] {
+				t.Errorf("Missing expected value: %d", e)
+			}
+		}
+	})
+}
+
+// TestFanOutFanIn tests the fan-out, fan-in pattern
+func TestFanOutFanIn(t *testing.T) {
+	t.Run("fan-out fan-in", func(t *testing.T) {
+		done := make(chan struct{})
+		defer close(done)
