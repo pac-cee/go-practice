@@ -207,3 +207,22 @@ func BenchmarkWorkerPool(b *testing.B) {
 	jobs := make(chan int, b.N)
 	results := make(chan int, b.N)
 
+	// Start 3 workers
+	for w := 1; w <= 3; w++ {
+		worker := NewWorker(w, jobs, results)
+		worker.Start()
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		jobs <- i
+	}
+	close(jobs)
+
+	for i := 0; i < b.N; i++ {
+		<-results
+	}
+}
+
+func BenchmarkPipeline(b *testing.B) {
+	done := make(chan struct{})
