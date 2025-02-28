@@ -17,3 +17,22 @@
 - Multiplexed onto OS threads
 - Non-blocking by default
 
+### Basic Usage
+```go
+func main() {
+    go myFunction()    // Start a new goroutine
+    go func() {        // Anonymous function as goroutine
+        // Do something
+    }()
+}
+```
+
+### Key Points
+- Goroutines are cheap and lightweight
+- Go runtime handles scheduling
+- No direct communication between goroutines (use channels)
+- Main function runs in the main goroutine
+
+## Channels
+
+### Channel Basics
