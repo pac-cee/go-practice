@@ -36,3 +36,22 @@ func main() {
 ## Channels
 
 ### Channel Basics
+```go
+ch := make(chan int)        // Unbuffered channel
+ch := make(chan int, 100)   // Buffered channel with capacity 100
+
+// Send and receive
+ch <- value    // Send value
+value := <-ch  // Receive value
+```
+
+### Channel Types
+1. **Unbuffered Channels**
+   - Synchronous communication
+   - Sender blocks until receiver is ready
+   - Receiver blocks until sender sends
+
+2. **Buffered Channels**
+   - Asynchronous up to buffer size
+   - Sender blocks only when buffer is full
+   - Receiver blocks only when buffer is empty
