@@ -74,3 +74,22 @@ func TestWorker(t *testing.T) {
 		close(jobs)
 
 		// Collect and verify results
+		resultMap := make(map[int]bool)
+		for i := 0; i < len(testJobs); i++ {
+			result := <-results
+			resultMap[result] = true
+		}
+
+		// Verify all expected results are present
+		for _, j := range testJobs {
+			expected := j * 2
+			if !resultMap[expected] {
+				t.Errorf("Missing result: %d", expected)
+			}
+		}
+	})
+}
+
+// TestPipeline tests the pipeline pattern
+func TestPipeline(t *testing.T) {
+	t.Run("pipeline processing", func(t *testing.T) {
