@@ -226,3 +226,22 @@ func BenchmarkWorkerPool(b *testing.B) {
 
 func BenchmarkPipeline(b *testing.B) {
 	done := make(chan struct{})
+	defer close(done)
+
+	b.ResetTimer()
+	pipeline := NewPipeline(done)
+	numbers := pipeline.Generator(b.N)
+	squares := pipeline.Square(numbers)
+	filtered := pipeline.Filter(squares)
+
+	for range filtered {
+		// Drain the pipeline
+	}
+}
+
+func BenchmarkFanOutFanIn(b *testing.B) {
+	done := make(chan struct{})
+	defer close(done)
+
+	input := make(chan int)
+	go func() {
