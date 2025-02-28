@@ -245,3 +245,17 @@ func BenchmarkFanOutFanIn(b *testing.B) {
 
 	input := make(chan int)
 	go func() {
+		defer close(input)
+		for i := 0; i < b.N; i++ {
+			input <- i
+		}
+	}()
+
+	channels := FanOut(input, 3)
+	merged := FanIn(done, channels...)
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		<-merged
+	}
+}
