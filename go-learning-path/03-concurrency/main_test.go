@@ -131,3 +131,22 @@ func TestFanOutFanIn(t *testing.T) {
 	t.Run("fan-out fan-in", func(t *testing.T) {
 		done := make(chan struct{})
 		defer close(done)
+
+		// Create input channel
+		input := make(chan int)
+		go func() {
+			defer close(input)
+			for i := 1; i <= 5; i++ {
+				input <- i
+			}
+		}()
+
+		// Fan out to 3 channels
+		channels := FanOut(input, 3)
+
+		// Fan in results
+		merged := FanIn(done, channels...)
+
+		// Collect and verify results
+		results := make(map[int]bool)
+		for i := 0; i < 5; i++ {
