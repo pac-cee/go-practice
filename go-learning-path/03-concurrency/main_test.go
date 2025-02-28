@@ -55,3 +55,22 @@ func TestRateLimiter(t *testing.T) {
 		}
 	})
 }
+
+// TestWorker tests the worker pool
+func TestWorker(t *testing.T) {
+	t.Run("worker processing", func(t *testing.T) {
+		jobs := make(chan int, 5)
+		results := make(chan int, 5)
+
+		// Start a worker
+		worker := NewWorker(1, jobs, results)
+		worker.Start()
+
+		// Send test jobs
+		testJobs := []int{1, 2, 3, 4, 5}
+		for _, j := range testJobs {
+			jobs <- j
+		}
+		close(jobs)
+
+		// Collect and verify results
