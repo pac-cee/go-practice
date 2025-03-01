@@ -188,3 +188,22 @@ func gen(nums ...int) <-chan int {
 
 func sq(in <-chan int) <-chan int {
     out := make(chan int)
+    go func() {
+        for n := range in {
+            out <- n * n
+        }
+        close(out)
+    }()
+    return out
+}
+```
+
+### Fan-out, Fan-in
+```go
+func fanOut(ch <-chan int, n int) []<-chan int {
+    channels := make([]<-chan int, n)
+    for i := 0; i < n; i++ {
+        channels[i] = process(ch)
+    }
+    return channels
+}
