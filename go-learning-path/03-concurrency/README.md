@@ -112,3 +112,22 @@ select {
 case ch <- x:
     // Sent successfully
 default:
+    // Would block
+}
+```
+
+## Sync Package
+
+### Mutex
+```go
+var mu sync.Mutex
+mu.Lock()
+// Critical section
+mu.Unlock()
+```
+
+### RWMutex
+```go
+var mu sync.RWMutex
+mu.RLock()    // Multiple readers
+// Read operations
