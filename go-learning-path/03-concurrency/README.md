@@ -131,3 +131,22 @@ mu.Unlock()
 var mu sync.RWMutex
 mu.RLock()    // Multiple readers
 // Read operations
+mu.RUnlock()
+
+mu.Lock()     // Single writer
+// Write operations
+mu.Unlock()
+```
+
+### WaitGroup
+```go
+var wg sync.WaitGroup
+wg.Add(n)     // Add n goroutines
+go func() {
+    defer wg.Done()
+    // Work
+}()
+wg.Wait()     // Wait for all to finish
+```
+
+### Once
