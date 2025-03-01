@@ -207,3 +207,22 @@ func fanOut(ch <-chan int, n int) []<-chan int {
     }
     return channels
 }
+
+func fanIn(channels ...<-chan int) <-chan int {
+    var wg sync.WaitGroup
+    out := make(chan int)
+    
+    output := func(c <-chan int) {
+        for n := range c {
+            out <- n
+        }
+        wg.Done()
+    }
+    
+    wg.Add(len(channels))
+    for _, c := range channels {
+        go output(c)
+    }
+    
+    go func() {
+        wg.Wait()
