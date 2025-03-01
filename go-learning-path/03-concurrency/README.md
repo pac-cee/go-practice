@@ -169,3 +169,22 @@ func worker(id int, jobs <-chan int, results chan<- int) {
 
 // Create worker pool
 for w := 1; w <= 3; w++ {
+    go worker(w, jobs, results)
+}
+```
+
+### Pipeline
+```go
+func gen(nums ...int) <-chan int {
+    out := make(chan int)
+    go func() {
+        for _, n := range nums {
+            out <- n
+        }
+        close(out)
+    }()
+    return out
+}
+
+func sq(in <-chan int) <-chan int {
+    out := make(chan int)
