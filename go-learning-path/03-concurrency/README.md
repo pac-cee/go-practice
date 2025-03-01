@@ -226,3 +226,22 @@ func fanIn(channels ...<-chan int) <-chan int {
     
     go func() {
         wg.Wait()
+        close(out)
+    }()
+    
+    return out
+}
+```
+
+## Best Practices
+
+### 1. Error Handling
+```go
+// Use error channels for error handling
+type Result struct {
+    Value int
+    Err   error
+}
+
+// Return both result and error
+resultCh := make(chan Result)
