@@ -74,3 +74,22 @@ if !ok {
 }
 
 // Range over channel
+for value := range ch {
+    // Process value
+}
+```
+
+## Select Statement
+
+### Basic Select
+```go
+select {
+case v1 := <-ch1:
+    // Handle value from ch1
+case v2 := <-ch2:
+    // Handle value from ch2
+case ch3 <- x:
+    // Send x to ch3
+default:
+    // Optional default case
+}
