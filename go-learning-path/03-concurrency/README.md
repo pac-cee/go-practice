@@ -283,3 +283,22 @@ func worker(ctx context.Context) {
 type Counter struct {
     value chan int
 }
+
+func NewCounter() *Counter {
+    c := &Counter{value: make(chan int)}
+    go c.run()
+    return c
+}
+```
+
+### Exercise 2: Rate Limiter
+```go
+// Implement a rate limiter using time.Ticker
+func RateLimiter(requests <-chan int, limit time.Duration) <-chan int {
+    // Implementation
+}
+```
+
+### Exercise 3: Parallel Processing
+```go
+// Process items in parallel with limited concurrency
