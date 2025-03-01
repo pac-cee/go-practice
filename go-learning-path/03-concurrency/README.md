@@ -55,3 +55,22 @@ value := <-ch  // Receive value
    - Asynchronous up to buffer size
    - Sender blocks only when buffer is full
    - Receiver blocks only when buffer is empty
+
+3. **Directional Channels**
+```go
+chan<- int   // Send-only channel
+<-chan int   // Receive-only channel
+```
+
+### Channel Operations
+```go
+// Close channel
+close(ch)
+
+// Check if channel is closed
+value, ok := <-ch
+if !ok {
+    // Channel is closed
+}
+
+// Range over channel
