@@ -245,3 +245,22 @@ type Result struct {
 
 // Return both result and error
 resultCh := make(chan Result)
+go func() {
+    value, err := riskyOperation()
+    resultCh <- Result{value, err}
+}()
+```
+
+### 2. Context Usage
+```go
+func worker(ctx context.Context) {
+    for {
+        select {
+        case <-ctx.Done():
+            return
+        default:
+            // Do work
+        }
+    }
+}
+```
