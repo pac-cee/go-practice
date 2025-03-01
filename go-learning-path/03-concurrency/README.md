@@ -264,3 +264,22 @@ func worker(ctx context.Context) {
     }
 }
 ```
+
+### 3. Channel Sizing
+- Use unbuffered channels for synchronization
+- Use buffered channels when you know the exact capacity needed
+- Avoid using channels just for synchronization when sync.WaitGroup is more appropriate
+
+### 4. Goroutine Lifecycle
+- Always ensure goroutines can exit
+- Use context for cancellation
+- Clean up resources properly
+
+## Exercises
+
+### Exercise 1: Concurrent Counter
+```go
+// Implement a thread-safe counter using channels
+type Counter struct {
+    value chan int
+}
