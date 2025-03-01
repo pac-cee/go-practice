@@ -93,3 +93,22 @@ case ch3 <- x:
 default:
     // Optional default case
 }
+```
+
+### Common Patterns
+1. **Timeout**
+```go
+select {
+case res := <-ch:
+    // Handle result
+case <-time.After(1 * time.Second):
+    // Handle timeout
+}
+```
+
+2. **Non-blocking Operations**
+```go
+select {
+case ch <- x:
+    // Sent successfully
+default:
