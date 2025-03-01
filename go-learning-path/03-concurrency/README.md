@@ -150,3 +150,22 @@ wg.Wait()     // Wait for all to finish
 ```
 
 ### Once
+```go
+var once sync.Once
+once.Do(func() {
+    // Execute only once
+})
+```
+
+## Concurrency Patterns
+
+### Worker Pool
+```go
+func worker(id int, jobs <-chan int, results chan<- int) {
+    for j := range jobs {
+        results <- process(j)
+    }
+}
+
+// Create worker pool
+for w := 1; w <= 3; w++ {
