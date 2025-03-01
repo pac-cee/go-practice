@@ -302,3 +302,22 @@ func RateLimiter(requests <-chan int, limit time.Duration) <-chan int {
 ### Exercise 3: Parallel Processing
 ```go
 // Process items in parallel with limited concurrency
+func ProcessParallel(items []int, concurrency int) []Result {
+    // Implementation
+}
+```
+
+## Common Pitfalls
+
+### 1. Race Conditions
+- Always use proper synchronization
+- Run tests with -race flag
+- Use sync package appropriately
+
+### 2. Goroutine Leaks
+- Ensure proper cleanup
+- Use context for cancellation
+- Close channels when done
+
+### 3. Deadlocks
+- Avoid circular dependencies
