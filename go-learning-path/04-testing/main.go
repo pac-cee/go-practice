@@ -93,3 +93,22 @@ func (sp *StringProcessor) Reverse(s string) string {
 		runes[i], runes[j] = runes[j], runes[i]
 	}
 	result := string(runes)
+
+	// Cache the result
+	sp.mu.Lock()
+	sp.cache[s] = result
+	sp.mu.Unlock()
+
+	return result
+}
+
+// IsPalindrome checks if a string is a palindrome
+func (sp *StringProcessor) IsPalindrome(s string) bool {
+	s = strings.ToLower(strings.ReplaceAll(s, " ", ""))
+	return s == sp.Reverse(s)
+}
+
+// Counter represents a thread-safe counter
+type Counter struct {
+	value int64
+	mu    sync.Mutex
