@@ -226,3 +226,18 @@ func main() {
 		}()
 	}
 	wg.Wait()
+	fmt.Printf("Counter value: %d\n", counter.GetValue())
+
+	// Example usage of DataProcessor
+	dp := NewDataProcessor(5)
+	dp.Process(10)
+	fmt.Printf("Data sum: %d\n", dp.GetSum())
+
+	// Example of Fibonacci
+	n := 10
+	fmt.Printf("Fibonacci(%d) = %d\n", n, Fibonacci(n))
+
+	// Example of string concatenation
+	strs := []string{"Hello", ", ", "World", "!"}
+	fmt.Printf("Concatenated string: %s\n", ConcatStrings(strs, "builder"))
+}
