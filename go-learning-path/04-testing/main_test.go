@@ -131,3 +131,22 @@ func TestCounter(t *testing.T) {
 func TestDataProcessor(t *testing.T) {
 	t.Run("basic processing", func(t *testing.T) {
 		dp := NewDataProcessor(5)
+		if err := dp.Process(10); err != nil {
+			t.Errorf("Process(10) returned error: %v", err)
+		}
+
+		want := 50 // 5 elements * 10
+		if got := dp.GetSum(); got != want {
+			t.Errorf("GetSum() = %d; want %d", got, want)
+		}
+	})
+
+	t.Run("negative value", func(t *testing.T) {
+		dp := NewDataProcessor(5)
+		if err := dp.Process(-1); err == nil {
+			t.Error("Process(-1) should return error")
+		}
+	})
+
+	t.Run("concurrent processing", func(t *testing.T) {
+		dp := NewDataProcessor(100)
