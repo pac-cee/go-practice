@@ -207,3 +207,22 @@ func main() {
 	calc := &Calculator{}
 	calc.Add(5)
 	calc.Multiply(2)
+	result, _ := calc.Divide(2)
+	fmt.Printf("Calculator result: %.2f\n", result)
+
+	// Example usage of StringProcessor
+	sp := NewStringProcessor()
+	text := "A man a plan a canal Panama"
+	fmt.Printf("'%s' is palindrome: %v\n", text, sp.IsPalindrome(text))
+
+	// Example usage of Counter
+	counter := &Counter{}
+	var wg sync.WaitGroup
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			counter.Increment()
+		}()
+	}
+	wg.Wait()
