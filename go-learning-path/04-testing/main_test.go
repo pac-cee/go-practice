@@ -74,3 +74,22 @@ func TestStringProcessor(t *testing.T) {
 	}
 
 	sp := NewStringProcessor()
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := sp.Reverse(tt.input); got != tt.want {
+				t.Errorf("Reverse(%q) = %q; want %q", tt.input, got, tt.want)
+			}
+		})
+	}
+
+	t.Run("palindrome check", func(t *testing.T) {
+		palindromes := []struct {
+			input string
+			want  bool
+		}{
+			{"", true},
+			{"a", true},
+			{"race a car", false},
+			{"A man a plan a canal Panama", true},
+			{"Was it a car or a cat I saw", true},
+		}
