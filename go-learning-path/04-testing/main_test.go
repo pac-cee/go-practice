@@ -93,3 +93,22 @@ func TestStringProcessor(t *testing.T) {
 			{"A man a plan a canal Panama", true},
 			{"Was it a car or a cat I saw", true},
 		}
+
+		for _, tt := range palindromes {
+			t.Run(tt.input, func(t *testing.T) {
+				if got := sp.IsPalindrome(tt.input); got != tt.want {
+					t.Errorf("IsPalindrome(%q) = %v; want %v", tt.input, got, tt.want)
+				}
+			})
+		}
+	})
+}
+
+// TestCounter tests the Counter type
+func TestCounter(t *testing.T) {
+	t.Run("concurrent increments", func(t *testing.T) {
+		counter := &Counter{}
+		var wg sync.WaitGroup
+		n := 1000
+
+		// Launch n goroutines to increment
