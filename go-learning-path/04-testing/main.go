@@ -169,3 +169,22 @@ func (dp *DataProcessor) GetSum() int {
 	for _, v := range dp.data {
 		sum += v
 	}
+	return sum
+}
+
+// Fibonacci calculates the nth Fibonacci number
+func Fibonacci(n int) int {
+	if n <= 1 {
+		return n
+	}
+	return Fibonacci(n-1) + Fibonacci(n-2)
+}
+
+// ConcatStrings concatenates strings in different ways
+func ConcatStrings(strs []string, method string) string {
+	switch method {
+	case "plus":
+		result := ""
+		for _, s := range strs {
+			result += s
+		}
