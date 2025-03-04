@@ -112,3 +112,22 @@ func (sp *StringProcessor) IsPalindrome(s string) bool {
 type Counter struct {
 	value int64
 	mu    sync.Mutex
+}
+
+// Increment increases the counter by one
+func (c *Counter) Increment() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.value++
+}
+
+// GetValue returns the current counter value
+func (c *Counter) GetValue() int64 {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.value
+}
+
+// DataProcessor handles data processing operations
+type DataProcessor struct {
+	data []int
