@@ -74,3 +74,22 @@ type StringProcessor struct {
 func NewStringProcessor() *StringProcessor {
 	return &StringProcessor{
 		cache: make(map[string]string),
+	}
+}
+
+// Reverse reverses a string
+func (sp *StringProcessor) Reverse(s string) string {
+	// Check cache first
+	sp.mu.RLock()
+	if cached, ok := sp.cache[s]; ok {
+		sp.mu.RUnlock()
+		return cached
+	}
+	sp.mu.RUnlock()
+
+	// Process if not in cache
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	result := string(runes)
