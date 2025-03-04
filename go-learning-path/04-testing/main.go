@@ -150,3 +150,22 @@ func (dp *DataProcessor) Process(value int) error {
 		return errors.New("negative values not allowed")
 	}
 
+	// Simulate processing time
+	time.Sleep(time.Millisecond * time.Duration(value%10))
+
+	for i := range dp.data {
+		dp.data[i] = value
+	}
+
+	return nil
+}
+
+// GetSum returns the sum of all processed data
+func (dp *DataProcessor) GetSum() int {
+	dp.mu.RLock()
+	defer dp.mu.RUnlock()
+
+	sum := 0
+	for _, v := range dp.data {
+		sum += v
+	}
