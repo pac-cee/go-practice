@@ -55,3 +55,22 @@ func (c *Calculator) GetMemory() float64 {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.memory
+}
+
+// Clear resets the memory to zero
+func (c *Calculator) Clear() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.memory = 0
+}
+
+// StringProcessor provides string manipulation operations
+type StringProcessor struct {
+	cache map[string]string
+	mu    sync.RWMutex
+}
+
+// NewStringProcessor creates a new StringProcessor
+func NewStringProcessor() *StringProcessor {
+	return &StringProcessor{
+		cache: make(map[string]string),
