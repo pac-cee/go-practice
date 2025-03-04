@@ -17,3 +17,22 @@ func TestCalculator(t *testing.T) {
 		}
 
 		// Test Subtract
+		if got := calc.Subtract(3); got != 2 {
+			t.Errorf("Subtract(3) = %.2f; want 2", got)
+		}
+
+		// Test Multiply
+		if got := calc.Multiply(4); got != 8 {
+			t.Errorf("Multiply(4) = %.2f; want 8", got)
+		}
+
+		// Test Divide
+		if got, err := calc.Divide(2); err != nil || got != 4 {
+			t.Errorf("Divide(2) = %.2f, %v; want 4, nil", got, err)
+		}
+	})
+
+	t.Run("division by zero", func(t *testing.T) {
+		calc := &Calculator{}
+		calc.Add(10)
+		if _, err := calc.Divide(0); err == nil {
