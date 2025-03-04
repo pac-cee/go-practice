@@ -112,3 +112,22 @@ func TestCounter(t *testing.T) {
 		n := 1000
 
 		// Launch n goroutines to increment
+		for i := 0; i < n; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				counter.Increment()
+			}()
+		}
+		wg.Wait()
+
+		if got := counter.GetValue(); got != int64(n) {
+			t.Errorf("After %d increments, counter = %d; want %d", n, got, n)
+		}
+	})
+}
+
+// TestDataProcessor tests the DataProcessor type
+func TestDataProcessor(t *testing.T) {
+	t.Run("basic processing", func(t *testing.T) {
+		dp := NewDataProcessor(5)
