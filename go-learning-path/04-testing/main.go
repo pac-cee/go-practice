@@ -188,3 +188,22 @@ func ConcatStrings(strs []string, method string) string {
 		for _, s := range strs {
 			result += s
 		}
+		return result
+
+	case "builder":
+		var builder strings.Builder
+		for _, s := range strs {
+			builder.WriteString(s)
+		}
+		return builder.String()
+
+	default:
+		return strings.Join(strs, "")
+	}
+}
+
+func main() {
+	// Example usage of Calculator
+	calc := &Calculator{}
+	calc.Add(5)
+	calc.Multiply(2)
