@@ -131,3 +131,22 @@ func (c *Counter) GetValue() int64 {
 // DataProcessor handles data processing operations
 type DataProcessor struct {
 	data []int
+	mu   sync.RWMutex
+}
+
+// NewDataProcessor creates a new DataProcessor
+func NewDataProcessor(size int) *DataProcessor {
+	return &DataProcessor{
+		data: make([]int, size),
+	}
+}
+
+// Process simulates data processing with artificial delay
+func (dp *DataProcessor) Process(value int) error {
+	dp.mu.Lock()
+	defer dp.mu.Unlock()
+
+	if value < 0 {
+		return errors.New("negative values not allowed")
+	}
+
