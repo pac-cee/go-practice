@@ -36,3 +36,22 @@ func TestCalculator(t *testing.T) {
 		calc := &Calculator{}
 		calc.Add(10)
 		if _, err := calc.Divide(0); err == nil {
+			t.Error("Divide(0) should return error")
+		}
+	})
+
+	t.Run("concurrent operations", func(t *testing.T) {
+		calc := &Calculator{}
+		var wg sync.WaitGroup
+		n := 100
+
+		for i := 0; i < n; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				calc.Add(1)
+			}()
+		}
+		wg.Wait()
+
+		if got := calc.GetMemory(); got != float64(n) {
