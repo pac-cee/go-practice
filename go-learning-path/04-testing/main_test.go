@@ -55,3 +55,22 @@ func TestCalculator(t *testing.T) {
 		wg.Wait()
 
 		if got := calc.GetMemory(); got != float64(n) {
+			t.Errorf("After %d concurrent adds, memory = %.2f; want %d", n, got, n)
+		}
+	})
+}
+
+// TestStringProcessor tests the StringProcessor type
+func TestStringProcessor(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+		want  string
+	}{
+		{"empty string", "", ""},
+		{"single character", "a", "a"},
+		{"simple string", "hello", "olleh"},
+		{"unicode string", "世界", "界世"},
+	}
+
+	sp := NewStringProcessor()
