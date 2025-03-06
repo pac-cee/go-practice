@@ -150,3 +150,22 @@ func TestDataProcessor(t *testing.T) {
 
 	t.Run("concurrent processing", func(t *testing.T) {
 		dp := NewDataProcessor(100)
+		var wg sync.WaitGroup
+		n := 10
+
+		for i := 0; i < n; i++ {
+			wg.Add(1)
+			go func(val int) {
+				defer wg.Done()
+				dp.Process(val)
+			}(i)
+		}
+		wg.Wait()
+
+		// Just verify no race conditions occurred
+		dp.GetSum()
+	})
+}
+
+// TestFibonacci tests the Fibonacci function
+func TestFibonacci(t *testing.T) {
