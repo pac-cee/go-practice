@@ -245,3 +245,22 @@ func BenchmarkStringProcessor(b *testing.B) {
 func BenchmarkCounter(b *testing.B) {
 	counter := &Counter{}
 	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			counter.Increment()
+		}
+	})
+}
+
+func BenchmarkFibonacci(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Fibonacci(10)
+	}
+}
+
+func BenchmarkConcatStrings(b *testing.B) {
+	strs := []string{"Hello", ", ", "World", "!"}
+
+	b.Run("plus", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ConcatStrings(strs, "plus")
+		}
