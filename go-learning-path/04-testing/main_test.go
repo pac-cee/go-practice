@@ -226,3 +226,22 @@ func BenchmarkCalculator(b *testing.B) {
 }
 
 func BenchmarkStringProcessor(b *testing.B) {
+	sp := NewStringProcessor()
+	input := "Hello, World!"
+
+	b.Run("Reverse", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sp.Reverse(input)
+		}
+	})
+
+	b.Run("IsPalindrome", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			sp.IsPalindrome(input)
+		}
+	})
+}
+
+func BenchmarkCounter(b *testing.B) {
+	counter := &Counter{}
+	b.RunParallel(func(pb *testing.PB) {
