@@ -207,3 +207,22 @@ func TestConcatStrings(t *testing.T) {
 	}
 }
 
+// Benchmark tests
+func BenchmarkCalculator(b *testing.B) {
+	calc := &Calculator{}
+	b.Run("Add", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			calc.Add(1)
+		}
+	})
+
+	b.Run("AddConcurrent", func(b *testing.B) {
+		b.RunParallel(func(pb *testing.PB) {
+			for pb.Next() {
+				calc.Add(1)
+			}
+		})
+	})
+}
+
+func BenchmarkStringProcessor(b *testing.B) {
