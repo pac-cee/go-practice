@@ -188,3 +188,22 @@ func TestFibonacci(t *testing.T) {
 			if got := Fibonacci(tt.n); got != tt.want {
 				t.Errorf("Fibonacci(%d) = %d; want %d", tt.n, got, tt.want)
 			}
+		})
+	}
+}
+
+// TestConcatStrings tests string concatenation methods
+func TestConcatStrings(t *testing.T) {
+	strs := []string{"Hello", ", ", "World", "!"}
+	want := "Hello, World!"
+
+	methods := []string{"plus", "builder", "join"}
+	for _, method := range methods {
+		t.Run(method, func(t *testing.T) {
+			if got := ConcatStrings(strs, method); got != want {
+				t.Errorf("ConcatStrings(strs, %q) = %q; want %q", method, got, want)
+			}
+		})
+	}
+}
+
