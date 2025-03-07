@@ -17,3 +17,22 @@
 package mypackage_test  // Use separate package for black-box testing
 
 import (
+    "testing"
+    "github.com/your/package"
+)
+
+func TestMyFunction(t *testing.T) {
+    // Test implementation
+}
+```
+
+### Basic Test Function
+```go
+func TestAdd(t *testing.T) {
+    got := Add(2, 3)
+    want := 5
+    if got != want {
+        t.Errorf("Add(2, 3) = %d; want %d", got, want)
+    }
+}
+```
