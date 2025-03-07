@@ -264,3 +264,17 @@ func BenchmarkConcatStrings(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			ConcatStrings(strs, "plus")
 		}
+	})
+
+	b.Run("builder", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ConcatStrings(strs, "builder")
+		}
+	})
+
+	b.Run("join", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			ConcatStrings(strs, "join")
+		}
+	})
+}
