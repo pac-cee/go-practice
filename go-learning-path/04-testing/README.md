@@ -112,3 +112,22 @@ func TestDivide(t *testing.T) {
             }
             if !tt.wantErr && got != tt.want {
                 t.Errorf("Divide(%d, %d) = %d; want %d",
+                    tt.x, tt.y, got, tt.want)
+            }
+        })
+    }
+}
+```
+
+## Benchmarking
+
+### Basic Benchmark
+```go
+func BenchmarkFibonacci(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Fibonacci(10)
+    }
+}
+```
+
+### Benchmark with Setup
