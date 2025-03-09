@@ -93,3 +93,22 @@ func TestAdd(t *testing.T) {
 ```go
 func TestDivide(t *testing.T) {
     tests := []struct {
+        name    string
+        x, y    int
+        want    int
+        wantErr bool
+    }{
+        {"valid", 6, 2, 3, false},
+        {"zero divisor", 6, 0, 0, true},
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got, err := Divide(tt.x, tt.y)
+            if (err != nil) != tt.wantErr {
+                t.Errorf("Divide(%d, %d) error = %v; wantErr %v",
+                    tt.x, tt.y, err, tt.wantErr)
+                return
+            }
+            if !tt.wantErr && got != tt.want {
+                t.Errorf("Divide(%d, %d) = %d; want %d",
