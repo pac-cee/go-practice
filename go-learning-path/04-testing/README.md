@@ -131,3 +131,22 @@ func BenchmarkFibonacci(b *testing.B) {
 ```
 
 ### Benchmark with Setup
+```go
+func BenchmarkComplexOperation(b *testing.B) {
+    // Setup code here
+    data := makeTestData()
+    
+    b.ResetTimer()  // Reset timer after setup
+    for i := 0; i < b.N; i++ {
+        ComplexOperation(data)
+    }
+}
+```
+
+### Parallel Benchmark
+```go
+func BenchmarkParallel(b *testing.B) {
+    b.RunParallel(func(pb *testing.PB) {
+        for pb.Next() {
+            // Code to benchmark
+        }
