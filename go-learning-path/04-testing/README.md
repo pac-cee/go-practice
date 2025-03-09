@@ -36,3 +36,22 @@ func TestAdd(t *testing.T) {
     }
 }
 ```
+
+### Test Helper Functions
+```go
+func TestComplex(t *testing.T) {
+    t.Helper()  // Marks this as a helper function
+    // Helper implementation
+}
+```
+
+### Subtests
+```go
+func TestMath(t *testing.T) {
+    t.Run("addition", func(t *testing.T) {
+        if got := Add(2, 3); got != 5 {
+            t.Errorf("Add(2, 3) = %d; want 5", got)
+        }
+    })
+
+    t.Run("multiplication", func(t *testing.T) {
