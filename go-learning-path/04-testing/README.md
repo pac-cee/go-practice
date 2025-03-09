@@ -74,3 +74,22 @@ func TestAdd(t *testing.T) {
     }{
         {"positive", 2, 3, 5},
         {"negative", -2, -3, -5},
+        {"mixed", -2, 3, 1},
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got := Add(tt.x, tt.y)
+            if got != tt.want {
+                t.Errorf("Add(%d, %d) = %d; want %d",
+                    tt.x, tt.y, got, tt.want)
+            }
+        })
+    }
+}
+```
+
+### Testing Errors
+```go
+func TestDivide(t *testing.T) {
+    tests := []struct {
