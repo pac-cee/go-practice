@@ -188,3 +188,22 @@ func main() {
 # CPU profile
 go test -cpuprofile=cpu.prof -bench .
 
+# Memory profile
+go test -memprofile=mem.prof -bench .
+
+# Block profile
+go test -blockprofile=block.prof -bench .
+```
+
+## Race Detection
+
+### Running Tests with Race Detector
+```bash
+go test -race ./...
+```
+
+### Common Race Conditions
+```go
+// Data race
+var counter int
+go func() { counter++ }()
