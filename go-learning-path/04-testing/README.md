@@ -150,3 +150,22 @@ func BenchmarkParallel(b *testing.B) {
         for pb.Next() {
             // Code to benchmark
         }
+    })
+}
+```
+
+## Profiling
+
+### CPU Profiling
+```go
+import "runtime/pprof"
+
+func main() {
+    f, _ := os.Create("cpu.prof")
+    pprof.StartCPUProfile(f)
+    defer pprof.StopCPUProfile()
+    
+    // Your program here
+}
+```
+
