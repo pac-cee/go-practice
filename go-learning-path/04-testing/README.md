@@ -55,3 +55,22 @@ func TestMath(t *testing.T) {
     })
 
     t.Run("multiplication", func(t *testing.T) {
+        if got := Multiply(2, 3); got != 6 {
+            t.Errorf("Multiply(2, 3) = %d; want 6", got)
+        }
+    })
+}
+```
+
+## Table-Driven Tests
+
+### Basic Structure
+```go
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name string
+        x, y int
+        want int
+    }{
+        {"positive", 2, 3, 5},
+        {"negative", -2, -3, -5},
