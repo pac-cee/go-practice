@@ -169,3 +169,22 @@ func main() {
 }
 ```
 
+### Memory Profiling
+```go
+import "runtime/pprof"
+
+func main() {
+    f, _ := os.Create("mem.prof")
+    defer f.Close()
+    
+    // Your program here
+    
+    pprof.WriteHeapProfile(f)
+}
+```
+
+### Using go test for Profiling
+```bash
+# CPU profile
+go test -cpuprofile=cpu.prof -bench .
+
