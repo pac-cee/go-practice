@@ -207,3 +207,22 @@ go test -race ./...
 // Data race
 var counter int
 go func() { counter++ }()
+go func() { counter++ }()
+
+// Fix with mutex
+var mu sync.Mutex
+var counter int
+go func() {
+    mu.Lock()
+    counter++
+    mu.Unlock()
+}()
+```
+
+## Debugging
+
+### Using Delve Debugger
+```bash
+# Install Delve
+go install github.com/go-delve/delve/cmd/dlv@latest
+
