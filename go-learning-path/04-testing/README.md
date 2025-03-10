@@ -321,3 +321,22 @@ func (c *Calculator) Add(x float64) float64 {
 // Optimize and benchmark string operations
 func ConcatStrings(n int) string {
     // Implementation
+}
+
+// Write benchmarks comparing:
+// - String concatenation
+// - StringBuilder
+// - bytes.Buffer
+```
+
+### Exercise 3: Race Detection
+```go
+// Fix race conditions in concurrent counter
+type Counter struct {
+    value int
+}
+
+func (c *Counter) Increment() {
+    c.value++
+}
+
