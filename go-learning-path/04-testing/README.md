@@ -359,3 +359,22 @@ func runTestCases(t *testing.T, fn func(string) (string, error), cases []testCas
         if (err != nil) != tc.wantErr {
             t.Errorf("error = %v, wantErr %v", err, tc.wantErr)
             continue
+        }
+        if got != tc.want {
+            t.Errorf("got %v, want %v", got, tc.want)
+        }
+    }
+}
+```
+
+### 2. Mocking
+```go
+type DataStore interface {
+    Get(key string) (string, error)
+    Set(key, value string) error
+}
+
+type MockDataStore struct {
+    data map[string]string
+}
+
