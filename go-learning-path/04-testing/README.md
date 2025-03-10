@@ -226,3 +226,22 @@ go func() {
 # Install Delve
 go install github.com/go-delve/delve/cmd/dlv@latest
 
+# Start debugging
+dlv debug
+
+# Common commands
+(dlv) break main.go:20
+(dlv) continue
+(dlv) next
+(dlv) step
+(dlv) print varName
+```
+
+### Logging
+```go
+import "log"
+
+func Process() {
+    log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+    log.Printf("Processing started")
+    // ...
