@@ -283,3 +283,22 @@ go tool cover -html=coverage.out
 ```go
 func setupTestCase(t *testing.T) func() {
     // Setup code
+    return func() {
+        // Teardown code
+    }
+}
+
+func TestWithFixture(t *testing.T) {
+    teardown := setupTestCase(t)
+    defer teardown()
+    
+    // Test code
+}
+```
+
+## Exercises
+
+### Exercise 1: Unit Testing
+```go
+// Implement comprehensive tests for a Calculator type
+type Calculator struct {
