@@ -245,3 +245,22 @@ func Process() {
     log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
     log.Printf("Processing started")
     // ...
+    log.Printf("Processing completed")
+}
+```
+
+## Best Practices
+
+### 1. Test Organization
+```go
+// Group related tests
+func TestUserOperations(t *testing.T) {
+    t.Run("group=create", func(t *testing.T) {
+        t.Run("valid user", testCreateValidUser)
+        t.Run("invalid user", testCreateInvalidUser)
+    })
+    
+    t.Run("group=update", func(t *testing.T) {
+        t.Run("valid update", testValidUpdate)
+        t.Run("invalid update", testInvalidUpdate)
+    })
