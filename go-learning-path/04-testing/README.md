@@ -264,3 +264,22 @@ func TestUserOperations(t *testing.T) {
         t.Run("valid update", testValidUpdate)
         t.Run("invalid update", testInvalidUpdate)
     })
+}
+```
+
+### 2. Test Coverage
+```bash
+# Run tests with coverage
+go test -cover
+
+# Generate coverage profile
+go test -coverprofile=coverage.out
+
+# View coverage in browser
+go tool cover -html=coverage.out
+```
+
+### 3. Test Fixtures
+```go
+func setupTestCase(t *testing.T) func() {
+    // Setup code
