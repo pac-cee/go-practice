@@ -340,3 +340,22 @@ func (c *Counter) Increment() {
     c.value++
 }
 
+// Implement thread-safe version and test with -race
+```
+
+## Common Patterns
+
+### 1. Test Setup
+```go
+type testCase struct {
+    input    string
+    want     string
+    wantErr  bool
+}
+
+func runTestCases(t *testing.T, fn func(string) (string, error), cases []testCase) {
+    for _, tc := range cases {
+        got, err := fn(tc.input)
+        if (err != nil) != tc.wantErr {
+            t.Errorf("error = %v, wantErr %v", err, tc.wantErr)
+            continue
