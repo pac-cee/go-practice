@@ -302,3 +302,22 @@ func TestWithFixture(t *testing.T) {
 ```go
 // Implement comprehensive tests for a Calculator type
 type Calculator struct {
+    memory float64
+}
+
+func (c *Calculator) Add(x float64) float64 {
+    c.memory += x
+    return c.memory
+}
+
+// Write tests covering:
+// - Basic operations
+// - Edge cases
+// - Error conditions
+```
+
+### Exercise 2: Benchmark Optimization
+```go
+// Optimize and benchmark string operations
+func ConcatStrings(n int) string {
+    // Implementation
