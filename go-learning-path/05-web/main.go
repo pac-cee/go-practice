@@ -169,3 +169,22 @@ func (s *Server) handleHome(w http.ResponseWriter, r *http.Request) {
 	s.templates.ExecuteTemplate(w, "index.html", data)
 }
 
+func (s *Server) handleChat(w http.ResponseWriter, r *http.Request) {
+	s.templates.ExecuteTemplate(w, "chat.html", nil)
+}
+
+func (s *Server) handleGetTodos(w http.ResponseWriter, r *http.Request) {
+	todos := s.todos.List()
+	json.NewEncoder(w).Encode(todos)
+}
+
+func (s *Server) handleCreateTodo(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		Title string `json:"title"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	todo := s.todos.Create(req.Title)
