@@ -112,3 +112,22 @@ type Message struct {
 
 // NewServer creates a new web server
 func NewServer() *Server {
+	s := &Server{
+		router:  mux.NewRouter(),
+		todos:   NewTodoStore(),
+		clients: make(map[*websocket.Conn]bool),
+		broadcast: make(chan Message),
+		upgrader: websocket.Upgrader{
+			ReadBufferSize:  1024,
+			WriteBufferSize: 1024,
+			CheckOrigin: func(r *http.Request) bool {
+				return true // In production, check origin
+			},
+		},
+	}
+
+	// Parse templates
+	var err error
+	s.templates, err = template.ParseGlob("templates/*.html")
+	if err != nil {
+		log.Fatal(err)
