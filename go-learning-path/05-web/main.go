@@ -150,3 +150,22 @@ func (s *Server) routes() {
 	// API endpoints
 	api := s.router.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/todos", s.handleGetTodos).Methods("GET")
+	api.HandleFunc("/todos", s.handleCreateTodo).Methods("POST")
+	api.HandleFunc("/todos/{id:[0-9]+}", s.handleUpdateTodo).Methods("PUT")
+	api.HandleFunc("/todos/{id:[0-9]+}", s.handleDeleteTodo).Methods("DELETE")
+
+	// WebSocket
+	s.router.HandleFunc("/ws", s.handleWebSocket)
+}
+
+func (s *Server) handleHome(w http.ResponseWriter, r *http.Request) {
+	data := struct {
+		Title string
+		Todos []*Todo
+	}{
+		Title: "Todo App",
+		Todos: s.todos.List(),
+	}
+	s.templates.ExecuteTemplate(w, "index.html", data)
+}
+
