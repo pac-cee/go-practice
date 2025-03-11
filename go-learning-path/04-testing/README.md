@@ -378,3 +378,22 @@ type MockDataStore struct {
     data map[string]string
 }
 
+func (m *MockDataStore) Get(key string) (string, error) {
+    if val, ok := m.data[key]; ok {
+        return val, nil
+    }
+    return "", fmt.Errorf("not found")
+}
+```
+
+### 3. Benchmarking Patterns
+```go
+func BenchmarkWithDifferentSizes(b *testing.B) {
+    sizes := []int{100, 1000, 10000}
+    for _, size := range sizes {
+        b.Run(fmt.Sprintf("size-%d", size), func(b *testing.B) {
+            for i := 0; i < b.N; i++ {
+                ProcessData(size)
+            }
+        })
+    }
