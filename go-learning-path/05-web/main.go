@@ -226,3 +226,22 @@ func (s *Server) handleDeleteTodo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+func (s *Server) handleWebSocket(w http.ResponseWriter, r *http.Request) {
+	conn, err := s.upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	s.clients[conn] = true
+
+	// Handle WebSocket messages
+	go func() {
+		defer func() {
+			conn.Close()
+			delete(s.clients, conn)
+		}()
+
+		for {
+			var msg Message
+			err := conn.ReadJSON(&msg)
