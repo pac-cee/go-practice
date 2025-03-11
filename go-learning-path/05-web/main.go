@@ -17,3 +17,22 @@ import (
 
 // Todo represents a todo item
 type Todo struct {
+	ID        int       `json:"id"`
+	Title     string    `json:"title"`
+	Completed bool      `json:"completed"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+// TodoStore manages todo items
+type TodoStore struct {
+	sync.RWMutex
+	todos map[int]*Todo
+	seq   int
+}
+
+// NewTodoStore creates a new todo store
+func NewTodoStore() *TodoStore {
+	return &TodoStore{
+		todos: make(map[int]*Todo),
+	}
+}
