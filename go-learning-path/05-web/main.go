@@ -264,3 +264,22 @@ func (s *Server) handleMessages() {
 				delete(s.clients, client)
 			}
 		}
+	}
+}
+
+// Start runs the web server
+func (s *Server) Start(port string) error {
+	// Start WebSocket message handler
+	go s.handleMessages()
+
+	// Start HTTP server
+	log.Printf("Server starting on port %s", port)
+	return http.ListenAndServe(port, s.router)
+}
+
+func main() {
+	// Create server
+	server := NewServer()
+
+	// Add some sample todos
+	server.todos.Create("Learn Go")
