@@ -245,3 +245,22 @@ func (s *Server) handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		for {
 			var msg Message
 			err := conn.ReadJSON(&msg)
+			if err != nil {
+				log.Printf("error: %v", err)
+				break
+			}
+			s.broadcast <- msg
+		}
+	}()
+}
+
+func (s *Server) handleMessages() {
+	for msg := range s.broadcast {
+		for client := range s.clients {
+			err := client.WriteJSON(msg)
+			if err != nil {
+				log.Printf("error: %v", err)
+				client.Close()
+				delete(s.clients, client)
+			}
+		}
