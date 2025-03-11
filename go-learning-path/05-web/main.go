@@ -131,3 +131,22 @@ func NewServer() *Server {
 	s.templates, err = template.ParseGlob("templates/*.html")
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	// Setup routes
+	s.routes()
+
+	return s
+}
+
+func (s *Server) routes() {
+	// Static files
+	s.router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	// Web pages
+	s.router.HandleFunc("/", s.handleHome).Methods("GET")
+	s.router.HandleFunc("/chat", s.handleChat).Methods("GET")
+
+	// API endpoints
+	api := s.router.PathPrefix("/api").Subrouter()
+	api.HandleFunc("/todos", s.handleGetTodos).Methods("GET")
