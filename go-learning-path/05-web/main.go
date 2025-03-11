@@ -283,3 +283,17 @@ func main() {
 
 	// Add some sample todos
 	server.todos.Create("Learn Go")
+	server.todos.Create("Build a web app")
+	server.todos.Create("Write tests")
+
+	// Get port from environment or use default
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":8080"
+	} else {
+		port = ":" + port
+	}
+
+	// Start server
+	log.Fatal(server.Start(port))
+}
