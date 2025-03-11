@@ -36,3 +36,22 @@ func NewTodoStore() *TodoStore {
 		todos: make(map[int]*Todo),
 	}
 }
+
+// Create adds a new todo
+func (s *TodoStore) Create(title string) *Todo {
+	s.Lock()
+	defer s.Unlock()
+
+	s.seq++
+	todo := &Todo{
+		ID:        s.seq,
+		Title:     title,
+		CreatedAt: time.Now(),
+	}
+	s.todos[todo.ID] = todo
+	return todo
+}
+
+// Get retrieves a todo by ID
+func (s *TodoStore) Get(id int) (*Todo, bool) {
+	s.RLock()
