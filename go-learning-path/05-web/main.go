@@ -207,3 +207,22 @@ func (s *Server) handleUpdateTodo(w http.ResponseWriter, r *http.Request) {
 
 	if !s.todos.Update(id, req.Completed) {
 		http.NotFound(w, r)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+func (s *Server) handleDeleteTodo(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := 0
+	fmt.Sscanf(vars["id"], "%d", &id)
+
+	if !s.todos.Delete(id) {
+		http.NotFound(w, r)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
