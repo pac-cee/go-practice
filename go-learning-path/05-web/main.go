@@ -74,3 +74,22 @@ func (s *TodoStore) List() []*Todo {
 // Update modifies a todo
 func (s *TodoStore) Update(id int, completed bool) bool {
 	s.Lock()
+	defer s.Unlock()
+	if todo, ok := s.todos[id]; ok {
+		todo.Completed = completed
+		return true
+	}
+	return false
+}
+
+// Delete removes a todo
+func (s *TodoStore) Delete(id int) bool {
+	s.Lock()
+	defer s.Unlock()
+	if _, ok := s.todos[id]; ok {
+		delete(s.todos, id)
+		return true
+	}
+	return false
+}
+
