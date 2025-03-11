@@ -188,3 +188,22 @@ func (s *Server) handleCreateTodo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	todo := s.todos.Create(req.Title)
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(todo)
+}
+
+func (s *Server) handleUpdateTodo(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := 0
+	fmt.Sscanf(vars["id"], "%d", &id)
+
+	var req struct {
+		Completed bool `json:"completed"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if !s.todos.Update(id, req.Completed) {
+		http.NotFound(w, r)
