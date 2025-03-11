@@ -93,3 +93,22 @@ func (s *TodoStore) Delete(id int) bool {
 	return false
 }
 
+// Server represents the web server
+type Server struct {
+	router    *mux.Router
+	todos     *TodoStore
+	templates *template.Template
+	upgrader  websocket.Upgrader
+	clients   map[*websocket.Conn]bool
+	broadcast chan Message
+}
+
+// Message represents a WebSocket message
+type Message struct {
+	Type    string `json:"type"`
+	Content string `json:"content"`
+	User    string `json:"user"`
+}
+
+// NewServer creates a new web server
+func NewServer() *Server {
