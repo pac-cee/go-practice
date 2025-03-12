@@ -36,3 +36,22 @@ func TestTodoStore(t *testing.T) {
 		if todo.Title != "Test todo" {
 			t.Errorf("expected title 'Test todo', got %q", todo.Title)
 		}
+	})
+
+	t.Run("list todos", func(t *testing.T) {
+		store.Create("Another todo")
+		todos := store.List()
+		if len(todos) != 2 {
+			t.Errorf("expected 2 todos, got %d", len(todos))
+		}
+	})
+
+	t.Run("update todo", func(t *testing.T) {
+		success := store.Update(1, true)
+		if !success {
+			t.Error("update should succeed")
+		}
+
+		todo, _ := store.Get(1)
+		if !todo.Completed {
+			t.Error("todo should be completed")
