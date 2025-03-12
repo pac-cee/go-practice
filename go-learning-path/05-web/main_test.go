@@ -74,3 +74,22 @@ func TestTodoStore(t *testing.T) {
 func TestServer(t *testing.T) {
 	server := NewServer()
 	ts := httptest.NewServer(server.router)
+	defer ts.Close()
+
+	client := &http.Client{
+		Timeout: time.Second * 10,
+	}
+
+	t.Run("get todos", func(t *testing.T) {
+		resp, err := client.Get(ts.URL + "/api/todos")
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK {
+			t.Errorf("expected status OK, got %v", resp.Status)
+		}
+
+		var todos []*Todo
+		if err := json.NewDecoder(resp.Body).Decode(&todos); err != nil {
