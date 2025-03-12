@@ -55,3 +55,22 @@ func TestTodoStore(t *testing.T) {
 		todo, _ := store.Get(1)
 		if !todo.Completed {
 			t.Error("todo should be completed")
+		}
+	})
+
+	t.Run("delete todo", func(t *testing.T) {
+		success := store.Delete(1)
+		if !success {
+			t.Error("delete should succeed")
+		}
+
+		_, exists := store.Get(1)
+		if exists {
+			t.Error("todo should not exist after deletion")
+		}
+	})
+}
+
+func TestServer(t *testing.T) {
+	server := NewServer()
+	ts := httptest.NewServer(server.router)
