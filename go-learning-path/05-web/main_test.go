@@ -112,3 +112,22 @@ func TestServer(t *testing.T) {
 		defer resp.Body.Close()
 
 		if resp.StatusCode != http.StatusCreated {
+			t.Errorf("expected status Created, got %v", resp.Status)
+		}
+
+		var created Todo
+		if err := json.NewDecoder(resp.Body).Decode(&created); err != nil {
+			t.Fatal(err)
+		}
+
+		if created.Title != todo.Title {
+			t.Errorf("expected title %q, got %q", todo.Title, created.Title)
+		}
+	})
+
+	t.Run("update todo", func(t *testing.T) {
+		// First create a todo
+		todo := struct {
+			Title string `json:"title"`
+		}{
+			Title: "Update test",
