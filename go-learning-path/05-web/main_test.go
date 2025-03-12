@@ -93,3 +93,22 @@ func TestServer(t *testing.T) {
 
 		var todos []*Todo
 		if err := json.NewDecoder(resp.Body).Decode(&todos); err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("create todo", func(t *testing.T) {
+		todo := struct {
+			Title string `json:"title"`
+		}{
+			Title: "Test todo",
+		}
+
+		body, _ := json.Marshal(todo)
+		resp, err := client.Post(ts.URL+"/api/todos", "application/json", bytes.NewReader(body))
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusCreated {
