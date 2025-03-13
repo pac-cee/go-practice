@@ -131,3 +131,22 @@ func TestServer(t *testing.T) {
 			Title string `json:"title"`
 		}{
 			Title: "Update test",
+		}
+		body, _ := json.Marshal(todo)
+		resp, _ := client.Post(ts.URL+"/api/todos", "application/json", bytes.NewReader(body))
+		var created Todo
+		json.NewDecoder(resp.Body).Decode(&created)
+		resp.Body.Close()
+
+		// Now update it
+		update := struct {
+			Completed bool `json:"completed"`
+		}{
+			Completed: true,
+		}
+		body, _ = json.Marshal(update)
+		req, _ := http.NewRequest(http.MethodPut, ts.URL+"/api/todos/"+string(created.ID), bytes.NewReader(body))
+		resp, err := client.Do(req)
+		if err != nil {
+			t.Fatal(err)
+		}
