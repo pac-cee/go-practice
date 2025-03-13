@@ -169,3 +169,22 @@ func TestServer(t *testing.T) {
 		var created Todo
 		json.NewDecoder(resp.Body).Decode(&created)
 		resp.Body.Close()
+
+		// Now delete it
+		req, _ := http.NewRequest(http.MethodDelete, ts.URL+"/api/todos/"+string(created.ID), nil)
+		resp, err := client.Do(req)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusNoContent {
+			t.Errorf("expected status No Content, got %v", resp.Status)
+		}
+	})
+}
+
+func TestWebSocket(t *testing.T) {
+	server := NewServer()
+	ts := httptest.NewServer(http.HandlerFunc(server.handleWebSocket))
+	defer ts.Close()
