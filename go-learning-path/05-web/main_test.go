@@ -150,3 +150,22 @@ func TestServer(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusNoContent {
+			t.Errorf("expected status No Content, got %v", resp.Status)
+		}
+	})
+
+	t.Run("delete todo", func(t *testing.T) {
+		// First create a todo
+		todo := struct {
+			Title string `json:"title"`
+		}{
+			Title: "Delete test",
+		}
+		body, _ := json.Marshal(todo)
+		resp, _ := client.Post(ts.URL+"/api/todos", "application/json", bytes.NewReader(body))
+		var created Todo
+		json.NewDecoder(resp.Body).Decode(&created)
+		resp.Body.Close()
