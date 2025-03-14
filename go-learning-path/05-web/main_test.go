@@ -283,3 +283,9 @@ func BenchmarkServer(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			resp, err := client.Post(ts.URL+"/api/todos", "application/json", bytes.NewReader(body))
 			if err != nil {
+				b.Fatal(err)
+			}
+			resp.Body.Close()
+		}
+	})
+}
