@@ -188,3 +188,22 @@ func TestWebSocket(t *testing.T) {
 	server := NewServer()
 	ts := httptest.NewServer(http.HandlerFunc(server.handleWebSocket))
 	defer ts.Close()
+
+	// Convert http URL to ws URL
+	wsURL := "ws" + strings.TrimPrefix(ts.URL, "http")
+
+	t.Run("websocket connection", func(t *testing.T) {
+		ws, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer ws.Close()
+
+		// Send a message
+		message := Message{
+			Type:    "message",
+			Content: "Hello, WebSocket!",
+			User:    "Test User",
+		}
+		if err := ws.WriteJSON(message); err != nil {
+			t.Fatal(err)
