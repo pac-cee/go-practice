@@ -17,3 +17,22 @@
 ### Basic HTTP Server
 ```go
 func main() {
+    http.HandleFunc("/", handler)
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
+}
+```
+
+### Server Configuration
+```go
+server := &http.Server{
+    Addr:         ":8080",
+    ReadTimeout:  10 * time.Second,
+    WriteTimeout: 10 * time.Second,
+    IdleTimeout:  120 * time.Second,
+    Handler:      router,
+}
+```
