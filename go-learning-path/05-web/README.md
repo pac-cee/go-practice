@@ -55,3 +55,22 @@ mux.HandleFunc("/api/", apiHandler)
 ```
 
 ### Using Gorilla Mux
+```go
+router := mux.NewRouter()
+
+router.HandleFunc("/users/{id:[0-9]+}", userHandler).Methods("GET")
+router.HandleFunc("/articles/{category}/{id:[0-9]+}", articleHandler).
+    Methods("GET").
+    Schemes("https")
+```
+
+### Route Groups
+```go
+api := router.PathPrefix("/api/v1").Subrouter()
+api.HandleFunc("/users", usersHandler)
+api.HandleFunc("/products", productsHandler)
+```
+
+## Middleware
+
+### Logging Middleware
