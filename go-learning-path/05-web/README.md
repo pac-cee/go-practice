@@ -74,3 +74,22 @@ api.HandleFunc("/products", productsHandler)
 ## Middleware
 
 ### Logging Middleware
+```go
+func loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        next.ServeHTTP(w, r)
+        log.Printf("%s %s %v", r.Method, r.URL.Path, time.Since(start))
+    })
+}
+```
+
+### Authentication Middleware
+```go
+func authMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        token := r.Header.Get("Authorization")
+        if !validateToken(token) {
+            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            return
+        }
