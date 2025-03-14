@@ -264,3 +264,22 @@ func BenchmarkServer(b *testing.B) {
 	b.Run("get todos", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			resp, err := client.Get(ts.URL + "/api/todos")
+			if err != nil {
+				b.Fatal(err)
+			}
+			resp.Body.Close()
+		}
+	})
+
+	b.Run("create todo", func(b *testing.B) {
+		todo := struct {
+			Title string `json:"title"`
+		}{
+			Title: "Benchmark todo",
+		}
+		body, _ := json.Marshal(todo)
+
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			resp, err := client.Post(ts.URL+"/api/todos", "application/json", bytes.NewReader(body))
+			if err != nil {
