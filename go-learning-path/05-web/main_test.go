@@ -226,3 +226,22 @@ func TestWebSocket(t *testing.T) {
 
 func BenchmarkTodoStore(b *testing.B) {
 	store := NewTodoStore()
+
+	b.Run("create", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			store.Create("Benchmark todo")
+		}
+	})
+
+	b.Run("get", func(b *testing.B) {
+		todo := store.Create("Get benchmark")
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			store.Get(todo.ID)
+		}
+	})
+
+	b.Run("list", func(b *testing.B) {
+		for i := 0; i < 100; i++ {
+			store.Create("List benchmark")
+		}
