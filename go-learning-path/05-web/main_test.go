@@ -245,3 +245,22 @@ func BenchmarkTodoStore(b *testing.B) {
 		for i := 0; i < 100; i++ {
 			store.Create("List benchmark")
 		}
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			store.List()
+		}
+	})
+}
+
+func BenchmarkServer(b *testing.B) {
+	server := NewServer()
+	ts := httptest.NewServer(server.router)
+	defer ts.Close()
+
+	client := &http.Client{
+		Timeout: time.Second * 10,
+	}
+
+	b.Run("get todos", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			resp, err := client.Get(ts.URL + "/api/todos")
