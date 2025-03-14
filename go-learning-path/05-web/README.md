@@ -36,3 +36,22 @@ server := &http.Server{
     Handler:      router,
 }
 ```
+
+### HTTPS Support
+```go
+// Generate certificates
+// openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem
+
+log.Fatal(http.ListenAndServeTLS(":443", "cert.pem", "key.pem", nil))
+```
+
+## Routing
+
+### Basic Router
+```go
+mux := http.NewServeMux()
+mux.HandleFunc("/", homeHandler)
+mux.HandleFunc("/api/", apiHandler)
+```
+
+### Using Gorilla Mux
