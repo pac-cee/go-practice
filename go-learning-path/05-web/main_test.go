@@ -207,3 +207,22 @@ func TestWebSocket(t *testing.T) {
 		}
 		if err := ws.WriteJSON(message); err != nil {
 			t.Fatal(err)
+		}
+
+		// Read the message back
+		var received Message
+		if err := ws.ReadJSON(&received); err != nil {
+			t.Fatal(err)
+		}
+
+		if received.Content != message.Content {
+			t.Errorf("expected message %q, got %q", message.Content, received.Content)
+		}
+		if received.User != message.User {
+			t.Errorf("expected user %q, got %q", message.User, received.User)
+		}
+	})
+}
+
+func BenchmarkTodoStore(b *testing.B) {
+	store := NewTodoStore()
