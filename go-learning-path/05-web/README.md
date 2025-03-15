@@ -93,3 +93,22 @@ func authMiddleware(next http.Handler) http.Handler {
             http.Error(w, "Unauthorized", http.StatusUnauthorized)
             return
         }
+        next.ServeHTTP(w, r)
+    })
+}
+```
+
+### Middleware Chain
+```go
+router.Use(loggingMiddleware)
+router.Use(authMiddleware)
+router.Use(corsMiddleware)
+```
+
+## Templates
+
+### Basic Template
+```go
+tmpl := template.Must(template.ParseFiles("layout.html"))
+tmpl.Execute(w, data)
+```
