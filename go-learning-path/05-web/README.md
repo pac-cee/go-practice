@@ -150,3 +150,22 @@ tmpl := template.New("").Funcs(funcMap)
 ### Database Connection
 ```go
 import (
+    "database/sql"
+    _ "github.com/lib/pq"
+)
+
+db, err := sql.Open("postgres", "postgres://user:pass@localhost/dbname?sslmode=disable")
+if err != nil {
+    log.Fatal(err)
+}
+defer db.Close()
+```
+
+### CRUD Operations
+```go
+// Create
+stmt, err := db.Prepare("INSERT INTO users(name, email) VALUES($1, $2)")
+result, err := stmt.Exec("John", "john@example.com")
+
+// Read
+rows, err := db.Query("SELECT * FROM users WHERE active = $1", true)
