@@ -169,3 +169,22 @@ result, err := stmt.Exec("John", "john@example.com")
 
 // Read
 rows, err := db.Query("SELECT * FROM users WHERE active = $1", true)
+for rows.Next() {
+    var user User
+    err := rows.Scan(&user.ID, &user.Name, &user.Email)
+}
+
+// Update
+stmt, err := db.Prepare("UPDATE users SET name = $1 WHERE id = $2")
+result, err := stmt.Exec("Jane", 1)
+
+// Delete
+stmt, err := db.Prepare("DELETE FROM users WHERE id = $1")
+result, err := stmt.Exec(1)
+```
+
+## Authentication
+
+### JWT Authentication
+```go
+func createToken(user *User) (string, error) {
