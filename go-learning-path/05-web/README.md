@@ -131,3 +131,22 @@ tmpl.Execute(w, data)
 <h1>{{.Heading}}</h1>
 <p>{{.Content}}</p>
 {{end}}
+```
+
+### Template Functions
+```go
+funcMap := template.FuncMap{
+    "upper": strings.ToUpper,
+    "formatDate": func(t time.Time) string {
+        return t.Format("2006-01-02")
+    },
+}
+
+tmpl := template.New("").Funcs(funcMap)
+```
+
+## Database Integration
+
+### Database Connection
+```go
+import (
