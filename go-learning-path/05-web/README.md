@@ -188,3 +188,22 @@ result, err := stmt.Exec(1)
 ### JWT Authentication
 ```go
 func createToken(user *User) (string, error) {
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+        "user_id": user.ID,
+        "exp":     time.Now().Add(time.Hour * 24).Unix(),
+    })
+    return token.SignedString([]byte(os.Getenv("JWT_SECRET")))
+}
+
+func validateToken(tokenString string) (*jwt.Token, error) {
+    return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+        if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+            return nil, fmt.Errorf("unexpected signing method")
+        }
+        return []byte(os.Getenv("JWT_SECRET")), nil
+    })
+}
+```
+
+### Session Management
+```go
