@@ -112,3 +112,22 @@ router.Use(corsMiddleware)
 tmpl := template.Must(template.ParseFiles("layout.html"))
 tmpl.Execute(w, data)
 ```
+
+### Template with Layout
+```html
+<!-- layout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.Title}}</title>
+</head>
+<body>
+    {{template "content" .}}
+</body>
+</html>
+
+<!-- content.html -->
+{{define "content"}}
+<h1>{{.Heading}}</h1>
+<p>{{.Content}}</p>
+{{end}}
