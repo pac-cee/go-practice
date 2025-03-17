@@ -359,3 +359,22 @@ type Config struct {
         URL      string `env:"DATABASE_URL" required:"true"`
         MaxConns int    `env:"DATABASE_MAX_CONNS" default:"10"`
     }
+}
+```
+
+## Exercises
+
+### Exercise 1: Basic REST API
+```go
+// Implement a REST API for a todo list
+type Todo struct {
+    ID        int       `json:"id"`
+    Title     string    `json:"title"`
+    Completed bool      `json:"completed"`
+    CreatedAt time.Time `json:"created_at"`
+}
+
+// Implement:
+// - GET /todos
+// - POST /todos
+// - PUT /todos/{id}
