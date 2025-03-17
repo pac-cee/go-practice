@@ -340,3 +340,22 @@ type ErrorResponse struct {
 
 func handleError(w http.ResponseWriter, err error) {
     switch e := err.(type) {
+    case *CustomError:
+        respondJSON(w, e.Status(), e.Error())
+    default:
+        respondJSON(w, http.StatusInternalServerError, "Internal Server Error")
+    }
+}
+```
+
+### 3. Configuration Management
+```go
+type Config struct {
+    Server struct {
+        Port     string `env:"SERVER_PORT" default:"8080"`
+        Host     string `env:"SERVER_HOST" default:"localhost"`
+    }
+    Database struct {
+        URL      string `env:"DATABASE_URL" required:"true"`
+        MaxConns int    `env:"DATABASE_MAX_CONNS" default:"10"`
+    }
