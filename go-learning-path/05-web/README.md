@@ -397,3 +397,20 @@ type Message struct {
 ```
 
 ### Exercise 3: File Upload
+```go
+// Implement file upload with progress
+func uploadHandler(w http.ResponseWriter, r *http.Request) {
+    // Implementation
+}
+
+// Features:
+// - Multiple file upload
+// - Progress tracking
+// - File type validation
+```
+
+## Next Steps
+- Study security best practices
+- Learn about caching strategies
+- Explore microservices architecture
+- Move on to Advanced Topics
