@@ -207,3 +207,22 @@ func validateToken(tokenString string) (*jwt.Token, error) {
 
 ### Session Management
 ```go
+import "github.com/gorilla/sessions"
+
+var store = sessions.NewCookieStore([]byte("secret-key"))
+
+func sessionHandler(w http.ResponseWriter, r *http.Request) {
+    session, _ := store.Get(r, "session-name")
+    session.Values["user_id"] = 123
+    session.Save(r, w)
+}
+```
+
+## RESTful APIs
+
+### API Structure
+```go
+type Server struct {
+    router *mux.Router
+    db     *sql.DB
+}
