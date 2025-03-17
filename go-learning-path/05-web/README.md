@@ -245,3 +245,22 @@ func respondJSON(w http.ResponseWriter, code int, payload interface{}) {
 
 func respondError(w http.ResponseWriter, code int, message string) {
     respondJSON(w, code, map[string]string{"error": message})
+}
+```
+
+### Request Validation
+```go
+type CreateUserRequest struct {
+    Name     string `json:"name" validate:"required"`
+    Email    string `json:"email" validate:"required,email"`
+    Password string `json:"password" validate:"required,min=6"`
+}
+
+func validateRequest(v interface{}) error {
+    validate := validator.New()
+    return validate.Struct(v)
+}
+```
+
+## WebSocket
+
