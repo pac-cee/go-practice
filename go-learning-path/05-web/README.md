@@ -302,3 +302,22 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 const ws = new WebSocket('ws://localhost:8080/ws');
 
 ws.onopen = () => {
+    console.log('Connected');
+    ws.send('Hello Server!');
+};
+
+ws.onmessage = (evt) => {
+    console.log('Received:', evt.data);
+};
+```
+
+## Best Practices
+
+### 1. Project Structure
+```
+├── cmd/
+│   └── server/
+│       └── main.go
+├── internal/
+│   ├── api/
+│   ├── middleware/
