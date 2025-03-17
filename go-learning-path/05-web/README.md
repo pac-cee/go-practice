@@ -226,3 +226,22 @@ type Server struct {
     router *mux.Router
     db     *sql.DB
 }
+
+func (s *Server) handleGetUser(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    id := vars["id"]
+    // Handle request
+}
+```
+
+### JSON Response
+```go
+func respondJSON(w http.ResponseWriter, code int, payload interface{}) {
+    response, _ := json.Marshal(payload)
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(code)
+    w.Write(response)
+}
+
+func respondError(w http.ResponseWriter, code int, message string) {
+    respondJSON(w, code, map[string]string{"error": message})
