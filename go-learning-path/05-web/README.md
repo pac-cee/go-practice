@@ -283,3 +283,22 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
     defer conn.Close()
+
+    for {
+        messageType, p, err := conn.ReadMessage()
+        if err != nil {
+            return
+        }
+        err = conn.WriteMessage(messageType, p)
+        if err != nil {
+            return
+        }
+    }
+}
+```
+
+### WebSocket Client
+```javascript
+const ws = new WebSocket('ws://localhost:8080/ws');
+
+ws.onopen = () => {
