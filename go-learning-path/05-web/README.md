@@ -321,3 +321,22 @@ ws.onmessage = (evt) => {
 ├── internal/
 │   ├── api/
 │   ├── middleware/
+│   ├── models/
+│   └── service/
+├── pkg/
+│   ├── database/
+│   └── logger/
+└── web/
+    ├── templates/
+    └── static/
+```
+
+### 2. Error Handling
+```go
+type ErrorResponse struct {
+    Code    int    `json:"code"`
+    Message string `json:"message"`
+}
+
+func handleError(w http.ResponseWriter, err error) {
+    switch e := err.(type) {
