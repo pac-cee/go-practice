@@ -378,3 +378,22 @@ type Todo struct {
 // - GET /todos
 // - POST /todos
 // - PUT /todos/{id}
+// - DELETE /todos/{id}
+```
+
+### Exercise 2: Chat Application
+```go
+// Implement a real-time chat using WebSocket
+type Message struct {
+    Type    string `json:"type"`
+    Content string `json:"content"`
+    User    string `json:"user"`
+}
+
+// Features:
+// - User authentication
+// - Real-time messaging
+// - Online user list
+```
+
+### Exercise 3: File Upload
