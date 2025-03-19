@@ -36,3 +36,22 @@ func setupTestDB(t *testing.T) (*sql.DB, func()) {
 	}
 }
 
+func TestBlogStore(t *testing.T) {
+	db, cleanup := setupTestDB(t)
+	defer cleanup()
+
+	store := NewBlogStore(db)
+	ctx := context.Background()
+
+	t.Run("create and get post", func(t *testing.T) {
+		post := &Post{
+			Title:   "Test Post",
+			Content: "Test Content",
+		}
+
+		// Create post
+		err := store.CreatePost(ctx, post)
+		if err != nil {
+			t.Fatalf("Failed to create post: %v", err)
+		}
+		if post.ID == 0 {
