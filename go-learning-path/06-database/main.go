@@ -74,3 +74,22 @@ func (s *BlogStore) GetPost(ctx context.Context, id int) (*Post, error) {
 		&post.Title,
 		&post.Content,
 		&post.CreatedAt,
+		&post.UpdatedAt,
+	)
+	if err == sql.ErrNoRows {
+		return nil, fmt.Errorf("post not found: %d", id)
+	}
+	return post, err
+}
+
+// UpdatePost updates an existing post
+func (s *BlogStore) UpdatePost(ctx context.Context, post *Post) error {
+	query := `
+		UPDATE posts
+		SET title = $1, content = $2, updated_at = $3
+		WHERE id = $4`
+
+	post.UpdatedAt = time.Now()
+	result, err := s.db.ExecContext(
+		ctx, query,
+		post.Title,
