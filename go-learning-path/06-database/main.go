@@ -55,3 +55,22 @@ func (s *BlogStore) CreatePost(ctx context.Context, post *Post) error {
 	return s.db.QueryRowContext(
 		ctx, query,
 		post.Title,
+		post.Content,
+		post.CreatedAt,
+		post.UpdatedAt,
+	).Scan(&post.ID)
+}
+
+// GetPost retrieves a post by ID
+func (s *BlogStore) GetPost(ctx context.Context, id int) (*Post, error) {
+	post := &Post{}
+	query := `
+		SELECT id, title, content, created_at, updated_at
+		FROM posts
+		WHERE id = $1`
+
+	err := s.db.QueryRowContext(ctx, query, id).Scan(
+		&post.ID,
+		&post.Title,
+		&post.Content,
+		&post.CreatedAt,
