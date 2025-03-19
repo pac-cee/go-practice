@@ -359,3 +359,22 @@ func (m *MigrationManager) Migrate() error {
 			version INTEGER PRIMARY KEY,
 			applied_at TIMESTAMP NOT NULL
 		)`)
+	if err != nil {
+		return err
+	}
+
+	currentVersion, err := m.GetCurrentVersion()
+	if err != nil {
+		return err
+	}
+
+	for _, migration := range m.migrations {
+		if migration.Version > currentVersion {
+			tx, err := m.db.Begin()
+			if err != nil {
+				return err
+			}
+
+			log.Printf("Applying migration %d: %s", migration.Version, migration.Description)
+
+			_, err = tx.Exec(migration.UpSQL)
