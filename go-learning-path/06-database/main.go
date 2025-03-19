@@ -473,3 +473,22 @@ func main() {
 	post := &Post{
 		Title:   "Hello, Database!",
 		Content: "This is a test post demonstrating database operations in Go.",
+	}
+	if err := store.CreatePost(ctx, post); err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Created post: %d", post.ID)
+
+	// Add a comment
+	comment := &Comment{
+		PostID:  post.ID,
+		Content: "Great post about database operations!",
+	}
+	if err := store.AddComment(ctx, comment); err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Added comment: %d", comment.ID)
+
+	// Get post with comments
+	retrievedPost, err := store.GetPost(ctx, post.ID)
+	if err != nil {
