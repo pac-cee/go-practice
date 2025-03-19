@@ -36,3 +36,22 @@ type BlogStore struct {
 	db *sql.DB
 }
 
+// NewBlogStore creates a new BlogStore
+func NewBlogStore(db *sql.DB) *BlogStore {
+	return &BlogStore{db: db}
+}
+
+// CreatePost creates a new blog post
+func (s *BlogStore) CreatePost(ctx context.Context, post *Post) error {
+	query := `
+		INSERT INTO posts (title, content, created_at, updated_at)
+		VALUES ($1, $2, $3, $4)
+		RETURNING id`
+
+	now := time.Now()
+	post.CreatedAt = now
+	post.UpdatedAt = now
+
+	return s.db.QueryRowContext(
+		ctx, query,
+		post.Title,
