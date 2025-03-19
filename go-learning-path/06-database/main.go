@@ -245,3 +245,22 @@ func (p *DBPool) GetConnection(ctx context.Context) (*sql.Conn, error) {
 	conn, err := p.db.Conn(ctx)
 	if err != nil {
 		p.mu.Lock()
+		p.activeConns--
+		p.mu.Unlock()
+		return nil, err
+	}
+
+	return conn, nil
+}
+
+// ReleaseConnection releases a connection back to the pool
+func (p *DBPool) ReleaseConnection(conn *sql.Conn) error {
+	p.mu.Lock()
+	p.activeConns--
+	p.mu.Unlock()
+
+	return conn.Close()
+}
+
+// GetMetrics returns current pool metrics
+func (p *DBPool) GetMetrics() *Metrics {
