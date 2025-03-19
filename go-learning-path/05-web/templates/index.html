@@ -112,3 +112,21 @@
                     }
                 }
             });
+
+            function createTodoElement(todo) {
+                const li = document.createElement('li');
+                li.className = 'flex items-center gap-4 p-3 bg-gray-50 rounded-lg';
+                li.dataset.id = todo.id;
+                li.innerHTML = `
+                    <input type="checkbox" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                    <span class="flex-1">${todo.title}</span>
+                    <button class="delete-btn px-3 py-1 text-red-600 hover:text-red-800 focus:outline-none">
+                        Delete
+                    </button>
+                `;
+                return li;
+            }
+        });
+    </script>
+</body>
+</html>
