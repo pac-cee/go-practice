@@ -207,3 +207,22 @@ type Metrics struct {
 	WaitCount    int64
 	WaitDuration time.Duration
 	MaxIdleTime  time.Duration
+}
+
+// NewDBPool creates a new database connection pool
+func NewDBPool(dsn string, maxConns int) (*DBPool, error) {
+	db, err := sql.Open("postgres", dsn)
+	if err != nil {
+		return nil, err
+	}
+
+	db.SetMaxOpenConns(maxConns)
+	db.SetMaxIdleConns(maxConns)
+	db.SetConnMaxLifetime(5 * time.Minute)
+
+	pool := &DBPool{
+		db:       db,
+		maxConns: maxConns,
+		metrics:  &Metrics{MaxConns: maxConns},
+	}
+
