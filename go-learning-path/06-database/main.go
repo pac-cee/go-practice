@@ -435,3 +435,22 @@ func (m *MigrationManager) Rollback() error {
 		return fmt.Errorf("rollback of migration %d failed: %v", migration.Version, err)
 	}
 
+	_, err = tx.Exec("DELETE FROM schema_migrations WHERE version = $1", migration.Version)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	return tx.Commit()
+}
+
+func main() {
+	// Get database connection string from environment
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		dsn = "postgres://postgres:postgres@localhost:5432/blog?sslmode=disable"
+	}
+
+	// Create connection pool
+	pool, err := NewDBPool(dsn, 10)
+	if err != nil {
