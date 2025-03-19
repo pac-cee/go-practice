@@ -226,3 +226,22 @@ func NewDBPool(dsn string, maxConns int) (*DBPool, error) {
 		metrics:  &Metrics{MaxConns: maxConns},
 	}
 
+	// Start metrics collection
+	go pool.collectMetrics()
+
+	return pool, nil
+}
+
+// GetConnection gets a connection from the pool
+func (p *DBPool) GetConnection(ctx context.Context) (*sql.Conn, error) {
+	p.mu.Lock()
+	if p.activeConns >= p.maxConns {
+		p.mu.Unlock()
+		return nil, errors.New("connection pool exhausted")
+	}
+	p.activeConns++
+	p.mu.Unlock()
+
+	conn, err := p.db.Conn(ctx)
+	if err != nil {
+		p.mu.Lock()
