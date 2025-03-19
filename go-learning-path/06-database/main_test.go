@@ -55,3 +55,22 @@ func TestBlogStore(t *testing.T) {
 			t.Fatalf("Failed to create post: %v", err)
 		}
 		if post.ID == 0 {
+			t.Error("Post ID should not be 0")
+		}
+
+		// Get post
+		retrieved, err := store.GetPost(ctx, post.ID)
+		if err != nil {
+			t.Fatalf("Failed to get post: %v", err)
+		}
+		if retrieved.Title != post.Title {
+			t.Errorf("Expected title %q, got %q", post.Title, retrieved.Title)
+		}
+	})
+
+	t.Run("update post", func(t *testing.T) {
+		post := &Post{
+			Title:   "Original Title",
+			Content: "Original Content",
+		}
+
