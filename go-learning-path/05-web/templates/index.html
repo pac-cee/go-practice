@@ -55,3 +55,22 @@
                 const title = todoInput.value.trim();
                 if (!title) return;
 
+                try {
+                    const response = await fetch('/api/todos', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({title})
+                    });
+
+                    if (response.ok) {
+                        const todo = await response.json();
+                        const li = createTodoElement(todo);
+                        todoList.appendChild(li);
+                        todoInput.value = '';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            // Handle todo actions (complete/delete)
