@@ -112,3 +112,22 @@ func (s *BlogStore) UpdatePost(ctx context.Context, post *Post) error {
 }
 
 // DeletePost deletes a post and its comments
+func (s *BlogStore) DeletePost(ctx context.Context, id int) error {
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	// Delete comments first
+	_, err = tx.ExecContext(ctx, "DELETE FROM comments WHERE post_id = $1", id)
+	if err != nil {
+		return err
+	}
+
+	// Delete the post
+	result, err := tx.ExecContext(ctx, "DELETE FROM posts WHERE id = $1", id)
+	if err != nil {
+		return err
+	}
+
