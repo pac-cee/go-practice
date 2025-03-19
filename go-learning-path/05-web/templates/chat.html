@@ -93,3 +93,12 @@
             const storedUsername = localStorage.getItem('chatUsername');
             if (storedUsername) {
                 usernameInput.value = storedUsername;
+            }
+
+            usernameInput.addEventListener('change', () => {
+                localStorage.setItem('chatUsername', usernameInput.value);
+            });
+        });
+    </script>
+</body>
+</html>
