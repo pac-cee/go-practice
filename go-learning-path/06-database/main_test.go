@@ -17,3 +17,22 @@ func setupTestDB(t *testing.T) (*sql.DB, func()) {
 	}
 
 	db, err := sql.Open("postgres", dsn)
+	if err != nil {
+		t.Fatalf("Failed to connect to test database: %v", err)
+	}
+
+	// Create migration manager and run migrations
+	migrationManager := NewMigrationManager(db)
+	if err := migrationManager.Migrate(); err != nil {
+		t.Fatalf("Failed to run migrations: %v", err)
+	}
+
+	return db, func() {
+		// Clean up database
+		db.Exec("DROP TABLE comments")
+		db.Exec("DROP TABLE posts")
+		db.Exec("DROP TABLE schema_migrations")
+		db.Close()
+	}
+}
+
