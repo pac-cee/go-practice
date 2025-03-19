@@ -397,3 +397,22 @@ func (m *MigrationManager) Migrate() error {
 			if err != nil {
 				return err
 			}
+		}
+	}
+
+	return nil
+}
+
+// Rollback rolls back the last migration
+func (m *MigrationManager) Rollback() error {
+	currentVersion, err := m.GetCurrentVersion()
+	if err != nil {
+		return err
+	}
+
+	if currentVersion == 0 {
+		return errors.New("no migrations to roll back")
+	}
+
+	var migration Migration
+	for i := len(m.migrations) - 1; i >= 0; i-- {
