@@ -492,3 +492,14 @@ func main() {
 	// Get post with comments
 	retrievedPost, err := store.GetPost(ctx, post.ID)
 	if err != nil {
+		log.Fatal(err)
+	}
+
+	comments, err := store.GetPostComments(ctx, post.ID)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf("Retrieved post: %s", retrievedPost.Title)
+	log.Printf("Number of comments: %d", len(comments))
+}
