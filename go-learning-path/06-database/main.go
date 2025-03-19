@@ -188,3 +188,22 @@ func (s *BlogStore) GetPostComments(ctx context.Context, postID int) ([]Comment,
 		comments = append(comments, comment)
 	}
 	return comments, rows.Err()
+}
+
+// DBPool represents a database connection pool with monitoring
+type DBPool struct {
+	db          *sql.DB
+	maxConns    int
+	activeConns int
+	mu          sync.RWMutex
+	metrics     *Metrics
+}
+
+// Metrics stores database pool metrics
+type Metrics struct {
+	MaxConns     int
+	ActiveConns  int
+	IdleConns    int
+	WaitCount    int64
+	WaitDuration time.Duration
+	MaxIdleTime  time.Duration
