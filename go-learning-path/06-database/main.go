@@ -93,3 +93,22 @@ func (s *BlogStore) UpdatePost(ctx context.Context, post *Post) error {
 	result, err := s.db.ExecContext(
 		ctx, query,
 		post.Title,
+		post.Content,
+		post.UpdatedAt,
+		post.ID,
+	)
+	if err != nil {
+		return err
+	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rows == 0 {
+		return fmt.Errorf("post not found: %d", post.ID)
+	}
+	return nil
+}
+
+// DeletePost deletes a post and its comments
