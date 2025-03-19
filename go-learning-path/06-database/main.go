@@ -283,3 +283,22 @@ func (p *DBPool) collectMetrics() {
 	ticker := time.NewTicker(time.Minute)
 	defer ticker.Stop()
 
+	for range ticker.C {
+		metrics := p.GetMetrics()
+		log.Printf("DB Pool Metrics: Active=%d, Idle=%d, Wait=%d",
+			metrics.ActiveConns,
+			metrics.IdleConns,
+			metrics.WaitCount,
+		)
+	}
+}
+
+// Migration represents a database migration
+type Migration struct {
+	Version     int
+	Description string
+	UpSQL       string
+	DownSQL     string
+}
+
+// MigrationManager handles database migrations
