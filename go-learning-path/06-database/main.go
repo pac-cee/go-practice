@@ -169,3 +169,22 @@ func (s *BlogStore) GetPostComments(ctx context.Context, postID int) ([]Comment,
 
 	rows, err := s.db.QueryContext(ctx, query, postID)
 	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var comments []Comment
+	for rows.Next() {
+		var comment Comment
+		err := rows.Scan(
+			&comment.ID,
+			&comment.PostID,
+			&comment.Content,
+			&comment.CreatedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+		comments = append(comments, comment)
+	}
+	return comments, rows.Err()
