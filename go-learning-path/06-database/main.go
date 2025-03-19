@@ -378,3 +378,22 @@ func (m *MigrationManager) Migrate() error {
 			log.Printf("Applying migration %d: %s", migration.Version, migration.Description)
 
 			_, err = tx.Exec(migration.UpSQL)
+			if err != nil {
+				tx.Rollback()
+				return fmt.Errorf("migration %d failed: %v", migration.Version, err)
+			}
+
+			_, err = tx.Exec(
+				"INSERT INTO schema_migrations (version, applied_at) VALUES ($1, $2)",
+				migration.Version,
+				time.Now(),
+			)
+			if err != nil {
+				tx.Rollback()
+				return err
+			}
+
+			err = tx.Commit()
+			if err != nil {
+				return err
+			}
