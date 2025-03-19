@@ -131,3 +131,22 @@ func (s *BlogStore) DeletePost(ctx context.Context, id int) error {
 		return err
 	}
 
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+	if rows == 0 {
+		return fmt.Errorf("post not found: %d", id)
+	}
+
+	return tx.Commit()
+}
+
+// AddComment adds a comment to a post
+func (s *BlogStore) AddComment(ctx context.Context, comment *Comment) error {
+	query := `
+		INSERT INTO comments (post_id, content, created_at)
+		VALUES ($1, $2, $3)
+		RETURNING id`
+
+	comment.CreatedAt = time.Now()
