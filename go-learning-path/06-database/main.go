@@ -340,3 +340,22 @@ func NewMigrationManager(db *sql.DB) *MigrationManager {
 		},
 	}
 }
+
+// GetCurrentVersion gets the current migration version
+func (m *MigrationManager) GetCurrentVersion() (int, error) {
+	var version int
+	err := m.db.QueryRow("SELECT version FROM schema_migrations").Scan(&version)
+	if err == sql.ErrNoRows {
+		return 0, nil
+	}
+	return version, err
+}
+
+// Migrate runs all pending migrations
+func (m *MigrationManager) Migrate() error {
+	// Create migrations table if it doesn't exist
+	_, err := m.db.Exec(`
+		CREATE TABLE IF NOT EXISTS schema_migrations (
+			version INTEGER PRIMARY KEY,
+			applied_at TIMESTAMP NOT NULL
+		)`)
