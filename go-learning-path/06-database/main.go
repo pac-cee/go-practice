@@ -302,3 +302,22 @@ type Migration struct {
 }
 
 // MigrationManager handles database migrations
+type MigrationManager struct {
+	db         *sql.DB
+	migrations []Migration
+}
+
+// NewMigrationManager creates a new migration manager
+func NewMigrationManager(db *sql.DB) *MigrationManager {
+	return &MigrationManager{
+		db: db,
+		migrations: []Migration{
+			{
+				Version:     1,
+				Description: "Create posts table",
+				UpSQL: `
+					CREATE TABLE posts (
+						id SERIAL PRIMARY KEY,
+						title VARCHAR(255) NOT NULL,
+						content TEXT NOT NULL,
+						created_at TIMESTAMP NOT NULL,
