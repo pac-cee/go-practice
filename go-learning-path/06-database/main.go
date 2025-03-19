@@ -454,3 +454,22 @@ func main() {
 	// Create connection pool
 	pool, err := NewDBPool(dsn, 10)
 	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create migration manager and run migrations
+	migrationManager := NewMigrationManager(pool.db)
+	if err := migrationManager.Migrate(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Create blog store
+	store := NewBlogStore(pool.db)
+
+	// Example usage
+	ctx := context.Background()
+
+	// Create a post
+	post := &Post{
+		Title:   "Hello, Database!",
+		Content: "This is a test post demonstrating database operations in Go.",
