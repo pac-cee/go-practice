@@ -150,3 +150,22 @@ func (s *BlogStore) AddComment(ctx context.Context, comment *Comment) error {
 		RETURNING id`
 
 	comment.CreatedAt = time.Now()
+
+	return s.db.QueryRowContext(
+		ctx, query,
+		comment.PostID,
+		comment.Content,
+		comment.CreatedAt,
+	).Scan(&comment.ID)
+}
+
+// GetPostComments retrieves all comments for a post
+func (s *BlogStore) GetPostComments(ctx context.Context, postID int) ([]Comment, error) {
+	query := `
+		SELECT id, post_id, content, created_at
+		FROM comments
+		WHERE post_id = $1
+		ORDER BY created_at DESC`
+
+	rows, err := s.db.QueryContext(ctx, query, postID)
+	if err != nil {
