@@ -55,3 +55,22 @@
                 appendMessage('System', 'Disconnected from chat room');
             };
 
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                appendMessage(message.user, message.content);
+            };
+
+            messageForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const content = messageInput.value.trim();
+                const user = usernameInput.value.trim() || 'Anonymous';
+                
+                if (!content) return;
+
+                const message = {
+                    type: 'message',
+                    content: content,
+                    user: user
+                };
+
