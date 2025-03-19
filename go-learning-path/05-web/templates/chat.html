@@ -36,3 +36,22 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messageForm = document.getElementById('message-form');
+            const messageInput = document.getElementById('message-input');
+            const usernameInput = document.getElementById('username');
+            const chatContainer = document.getElementById('chat-container');
+
+            // Connect to WebSocket server
+            const ws = new WebSocket(`ws://${window.location.host}/ws`);
+
+            ws.onopen = () => {
+                console.log('Connected to WebSocket server');
+                appendMessage('System', 'Connected to chat room');
+            };
+
+            ws.onclose = () => {
+                console.log('Disconnected from WebSocket server');
+                appendMessage('System', 'Disconnected from chat room');
+            };
+
