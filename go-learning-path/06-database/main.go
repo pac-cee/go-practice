@@ -416,3 +416,22 @@ func (m *MigrationManager) Rollback() error {
 
 	var migration Migration
 	for i := len(m.migrations) - 1; i >= 0; i-- {
+		if m.migrations[i].Version == currentVersion {
+			migration = m.migrations[i]
+			break
+		}
+	}
+
+	tx, err := m.db.Begin()
+	if err != nil {
+		return err
+	}
+
+	log.Printf("Rolling back migration %d: %s", migration.Version, migration.Description)
+
+	_, err = tx.Exec(migration.DownSQL)
+	if err != nil {
+		tx.Rollback()
+		return fmt.Errorf("rollback of migration %d failed: %v", migration.Version, err)
+	}
+
