@@ -264,3 +264,22 @@ func (p *DBPool) ReleaseConnection(conn *sql.Conn) error {
 
 // GetMetrics returns current pool metrics
 func (p *DBPool) GetMetrics() *Metrics {
+	p.mu.RLock()
+	defer p.mu.RUnlock()
+
+	stats := p.db.Stats()
+	return &Metrics{
+		MaxConns:     p.maxConns,
+		ActiveConns:  p.activeConns,
+		IdleConns:    stats.Idle,
+		WaitCount:    stats.WaitCount,
+		WaitDuration: stats.WaitDuration,
+		MaxIdleTime:  stats.MaxIdleClosed,
+	}
+}
+
+// collectMetrics periodically collects pool metrics
+func (p *DBPool) collectMetrics() {
+	ticker := time.NewTicker(time.Minute)
+	defer ticker.Stop()
+
