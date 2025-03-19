@@ -74,3 +74,22 @@
                     user: user
                 };
 
+                ws.send(JSON.stringify(message));
+                messageInput.value = '';
+            });
+
+            function appendMessage(user, content) {
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-gray-50 rounded-lg';
+                div.innerHTML = `
+                    <span class="font-bold text-blue-600">${user}:</span>
+                    <span class="ml-2">${content}</span>
+                `;
+                chatContainer.appendChild(div);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            // Store username in localStorage
+            const storedUsername = localStorage.getItem('chatUsername');
+            if (storedUsername) {
+                usernameInput.value = storedUsername;
