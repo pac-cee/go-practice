@@ -93,3 +93,22 @@
                             span.classList.toggle('line-through', e.target.checked);
                             span.classList.toggle('text-gray-500', e.target.checked);
                         }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+
+                if (e.target.matches('.delete-btn')) {
+                    try {
+                        const response = await fetch(`/api/todos/${id}`, {
+                            method: 'DELETE'
+                        });
+
+                        if (response.ok) {
+                            li.remove();
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            });
