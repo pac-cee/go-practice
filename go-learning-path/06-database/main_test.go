@@ -226,3 +226,22 @@ func TestMigrationManager(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Failed to get current version: %v", err)
 		}
+		if version != 2 {
+			t.Errorf("Expected version 2, got %d", version)
+		}
+	})
+
+	t.Run("rollback migration", func(t *testing.T) {
+		err := manager.Rollback()
+		if err != nil {
+			t.Fatalf("Failed to rollback migration: %v", err)
+		}
+
+		version, err := manager.GetCurrentVersion()
+		if err != nil {
+			t.Fatalf("Failed to get current version: %v", err)
+		}
+		if version != 1 {
+			t.Errorf("Expected version 1 after rollback, got %d", version)
+		}
+	})
