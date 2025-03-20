@@ -226,3 +226,22 @@ DROP TABLE users;
 ### Exercise 1: Basic CRUD
 Implement a basic CRUD application for a blog system with posts and comments.
 
+```go
+type Post struct {
+    ID        int
+    Title     string
+    Content   string
+    CreatedAt time.Time
+}
+
+type Comment struct {
+    ID        int
+    PostID    int
+    Content   string
+    CreatedAt time.Time
+}
+
+// Implement:
+// - CreatePost(post *Post) error
+// - GetPost(id int) (*Post, error)
+// - UpdatePost(post *Post) error
