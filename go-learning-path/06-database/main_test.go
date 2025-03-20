@@ -188,3 +188,22 @@ func TestDBPool(t *testing.T) {
 			t.Fatalf("Failed to create pool: %v", err)
 		}
 		defer pool.db.Close()
+
+		ctx := context.Background()
+		conn, err := pool.GetConnection(ctx)
+		if err != nil {
+			t.Fatalf("Failed to get connection: %v", err)
+		}
+
+		err = pool.ReleaseConnection(conn)
+		if err != nil {
+			t.Fatalf("Failed to release connection: %v", err)
+		}
+	})
+
+	t.Run("pool metrics", func(t *testing.T) {
+		pool, err := NewDBPool(dsn, 5)
+		if err != nil {
+			t.Fatalf("Failed to create pool: %v", err)
+		}
+		defer pool.db.Close()
