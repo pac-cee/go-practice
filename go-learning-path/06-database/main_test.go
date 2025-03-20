@@ -112,3 +112,22 @@ func TestBlogStore(t *testing.T) {
 		// Delete post
 		err = store.DeletePost(ctx, post.ID)
 		if err != nil {
+			t.Fatalf("Failed to delete post: %v", err)
+		}
+
+		// Verify deletion
+		_, err = store.GetPost(ctx, post.ID)
+		if err == nil {
+			t.Error("Expected error when getting deleted post")
+		}
+	})
+
+	t.Run("add and get comments", func(t *testing.T) {
+		post := &Post{
+			Title:   "Post with Comments",
+			Content: "This post will have comments",
+		}
+
+		// Create post
+		err := store.CreatePost(ctx, post)
+		if err != nil {
