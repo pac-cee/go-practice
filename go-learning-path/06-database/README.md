@@ -55,3 +55,22 @@ for rows.Next() {
 }
 
 // Update
+result, err := db.Exec(
+    "UPDATE users SET name = $1 WHERE id = $2",
+    "Jane Doe",
+    1,
+)
+
+// Delete
+result, err := db.Exec("DELETE FROM users WHERE id = $1", 1)
+```
+
+### Prepared Statements
+```go
+stmt, err := db.Prepare("INSERT INTO users(name, email) VALUES($1, $2)")
+defer stmt.Close()
+
+for _, user := range users {
+    _, err := stmt.Exec(user.Name, user.Email)
+}
+```
