@@ -207,3 +207,22 @@ DROP TABLE users;
 - Use transactions for atomic operations
 - Keep transactions short
 - Handle deadlocks gracefully
+- Use appropriate isolation levels
+
+### 4. Error Handling
+- Check for specific database errors
+- Implement retry mechanisms
+- Log database errors appropriately
+- Use context for cancellation
+
+### 5. Security
+- Use parameterized queries to prevent SQL injection
+- Encrypt sensitive data
+- Use TLS for database connections
+- Implement proper access control
+
+## Exercises
+
+### Exercise 1: Basic CRUD
+Implement a basic CRUD application for a blog system with posts and comments.
+
