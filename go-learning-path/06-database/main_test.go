@@ -264,3 +264,22 @@ func BenchmarkBlogStore(b *testing.B) {
 			if err != nil {
 				b.Fatalf("Failed to create post: %v", err)
 			}
+		}
+	})
+
+	b.Run("get post", func(b *testing.B) {
+		post := &Post{
+			Title:   "Benchmark Post",
+			Content: "This is a benchmark post",
+		}
+		err := store.CreatePost(ctx, post)
+		if err != nil {
+			b.Fatalf("Failed to create post: %v", err)
+		}
+
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			_, err := store.GetPost(ctx, post.ID)
+			if err != nil {
+				b.Fatalf("Failed to get post: %v", err)
+			}
