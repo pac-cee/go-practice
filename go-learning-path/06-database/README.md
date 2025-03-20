@@ -150,3 +150,22 @@ var user User
 db.First(&user, 1)
 db.Where("name = ?", "John").First(&user)
 
+// Update
+db.Model(&user).Update("Name", "Jane")
+
+// Delete
+db.Delete(&user)
+```
+
+## Migration Management
+
+### Using golang-migrate
+```bash
+# Install golang-migrate
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+# Create migration
+migrate create -ext sql -dir migrations -seq create_users_table
+
+# Run migrations
+migrate -path migrations -database "postgres://localhost:5432/dbname?sslmode=disable" up
