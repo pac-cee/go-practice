@@ -93,3 +93,22 @@ return tx.Commit()
 ## NoSQL Databases
 
 ### MongoDB Example
+```go
+import "go.mongodb.org/mongo-driver/mongo"
+
+client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+defer client.Disconnect(ctx)
+
+collection := client.Database("test").Collection("users")
+
+// Insert
+result, err := collection.InsertOne(ctx, bson.D{
+    {"name", "John"},
+    {"email", "john@example.com"},
+})
+
+// Find
+var user User
+err = collection.FindOne(ctx, bson.D{{"name", "John"}}).Decode(&user)
+```
+
