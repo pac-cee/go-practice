@@ -131,3 +131,22 @@ val, err := rdb.Get(ctx, "key").Result()
 
 ### GORM Example
 ```go
+import "gorm.io/gorm"
+
+type User struct {
+    gorm.Model
+    Name  string
+    Email string
+}
+
+db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+// Create
+user := User{Name: "John", Email: "john@example.com"}
+db.Create(&user)
+
+// Read
+var user User
+db.First(&user, 1)
+db.Where("name = ?", "John").First(&user)
+
