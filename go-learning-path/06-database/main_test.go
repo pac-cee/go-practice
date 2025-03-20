@@ -93,3 +93,22 @@ func TestBlogStore(t *testing.T) {
 			t.Fatalf("Failed to get post: %v", err)
 		}
 		if retrieved.Title != "Updated Title" {
+			t.Errorf("Expected title %q, got %q", "Updated Title", retrieved.Title)
+		}
+	})
+
+	t.Run("delete post", func(t *testing.T) {
+		post := &Post{
+			Title:   "To Be Deleted",
+			Content: "This post will be deleted",
+		}
+
+		// Create post
+		err := store.CreatePost(ctx, post)
+		if err != nil {
+			t.Fatalf("Failed to create post: %v", err)
+		}
+
+		// Delete post
+		err = store.DeletePost(ctx, post.ID)
+		if err != nil {
