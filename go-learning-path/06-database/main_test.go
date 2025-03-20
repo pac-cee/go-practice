@@ -169,3 +169,22 @@ func TestDBPool(t *testing.T) {
 	if dsn == "" {
 		dsn = "postgres://postgres:postgres@localhost:5432/blog_test?sslmode=disable"
 	}
+
+	t.Run("create pool", func(t *testing.T) {
+		pool, err := NewDBPool(dsn, 5)
+		if err != nil {
+			t.Fatalf("Failed to create pool: %v", err)
+		}
+		defer pool.db.Close()
+
+		if pool.maxConns != 5 {
+			t.Errorf("Expected max connections 5, got %d", pool.maxConns)
+		}
+	})
+
+	t.Run("get and release connection", func(t *testing.T) {
+		pool, err := NewDBPool(dsn, 5)
+		if err != nil {
+			t.Fatalf("Failed to create pool: %v", err)
+		}
+		defer pool.db.Close()
