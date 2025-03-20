@@ -207,3 +207,22 @@ func TestDBPool(t *testing.T) {
 			t.Fatalf("Failed to create pool: %v", err)
 		}
 		defer pool.db.Close()
+
+		metrics := pool.GetMetrics()
+		if metrics.MaxConns != 5 {
+			t.Errorf("Expected max connections 5, got %d", metrics.MaxConns)
+		}
+	})
+}
+
+func TestMigrationManager(t *testing.T) {
+	db, cleanup := setupTestDB(t)
+	defer cleanup()
+
+	manager := NewMigrationManager(db)
+
+	t.Run("get current version", func(t *testing.T) {
+		version, err := manager.GetCurrentVersion()
+		if err != nil {
+			t.Fatalf("Failed to get current version: %v", err)
+		}
