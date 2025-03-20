@@ -169,3 +169,22 @@ migrate create -ext sql -dir migrations -seq create_users_table
 
 # Run migrations
 migrate -path migrations -database "postgres://localhost:5432/dbname?sslmode=disable" up
+
+# Rollback
+migrate -path migrations -database "postgres://localhost:5432/dbname?sslmode=disable" down
+```
+
+### Migration Files
+```sql
+-- 000001_create_users_table.up.sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+
+-- 000001_create_users_table.down.sql
+DROP TABLE users;
+```
