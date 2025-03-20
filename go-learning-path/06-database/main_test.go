@@ -131,3 +131,22 @@ func TestBlogStore(t *testing.T) {
 		// Create post
 		err := store.CreatePost(ctx, post)
 		if err != nil {
+			t.Fatalf("Failed to create post: %v", err)
+		}
+
+		// Add comments
+		comment1 := &Comment{
+			PostID:  post.ID,
+			Content: "First comment",
+		}
+		err = store.AddComment(ctx, comment1)
+		if err != nil {
+			t.Fatalf("Failed to add comment: %v", err)
+		}
+
+		comment2 := &Comment{
+			PostID:  post.ID,
+			Content: "Second comment",
+		}
+		err = store.AddComment(ctx, comment2)
+		if err != nil {
