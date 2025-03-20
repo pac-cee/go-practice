@@ -36,3 +36,22 @@ db.SetConnMaxLifetime(5 * time.Minute)
 3. Use connection timeouts
 4. Handle connection errors gracefully
 
+## SQL Databases
+
+### Basic CRUD Operations
+```go
+// Create
+result, err := db.Exec(
+    "INSERT INTO users (name, email) VALUES ($1, $2)",
+    "John Doe",
+    "john@example.com",
+)
+
+// Read
+rows, err := db.Query("SELECT * FROM users WHERE active = $1", true)
+for rows.Next() {
+    var user User
+    err := rows.Scan(&user.ID, &user.Name, &user.Email)
+}
+
+// Update
