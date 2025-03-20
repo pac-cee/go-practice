@@ -283,3 +283,11 @@ type Migration struct {
 // - LoadMigrations(dir string) ([]Migration, error)
 // - ApplyMigration(db *sql.DB, m Migration) error
 // - RollbackMigration(db *sql.DB, m Migration) error
+// - GetCurrentVersion(db *sql.DB) (int, error)
+```
+
+## Next Steps
+- Study database performance optimization
+- Learn about database replication and sharding
+- Explore NoSQL database patterns
+- Practice database design patterns
