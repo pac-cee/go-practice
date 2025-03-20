@@ -188,3 +188,22 @@ CREATE TABLE users (
 -- 000001_create_users_table.down.sql
 DROP TABLE users;
 ```
+
+## Best Practices
+
+### 1. Connection Management
+- Use connection pooling
+- Set appropriate timeouts
+- Handle connection errors gracefully
+- Monitor connection pool metrics
+
+### 2. Query Optimization
+- Use prepared statements for repeated queries
+- Index frequently queried columns
+- Use EXPLAIN ANALYZE to understand query performance
+- Avoid N+1 query problems
+
+### 3. Transaction Management
+- Use transactions for atomic operations
+- Keep transactions short
+- Handle deadlocks gracefully
