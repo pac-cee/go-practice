@@ -17,3 +17,22 @@ import (
     "database/sql"
     _ "github.com/lib/pq"
 )
+
+db, err := sql.Open("postgres", "postgres://user:pass@localhost/dbname?sslmode=disable")
+if err != nil {
+    log.Fatal(err)
+}
+defer db.Close()
+
+// Set connection pool settings
+db.SetMaxOpenConns(25)
+db.SetMaxIdleConns(25)
+db.SetConnMaxLifetime(5 * time.Minute)
+```
+
+### Connection Pool Best Practices
+1. Set appropriate pool size
+2. Monitor connection usage
+3. Use connection timeouts
+4. Handle connection errors gracefully
+
