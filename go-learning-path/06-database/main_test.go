@@ -283,3 +283,22 @@ func BenchmarkBlogStore(b *testing.B) {
 			if err != nil {
 				b.Fatalf("Failed to get post: %v", err)
 			}
+		}
+	})
+}
+
+func BenchmarkDBPool(b *testing.B) {
+	dsn := os.Getenv("TEST_DATABASE_URL")
+	if dsn == "" {
+		dsn = "postgres://postgres:postgres@localhost:5432/blog_test?sslmode=disable"
+	}
+
+	pool, err := NewDBPool(dsn, 10)
+	if err != nil {
+		b.Fatalf("Failed to create pool: %v", err)
+	}
+	defer pool.db.Close()
+
+	ctx := context.Background()
+
+	b.Run("get and release connection", func(b *testing.B) {
