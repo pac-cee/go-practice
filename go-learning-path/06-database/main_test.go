@@ -302,3 +302,15 @@ func BenchmarkDBPool(b *testing.B) {
 	ctx := context.Background()
 
 	b.Run("get and release connection", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			conn, err := pool.GetConnection(ctx)
+			if err != nil {
+				b.Fatalf("Failed to get connection: %v", err)
+			}
+			err = pool.ReleaseConnection(conn)
+			if err != nil {
+				b.Fatalf("Failed to release connection: %v", err)
+			}
+		}
+	})
+}
