@@ -74,3 +74,22 @@ func TestBlogStore(t *testing.T) {
 			Content: "Original Content",
 		}
 
+		// Create post
+		err := store.CreatePost(ctx, post)
+		if err != nil {
+			t.Fatalf("Failed to create post: %v", err)
+		}
+
+		// Update post
+		post.Title = "Updated Title"
+		err = store.UpdatePost(ctx, post)
+		if err != nil {
+			t.Fatalf("Failed to update post: %v", err)
+		}
+
+		// Verify update
+		retrieved, err := store.GetPost(ctx, post.ID)
+		if err != nil {
+			t.Fatalf("Failed to get post: %v", err)
+		}
+		if retrieved.Title != "Updated Title" {
