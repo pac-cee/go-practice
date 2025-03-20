@@ -74,3 +74,22 @@ for _, user := range users {
     _, err := stmt.Exec(user.Name, user.Email)
 }
 ```
+
+### Transactions
+```go
+tx, err := db.Begin()
+if err != nil {
+    return err
+}
+defer tx.Rollback()
+
+// Perform multiple operations
+_, err = tx.Exec(query1, args1...)
+_, err = tx.Exec(query2, args2...)
+
+return tx.Commit()
+```
+
+## NoSQL Databases
+
+### MongoDB Example
