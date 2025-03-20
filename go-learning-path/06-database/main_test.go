@@ -150,3 +150,22 @@ func TestBlogStore(t *testing.T) {
 		}
 		err = store.AddComment(ctx, comment2)
 		if err != nil {
+			t.Fatalf("Failed to add comment: %v", err)
+		}
+
+		// Get comments
+		comments, err := store.GetPostComments(ctx, post.ID)
+		if err != nil {
+			t.Fatalf("Failed to get comments: %v", err)
+		}
+		if len(comments) != 2 {
+			t.Errorf("Expected 2 comments, got %d", len(comments))
+		}
+	})
+}
+
+func TestDBPool(t *testing.T) {
+	dsn := os.Getenv("TEST_DATABASE_URL")
+	if dsn == "" {
+		dsn = "postgres://postgres:postgres@localhost:5432/blog_test?sslmode=disable"
+	}
