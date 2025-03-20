@@ -245,3 +245,22 @@ func TestMigrationManager(t *testing.T) {
 			t.Errorf("Expected version 1 after rollback, got %d", version)
 		}
 	})
+}
+
+func BenchmarkBlogStore(b *testing.B) {
+	db, cleanup := setupTestDB(b)
+	defer cleanup()
+
+	store := NewBlogStore(db)
+	ctx := context.Background()
+
+	b.Run("create post", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			post := &Post{
+				Title:   "Benchmark Post",
+				Content: "This is a benchmark post",
+			}
+			err := store.CreatePost(ctx, post)
+			if err != nil {
+				b.Fatalf("Failed to create post: %v", err)
+			}
