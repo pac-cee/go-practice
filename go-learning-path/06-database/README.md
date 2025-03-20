@@ -112,3 +112,22 @@ var user User
 err = collection.FindOne(ctx, bson.D{{"name", "John"}}).Decode(&user)
 ```
 
+### Redis Example
+```go
+import "github.com/go-redis/redis/v8"
+
+rdb := redis.NewClient(&redis.Options{
+    Addr: "localhost:6379",
+})
+
+// Set value
+err := rdb.Set(ctx, "key", "value", 0).Err()
+
+// Get value
+val, err := rdb.Get(ctx, "key").Result()
+```
+
+## ORM Usage
+
+### GORM Example
+```go
