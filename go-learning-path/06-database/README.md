@@ -245,3 +245,22 @@ type Comment struct {
 // - CreatePost(post *Post) error
 // - GetPost(id int) (*Post, error)
 // - UpdatePost(post *Post) error
+// - DeletePost(id int) error
+// - AddComment(comment *Comment) error
+// - GetPostComments(postID int) ([]Comment, error)
+```
+
+### Exercise 2: Connection Pool
+Create a connection pool manager with monitoring capabilities.
+
+```go
+type DBPool struct {
+    db          *sql.DB
+    maxConns    int
+    activeConns int
+    metrics     *Metrics
+}
+
+// Implement:
+// - NewDBPool(dsn string, maxConns int) (*DBPool, error)
+// - GetConnection() (*sql.Conn, error)
