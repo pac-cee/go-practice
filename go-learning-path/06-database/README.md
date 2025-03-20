@@ -264,3 +264,22 @@ type DBPool struct {
 // Implement:
 // - NewDBPool(dsn string, maxConns int) (*DBPool, error)
 // - GetConnection() (*sql.Conn, error)
+// - ReleaseConnection(*sql.Conn) error
+// - GetMetrics() *Metrics
+```
+
+### Exercise 3: Migration Tool
+Create a simple database migration tool.
+
+```go
+type Migration struct {
+    Version     int
+    Description string
+    UpSQL       string
+    DownSQL     string
+}
+
+// Implement:
+// - LoadMigrations(dir string) ([]Migration, error)
+// - ApplyMigration(db *sql.DB, m Migration) error
+// - RollbackMigration(db *sql.DB, m Migration) error
