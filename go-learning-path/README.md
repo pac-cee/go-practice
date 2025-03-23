@@ -169,3 +169,22 @@ type User struct {
 // Methods should be grouped by type
 func (u *User) Validate() error {
     if u.ID == "" {
+        return errors.New("id is required")
+    }
+    return nil
+}
+```
+
+### Error Handling
+```go
+// Use custom errors
+var ErrUserNotFound = errors.New("user not found")
+
+// Wrap errors with context
+if err != nil {
+    return fmt.Errorf("failed to create user: %w", err)
+}
+```
+
+### Testing
+```go
