@@ -36,3 +36,10 @@ Visit [http://localhost:8080/todos](http://localhost:8080/todos) in your browser
 ```
 
 ## Next Steps
+- Add endpoints for creating, updating, and deleting tasks
+- Persist data with a database (see later projects)
+- Add authentication (see Project 2)
+
+---
+
+This project is your entry point to Go backend development. Experiment, extend, and have fun!
