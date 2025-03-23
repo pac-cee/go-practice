@@ -17,3 +17,22 @@ This project demonstrates how to build a basic RESTful API in Go for managing a 
 ```sh
 # In the project directory
 # Run the server
+ go run main.go
+```
+
+Visit [http://localhost:8080/todos](http://localhost:8080/todos) in your browser or use curl/Postman.
+
+## Why Go?
+- Go's standard library makes it easy to build fast, lightweight APIs
+- Static typing and simple syntax help prevent bugs
+- Built-in concurrency (not used here, but great for scaling APIs)
+
+## Sample Response
+```json
+[
+  {"id": 1, "task": "Learn Go basics", "done": false},
+  {"id": 2, "task": "Build a REST API", "done": false}
+]
+```
+
+## Next Steps
