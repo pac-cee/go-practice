@@ -226,3 +226,9 @@ Feel free to contribute to this guide by:
 - [Go Forum](https://forum.golangbridge.org/)
 
 ## 📝 License
+
+This guide is available under the MIT License. Feel free to use it for personal or commercial purposes.
+
+---
+
+Start your Go journey by following the modules in order. Each module builds upon the previous ones, creating a solid foundation for becoming a proficient Go developer. Happy coding! 🚀
