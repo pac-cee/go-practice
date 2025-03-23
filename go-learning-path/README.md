@@ -74,3 +74,22 @@ Welcome to a comprehensive guide to learning Go programming language! This curri
 - [Error Handling Patterns](./10-advanced/04-errors/README.md)
 - [Production Best Practices](./10-advanced/05-production/README.md)
 
+## 📋 Prerequisites
+- Basic programming knowledge
+- Familiarity with command line
+- Text editor or IDE (VSCode recommended with Go extension)
+- Go installed (version 1.21+ recommended)
+
+## 🛠️ Setup Instructions
+
+1. Install Go:
+   ```bash
+   # Windows (using chocolatey)
+   choco install golang
+
+   # macOS (using homebrew)
+   brew install go
+
+   # Linux
+   sudo apt-get install golang
+   ```
