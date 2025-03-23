@@ -207,3 +207,22 @@ func TestUser_Validate(t *testing.T) {
 ## 🤝 Contributing
 
 Feel free to contribute to this guide by:
+1. Reporting issues
+2. Suggesting improvements
+3. Adding examples
+4. Fixing errors
+5. Sharing resources
+
+## 📚 Additional Resources
+
+### Official Resources
+- [Go Documentation](https://golang.org/doc/)
+- [Go Blog](https://blog.golang.org/)
+- [Go Playground](https://play.golang.org/)
+
+### Community Resources
+- [Go by Example](https://gobyexample.com/)
+- [Awesome Go](https://awesome-go.com/)
+- [Go Forum](https://forum.golangbridge.org/)
+
+## 📝 License
