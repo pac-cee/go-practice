@@ -188,3 +188,22 @@ if err != nil {
 
 ### Testing
 ```go
+func TestUser_Validate(t *testing.T) {
+    tests := []struct {
+        name    string
+        user    User
+        wantErr bool
+    }{
+        {
+            name:    "valid user",
+            user:    User{ID: "123"},
+            wantErr: false,
+        },
+    }
+    // ... test implementation
+}
+```
+
+## 🤝 Contributing
+
+Feel free to contribute to this guide by:
