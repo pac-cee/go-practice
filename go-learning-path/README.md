@@ -36,3 +36,22 @@ Welcome to a comprehensive guide to learning Go programming language! This curri
 - [SQL with Go](./05-database/01-sql/README.md)
 - [GORM and ORMs](./05-database/02-orm/README.md)
 - [NoSQL Databases](./05-database/03-nosql/README.md)
+- [Caching Strategies](./05-database/04-caching/README.md)
+- [Database Design Patterns](./05-database/05-patterns/README.md)
+
+### 🔒 Module 6: Security and Authentication
+- [Cryptography Basics](./06-security/01-crypto/README.md)
+- [JWT and Session Management](./06-security/02-jwt/README.md)
+- [OAuth2 and OpenID](./06-security/03-oauth/README.md)
+- [HTTPS and TLS](./06-security/04-tls/README.md)
+- [Security Best Practices](./06-security/05-best-practices/README.md)
+
+### 📦 Module 7: Microservices
+- [Service Architecture](./07-microservices/01-architecture/README.md)
+- [gRPC and Protocol Buffers](./07-microservices/02-grpc/README.md)
+- [Service Discovery](./07-microservices/03-discovery/README.md)
+- [Event-Driven Architecture](./07-microservices/04-events/README.md)
+- [Distributed Systems Patterns](./07-microservices/05-patterns/README.md)
+
+### 🧪 Module 8: Testing and Quality
+- [Unit Testing](./08-testing/01-unit/README.md)
