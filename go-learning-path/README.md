@@ -93,3 +93,22 @@ Welcome to a comprehensive guide to learning Go programming language! This curri
    # Linux
    sudo apt-get install golang
    ```
+
+2. Verify installation:
+   ```bash
+   go version
+   ```
+
+3. Set up your workspace:
+   ```bash
+   # Create your workspace
+   mkdir go-workspace
+   cd go-workspace
+
+   # Initialize a new module
+   go mod init myproject
+   ```
+
+## 🎓 Learning Approach
+
+### 1. Theory First, Practice Always
