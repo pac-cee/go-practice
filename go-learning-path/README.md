@@ -150,3 +150,22 @@ Track your progress through:
 ### Code Organization
 ```go
 // Package name should be meaningful
+package user
+
+// Imports should be grouped
+import (
+    "context"
+    "errors"
+    
+    "github.com/your/external/pkg"
+)
+
+// Use meaningful names
+type User struct {
+    ID        string    `json:"id"`
+    CreatedAt time.Time `json:"created_at"`
+}
+
+// Methods should be grouped by type
+func (u *User) Validate() error {
+    if u.ID == "" {
