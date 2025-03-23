@@ -55,3 +55,22 @@ Welcome to a comprehensive guide to learning Go programming language! This curri
 
 ### 🧪 Module 8: Testing and Quality
 - [Unit Testing](./08-testing/01-unit/README.md)
+- [Integration Testing](./08-testing/02-integration/README.md)
+- [Benchmarking](./08-testing/03-benchmarking/README.md)
+- [Code Quality Tools](./08-testing/04-quality/README.md)
+- [CI/CD for Go](./08-testing/05-cicd/README.md)
+
+### 🚢 Module 9: DevOps and Deployment
+- [Docker Containerization](./09-devops/01-docker/README.md)
+- [Kubernetes Orchestration](./09-devops/02-kubernetes/README.md)
+- [Monitoring and Metrics](./09-devops/03-monitoring/README.md)
+- [Logging and Tracing](./09-devops/04-logging/README.md)
+- [Cloud Deployment](./09-devops/05-cloud/README.md)
+
+### 🎨 Module 10: Advanced Patterns
+- [Clean Architecture](./10-advanced/01-clean-arch/README.md)
+- [Design Patterns in Go](./10-advanced/02-patterns/README.md)
+- [Performance Optimization](./10-advanced/03-performance/README.md)
+- [Error Handling Patterns](./10-advanced/04-errors/README.md)
+- [Production Best Practices](./10-advanced/05-production/README.md)
+
