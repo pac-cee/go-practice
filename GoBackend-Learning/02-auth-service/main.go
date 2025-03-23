@@ -36,3 +36,22 @@ func signup(w http.ResponseWriter, r *http.Request) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	users[user.Username] = string(hash)
+	w.WriteHeader(http.StatusCreated)
+}
+
+// login handles POST /login. It checks credentials and returns a JWT token.
+func login(w http.ResponseWriter, r *http.Request) {
+	var user User
+	json.NewDecoder(r.Body).Decode(&user)
+	hash, ok := users[user.Username]
+	if !ok || bcrypt.CompareHashAndPassword([]byte(hash), []byte(user.Password)) != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	// Create JWT claims, set expiry
+	claims := &Claims{
+		Username: user.Username,
+		RegisteredClaims: jwt.RegisteredClaims{
