@@ -36,3 +36,17 @@ This project demonstrates how to build a simple authentication service in Go usi
    curl -X POST -d '{"username":"alice","password":"mypw"}' \
      -H "Content-Type: application/json" http://localhost:8081/login
    # Response: { "token": "...jwt..." }
+   ```
+3. Access protected:
+   ```sh
+   curl -H "Authorization: <token>" http://localhost:8081/protected
+   ```
+
+## Next Steps
+- Add persistent storage (database)
+- Implement token refresh/expiry
+- Add user roles/permissions
+
+---
+
+This project shows how Go makes secure authentication easy and robust!
