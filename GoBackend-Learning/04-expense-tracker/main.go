@@ -36,3 +36,12 @@ func getExpenses(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var err error
+	connStr := "user=postgres password=postgres dbname=expenses sslmode=disable"
+	db, err = sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	http.HandleFunc("/expenses", getExpenses)
+	fmt.Println("Expense Tracker API running at http://localhost:8083/")
+	log.Fatal(http.ListenAndServe(":8083", nil))
+}
