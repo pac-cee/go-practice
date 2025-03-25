@@ -74,3 +74,21 @@ func protected(w http.ResponseWriter, r *http.Request) {
 	tokenStr := r.Header.Get("Authorization")
 	claims := &Claims{}
 	// Parse and validate the JWT token
+	tkn, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+	if err != nil || !tkn.Valid {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	fmt.Fprintf(w, "Welcome, %s!", claims.Username)
+}
+
+func main() {
+	// Register handlers for endpoints
+	http.HandleFunc("/signup", signup)
+	http.HandleFunc("/login", login)
+	http.HandleFunc("/protected", protected)
+	fmt.Println("Auth service running at http://localhost:8081/")
+	log.Fatal(http.ListenAndServe(":8081", nil))
+}
