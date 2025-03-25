@@ -36,3 +36,22 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	clients[ws] = true
 	mu.Unlock()
 	for {
+		var msg Message
+		// Read message from client
+		if err := ws.ReadJSON(&msg); err != nil {
+			// Remove client on error/disconnect
+			mu.Lock()
+			delete(clients, ws)
+			mu.Unlock()
+			break
+		}
+		// Send message to broadcast channel
+		broadcast <- msg
+	}
+}
+
+// handleMessages listens for incoming messages and broadcasts to all clients.
+func handleMessages() {
+	for {
+		msg := <-broadcast
+		mu.Lock()
