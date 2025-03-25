@@ -55,3 +55,22 @@ func login(w http.ResponseWriter, r *http.Request) {
 	claims := &Claims{
 		Username: user.Username,
 		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(15 * time.Minute)),
+		},
+	}
+	// Create JWT token
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	// Return token as JSON
+	json.NewEncoder(w).Encode(map[string]string{"token": tokenString})
+}
+
+// protected handles GET /protected. It checks for a valid JWT in the Authorization header.
+func protected(w http.ResponseWriter, r *http.Request) {
+	tokenStr := r.Header.Get("Authorization")
+	claims := &Claims{}
+	// Parse and validate the JWT token
