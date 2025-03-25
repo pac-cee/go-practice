@@ -17,3 +17,22 @@ This project demonstrates how to build a simple authentication service in Go usi
 ## How to Run
 ```sh
 # In the project directory
+ go run main.go
+```
+
+## Why Go?
+- Go's standard library offers strong support for cryptography and HTTP
+- Middleware patterns are simple and powerful
+- Fast, efficient, and secure backend development
+
+## Example Usage
+1. Signup:
+   ```sh
+   curl -X POST -d '{"username":"alice","password":"mypw"}' \
+     -H "Content-Type: application/json" http://localhost:8081/signup
+   ```
+2. Login:
+   ```sh
+   curl -X POST -d '{"username":"alice","password":"mypw"}' \
+     -H "Content-Type: application/json" http://localhost:8081/login
+   # Response: { "token": "...jwt..." }
