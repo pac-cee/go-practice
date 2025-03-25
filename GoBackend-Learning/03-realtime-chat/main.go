@@ -55,3 +55,18 @@ func handleMessages() {
 	for {
 		msg := <-broadcast
 		mu.Lock()
+		for client := range clients {
+			client.WriteJSON(msg)
+		}
+		mu.Unlock()
+	}
+}
+
+func main() {
+	// Register WebSocket endpoint
+	http.HandleFunc("/ws", handleConnections)
+	// Start message broadcaster in a goroutine
+	go handleMessages()
+	fmt.Println("Chat server running at http://localhost:8082/ws")
+	log.Fatal(http.ListenAndServe(":8082", nil))
+}
