@@ -17,3 +17,22 @@ This project demonstrates how to build a Go backend API that connects to a Postg
 2. Create a database named `expenses` and a table:
    ```sql
    CREATE TABLE expenses (
+     id SERIAL PRIMARY KEY,
+     title TEXT NOT NULL,
+     amount NUMERIC NOT NULL
+   );
+   INSERT INTO expenses (title, amount) VALUES ('Lunch', 12.5), ('Books', 30.0);
+   ```
+3. Update the connection string in `main.go` if your DB user/password differ.
+4. Run the server:
+   ```sh
+   go run main.go
+   ```
+
+## Why Go?
+- Go's standard library provides robust, performant database access
+- Easy mapping between SQL rows and Go structs
+- Great for building RESTful APIs on top of databases
+
+## Example Usage
+- `GET http://localhost:8083/expenses` returns:
