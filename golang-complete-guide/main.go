@@ -112,3 +112,22 @@ func (e *CustomError) Error() string {
 	return e.Message
 }
 
+func divide(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, &CustomError{Message: "division by zero"}
+	}
+	return a / b, nil
+}
+
+// 4. Goroutines and Channels
+func goroutineExample() {
+	ch := make(chan string)
+	
+	go func() {
+		ch <- "Message from goroutine"
+	}()
+
+	msg := <-ch
+	fmt.Println(msg)
+}
+
