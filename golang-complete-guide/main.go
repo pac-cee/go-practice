@@ -55,3 +55,22 @@ func arraysAndSlices() {
 	slice = append(slice, 4)
 
 	// Slice operations
+	subSlice := slice[1:3]
+	
+	fmt.Println(arr, slice, subSlice)
+}
+
+// 4. Maps
+func maps() {
+	// Declaration and initialization
+	scores := map[string]int{
+		"Alice": 95,
+		"Bob":   89,
+	}
+
+	// Adding and accessing
+	scores["Charlie"] = 85
+	fmt.Println(scores["Alice"])
+
+	// Check if key exists
+	if score, exists := scores["David"]; exists {
