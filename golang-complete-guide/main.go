@@ -93,3 +93,22 @@ func (p Person) Greet() string {
 // 2. Interfaces
 type Animal interface {
 	Speak() string
+}
+
+type Dog struct {
+	Name string
+}
+
+func (d Dog) Speak() string {
+	return fmt.Sprintf("%s says Woof!", d.Name)
+}
+
+// 3. Error Handling
+type CustomError struct {
+	Message string
+}
+
+func (e *CustomError) Error() string {
+	return e.Message
+}
+
