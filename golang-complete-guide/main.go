@@ -150,3 +150,22 @@ func contextExample() {
 	select {
 	case <-time.After(3 * time.Second):
 		fmt.Println("Overslept")
+	case <-ctx.Done():
+		fmt.Println(ctx.Err())
+	}
+}
+
+// 3. Concurrency Patterns
+// Worker Pool
+func workerPool() {
+	const numJobs = 5
+	jobs := make(chan int, numJobs)
+	results := make(chan int, numJobs)
+
+	// Start workers
+	var wg sync.WaitGroup
+	for w := 1; w <= 3; w++ {
+		wg.Add(1)
+		go worker(w, jobs, results, &wg)
+	}
+
