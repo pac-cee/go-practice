@@ -36,3 +36,18 @@ This project demonstrates how to build a Go backend API that connects to a Postg
 
 ## Example Usage
 - `GET http://localhost:8083/expenses` returns:
+  ```json
+  [
+    {"id":1, "title":"Lunch", "amount":12.5},
+    {"id":2, "title":"Books", "amount":30.0}
+  ]
+  ```
+
+## Next Steps
+- Add endpoints for creating, updating, and deleting expenses
+- Add user authentication
+- Use an ORM like GORM for more advanced mapping
+
+---
+
+This project shows how Go excels at building database-driven backend APIs!
