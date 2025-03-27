@@ -36,3 +36,22 @@ func basicTypes() {
 }
 
 // 2. Constants
+const (
+	Pi       = 3.14159
+	Username = "admin"
+	// iota example
+	Sunday = iota
+	Monday
+	Tuesday
+)
+
+// 3. Arrays and Slices
+func arraysAndSlices() {
+	// Array
+	var arr [5]int = [5]int{1, 2, 3, 4, 5}
+
+	// Slice
+	slice := []int{1, 2, 3}
+	slice = append(slice, 4)
+
+	// Slice operations
