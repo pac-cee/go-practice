@@ -131,3 +131,22 @@ func goroutineExample() {
 	fmt.Println(msg)
 }
 
+// ADVANCED CONCEPTS
+// 1. Reflection
+func reflectionExample() {
+	p := Person{Name: "John", Age: 30}
+	t := reflect.TypeOf(p)
+	v := reflect.ValueOf(p)
+
+	fmt.Printf("Type: %v\n", t)
+	fmt.Printf("Fields: %v\n", v.Field(0))
+}
+
+// 2. Context
+func contextExample() {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	select {
+	case <-time.After(3 * time.Second):
+		fmt.Println("Overslept")
