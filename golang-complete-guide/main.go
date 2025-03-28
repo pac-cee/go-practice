@@ -473,3 +473,22 @@ func main() {
 	// Generics example
 	fmt.Printf("Min of 10 and 5: %v\n", Min(10, 5))
 	fmt.Printf("Min of 3.14 and 2.71: %v\n", Min(3.14, 2.71))
+	
+	fmt.Println("\n=== Additional Advanced Concepts ===")
+	// SafeCounter example
+	counter := &SafeCounter{}
+	var wg sync.WaitGroup
+	for i := 0; i < 50; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			counter.Increment()
+		}()
+	}
+	wg.Wait()
+	fmt.Printf("Final count: %d\n", counter.GetCount())
+	
+	// Start HTTP server
+	startHTTPServer()
+	fmt.Println("HTTP server started on :8080")
+	
