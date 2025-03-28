@@ -378,3 +378,22 @@ func (rs *RedisService) ListOperations(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("LRANGE failed: %v", err)
 	}
+	fmt.Printf("All tasks = %v\n", tasks)
+
+	return nil
+}
+
+// Set Operations
+func (rs *RedisService) SetOperations(ctx context.Context) error {
+	// SADD (add members to set)
+	err := rs.client.SAdd(ctx, "online_users", "user1", "user2", "user3").Err()
+	if err != nil {
+		return fmt.Errorf("SADD failed: %v", err)
+	}
+
+	// SISMEMBER (check if member exists in set)
+	exists, err := rs.client.SIsMember(ctx, "online_users", "user1").Result()
+	if err != nil {
+		return fmt.Errorf("SISMEMBER failed: %v", err)
+	}
+	fmt.Printf("Is user1 online? %v\n", exists)
