@@ -245,3 +245,22 @@ func jsonExample() {
 		Features: []string{"auth", "logging", "api"},
 	}
 	
+	// Marshal (encode) to JSON
+	jsonData, err := json.Marshal(config)
+	if err != nil {
+		fmt.Printf("JSON marshaling error: %v\n", err)
+		return
+	}
+	
+	// Unmarshal (decode) from JSON
+	var decodedConfig Config
+	err = json.Unmarshal(jsonData, &decodedConfig)
+	if err != nil {
+		fmt.Printf("JSON unmarshaling error: %v\n", err)
+		return
+	}
+	
+	fmt.Printf("Decoded config: %+v\n", decodedConfig)
+}
+
+// 8. Panic Recovery
