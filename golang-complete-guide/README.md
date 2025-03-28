@@ -36,3 +36,22 @@ This repository contains a comprehensive guide to Go programming language, from 
    - Performance Optimization
    - Memory Management
    - Coding Conventions
+
+## How to Use
+
+Each section in the `main.go` file is clearly commented and contains working examples. To run specific examples:
+
+1. Uncomment the section you want to run
+2. Comment out other sections
+3. Run the file using: `go run main.go`
+
+## Prerequisites
+
+- Go 1.21 or later installed
+- Basic understanding of programming concepts
+
+## Running the Examples
+
+```bash
+# Clone the repository
+git clone [your-repo-url]
