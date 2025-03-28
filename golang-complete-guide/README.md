@@ -55,3 +55,14 @@ Each section in the `main.go` file is clearly commented and contains working exa
 ```bash
 # Clone the repository
 git clone [your-repo-url]
+
+# Navigate to the directory
+cd golang-complete-guide
+
+# Run the main file
+go run main.go
+```
+
+## Contributing
+
+Feel free to contribute by adding more examples, fixing bugs, or improving documentation. Pull requests are welcome!
