@@ -416,3 +416,22 @@ func (rs *RedisService) SortedSetOperations(ctx context.Context) error {
 		{Score: 200, Member: "user2"},
 		{Score: 150, Member: "user3"},
 	}
+	err := rs.client.ZAdd(ctx, "scores", users...).Err()
+	if err != nil {
+		return fmt.Errorf("ZADD failed: %v", err)
+	}
+
+	// ZRANGE (get range by index with scores)
+	scores, err := rs.client.ZRangeWithScores(ctx, "scores", 0, -1).Result()
+	if err != nil {
+		return fmt.Errorf("ZRANGE failed: %v", err)
+	}
+	fmt.Printf("User scores = %v\n", scores)
+
+	return nil
+}
+
+// Pipeline Example (execute multiple commands in one round trip)
+func (rs *RedisService) PipelineExample(ctx context.Context) error {
+	pipe := rs.client.Pipeline()
+	
