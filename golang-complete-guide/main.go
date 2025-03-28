@@ -302,3 +302,22 @@ func NewRedisService() (*RedisService, error) {
 func (rs *RedisService) StringOperations(ctx context.Context) error {
 	// SET operation
 	err := rs.client.Set(ctx, "user:1:name", "John Doe", 0).Err()
+	if err != nil {
+		return fmt.Errorf("SET failed: %v", err)
+	}
+
+	// GET operation
+	name, err := rs.client.Get(ctx, "user:1:name").Result()
+	if err != nil {
+		return fmt.Errorf("GET failed: %v", err)
+	}
+	fmt.Printf("user:1:name = %v\n", name)
+
+	// SETEX (SET with expiration)
+	err = rs.client.SetEx(ctx, "session:123", "active", 1*time.Hour).Err()
+	if err != nil {
+		return fmt.Errorf("SETEX failed: %v", err)
+	}
+
+	// TTL (time to live)
+	ttl, err := rs.client.TTL(ctx, "session:123").Result()
