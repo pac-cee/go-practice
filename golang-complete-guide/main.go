@@ -492,3 +492,22 @@ func main() {
 	startHTTPServer()
 	fmt.Println("HTTP server started on :8080")
 	
+	// JSON example
+	jsonExample()
+	
+	// Panic recovery example
+	fmt.Println("\nTesting panic recovery:")
+	recoverExample()
+
+	// Create Redis service
+	redisService, err := NewRedisService()
+	if err != nil {
+		fmt.Printf("Failed to create Redis service: %v\n", err)
+		return
+	}
+
+	ctx := context.Background()
+
+	fmt.Println("\n=== String Operations ===")
+	if err := redisService.StringOperations(ctx); err != nil {
+		fmt.Printf("String operations failed: %v\n", err)
