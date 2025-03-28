@@ -511,3 +511,22 @@ func main() {
 	fmt.Println("\n=== String Operations ===")
 	if err := redisService.StringOperations(ctx); err != nil {
 		fmt.Printf("String operations failed: %v\n", err)
+	}
+
+	fmt.Println("\n=== Hash Operations ===")
+	if err := redisService.HashOperations(ctx); err != nil {
+		fmt.Printf("Hash operations failed: %v\n", err)
+	}
+
+	fmt.Println("\n=== List Operations ===")
+	if err := redisService.ListOperations(ctx); err != nil {
+		fmt.Printf("List operations failed: %v\n", err)
+	}
+
+	fmt.Println("\n=== Set Operations ===")
+	if err := redisService.SetOperations(ctx); err != nil {
+		fmt.Printf("Set operations failed: %v\n", err)
+	}
+
+	fmt.Println("\n=== Sorted Set Operations ===")
+	if err := redisService.SortedSetOperations(ctx); err != nil {
