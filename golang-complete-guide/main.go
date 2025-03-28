@@ -226,3 +226,22 @@ func startHTTPServer() {
 	
 	go func() {
 		if err := http.ListenAndServe(":8080", nil); err != nil {
+			fmt.Printf("HTTP server error: %v\n", err)
+		}
+	}()
+}
+
+// 7. JSON Handling
+type Config struct {
+	Name    string `json:"name"`
+	Version string `json:"version"`
+	Features []string `json:"features"`
+}
+
+func jsonExample() {
+	config := Config{
+		Name:     "MyApp",
+		Version:  "1.0.0",
+		Features: []string{"auth", "logging", "api"},
+	}
+	
