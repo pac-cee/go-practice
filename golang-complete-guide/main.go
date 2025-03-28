@@ -397,3 +397,22 @@ func (rs *RedisService) SetOperations(ctx context.Context) error {
 		return fmt.Errorf("SISMEMBER failed: %v", err)
 	}
 	fmt.Printf("Is user1 online? %v\n", exists)
+
+	// SMEMBERS (get all set members)
+	users, err := rs.client.SMembers(ctx, "online_users").Result()
+	if err != nil {
+		return fmt.Errorf("SMEMBERS failed: %v", err)
+	}
+	fmt.Printf("Online users = %v\n", users)
+
+	return nil
+}
+
+// Sorted Set Operations
+func (rs *RedisService) SortedSetOperations(ctx context.Context) error {
+	// ZADD (add members with scores)
+	users := []redis.Z{
+		{Score: 100, Member: "user1"},
+		{Score: 200, Member: "user2"},
+		{Score: 150, Member: "user3"},
+	}
