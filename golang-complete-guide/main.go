@@ -435,3 +435,22 @@ func (rs *RedisService) SortedSetOperations(ctx context.Context) error {
 func (rs *RedisService) PipelineExample(ctx context.Context) error {
 	pipe := rs.client.Pipeline()
 	
+	// Queue multiple commands
+	incr := pipe.Incr(ctx, "counter")
+	pipe.Expire(ctx, "counter", time.Hour)
+	
+	// Execute pipeline
+	_, err := pipe.Exec(ctx)
+	if err != nil {
+		return fmt.Errorf("pipeline execution failed: %v", err)
+	}
+	
+	fmt.Printf("Counter value = %v\n", incr.Val())
+	return nil
+}
+
+func main() {
+	fmt.Println("=== Basic Concepts ===")
+	basicTypes()
+	arraysAndSlices()
+	maps()
