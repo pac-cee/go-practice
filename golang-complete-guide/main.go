@@ -340,3 +340,22 @@ func (rs *RedisService) HashOperations(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("HSET failed: %v", err)
 	}
+
+	// HGET (get specific hash field)
+	email, err := rs.client.HGet(ctx, "user:1", "email").Result()
+	if err != nil {
+		return fmt.Errorf("HGET failed: %v", err)
+	}
+	fmt.Printf("user:1 email = %v\n", email)
+
+	// HGETALL (get all hash fields)
+	userData, err := rs.client.HGetAll(ctx, "user:1").Result()
+	if err != nil {
+		return fmt.Errorf("HGETALL failed: %v", err)
+	}
+	fmt.Printf("user:1 data = %v\n", userData)
+
+	return nil
+}
+
+// List Operations
