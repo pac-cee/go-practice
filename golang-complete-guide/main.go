@@ -530,3 +530,11 @@ func main() {
 
 	fmt.Println("\n=== Sorted Set Operations ===")
 	if err := redisService.SortedSetOperations(ctx); err != nil {
+		fmt.Printf("Sorted set operations failed: %v\n", err)
+	}
+
+	fmt.Println("\n=== Pipeline Example ===")
+	if err := redisService.PipelineExample(ctx); err != nil {
+		fmt.Printf("Pipeline example failed: %v\n", err)
+	}
+}
