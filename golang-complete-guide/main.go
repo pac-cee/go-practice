@@ -207,3 +207,22 @@ type SafeCounter struct {
 }
 
 func (c *SafeCounter) Increment() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.count++
+}
+
+func (c *SafeCounter) GetCount() int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.count
+}
+
+// 6. Basic HTTP Server
+func startHTTPServer() {
+	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello, Web!")
+	})
+	
+	go func() {
+		if err := http.ListenAndServe(":8080", nil); err != nil {
