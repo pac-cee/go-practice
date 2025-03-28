@@ -283,3 +283,22 @@ type RedisService struct {
 // Create new Redis service
 func NewRedisService() (*RedisService, error) {
 	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379", // Redis server address
+		Password: "",               // no password set
+		DB:       0,                // use default DB
+	})
+
+	// Test the connection
+	ctx := context.Background()
+	_, err := client.Ping(ctx).Result()
+	if err != nil {
+		return nil, fmt.Errorf("redis connection failed: %v", err)
+	}
+
+	return &RedisService{client: client}, nil
+}
+
+// Basic String Operations
+func (rs *RedisService) StringOperations(ctx context.Context) error {
+	// SET operation
+	err := rs.client.Set(ctx, "user:1:name", "John Doe", 0).Err()
