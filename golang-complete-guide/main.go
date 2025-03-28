@@ -321,3 +321,22 @@ func (rs *RedisService) StringOperations(ctx context.Context) error {
 
 	// TTL (time to live)
 	ttl, err := rs.client.TTL(ctx, "session:123").Result()
+	if err != nil {
+		return fmt.Errorf("TTL failed: %v", err)
+	}
+	fmt.Printf("session:123 TTL = %v\n", ttl)
+
+	return nil
+}
+
+// Hash Operations
+func (rs *RedisService) HashOperations(ctx context.Context) error {
+	// HSET (set multiple hash fields)
+	err := rs.client.HSet(ctx, "user:1", map[string]interface{}{
+		"name":  "John Doe",
+		"email": "john@example.com",
+		"age":   30,
+	}).Err()
+	if err != nil {
+		return fmt.Errorf("HSET failed: %v", err)
+	}
