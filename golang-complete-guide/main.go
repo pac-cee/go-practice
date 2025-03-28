@@ -264,3 +264,22 @@ func jsonExample() {
 }
 
 // 8. Panic Recovery
+func recoverExample() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("Recovered from panic: %v\n", r)
+		}
+	}()
+	
+	// Simulating a panic
+	panic("something went wrong")
+}
+
+// Redis Client wrapper
+type RedisService struct {
+	client *redis.Client
+}
+
+// Create new Redis service
+func NewRedisService() (*RedisService, error) {
+	client := redis.NewClient(&redis.Options{
