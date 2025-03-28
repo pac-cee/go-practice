@@ -188,3 +188,22 @@ func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
 	}
 }
 
+// 4. Generics (Go 1.18+)
+type Number interface {
+	~int | ~float64
+}
+
+func Min[T Number](x, y T) T {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+// 5. Thread-safe Counter with Mutex
+type SafeCounter struct {
+	mu sync.Mutex
+	count int
+}
+
+func (c *SafeCounter) Increment() {
