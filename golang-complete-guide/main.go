@@ -359,3 +359,22 @@ func (rs *RedisService) HashOperations(ctx context.Context) error {
 }
 
 // List Operations
+func (rs *RedisService) ListOperations(ctx context.Context) error {
+	// LPUSH (push to left/start of list)
+	err := rs.client.LPush(ctx, "tasks", "task1", "task2", "task3").Err()
+	if err != nil {
+		return fmt.Errorf("LPUSH failed: %v", err)
+	}
+
+	// RPOP (pop from right/end of list)
+	task, err := rs.client.RPop(ctx, "tasks").Result()
+	if err != nil {
+		return fmt.Errorf("RPOP failed: %v", err)
+	}
+	fmt.Printf("Popped task = %v\n", task)
+
+	// LRANGE (get range of list elements)
+	tasks, err := rs.client.LRange(ctx, "tasks", 0, -1).Result()
+	if err != nil {
+		return fmt.Errorf("LRANGE failed: %v", err)
+	}
