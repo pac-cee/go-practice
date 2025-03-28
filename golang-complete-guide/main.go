@@ -454,3 +454,22 @@ func main() {
 	basicTypes()
 	arraysAndSlices()
 	maps()
+
+	fmt.Println("\n=== Intermediate Concepts ===")
+	p := Person{Name: "Alice", Age: 25}
+	fmt.Println(p.Greet())
+
+	d := Dog{Name: "Rex"}
+	fmt.Println(d.Speak())
+
+	result, err := divide(10, 2)
+	fmt.Printf("Division result: %v, error: %v\n", result, err)
+
+	fmt.Println("\n=== Advanced Concepts ===")
+	reflectionExample()
+	contextExample()
+	workerPool()
+
+	// Generics example
+	fmt.Printf("Min of 10 and 5: %v\n", Min(10, 5))
+	fmt.Printf("Min of 3.14 and 2.71: %v\n", Min(3.14, 2.71))
