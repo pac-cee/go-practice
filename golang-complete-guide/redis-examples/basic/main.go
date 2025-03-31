@@ -36,3 +36,22 @@ func main() {
 	if err != nil {
 		fmt.Printf("Failed to get key: %v\n", err)
 		return
+	}
+	fmt.Printf("mykey = %v\n", val)
+
+	// SET with expiration (SETEX)
+	err = rdb.SetEx(ctx, "tempkey", "I will expire in 1 minute", 1*time.Minute).Err()
+	if err != nil {
+		fmt.Printf("Failed to set expiring key: %v\n", err)
+		return
+	}
+
+	// Get TTL (Time To Live)
+	ttl, err := rdb.TTL(ctx, "tempkey").Result()
+	if err != nil {
+		fmt.Printf("Failed to get TTL: %v\n", err)
+		return
+	}
+	fmt.Printf("tempkey will expire in %v\n", ttl)
+
+	// Check if key exists
