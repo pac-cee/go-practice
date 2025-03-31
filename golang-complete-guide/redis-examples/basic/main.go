@@ -55,3 +55,27 @@ func main() {
 	fmt.Printf("tempkey will expire in %v\n", ttl)
 
 	// Check if key exists
+	exists, err := rdb.Exists(ctx, "mykey").Result()
+	if err != nil {
+		fmt.Printf("Failed to check key existence: %v\n", err)
+		return
+	}
+	fmt.Printf("Does mykey exist? %v\n", exists == 1)
+
+	// Delete a key
+	err = rdb.Del(ctx, "mykey").Err()
+	if err != nil {
+		fmt.Printf("Failed to delete key: %v\n", err)
+		return
+	}
+	fmt.Println("Successfully deleted mykey")
+
+	// Try to get deleted key
+	val, err = rdb.Get(ctx, "mykey").Result()
+	if err == redis.Nil {
+		fmt.Println("mykey no longer exists")
+	} else if err != nil {
+		fmt.Printf("Failed to get key: %v\n", err)
+		return
+	}
+}
