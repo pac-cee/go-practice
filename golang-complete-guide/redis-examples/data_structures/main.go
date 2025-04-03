@@ -55,3 +55,22 @@ func main() {
 
 		// Check if element exists in set
 		exists, err := rdb.SIsMember(ctx, "fruits", "apple").Result()
+		if err != nil {
+			fmt.Printf("Failed to check set membership: %v\n", err)
+			return
+		}
+		fmt.Printf("Is apple in fruits set? %v\n", exists)
+
+		// Get all set members
+		members, err := rdb.SMembers(ctx, "fruits").Result()
+		if err != nil {
+			fmt.Printf("Failed to get set members: %v\n", err)
+			return
+		}
+		fmt.Printf("All fruits: %v\n", members)
+	}
+
+	fmt.Println("\n=== Hashes Example ===")
+	// Hashes - maps between string fields and string values
+	{
+		// Set multiple hash fields
