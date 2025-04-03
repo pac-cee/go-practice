@@ -36,3 +36,22 @@ func main() {
 
 		// Get all items in list
 		items, err := rdb.LRange(ctx, "queue", 0, -1).Result()
+		if err != nil {
+			fmt.Printf("Failed to get list range: %v\n", err)
+			return
+		}
+		fmt.Printf("Remaining items in queue: %v\n", items)
+	}
+
+	fmt.Println("\n=== Sets Example ===")
+	// Sets - collection of unique elements
+	{
+		// Add elements to set
+		err := rdb.SAdd(ctx, "fruits", "apple", "banana", "orange").Err()
+		if err != nil {
+			fmt.Printf("Failed to add to set: %v\n", err)
+			return
+		}
+
+		// Check if element exists in set
+		exists, err := rdb.SIsMember(ctx, "fruits", "apple").Result()
