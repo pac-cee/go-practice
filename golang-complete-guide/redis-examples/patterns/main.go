@@ -36,3 +36,22 @@ func rateLimitExample(ctx context.Context, rdb *redis.Client) {
 	userID := "user123"
 	action := "api_call"
 	key := fmt.Sprintf("ratelimit:%s:%s", userID, action)
+	
+	// Check current count
+	count, err := rdb.Incr(ctx, key).Result()
+	if err != nil {
+		fmt.Printf("Failed to increment counter: %v\n", err)
+		return
+	}
+	
+	// Set expiry for first request
+	if count == 1 {
+		rdb.Expire(ctx, key, 1*time.Hour)
+	}
+	
+	// Check if rate limit exceeded
+	if count > 10 {
+		fmt.Println("Rate limit exceeded!")
+		return
+	}
+	
