@@ -17,3 +17,22 @@ func cacheExample(ctx context.Context, rdb *redis.Client) {
 		// Cache miss - get data from "database" and cache it
 		userData := `{"id": 123, "name": "John Doe", "email": "john@example.com"}`
 		err = rdb.Set(ctx, cacheKey, userData, 1*time.Hour).Err()
+		if err != nil {
+			fmt.Printf("Failed to cache data: %v\n", err)
+			return
+		}
+		fmt.Println("Data cached successfully")
+		cachedData = userData
+	} else if err != nil {
+		fmt.Printf("Failed to get cached data: %v\n", err)
+		return
+	}
+	
+	fmt.Printf("User data: %s\n", cachedData)
+}
+
+// Rate limiting example
+func rateLimitExample(ctx context.Context, rdb *redis.Client) {
+	userID := "user123"
+	action := "api_call"
+	key := fmt.Sprintf("ratelimit:%s:%s", userID, action)
