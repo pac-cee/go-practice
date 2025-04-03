@@ -112,3 +112,22 @@ func pubSubExample(ctx context.Context, rdb *redis.Client) {
 		fmt.Printf("Failed to publish message: %v\n", err)
 		return
 	}
+	
+	// Wait a bit for message to be received
+	time.Sleep(time.Second)
+}
+
+func main() {
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	
+	ctx := context.Background()
+	
+	fmt.Println("=== Caching Example ===")
+	cacheExample(ctx, rdb)
+	
+	fmt.Println("\n=== Rate Limiting Example ===")
+	rateLimitExample(ctx, rdb)
