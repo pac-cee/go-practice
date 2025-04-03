@@ -93,3 +93,22 @@ func pubSubExample(ctx context.Context, rdb *redis.Client) {
 	// Subscribe to channel
 	pubsub := rdb.Subscribe(ctx, "notifications")
 	defer pubsub.Close()
+	
+	// Start subscriber in goroutine
+	go func() {
+		for {
+			msg, err := pubsub.ReceiveMessage(ctx)
+			if err != nil {
+				fmt.Printf("Failed to receive message: %v\n", err)
+				return
+			}
+			fmt.Printf("Received message: %s\n", msg.Payload)
+		}
+	}()
+	
+	// Publish messages
+	err := rdb.Publish(ctx, "notifications", "Hello subscribers!").Err()
+	if err != nil {
+		fmt.Printf("Failed to publish message: %v\n", err)
+		return
+	}
