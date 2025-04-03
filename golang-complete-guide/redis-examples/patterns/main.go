@@ -55,3 +55,22 @@ func rateLimitExample(ctx context.Context, rdb *redis.Client) {
 		return
 	}
 	
+	fmt.Printf("Request allowed. Count: %d/10\n", count)
+}
+
+// Session management example
+func sessionExample(ctx context.Context, rdb *redis.Client) {
+	sessionID := "sess:abc123"
+	
+	// Create session
+	sessionData := map[string]interface{}{
+		"user_id": 123,
+		"username": "johndoe",
+		"logged_in": true,
+	}
+	
+	err := rdb.HSet(ctx, sessionID, sessionData).Err()
+	if err != nil {
+		fmt.Printf("Failed to create session: %v\n", err)
+		return
+	}
