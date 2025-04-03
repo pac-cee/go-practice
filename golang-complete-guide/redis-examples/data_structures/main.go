@@ -112,3 +112,27 @@ func main() {
 		}
 		err := rdb.ZAdd(ctx, "scores", users...).Err()
 		if err != nil {
+			fmt.Printf("Failed to add to sorted set: %v\n", err)
+			return
+		}
+
+		// Get top scores (highest to lowest)
+		topScores, err := rdb.ZRevRangeWithScores(ctx, "scores", 0, -1).Result()
+		if err != nil {
+			fmt.Printf("Failed to get sorted set range: %v\n", err)
+			return
+		}
+		fmt.Println("User scores (highest to lowest):")
+		for _, z := range topScores {
+			fmt.Printf("%v: %v\n", z.Member, z.Score)
+		}
+
+		// Get user rank
+		rank, err := rdb.ZRank(ctx, "scores", "user2").Result()
+		if err != nil {
+			fmt.Printf("Failed to get rank: %v\n", err)
+			return
+		}
+		fmt.Printf("user2 rank: %v\n", rank)
+	}
+}
