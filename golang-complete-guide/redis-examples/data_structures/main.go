@@ -93,3 +93,22 @@ func main() {
 		fmt.Printf("User email: %v\n", email)
 
 		// Get all hash fields
+		userData, err := rdb.HGetAll(ctx, "user:1").Result()
+		if err != nil {
+			fmt.Printf("Failed to get all hash fields: %v\n", err)
+			return
+		}
+		fmt.Printf("All user data: %v\n", userData)
+	}
+
+	fmt.Println("\n=== Sorted Sets Example ===")
+	// Sorted Sets - ordered sets of unique elements
+	{
+		// Add members with scores
+		users := []redis.Z{
+			{Score: 100, Member: "user1"},
+			{Score: 200, Member: "user2"},
+			{Score: 150, Member: "user3"},
+		}
+		err := rdb.ZAdd(ctx, "scores", users...).Err()
+		if err != nil {
