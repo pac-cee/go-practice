@@ -131,3 +131,10 @@ func main() {
 	
 	fmt.Println("\n=== Rate Limiting Example ===")
 	rateLimitExample(ctx, rdb)
+	
+	fmt.Println("\n=== Session Management Example ===")
+	sessionExample(ctx, rdb)
+	
+	fmt.Println("\n=== Pub/Sub Example ===")
+	pubSubExample(ctx, rdb)
+}
