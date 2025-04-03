@@ -74,3 +74,22 @@ func sessionExample(ctx context.Context, rdb *redis.Client) {
 		fmt.Printf("Failed to create session: %v\n", err)
 		return
 	}
+	
+	// Set session expiry
+	rdb.Expire(ctx, sessionID, 24*time.Hour)
+	
+	// Get session data
+	data, err := rdb.HGetAll(ctx, sessionID).Result()
+	if err != nil {
+		fmt.Printf("Failed to get session: %v\n", err)
+		return
+	}
+	
+	fmt.Printf("Session data: %v\n", data)
+}
+
+// Pub/Sub example
+func pubSubExample(ctx context.Context, rdb *redis.Client) {
+	// Subscribe to channel
+	pubsub := rdb.Subscribe(ctx, "notifications")
+	defer pubsub.Close()
