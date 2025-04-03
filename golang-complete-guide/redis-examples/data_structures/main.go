@@ -74,3 +74,22 @@ func main() {
 	// Hashes - maps between string fields and string values
 	{
 		// Set multiple hash fields
+		err := rdb.HSet(ctx, "user:1", map[string]interface{}{
+			"username": "johndoe",
+			"email":    "john@example.com",
+			"age":      "30",
+		}).Err()
+		if err != nil {
+			fmt.Printf("Failed to set hash: %v\n", err)
+			return
+		}
+
+		// Get specific hash field
+		email, err := rdb.HGet(ctx, "user:1", "email").Result()
+		if err != nil {
+			fmt.Printf("Failed to get hash field: %v\n", err)
+			return
+		}
+		fmt.Printf("User email: %v\n", email)
+
+		// Get all hash fields
