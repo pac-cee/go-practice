@@ -36,3 +36,22 @@ go get github.com/redis/go-redis/v9
 
 4. **Advanced** (`advanced/main.go`):
    - Pipelining
+   - Transactions
+   - Lua scripting
+   - Error handling
+
+## Running the Examples
+
+Each directory contains a standalone example that can be run with:
+```bash
+cd [example-directory]
+go run main.go
+```
+
+## Common Redis Use Cases
+
+1. **Caching**:
+   - Temporary data storage
+   - Frequently accessed data
+   - Session storage
+
