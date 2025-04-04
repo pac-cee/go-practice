@@ -55,3 +55,21 @@ go run main.go
    - Frequently accessed data
    - Session storage
 
+2. **Rate Limiting**:
+   - API request limiting
+   - User action throttling
+
+3. **Real-time Features**:
+   - Live feeds
+   - Real-time analytics
+   - Message queues
+
+4. **Session Management**:
+   - User sessions
+   - Authentication tokens
+   - Temporary state
+
+5. **Leaderboards**:
+   - Game scores
+   - User rankings
+   - Real-time analytics
