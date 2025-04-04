@@ -17,3 +17,22 @@ go get github.com/redis/go-redis/v9
 
 ## Examples
 
+1. **Basic Operations** (`basic/main.go`):
+   - Connection setup
+   - Simple GET/SET operations
+   - Key expiration
+
+2. **Data Structures** (`data_structures/main.go`):
+   - Lists (for queues/stacks)
+   - Sets (for unique collections)
+   - Hashes (for structured data)
+   - Sorted Sets (for rankings)
+
+3. **Patterns** (`patterns/main.go`):
+   - Caching
+   - Rate limiting
+   - Session management
+   - Pub/Sub messaging
+
+4. **Advanced** (`advanced/main.go`):
+   - Pipelining
