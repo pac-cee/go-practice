@@ -17,3 +17,12 @@ func main() {
 	auth := r.Group("/api")
 	auth.Use(AuthMiddleware())
 	{
+		auth.GET("/habits", getHabitsHandler)
+		auth.POST("/habits", createHabitHandler)
+		auth.PUT("/habits/:id", updateHabitHandler)
+		auth.DELETE("/habits/:id", deleteHabitHandler)
+		auth.POST("/habits/:id/mark", markHabitHandler)
+	}
+
+	r.Run(":8080")
+}
