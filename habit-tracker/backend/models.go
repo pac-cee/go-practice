@@ -17,3 +17,9 @@ type Habit struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+// HabitMark represents a day a habit was completed
+type HabitMark struct {
+	ID      int       `json:"id"`
+	HabitID int       `json:"habit_id"`
+	Date    time.Time `json:"date"`
+}
