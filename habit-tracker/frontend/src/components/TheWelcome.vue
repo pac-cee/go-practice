@@ -74,3 +74,21 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     (our official Discord server), or
     <a href="https://stackoverflow.com/questions/tagged/vue.js" target="_blank" rel="noopener"
       >StackOverflow</a
+    >. You should also follow the official
+    <a href="https://bsky.app/profile/vuejs.org" target="_blank" rel="noopener">@vuejs.org</a>
+    Bluesky account or the
+    <a href="https://x.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
+    X account for latest news in the Vue world.
+  </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      <SupportIcon />
+    </template>
+    <template #heading>Support Vue</template>
+
+    As an independent project, Vue relies on community backing for its sustainability. You can help
+    us by
+    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
+  </WelcomeItem>
+</template>
