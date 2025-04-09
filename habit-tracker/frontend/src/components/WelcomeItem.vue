@@ -74,3 +74,14 @@ h3 {
     left: 0;
     top: calc(50% + 25px);
     height: calc(50% - 25px);
+  }
+
+  .item:first-of-type:before {
+    display: none;
+  }
+
+  .item:last-of-type:after {
+    display: none;
+  }
+}
+</style>
