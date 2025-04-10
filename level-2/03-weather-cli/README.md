@@ -112,3 +112,13 @@ The program expects JSON responses in this format:
 - Formatting output
 
 ## Next Steps
+
+To extend this project, you could:
+1. Add weather forecasts
+2. Cache results for repeated queries
+3. Add more weather data points
+4. Support multiple weather APIs
+5. Add colorized output
+6. Implement location auto-complete
+7. Add unit tests
+8. Create a configuration file
