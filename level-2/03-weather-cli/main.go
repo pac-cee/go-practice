@@ -36,3 +36,22 @@ func getWeather(apiKey, location string) (*WeatherData, error) {
 		return nil, fmt.Errorf("error making request: %v", err)
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("API request failed with status code: %d", resp.StatusCode)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response: %v", err)
+	}
+
+	var weather WeatherData
+	if err := json.Unmarshal(body, &weather); err != nil {
+		return nil, fmt.Errorf("error parsing weather data: %v", err)
+	}
+
+	return &weather, nil
+}
+
+func displayWeather(weather *WeatherData) {
