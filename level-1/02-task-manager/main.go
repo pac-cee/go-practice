@@ -74,3 +74,22 @@ func (tm *TaskManager) ListTasks() {
 		fmt.Printf("Title: %s\n", task.Title)
 		fmt.Printf("Description: %s\n", task.Description)
 		fmt.Printf("Due Date: %s\n", task.DueDate.Format("2006-01-02"))
+		fmt.Printf("Status: %s\n", task.Status)
+		fmt.Println("----------------------------------------")
+	}
+}
+
+func (tm *TaskManager) UpdateTaskStatus(id int, status string) error {
+	for i := range tm.tasks {
+		if tm.tasks[i].ID == id {
+			tm.tasks[i].Status = status
+			return tm.SaveTasks()
+		}
+	}
+	return fmt.Errorf("task with ID %d not found", id)
+}
+
+func (tm *TaskManager) DeleteTask(id int) error {
+	for i := range tm.tasks {
+		if tm.tasks[i].ID == id {
+			tm.tasks = append(tm.tasks[:i], tm.tasks[i+1:]...)
