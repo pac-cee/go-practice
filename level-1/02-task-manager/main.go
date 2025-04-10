@@ -150,3 +150,22 @@ func main() {
 			fmt.Scan(&status)
 
 			err := tm.UpdateTaskStatus(id, status)
+			if err != nil {
+				fmt.Printf("Error: %v\n", err)
+			} else {
+				fmt.Println("Task status updated successfully!")
+			}
+
+		case 4:
+			var id int
+			fmt.Print("Enter task ID: ")
+			fmt.Scan(&id)
+
+			err := tm.DeleteTask(id)
+			if err != nil {
+				fmt.Printf("Error: %v\n", err)
+			} else {
+				fmt.Println("Task deleted successfully!")
+			}
+
+		case 5:
