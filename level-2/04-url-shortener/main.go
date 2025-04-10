@@ -93,3 +93,22 @@ func getURL(shortCode string) (*URLEntry, error) {
 		return nil, err
 	}
 	return &entry, nil
+}
+
+func incrementClicks(shortCode string) error {
+	_, err := db.Exec("UPDATE urls SET clicks = clicks + 1 WHERE short_code = ?", shortCode)
+	return err
+}
+
+func getAllURLs() ([]URLEntry, error) {
+	rows, err := db.Query("SELECT id, long_url, short_code, created_at, clicks FROM urls ORDER BY created_at DESC")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var urls []URLEntry
+	for rows.Next() {
+		var entry URLEntry
+		err := rows.Scan(&entry.ID, &entry.LongURL, &entry.ShortCode, &entry.CreatedAt, &entry.Clicks)
+		if err != nil {
