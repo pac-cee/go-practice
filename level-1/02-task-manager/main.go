@@ -169,3 +169,11 @@ func main() {
 			}
 
 		case 5:
+			fmt.Println("Goodbye!")
+			return
+
+		default:
+			fmt.Println("Invalid choice!")
+		}
+	}
+}
