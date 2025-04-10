@@ -55,3 +55,22 @@ Task added successfully!
 02-task-manager/
 ├── main.go      # Main program file
 ├── tasks.json   # Data storage file (created when tasks are added)
+└── README.md    # Project documentation
+```
+
+## Data Structure
+
+Tasks are stored in JSON format with the following structure:
+```json
+{
+  "id": 1,
+  "title": "Complete Project",
+  "description": "Finish the Go learning project",
+  "due_date": "2024-12-31T00:00:00Z",
+  "status": "pending"
+}
+```
+
+## Learning Objectives
+
+- Working with custom types and structs
