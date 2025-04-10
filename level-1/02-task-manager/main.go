@@ -55,3 +55,22 @@ func (tm *TaskManager) AddTask(title, description string, dueDate time.Time) {
 		Title:       title,
 		Description: description,
 		DueDate:     dueDate,
+		Status:      "pending",
+	}
+	tm.tasks = append(tm.tasks, task)
+	tm.SaveTasks()
+}
+
+func (tm *TaskManager) ListTasks() {
+	if len(tm.tasks) == 0 {
+		fmt.Println("No tasks found.")
+		return
+	}
+
+	fmt.Println("\nTasks:")
+	fmt.Println("----------------------------------------")
+	for _, task := range tm.tasks {
+		fmt.Printf("ID: %d\n", task.ID)
+		fmt.Printf("Title: %s\n", task.Title)
+		fmt.Printf("Description: %s\n", task.Description)
+		fmt.Printf("Due Date: %s\n", task.DueDate.Format("2006-01-02"))
