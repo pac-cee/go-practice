@@ -36,3 +36,22 @@ A command-line task management application that demonstrates working with struct
 ## Usage Example
 
 ```
+Task Manager
+1. Add Task
+2. List Tasks
+3. Update Task Status
+4. Delete Task
+5. Exit
+Choose option (1-5): 1
+Enter task title: Complete Project
+Enter task description: Finish the Go learning project
+Enter due date (YYYY-MM-DD): 2024-12-31
+Task added successfully!
+```
+
+## Project Structure
+
+```
+02-task-manager/
+├── main.go      # Main program file
+├── tasks.json   # Data storage file (created when tasks are added)
