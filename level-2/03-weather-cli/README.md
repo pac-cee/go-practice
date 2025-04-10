@@ -74,3 +74,22 @@ UV Index: 5.0
 03-weather-cli/
 ├── main.go      # Main program file
 └── README.md    # Project documentation
+```
+
+## API Response Structure
+
+The program expects JSON responses in this format:
+```json
+{
+  "location": {
+    "name": "London",
+    "country": "United Kingdom"
+  },
+  "current": {
+    "temp_c": 18.0,
+    "temp_f": 64.4,
+    "condition": {
+      "text": "Partly cloudy"
+    },
+    "humidity": 72,
+    "wind_kph": 15.1,
