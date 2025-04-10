@@ -93,3 +93,22 @@ func (tm *TaskManager) DeleteTask(id int) error {
 	for i := range tm.tasks {
 		if tm.tasks[i].ID == id {
 			tm.tasks = append(tm.tasks[:i], tm.tasks[i+1:]...)
+			return tm.SaveTasks()
+		}
+	}
+	return fmt.Errorf("task with ID %d not found", id)
+}
+
+func main() {
+	tm := NewTaskManager("tasks.json")
+	err := tm.LoadTasks()
+	if err != nil {
+		fmt.Printf("Error loading tasks: %v\n", err)
+		return
+	}
+
+	for {
+		fmt.Println("\nTask Manager")
+		fmt.Println("1. Add Task")
+		fmt.Println("2. List Tasks")
+		fmt.Println("3. Update Task Status")
