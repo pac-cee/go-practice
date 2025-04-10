@@ -17,3 +17,22 @@ type WeatherData struct {
 	Current struct {
 		TempC     float64 `json:"temp_c"`
 		TempF     float64 `json:"temp_f"`
+		Condition struct {
+			Text string `json:"text"`
+		} `json:"condition"`
+		Humidity    int     `json:"humidity"`
+		WindKph     float64 `json:"wind_kph"`
+		FeelsLikeC  float64 `json:"feelslike_c"`
+		FeelsLikeF  float64 `json:"feelslike_f"`
+		UV         float64 `json:"uv"`
+	} `json:"current"`
+}
+
+func getWeather(apiKey, location string) (*WeatherData, error) {
+	url := fmt.Sprintf("http://api.weatherapi.com/v1/current.json?key=%s&q=%s&aqi=no", apiKey, location)
+	
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, fmt.Errorf("error making request: %v", err)
+	}
+	defer resp.Body.Close()
