@@ -55,3 +55,23 @@ Result: 8.00
 ## Project Structure
 
 ```
+01-calculator/
+├── main.go      # Main program file
+└── README.md    # Project documentation
+```
+
+## Learning Objectives
+
+- Understanding basic Go program structure
+- Working with the standard library (fmt, bufio, os, strconv)
+- Implementing user input validation
+- Basic error handling
+- Creating modular code with functions
+
+## Next Steps
+
+To extend this project, you could:
+1. Add more operations (square root, power, etc.)
+2. Implement memory functions (store/recall results)
+3. Add support for more complex expressions
+4. Create a basic test suite
