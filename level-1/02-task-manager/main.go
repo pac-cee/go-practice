@@ -112,3 +112,22 @@ func main() {
 		fmt.Println("1. Add Task")
 		fmt.Println("2. List Tasks")
 		fmt.Println("3. Update Task Status")
+		fmt.Println("4. Delete Task")
+		fmt.Println("5. Exit")
+		fmt.Print("Choose option (1-5): ")
+
+		var choice int
+		fmt.Scan(&choice)
+
+		switch choice {
+		case 1:
+			var title, description, dateStr string
+			fmt.Print("Enter task title: ")
+			fmt.Scan(&title)
+			fmt.Print("Enter task description: ")
+			fmt.Scan(&description)
+			fmt.Print("Enter due date (YYYY-MM-DD): ")
+			fmt.Scan(&dateStr)
+
+			dueDate, err := time.Parse("2006-01-02", dateStr)
+			if err != nil {
