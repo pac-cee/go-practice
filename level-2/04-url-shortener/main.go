@@ -112,3 +112,22 @@ func getAllURLs() ([]URLEntry, error) {
 		var entry URLEntry
 		err := rows.Scan(&entry.ID, &entry.LongURL, &entry.ShortCode, &entry.CreatedAt, &entry.Clicks)
 		if err != nil {
+			return nil, err
+		}
+		urls = append(urls, entry)
+	}
+	return urls, nil
+}
+
+func handleHome(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+
+	urls, err := getAllURLs()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
