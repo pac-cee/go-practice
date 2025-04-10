@@ -55,3 +55,22 @@ func main() {
 
 func isValidChoice(choice string) bool {
 	validChoices := []string{"1", "2", "3", "4"}
+	for _, c := range validChoices {
+		if choice == c {
+			return true
+		}
+	}
+	return false
+}
+
+func calculate(operation string, a, b float64) float64 {
+	switch operation {
+	case "1":
+		return a + b
+	case "2":
+		return a - b
+	case "3":
+		return a * b
+	case "4":
+		if b == 0 {
+			fmt.Println("Error: Division by zero!")
