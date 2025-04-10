@@ -55,3 +55,22 @@ func getWeather(apiKey, location string) (*WeatherData, error) {
 }
 
 func displayWeather(weather *WeatherData) {
+	fmt.Printf("\nWeather for %s, %s\n", weather.Location.Name, weather.Location.Country)
+	fmt.Println("----------------------------------------")
+	fmt.Printf("Temperature: %.1f°C (%.1f°F)\n", weather.Current.TempC, weather.Current.TempF)
+	fmt.Printf("Feels like: %.1f°C (%.1f°F)\n", weather.Current.FeelsLikeC, weather.Current.FeelsLikeF)
+	fmt.Printf("Condition: %s\n", weather.Current.Condition.Text)
+	fmt.Printf("Humidity: %d%%\n", weather.Current.Humidity)
+	fmt.Printf("Wind Speed: %.1f km/h\n", weather.Current.WindKph)
+	fmt.Printf("UV Index: %.1f\n", weather.Current.UV)
+}
+
+func main() {
+	apiKey := flag.String("key", "", "WeatherAPI API key")
+	location := flag.String("location", "", "Location to get weather for")
+	flag.Parse()
+
+	if *apiKey == "" {
+		// Try to get API key from environment variable
+		*apiKey = os.Getenv("WEATHER_API_KEY")
+		if *apiKey == "" {
