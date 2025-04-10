@@ -36,3 +36,22 @@ func (tm *TaskManager) LoadTasks() error {
 	if err != nil {
 		return err
 	}
+
+	return json.Unmarshal(data, &tm.tasks)
+}
+
+func (tm *TaskManager) SaveTasks() error {
+	data, err := json.MarshalIndent(tm.tasks, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	return ioutil.WriteFile(tm.filename, data, 0644)
+}
+
+func (tm *TaskManager) AddTask(title, description string, dueDate time.Time) {
+	task := Task{
+		ID:          len(tm.tasks) + 1,
+		Title:       title,
+		Description: description,
+		DueDate:     dueDate,
