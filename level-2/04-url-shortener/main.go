@@ -131,3 +131,22 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	tmpl.Execute(w, urls)
+}
+
+func handleShorten(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	longURL := r.FormValue("url")
+	if longURL == "" {
+		http.Error(w, "URL is required", http.StatusBadRequest)
+		return
+	}
+
+	entry, err := createURL(longURL)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
