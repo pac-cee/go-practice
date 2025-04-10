@@ -74,3 +74,21 @@ func main() {
 		// Try to get API key from environment variable
 		*apiKey = os.Getenv("WEATHER_API_KEY")
 		if *apiKey == "" {
+			fmt.Println("Error: API key is required. Provide it using -key flag or WEATHER_API_KEY environment variable")
+			os.Exit(1)
+		}
+	}
+
+	if *location == "" {
+		fmt.Println("Error: Location is required. Provide it using -location flag")
+		os.Exit(1)
+	}
+
+	weather, err := getWeather(*apiKey, *location)
+	if err != nil {
+		fmt.Printf("Error getting weather: %v\n", err)
+		os.Exit(1)
+	}
+
+	displayWeather(weather)
+}
