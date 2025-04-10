@@ -74,3 +74,20 @@ Tasks are stored in JSON format with the following structure:
 ## Learning Objectives
 
 - Working with custom types and structs
+- Implementing CRUD operations
+- File handling in Go
+- JSON marshaling and unmarshaling
+- Time formatting and parsing
+- Error handling patterns
+- Using methods with receiver types
+
+## Next Steps
+
+To extend this project, you could:
+1. Add task categories or tags
+2. Implement task priority levels
+3. Add due date notifications
+4. Create a basic web interface
+5. Add user authentication
+6. Implement task filtering and sorting
+7. Add unit tests
