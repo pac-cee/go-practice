@@ -55,3 +55,22 @@ func generateShortCode() (string, error) {
 
 func createURL(longURL string) (*URLEntry, error) {
 	// Check if URL already exists
+	var entry URLEntry
+	err := db.QueryRow("SELECT id, long_url, short_code, created_at, clicks FROM urls WHERE long_url = ?",
+		longURL).Scan(&entry.ID, &entry.LongURL, &entry.ShortCode, &entry.CreatedAt, &entry.Clicks)
+	if err == nil {
+		return &entry, nil
+	}
+
+	// Generate new short code
+	shortCode, err := generateShortCode()
+	if err != nil {
+		return nil, err
+	}
+
+	// Insert new URL
+	result, err := db.Exec("INSERT INTO urls (long_url, short_code) VALUES (?, ?)",
+		longURL, shortCode)
+	if err != nil {
+		return nil, err
+	}
