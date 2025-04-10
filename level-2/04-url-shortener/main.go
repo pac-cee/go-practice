@@ -74,3 +74,22 @@ func createURL(longURL string) (*URLEntry, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	id, _ := result.LastInsertId()
+	return &URLEntry{
+		ID:        int(id),
+		LongURL:   longURL,
+		ShortCode: shortCode,
+		CreatedAt: time.Now(),
+		Clicks:    0,
+	}, nil
+}
+
+func getURL(shortCode string) (*URLEntry, error) {
+	var entry URLEntry
+	err := db.QueryRow("SELECT id, long_url, short_code, created_at, clicks FROM urls WHERE short_code = ?",
+		shortCode).Scan(&entry.ID, &entry.LongURL, &entry.ShortCode, &entry.CreatedAt, &entry.Clicks)
+	if err != nil {
+		return nil, err
+	}
+	return &entry, nil
