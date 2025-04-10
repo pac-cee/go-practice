@@ -36,3 +36,22 @@ func initDB() error {
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		long_url TEXT NOT NULL,
 		short_code TEXT UNIQUE NOT NULL,
+		created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+		clicks INTEGER DEFAULT 0
+	);`
+
+	_, err = db.Exec(createTable)
+	return err
+}
+
+func generateShortCode() (string, error) {
+	b := make([]byte, 6)
+	_, err := rand.Read(b)
+	if err != nil {
+		return "", err
+	}
+	return base64.URLEncoding.EncodeToString(b)[:6], nil
+}
+
+func createURL(longURL string) (*URLEntry, error) {
+	// Check if URL already exists
