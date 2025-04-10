@@ -36,3 +36,22 @@ A command-line weather application that demonstrates working with external APIs,
 
 1. Navigate to the project directory:
    ```bash
+   cd level-2/03-weather-cli
+   ```
+
+2. Set your API key (either method):
+   ```bash
+   # Method 1: Environment variable
+   export WEATHER_API_KEY=your_api_key_here
+
+   # Method 2: Command-line flag
+   go run main.go -key=your_api_key_here -location="London"
+   ```
+
+3. Run the program:
+   ```bash
+   go run main.go -location="London"
+   ```
+
+## Usage Example
+
