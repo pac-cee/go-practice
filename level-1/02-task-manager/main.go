@@ -131,3 +131,22 @@ func main() {
 
 			dueDate, err := time.Parse("2006-01-02", dateStr)
 			if err != nil {
+				fmt.Println("Invalid date format!")
+				continue
+			}
+
+			tm.AddTask(title, description, dueDate)
+			fmt.Println("Task added successfully!")
+
+		case 2:
+			tm.ListTasks()
+
+		case 3:
+			var id int
+			var status string
+			fmt.Print("Enter task ID: ")
+			fmt.Scan(&id)
+			fmt.Print("Enter new status (pending/completed): ")
+			fmt.Scan(&status)
+
+			err := tm.UpdateTaskStatus(id, status)
