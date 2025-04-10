@@ -93,3 +93,22 @@ The program expects JSON responses in this format:
     },
     "humidity": 72,
     "wind_kph": 15.1,
+    "feelslike_c": 17.8,
+    "feelslike_f": 64.0,
+    "uv": 4.0
+  }
+}
+```
+
+## Learning Objectives
+
+- Making HTTP requests in Go
+- Working with external APIs
+- JSON marshaling and unmarshaling
+- Using struct tags
+- Command-line flag parsing
+- Environment variable handling
+- Error handling patterns
+- Formatting output
+
+## Next Steps
