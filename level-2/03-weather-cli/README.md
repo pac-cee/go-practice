@@ -55,3 +55,22 @@ A command-line weather application that demonstrates working with external APIs,
 
 ## Usage Example
 
+```bash
+$ go run main.go -location="New York"
+
+Weather for New York, United States
+----------------------------------------
+Temperature: 22.5°C (72.5°F)
+Feels like: 23.2°C (73.8°F)
+Condition: Partly cloudy
+Humidity: 65%
+Wind Speed: 12.6 km/h
+UV Index: 5.0
+```
+
+## Project Structure
+
+```
+03-weather-cli/
+├── main.go      # Main program file
+└── README.md    # Project documentation
