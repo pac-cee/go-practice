@@ -74,3 +74,22 @@ CREATE TABLE urls (
 );
 ```
 
+## API Endpoints
+
+- `GET /` - Home page with URL submission form
+- `POST /shorten` - Create a new short URL
+- `GET /{shortCode}` - Redirect to original URL
+
+## Learning Objectives
+
+- Building web servers in Go
+- Working with SQL databases
+- HTML template parsing and execution
+- Static file serving
+- Form handling and validation
+- URL routing and redirection
+- Error handling in web applications
+- Using prepared statements
+- Basic frontend development
+
+## Next Steps
