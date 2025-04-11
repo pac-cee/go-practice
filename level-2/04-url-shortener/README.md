@@ -36,3 +36,22 @@ A web application that shortens long URLs into easy-to-share links, demonstratin
 
 1. Navigate to the project directory:
    ```bash
+   cd level-2/04-url-shortener
+   ```
+
+2. Run the program:
+   ```bash
+   go run main.go
+   ```
+
+3. Open your browser and visit:
+   ```
+   http://localhost:8080
+   ```
+
+## Project Structure
+
+```
+04-url-shortener/
+├── main.go              # Main application file
+├── urls.db              # SQLite database (created on first run)
