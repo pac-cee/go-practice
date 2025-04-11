@@ -150,3 +150,22 @@ func handleShorten(w http.ResponseWriter, r *http.Request) {
 	entry, err := createURL(longURL)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func handleRedirect(w http.ResponseWriter, r *http.Request) {
+	shortCode := r.URL.Path[1:]
+	entry, err := getURL(shortCode)
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	err = incrementClicks(shortCode)
+	if err != nil {
+		log.Printf("Error incrementing clicks: %v", err)
+	}
+
