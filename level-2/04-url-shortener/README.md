@@ -55,3 +55,22 @@ A web application that shortens long URLs into easy-to-share links, demonstratin
 04-url-shortener/
 ├── main.go              # Main application file
 ├── urls.db              # SQLite database (created on first run)
+├── README.md            # Project documentation
+├── static/
+│   └── style.css        # CSS styles
+└── templates/
+    └── index.html       # HTML template
+```
+
+## Database Schema
+
+```sql
+CREATE TABLE urls (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    long_url TEXT NOT NULL,
+    short_code TEXT UNIQUE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    clicks INTEGER DEFAULT 0
+);
+```
+
