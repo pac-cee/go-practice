@@ -169,3 +169,24 @@ func handleRedirect(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error incrementing clicks: %v", err)
 	}
 
+	http.Redirect(w, r, entry.LongURL, http.StatusMovedPermanently)
+}
+
+func main() {
+	if err := initDB(); err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	http.HandleFunc("/", handleHome)
+	http.HandleFunc("/shorten", handleShorten)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	fmt.Printf("Server starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
