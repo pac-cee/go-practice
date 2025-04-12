@@ -74,3 +74,22 @@ func (h *Hub) run() {
 				close(client.send)
 				// Broadcast user left message
 				msg := Message{
+					Type:     "system",
+					Content:  fmt.Sprintf("%s left the chat", client.username),
+					Username: "System",
+					Time:     time.Now().Format("15:04:05"),
+				}
+				msgBytes, _ := json.Marshal(msg)
+				h.broadcast <- msgBytes
+			}
+			h.mutex.Unlock()
+
+		case message := <-h.broadcast:
+			h.mutex.Lock()
+			for client := range h.clients {
+				select {
+				case client.send <- message:
+				default:
+					close(client.send)
+					delete(h.clients, client)
+				}
