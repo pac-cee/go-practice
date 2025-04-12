@@ -93,3 +93,15 @@ CREATE TABLE urls (
 - Basic frontend development
 
 ## Next Steps
+
+To extend this project, you could:
+1. Add user authentication
+2. Implement custom short codes
+3. Add URL validation
+4. Create an API endpoint
+5. Add URL expiration
+6. Implement rate limiting
+7. Add QR code generation
+8. Create detailed analytics
+9. Add unit tests
+10. Deploy to a cloud platform
