@@ -112,3 +112,22 @@ func (c *Client) readPump() {
 				log.Printf("error: %v", err)
 			}
 			break
+		}
+
+		var msg Message
+		if err := json.Unmarshal(message, &msg); err != nil {
+			log.Printf("error unmarshaling message: %v", err)
+			continue
+		}
+
+		msg.Time = time.Now().Format("15:04:05")
+		msg.Username = c.username
+
+		messageBytes, err := json.Marshal(msg)
+		if err != nil {
+			log.Printf("error marshaling message: %v", err)
+			continue
+		}
+
+		c.hub.broadcast <- messageBytes
+	}
