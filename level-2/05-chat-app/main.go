@@ -55,3 +55,22 @@ func (h *Hub) run() {
 		select {
 		case client := <-h.register:
 			h.mutex.Lock()
+			h.clients[client] = true
+			h.mutex.Unlock()
+			// Broadcast user joined message
+			msg := Message{
+				Type:     "system",
+				Content:  fmt.Sprintf("%s joined the chat", client.username),
+				Username: "System",
+				Time:     time.Now().Format("15:04:05"),
+			}
+			msgBytes, _ := json.Marshal(msg)
+			h.broadcast <- msgBytes
+
+		case client := <-h.unregister:
+			h.mutex.Lock()
+			if _, ok := h.clients[client]; ok {
+				delete(h.clients, client)
+				close(client.send)
+				// Broadcast user left message
+				msg := Message{
