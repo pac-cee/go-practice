@@ -17,3 +17,22 @@ body {
     padding: 2rem;
 }
 
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+.shorten-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input[type="url"] {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
