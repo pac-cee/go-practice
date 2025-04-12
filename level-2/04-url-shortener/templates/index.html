@@ -17,3 +17,27 @@
 
         <div class="urls-list">
             <h2>Recent URLs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Short URL</th>
+                        <th>Original URL</th>
+                        <th>Clicks</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .}}
+                    <tr>
+                        <td><a href="/{{.ShortCode}}" target="_blank">{{.ShortCode}}</a></td>
+                        <td class="long-url"><a href="{{.LongURL}}" target="_blank">{{.LongURL}}</a></td>
+                        <td>{{.Clicks}}</td>
+                        <td>{{.CreatedAt.Format "2006-01-02 15:04"}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
