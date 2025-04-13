@@ -74,3 +74,22 @@
                     type: 'message',
                     content: message,
                     username: username
+                };
+                
+                ws.send(JSON.stringify(messageObj));
+                input.value = '';
+            }
+        }
+
+        function displayMessage(message) {
+            const messagesDiv = document.getElementById('messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${message.type}`;
+
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'time';
+            timeSpan.textContent = message.time;
+
+            const usernameSpan = document.createElement('span');
+            usernameSpan.className = 'username';
+            usernameSpan.textContent = message.username;
