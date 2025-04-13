@@ -188,3 +188,12 @@ func main() {
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(hub, w, r)
 	})
+	http.Handle("/", http.FileServer(http.Dir("static")))
+
+	port := ":8080"
+	fmt.Printf("Server starting on http://localhost%s\n", port)
+	err := http.ListenAndServe(port, nil)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
+}
