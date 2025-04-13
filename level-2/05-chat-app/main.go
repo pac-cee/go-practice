@@ -169,3 +169,22 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		username = fmt.Sprintf("User%d", time.Now().UnixNano()%1000)
 	}
 
+	client := &Client{
+		hub:      hub,
+		conn:     conn,
+		send:     make(chan []byte, 256),
+		username: username,
+	}
+	client.hub.register <- client
+
+	go client.writePump()
+	go client.readPump()
+}
+
+func main() {
+	hub := newHub()
+	go hub.run()
+
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		serveWs(hub, w, r)
+	})
