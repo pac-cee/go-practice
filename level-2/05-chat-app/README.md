@@ -74,3 +74,22 @@ A web-based chat application demonstrating real-time communication using WebSock
 - Dynamic message display
 - User interface components
 - Message input handling
+
+## Message Types
+
+```go
+type Message struct {
+    Type     string `json:"type"`     // "message" or "system"
+    Content  string `json:"content"`   // Message content
+    Username string `json:"username"`  // Sender's username
+    Time     string `json:"time"`      // Message timestamp
+}
+```
+
+## Learning Objectives
+
+- Understanding WebSocket protocol
+- Managing concurrent connections
+- Implementing pub/sub pattern
+- Handling real-time events
+- Frontend-backend integration
