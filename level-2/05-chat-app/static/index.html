@@ -93,3 +93,25 @@
             const usernameSpan = document.createElement('span');
             usernameSpan.className = 'username';
             usernameSpan.textContent = message.username;
+
+            const contentSpan = document.createElement('span');
+            contentSpan.className = 'content';
+            contentSpan.textContent = message.content;
+
+            messageElement.appendChild(timeSpan);
+            messageElement.appendChild(usernameSpan);
+            messageElement.appendChild(contentSpan);
+
+            messagesDiv.appendChild(messageElement);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Handle enter key on username input
+        document.getElementById('username').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                joinChat();
+            }
+        });
+    </script>
+</body>
+</html>
