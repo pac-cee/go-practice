@@ -55,3 +55,22 @@
 
             ws.onclose = function() {
                 alert('Connection closed. Please refresh the page to reconnect.');
+            };
+
+            // Enable enter key for sending messages
+            document.getElementById('message-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (message && ws) {
+                const messageObj = {
+                    type: 'message',
+                    content: message,
+                    username: username
