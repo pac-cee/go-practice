@@ -150,3 +150,22 @@ func (c *Client) writePump() {
 			return
 		}
 		w.Write(message)
+
+		if err := w.Close(); err != nil {
+			return
+		}
+	}
+}
+
+func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	username := r.URL.Query().Get("username")
+	if username == "" {
+		username = fmt.Sprintf("User%d", time.Now().UnixNano()%1000)
+	}
+
