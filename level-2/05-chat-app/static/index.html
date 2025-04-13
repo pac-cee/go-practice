@@ -36,3 +36,22 @@
         let username;
 
         function joinChat() {
+            username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('chat-screen').classList.remove('hidden');
+
+            // Connect to WebSocket server
+            ws = new WebSocket(`ws://${window.location.host}/ws?username=${encodeURIComponent(username)}`);
+            
+            ws.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                displayMessage(message);
+            };
+
+            ws.onclose = function() {
+                alert('Connection closed. Please refresh the page to reconnect.');
