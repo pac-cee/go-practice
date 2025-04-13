@@ -93,3 +93,22 @@ type Message struct {
 - Implementing pub/sub pattern
 - Handling real-time events
 - Frontend-backend integration
+- Error handling in real-time systems
+- UI/UX design principles
+
+## Next Steps
+
+To extend this project, you could:
+1. Add private messaging
+2. Implement chat rooms
+3. Add user authentication
+4. Store chat history
+5. Add file sharing
+6. Implement typing indicators
+7. Add user profiles
+8. Add emoji support
+9. Implement message editing
+10. Add unit tests
+11. Deploy to a cloud platform
+12. Add message encryption
+13. Implement rate limiting
