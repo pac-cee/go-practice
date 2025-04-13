@@ -55,3 +55,22 @@ A web-based chat application demonstrating real-time communication using WebSock
 ```
 05-chat-app/
 ├── main.go          # Main server file with WebSocket handling
+├── README.md        # Project documentation
+└── static/
+    ├── index.html   # Frontend HTML
+    └── style.css    # CSS styles
+```
+
+## Components
+
+### Backend
+- WebSocket server implementation
+- Client connection management
+- Message broadcasting system
+- Concurrent message handling
+
+### Frontend
+- Real-time WebSocket client
+- Dynamic message display
+- User interface components
+- Message input handling
