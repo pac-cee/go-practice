@@ -36,3 +36,22 @@ A web-based chat application demonstrating real-time communication using WebSock
 1. Navigate to the project directory:
    ```bash
    cd level-2/05-chat-app
+   ```
+
+2. Run the program:
+   ```bash
+   go run main.go
+   ```
+
+3. Open your browser and visit:
+   ```
+   http://localhost:8080
+   ```
+
+4. Open multiple browser windows to simulate different users.
+
+## Project Structure
+
+```
+05-chat-app/
+├── main.go          # Main server file with WebSocket handling
