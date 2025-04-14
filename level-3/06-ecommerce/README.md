@@ -55,3 +55,22 @@ The system consists of four main services:
 │   │   └── go.mod
 │   ├── order/
 │   │   ├── main.go
+│   │   ├── Dockerfile
+│   │   └── go.mod
+│   └── user/
+│       ├── main.go
+│       ├── Dockerfile
+│       └── go.mod
+├── docker-compose.yml
+└── README.md
+```
+
+## How to Run
+
+1. Clone the repository
+2. Navigate to the project directory:
+   ```bash
+   cd level-3/06-ecommerce
+   ```
+
+3. Start the services:
