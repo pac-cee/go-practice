@@ -17,3 +17,22 @@ The system consists of four main services:
    - CRUD operations for products
 
 3. **Order Service (Port 8082)**
+   - Processes orders
+   - Manages order status
+   - Validates product availability
+
+4. **User Service (Port 8083)**
+   - User authentication
+   - Profile management
+   - JWT token generation
+
+## Technologies Used
+
+- Go (Golang) 1.19
+- MongoDB
+- Docker & Docker Compose
+- JWT for authentication
+- Gorilla Mux for routing
+- WebSocket for real-time updates
+
+## Prerequisites
