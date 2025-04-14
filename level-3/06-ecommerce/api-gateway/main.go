@@ -112,3 +112,22 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		start := time.Now()
 		next.ServeHTTP(w, r)
 		log.Printf(
+			"%s %s %s",
+			r.Method,
+			r.RequestURI,
+			time.Since(start),
+		)
+	})
+}
+
+func main() {
+	gateway := NewGateway()
+	router := gateway.setupRoutes()
+
+	// Add middleware
+	handler := corsMiddleware(loggingMiddleware(router))
+
+	port := "8080"
+	fmt.Printf("API Gateway starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, handler))
+}
