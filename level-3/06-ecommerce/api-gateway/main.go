@@ -55,3 +55,22 @@ func (g *Gateway) authMiddleware(next http.Handler) http.Handler {
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			}
+			return []byte(os.Getenv("JWT_SECRET")), nil
+		})
+
+		if err != nil || !token.Valid {
+			http.Error(w, "Invalid token", http.StatusUnauthorized)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func (g *Gateway) setupRoutes() *mux.Router {
+	r := mux.NewRouter()
+
+	// Product Service Routes
+	productProxy := g.createProxy(g.productServiceURL)
+	r.PathPrefix("/api/products").Handler(g.authMiddleware(productProxy))
