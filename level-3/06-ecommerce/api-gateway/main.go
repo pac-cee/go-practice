@@ -74,3 +74,22 @@ func (g *Gateway) setupRoutes() *mux.Router {
 	// Product Service Routes
 	productProxy := g.createProxy(g.productServiceURL)
 	r.PathPrefix("/api/products").Handler(g.authMiddleware(productProxy))
+
+	// Order Service Routes
+	orderProxy := g.createProxy(g.orderServiceURL)
+	r.PathPrefix("/api/orders").Handler(g.authMiddleware(orderProxy))
+
+	// User Service Routes
+	userProxy := g.createProxy(g.userServiceURL)
+	r.PathPrefix("/api/auth").Handler(userProxy)
+	r.PathPrefix("/api/users").Handler(g.authMiddleware(userProxy))
+
+	// Health Check
+	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+	}).Methods("GET")
+
+	return r
+}
+
+func corsMiddleware(next http.Handler) http.Handler {
