@@ -36,3 +36,22 @@ The system consists of four main services:
 - WebSocket for real-time updates
 
 ## Prerequisites
+
+1. Docker and Docker Compose installed
+2. Go 1.19 or later (for development)
+3. MongoDB (handled by Docker)
+
+## Project Structure
+
+```
+06-ecommerce/
+├── api-gateway/
+│   ├── main.go
+│   └── Dockerfile
+├── services/
+│   ├── product/
+│   │   ├── main.go
+│   │   ├── Dockerfile
+│   │   └── go.mod
+│   ├── order/
+│   │   ├── main.go
