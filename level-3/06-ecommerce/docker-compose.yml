@@ -17,3 +17,22 @@ services:
     environment:
       - MONGO_URI=mongodb://mongodb:27017
       - DB_NAME=ecommerce
+      - PRODUCT_SERVICE_URL=http://product-service:8081
+    depends_on:
+      - mongodb
+      - product-service
+
+  user-service:
+    build: ./services/user
+    ports:
+      - "8083:8083"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+      - DB_NAME=ecommerce
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      - mongodb
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
