@@ -131,3 +131,22 @@ Each service can be developed and tested independently:
    ```
 
 ## Testing
+
+To test the services:
+
+1. Register a user:
+   ```bash
+   curl -X POST http://localhost:8080/api/auth/register \
+     -H "Content-Type: application/json" \
+     -d '{"email":"test@example.com","password":"password","name":"Test User"}'
+   ```
+
+2. Login to get a token:
+   ```bash
+   curl -X POST http://localhost:8080/api/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"email":"test@example.com","password":"password"}'
+   ```
+
+3. Use the token to create a product:
+   ```bash
