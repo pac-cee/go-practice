@@ -74,3 +74,22 @@ The system consists of four main services:
    ```
 
 3. Start the services:
+   ```bash
+   docker-compose up --build
+   ```
+
+4. Access the API at `http://localhost:8080`
+
+## API Endpoints
+
+### Product Service
+- `POST /api/products` - Create product
+- `GET /api/products` - List products
+- `GET /api/products/{id}` - Get product
+- `PUT /api/products/{id}` - Update product
+- `DELETE /api/products/{id}` - Delete product
+
+### Order Service
+- `POST /api/orders` - Create order
+- `GET /api/orders` - List orders
+- `GET /api/orders/{id}` - Get order
