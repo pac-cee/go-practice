@@ -150,3 +150,21 @@ To test the services:
 
 3. Use the token to create a product:
    ```bash
+   curl -X POST http://localhost:8080/api/products \
+     -H "Authorization: Bearer <your-token>" \
+     -H "Content-Type: application/json" \
+     -d '{"name":"Test Product","price":29.99,"stock":100}'
+   ```
+
+## Next Steps
+
+1. Add payment service integration
+2. Implement caching with Redis
+3. Add message queues for async operations
+4. Implement service discovery
+5. Add monitoring and logging
+6. Implement CI/CD pipeline
+7. Add unit and integration tests
+8. Implement rate limiting
+9. Add data backup and recovery
+10. Implement search functionality
