@@ -93,3 +93,22 @@ The system consists of four main services:
 - `POST /api/orders` - Create order
 - `GET /api/orders` - List orders
 - `GET /api/orders/{id}` - Get order
+- `PUT /api/orders/{id}/status` - Update order status
+
+### User Service
+- `POST /api/auth/register` - Register user
+- `POST /api/auth/login` - Login user
+- `GET /api/users/{id}` - Get user profile
+- `PUT /api/users/{id}` - Update user profile
+
+## Authentication
+
+The system uses JWT tokens for authentication. To access protected endpoints:
+
+1. Register a user or login to get a JWT token
+2. Include the token in the Authorization header:
+   ```
+   Authorization: Bearer <your-token>
+   ```
+
+## Development
