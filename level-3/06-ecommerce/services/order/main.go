@@ -55,3 +55,22 @@ func NewOrderService() (*OrderService, error) {
 	}, nil
 }
 
+func (s *OrderService) validateProducts(items []OrderItem) error {
+	for _, item := range items {
+		resp, err := http.Get(fmt.Sprintf("%s/api/products/%s", s.productService, item.ProductID))
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode == http.StatusNotFound {
+			return fmt.Errorf("product %s not found", item.ProductID)
+		}
+		if resp.StatusCode != http.StatusOK {
+			return fmt.Errorf("error validating product %s", item.ProductID)
+		}
+
+		var product struct {
+			Stock int     `json:"stock"`
+			Price float64 `json:"price"`
+		}
