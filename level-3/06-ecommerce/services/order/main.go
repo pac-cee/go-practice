@@ -74,3 +74,22 @@ func (s *OrderService) validateProducts(items []OrderItem) error {
 			Stock int     `json:"stock"`
 			Price float64 `json:"price"`
 		}
+		if err := json.NewDecoder(resp.Body).Decode(&product); err != nil {
+			return err
+		}
+
+		if product.Stock < item.Quantity {
+			return fmt.Errorf("insufficient stock for product %s", item.ProductID)
+		}
+		item.Price = product.Price
+	}
+	return nil
+}
+
+func (s *OrderService) CreateOrder(w http.ResponseWriter, r *http.Request) {
+	var order Order
+	if err := json.NewDecoder(r.Body).Decode(&order); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
