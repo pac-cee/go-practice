@@ -112,3 +112,22 @@ The system uses JWT tokens for authentication. To access protected endpoints:
    ```
 
 ## Development
+
+Each service can be developed and tested independently:
+
+1. Navigate to a service directory:
+   ```bash
+   cd services/product
+   ```
+
+2. Install dependencies:
+   ```bash
+   go mod download
+   ```
+
+3. Run the service:
+   ```bash
+   go run main.go
+   ```
+
+## Testing
