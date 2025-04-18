@@ -188,3 +188,22 @@ func (s *OrderService) ListOrders(w http.ResponseWriter, r *http.Request) {
 	userID := r.URL.Query().Get("user_id")
 	filter := bson.M{}
 	if userID != "" {
+		filter["user_id"] = userID
+	}
+
+	cursor, err := s.collection.Find(context.Background(), filter)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer cursor.Close(context.Background())
+
+	var orders []Order
+	if err := cursor.All(context.Background(), &orders); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(orders)
+}
+
