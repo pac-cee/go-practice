@@ -131,3 +131,22 @@ func (s *ProductService) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	json.NewEncoder(w).Encode(product)
+}
+
+func (s *ProductService) DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := primitive.ObjectIDFromHex(vars["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	result, err := s.collection.DeleteOne(context.Background(), bson.M{"_id": id})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if result.DeletedCount == 0 {
+		http.Error(w, "Product not found", http.StatusNotFound)
