@@ -93,3 +93,22 @@ func (s *ProductService) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	id, err := primitive.ObjectIDFromHex(vars["id"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var product Product
+	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	product.UpdatedAt = time.Now()
+
+	update := bson.M{
+		"$set": bson.M{
+			"name":        product.Name,
+			"description": product.Description,
+			"price":       product.Price,
+			"stock":       product.Stock,
+			"category":    product.Category,
+			"updated_at":  product.UpdatedAt,
