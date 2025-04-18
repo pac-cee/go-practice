@@ -36,3 +36,22 @@ func NewProductService() (*ProductService, error) {
 	defer cancel()
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	if err != nil {
+		return nil, err
+	}
+
+	db := client.Database(os.Getenv("DB_NAME"))
+	collection := db.Collection("products")
+
+	return &ProductService{collection: collection}, nil
+}
+
+func (s *ProductService) CreateProduct(w http.ResponseWriter, r *http.Request) {
+	var product Product
+	if err := json.NewDecoder(r.Body).Decode(&product); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	product.CreatedAt = time.Now()
+	product.UpdatedAt = time.Now()
