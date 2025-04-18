@@ -93,3 +93,22 @@ func (s *OrderService) CreateOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := s.validateProducts(order.Items); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	order.Status = "pending"
+	order.CreatedAt = time.Now()
+	order.UpdatedAt = time.Now()
+
+	// Calculate total
+	var total float64
+	for _, item := range order.Items {
+		total += item.Price * float64(item.Quantity)
+	}
+	order.Total = total
+
+	result, err := s.collection.InsertOne(context.Background(), order)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
