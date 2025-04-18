@@ -150,3 +150,22 @@ func (s *OrderService) UpdateOrderStatus(w http.ResponseWriter, r *http.Request)
 	}
 
 	var status struct {
+		Status string `json:"status"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&status); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	update := bson.M{
+		"$set": bson.M{
+			"status":     status.Status,
+			"updated_at": time.Now(),
+		},
+	}
+
+	var order Order
+	result := s.collection.FindOneAndUpdate(
+		context.Background(),
+		bson.M{"_id": id},
+		update,
