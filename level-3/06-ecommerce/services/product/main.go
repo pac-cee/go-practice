@@ -112,3 +112,22 @@ func (s *ProductService) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 			"stock":       product.Stock,
 			"category":    product.Category,
 			"updated_at":  product.UpdatedAt,
+		},
+	}
+
+	result := s.collection.FindOneAndUpdate(
+		context.Background(),
+		bson.M{"_id": id},
+		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	)
+
+	if err := result.Decode(&product); err != nil {
+		if err == mongo.ErrNoDocuments {
+			http.Error(w, "Product not found", http.StatusNotFound)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
