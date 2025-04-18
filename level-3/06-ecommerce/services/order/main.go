@@ -207,3 +207,19 @@ func (s *OrderService) ListOrders(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(orders)
 }
 
+func main() {
+	service, err := NewOrderService()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r := mux.NewRouter()
+	r.HandleFunc("/api/orders", service.CreateOrder).Methods("POST")
+	r.HandleFunc("/api/orders", service.ListOrders).Methods("GET")
+	r.HandleFunc("/api/orders/{id}", service.GetOrder).Methods("GET")
+	r.HandleFunc("/api/orders/{id}/status", service.UpdateOrderStatus).Methods("PUT")
+
+	port := "8082"
+	fmt.Printf("Order service starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
+}
