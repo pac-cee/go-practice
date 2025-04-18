@@ -112,3 +112,22 @@ func (s *OrderService) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	result, err := s.collection.InsertOne(context.Background(), order)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	order.ID = result.InsertedID.(primitive.ObjectID)
+	json.NewEncoder(w).Encode(order)
+}
+
+func (s *OrderService) GetOrder(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := primitive.ObjectIDFromHex(vars["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var order Order
+	err = s.collection.FindOne(context.Background(), bson.M{"_id": id}).Decode(&order)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
