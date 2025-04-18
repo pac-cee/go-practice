@@ -169,3 +169,22 @@ func (s *OrderService) UpdateOrderStatus(w http.ResponseWriter, r *http.Request)
 		context.Background(),
 		bson.M{"_id": id},
 		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	)
+
+	if err := result.Decode(&order); err != nil {
+		if err == mongo.ErrNoDocuments {
+			http.Error(w, "Order not found", http.StatusNotFound)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(order)
+}
+
+func (s *OrderService) ListOrders(w http.ResponseWriter, r *http.Request) {
+	userID := r.URL.Query().Get("user_id")
+	filter := bson.M{}
+	if userID != "" {
