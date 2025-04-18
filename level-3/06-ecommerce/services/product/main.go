@@ -74,3 +74,22 @@ func (s *ProductService) GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var product Product
+	err = s.collection.FindOne(context.Background(), bson.M{"_id": id}).Decode(&product)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			http.Error(w, "Product not found", http.StatusNotFound)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(product)
+}
+
+func (s *ProductService) UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := primitive.ObjectIDFromHex(vars["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
