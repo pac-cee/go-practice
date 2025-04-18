@@ -55,3 +55,22 @@ func (s *ProductService) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	product.CreatedAt = time.Now()
 	product.UpdatedAt = time.Now()
+
+	result, err := s.collection.InsertOne(context.Background(), product)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	product.ID = result.InsertedID.(primitive.ObjectID)
+	json.NewEncoder(w).Encode(product)
+}
+
+func (s *ProductService) GetProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := primitive.ObjectIDFromHex(vars["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
