@@ -131,3 +131,22 @@ func (s *OrderService) GetOrder(w http.ResponseWriter, r *http.Request) {
 	err = s.collection.FindOne(context.Background(), bson.M{"_id": id}).Decode(&order)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
+			http.Error(w, "Order not found", http.StatusNotFound)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(order)
+}
+
+func (s *OrderService) UpdateOrderStatus(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := primitive.ObjectIDFromHex(vars["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var status struct {
