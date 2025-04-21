@@ -112,3 +112,22 @@ func (n *CacheNode) Delete(key string) error {
 	return n.replicateToPeers(msg)
 }
 
+func (n *CacheNode) cleanup() {
+	for range n.cleanupTicker.C {
+		n.mutex.Lock()
+		now := time.Now()
+		for key, entry := range n.cache {
+			if now.After(entry.ExpiresAt) {
+				delete(n.cache, key)
+			}
+		}
+		n.mutex.Unlock()
+	}
+}
+
+func (n *CacheNode) handleConnection(conn net.Conn) {
+	defer conn.Close()
+
+	decoder := json.NewDecoder(conn)
+	encoder := json.NewEncoder(conn)
+
