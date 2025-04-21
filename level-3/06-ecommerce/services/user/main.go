@@ -207,3 +207,20 @@ func (s *UserService) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(user)
 }
+
+func main() {
+	service, err := NewUserService()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r := mux.NewRouter()
+	r.HandleFunc("/api/auth/register", service.Register).Methods("POST")
+	r.HandleFunc("/api/auth/login", service.Login).Methods("POST")
+	r.HandleFunc("/api/users/{id}", service.GetProfile).Methods("GET")
+	r.HandleFunc("/api/users/{id}", service.UpdateProfile).Methods("PUT")
+
+	port := "8083"
+	fmt.Printf("User service starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
+}
