@@ -188,3 +188,11 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/api/products", service.CreateProduct).Methods("POST")
 	r.HandleFunc("/api/products", service.ListProducts).Methods("GET")
+	r.HandleFunc("/api/products/{id}", service.GetProduct).Methods("GET")
+	r.HandleFunc("/api/products/{id}", service.UpdateProduct).Methods("PUT")
+	r.HandleFunc("/api/products/{id}", service.DeleteProduct).Methods("DELETE")
+
+	port := "8081"
+	fmt.Printf("Product service starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
+}
