@@ -245,3 +245,26 @@ func main() {
 	if len(os.Args) < 3 {
 		fmt.Println("Usage: cache-system <node-id> <port> [peer-addresses...]")
 		os.Exit(1)
+	}
+
+	nodeID := os.Args[1]
+	port := os.Args[2]
+	peerAddresses := os.Args[3:]
+
+	node, err := NewCacheNode(nodeID, port, 2)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Connect to peers
+	for i, addr := range peerAddresses {
+		peerID := fmt.Sprintf("node-%d", i+1)
+		if err := node.ConnectToPeer(peerID, addr); err != nil {
+			log.Printf("Failed to connect to peer %s: %v", addr, err)
+		}
+	}
+
+	if err := node.Start(); err != nil {
+		log.Fatal(err)
+	}
+}
