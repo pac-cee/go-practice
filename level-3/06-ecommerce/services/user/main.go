@@ -169,3 +169,22 @@ func (s *UserService) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
+	}
+
+	var updates struct {
+		Name    string `json:"name"`
+		Address string `json:"address"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&updates); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	update := bson.M{
+		"$set": bson.M{
+			"name":       updates.Name,
+			"address":    updates.Address,
+			"updated_at": time.Now(),
+		},
+	}
+
