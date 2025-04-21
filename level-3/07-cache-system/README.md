@@ -55,3 +55,22 @@ The system implements a distributed cache with the following components:
 
 1. **Set**
    ```json
+   {
+     "type": "set",
+     "key": "example-key",
+     "value": "example-value",
+     "ttl": 3600,
+     "node_id": "node1"
+   }
+   ```
+
+2. **Get**
+   ```json
+   {
+     "type": "get",
+     "key": "example-key"
+   }
+   ```
+
+3. **Delete**
+   ```json
