@@ -17,3 +17,22 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/crypto/bcrypt"
 )
+
+type User struct {
+	ID        primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	Email     string            `json:"email" bson:"email"`
+	Password  string            `json:"-" bson:"password"`
+	Name      string            `json:"name" bson:"name"`
+	Address   string            `json:"address" bson:"address"`
+	CreatedAt time.Time         `json:"created_at" bson:"created_at"`
+	UpdatedAt time.Time         `json:"updated_at" bson:"updated_at"`
+}
+
+type UserService struct {
+	collection *mongo.Collection
+	jwtSecret  []byte
+}
+
+func NewUserService() (*UserService, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
