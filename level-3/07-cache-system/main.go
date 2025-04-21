@@ -36,3 +36,22 @@ type CacheNode struct {
 }
 
 func NewCacheNode(id string, port string, replicaCount int) (*CacheNode, error) {
+	listener, err := net.Listen("tcp", ":"+port)
+	if err != nil {
+		return nil, err
+	}
+
+	node := &CacheNode{
+		ID:           id,
+		cache:        make(map[string]CacheEntry),
+		peers:        make(map[string]net.Conn),
+		listener:     listener,
+		replicaCount: replicaCount,
+	}
+
+	// Start cleanup routine
+	node.cleanupTicker = time.NewTicker(1 * time.Minute)
+	go node.cleanup()
+
+	return node, nil
+}
