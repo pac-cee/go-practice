@@ -169,3 +169,22 @@ func (s *ProductService) ListProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer cursor.Close(context.Background())
+
+	var products []Product
+	if err := cursor.All(context.Background(), &products); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(products)
+}
+
+func main() {
+	service, err := NewProductService()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	r := mux.NewRouter()
+	r.HandleFunc("/api/products", service.CreateProduct).Methods("POST")
+	r.HandleFunc("/api/products", service.ListProducts).Methods("GET")
