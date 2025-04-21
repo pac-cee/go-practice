@@ -55,3 +55,22 @@ func NewUserService() (*UserService, error) {
 	)
 	if err != nil {
 		return nil, err
+	}
+
+	return &UserService{
+		collection: collection,
+		jwtSecret:  []byte(os.Getenv("JWT_SECRET")),
+	}, nil
+}
+
+func (s *UserService) Register(w http.ResponseWriter, r *http.Request) {
+	var user User
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Hash password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
