@@ -36,3 +36,22 @@ type UserService struct {
 func NewUserService() (*UserService, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	if err != nil {
+		return nil, err
+	}
+
+	db := client.Database(os.Getenv("DB_NAME"))
+	collection := db.Collection("users")
+
+	// Create unique index for email
+	_, err = collection.Indexes().CreateOne(
+		context.Background(),
+		mongo.IndexModel{
+			Keys:    bson.M{"email": 1},
+			Options: options.Index().SetUnique(true),
+		},
+	)
+	if err != nil {
+		return nil, err
