@@ -131,3 +131,22 @@ The system implements a distributed cache with the following components:
    - Thread-safe cleanup operation
 
 ## Testing
+
+To test the system:
+
+1. Start multiple nodes as described above
+
+2. Use netcat or telnet to send commands:
+   ```bash
+   echo '{"type":"set","key":"test","value":"hello","ttl":300}' | nc localhost 8081
+   echo '{"type":"get","key":"test"}' | nc localhost 8082
+   ```
+
+## Performance Considerations
+
+1. **Memory Usage**
+   - In-memory storage
+   - Automatic cleanup of expired entries
+   - No persistence to disk
+
+2. **Network**
