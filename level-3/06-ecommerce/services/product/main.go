@@ -150,3 +150,22 @@ func (s *ProductService) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 
 	if result.DeletedCount == 0 {
 		http.Error(w, "Product not found", http.StatusNotFound)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+func (s *ProductService) ListProducts(w http.ResponseWriter, r *http.Request) {
+	category := r.URL.Query().Get("category")
+	filter := bson.M{}
+	if category != "" {
+		filter["category"] = category
+	}
+
+	cursor, err := s.collection.Find(context.Background(), filter)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer cursor.Close(context.Background())
