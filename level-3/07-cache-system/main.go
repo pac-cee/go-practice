@@ -93,3 +93,22 @@ func (n *CacheNode) Get(key string) (interface{}, bool) {
 		delete(n.cache, key)
 		return nil, false
 	}
+
+	return entry.Value, true
+}
+
+func (n *CacheNode) Delete(key string) error {
+	n.mutex.Lock()
+	defer n.mutex.Unlock()
+
+	delete(n.cache, key)
+
+	msg := Message{
+		Type:   "delete",
+		Key:    key,
+		NodeID: n.ID,
+	}
+
+	return n.replicateToPeers(msg)
+}
+
