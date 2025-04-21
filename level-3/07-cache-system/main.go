@@ -74,3 +74,22 @@ func (n *CacheNode) Set(key string, value interface{}, ttl int) error {
 		Key:    key,
 		Value:  value,
 		TTL:    ttl,
+		NodeID: n.ID,
+	}
+
+	return n.replicateToPeers(msg)
+}
+
+func (n *CacheNode) Get(key string) (interface{}, bool) {
+	n.mutex.RLock()
+	defer n.mutex.RUnlock()
+
+	entry, exists := n.cache[key]
+	if !exists {
+		return nil, false
+	}
+
+	if time.Now().After(entry.ExpiresAt) {
+		delete(n.cache, key)
+		return nil, false
+	}
