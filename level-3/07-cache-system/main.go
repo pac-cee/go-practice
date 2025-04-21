@@ -169,3 +169,22 @@ func (n *CacheNode) handleConnection(conn net.Conn) {
 			encoder.Encode(Message{Type: "ack", Success: true})
 
 		default:
+			log.Printf("Unknown message type: %s", msg.Type)
+		}
+	}
+}
+
+func (n *CacheNode) replicateToPeers(msg Message) error {
+	for _, conn := range n.peers {
+		encoder := json.NewEncoder(conn)
+		if err := encoder.Encode(msg); err != nil {
+			return err
+		}
+
+		// Wait for acknowledgment
+		decoder := json.NewDecoder(conn)
+		var response Message
+		if err := decoder.Decode(&response); err != nil {
+			return err
+		}
+
