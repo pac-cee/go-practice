@@ -226,3 +226,22 @@ func (n *CacheNode) ConnectToPeer(peerID, address string) error {
 	// Wait for acknowledgment
 	decoder := json.NewDecoder(conn)
 	var response Message
+	if err := decoder.Decode(&response); err != nil {
+		return err
+	}
+
+	if !response.Success {
+		return fmt.Errorf("failed to join peer")
+	}
+
+	n.mutex.Lock()
+	n.peers[peerID] = conn
+	n.mutex.Unlock()
+
+	return nil
+}
+
+func main() {
+	if len(os.Args) < 3 {
+		fmt.Println("Usage: cache-system <node-id> <port> [peer-addresses...]")
+		os.Exit(1)
