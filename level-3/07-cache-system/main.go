@@ -207,3 +207,22 @@ func (n *CacheNode) Start() error {
 		go n.handleConnection(conn)
 	}
 }
+
+func (n *CacheNode) ConnectToPeer(peerID, address string) error {
+	conn, err := net.Dial("tcp", address)
+	if err != nil {
+		return err
+	}
+
+	// Send join message
+	encoder := json.NewEncoder(conn)
+	if err := encoder.Encode(Message{
+		Type:   "join",
+		NodeID: n.ID,
+	}); err != nil {
+		return err
+	}
+
+	// Wait for acknowledgment
+	decoder := json.NewDecoder(conn)
+	var response Message
