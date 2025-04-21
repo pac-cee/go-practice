@@ -188,3 +188,22 @@ func (n *CacheNode) replicateToPeers(msg Message) error {
 			return err
 		}
 
+		if !response.Success {
+			return fmt.Errorf("replication failed")
+		}
+	}
+	return nil
+}
+
+func (n *CacheNode) Start() error {
+	fmt.Printf("Cache node %s listening on %s\n", n.ID, n.listener.Addr())
+
+	for {
+		conn, err := n.listener.Accept()
+		if err != nil {
+			return err
+		}
+
+		go n.handleConnection(conn)
+	}
+}
