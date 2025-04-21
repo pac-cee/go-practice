@@ -131,3 +131,22 @@ func (n *CacheNode) handleConnection(conn net.Conn) {
 	decoder := json.NewDecoder(conn)
 	encoder := json.NewEncoder(conn)
 
+	for {
+		var msg Message
+		if err := decoder.Decode(&msg); err != nil {
+			log.Printf("Error decoding message: %v", err)
+			return
+		}
+
+		switch msg.Type {
+		case "set":
+			n.mutex.Lock()
+			n.cache[msg.Key] = CacheEntry{
+				Value:     msg.Value,
+				ExpiresAt: time.Now().Add(time.Duration(msg.TTL) * time.Second),
+			}
+			n.mutex.Unlock()
+			encoder.Encode(Message{Type: "ack", Success: true})
+
+		case "delete":
+			n.mutex.Lock()
