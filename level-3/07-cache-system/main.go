@@ -150,3 +150,22 @@ func (n *CacheNode) handleConnection(conn net.Conn) {
 
 		case "delete":
 			n.mutex.Lock()
+			delete(n.cache, msg.Key)
+			n.mutex.Unlock()
+			encoder.Encode(Message{Type: "ack", Success: true})
+
+		case "get":
+			value, exists := n.Get(msg.Key)
+			encoder.Encode(Message{
+				Type:    "response",
+				Value:   value,
+				Success: exists,
+			})
+
+		case "join":
+			n.mutex.Lock()
+			n.peers[msg.NodeID] = conn
+			n.mutex.Unlock()
+			encoder.Encode(Message{Type: "ack", Success: true})
+
+		default:
