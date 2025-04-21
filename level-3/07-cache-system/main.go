@@ -55,3 +55,22 @@ func NewCacheNode(id string, port string, replicaCount int) (*CacheNode, error) 
 
 	return node, nil
 }
+
+func (n *CacheNode) Set(key string, value interface{}, ttl int) error {
+	n.mutex.Lock()
+	defer n.mutex.Unlock()
+
+	expiresAt := time.Now().Add(time.Duration(ttl) * time.Second)
+	entry := CacheEntry{
+		Value:     value,
+		ExpiresAt: expiresAt,
+	}
+
+	n.cache[key] = entry
+
+	// Replicate to peers
+	msg := Message{
+		Type:   "set",
+		Key:    key,
+		Value:  value,
+		TTL:    ttl,
