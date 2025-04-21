@@ -93,3 +93,22 @@ func (s *UserService) Register(w http.ResponseWriter, r *http.Request) {
 
 	user.ID = result.InsertedID.(primitive.ObjectID)
 	user.Password = "" // Don't send password back
+	json.NewEncoder(w).Encode(user)
+}
+
+func (s *UserService) Login(w http.ResponseWriter, r *http.Request) {
+	var credentials struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&credentials); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var user User
+	err := s.collection.FindOne(context.Background(), bson.M{"email": credentials.Email}).Decode(&user)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
