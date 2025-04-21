@@ -74,3 +74,22 @@ The system implements a distributed cache with the following components:
 
 3. **Delete**
    ```json
+   {
+     "type": "delete",
+     "key": "example-key",
+     "node_id": "node1"
+   }
+   ```
+
+4. **Join**
+   ```json
+   {
+     "type": "join",
+     "node_id": "node2"
+   }
+   ```
+
+### Response Format
+```json
+{
+  "type": "response",
