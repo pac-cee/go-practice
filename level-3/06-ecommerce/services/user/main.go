@@ -74,3 +74,22 @@ func (s *UserService) Register(w http.ResponseWriter, r *http.Request) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	user.Password = string(hashedPassword)
+	user.CreatedAt = time.Now()
+	user.UpdatedAt = time.Now()
+
+	result, err := s.collection.InsertOne(context.Background(), user)
+	if err != nil {
+		if mongo.IsDuplicateKeyError(err) {
+			http.Error(w, "Email already exists", http.StatusConflict)
+			return
+		}
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	user.ID = result.InsertedID.(primitive.ObjectID)
+	user.Password = "" // Don't send password back
