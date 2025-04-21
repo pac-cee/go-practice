@@ -36,3 +36,22 @@ The system implements a distributed cache with the following components:
 
 - Go 1.19 or later
 
+## How to Run
+
+1. Start the first node:
+   ```bash
+   go run main.go node1 8081
+   ```
+
+2. Start additional nodes:
+   ```bash
+   go run main.go node2 8082 localhost:8081
+   go run main.go node3 8083 localhost:8081 localhost:8082
+   ```
+
+## Protocol Specification
+
+### Message Types
+
+1. **Set**
+   ```json
