@@ -112,3 +112,22 @@ The system implements a distributed cache with the following components:
    - Cache: Thread-safe map of key-value pairs
    - Peers: Connected peer nodes
    - ReplicaCount: Number of replicas to maintain
+
+### Key Components
+
+1. **Concurrency Control**
+   - Uses sync.RWMutex for thread-safe operations
+   - Read/Write locking for cache access
+   - Connection handling in separate goroutines
+
+2. **Data Replication**
+   - Automatic replication to peer nodes
+   - Configurable replica count
+   - Acknowledgment-based consistency
+
+3. **Cleanup**
+   - Periodic cleanup of expired entries
+   - Configurable cleanup interval
+   - Thread-safe cleanup operation
+
+## Testing
