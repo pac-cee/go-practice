@@ -93,3 +93,22 @@ The system implements a distributed cache with the following components:
 ```json
 {
   "type": "response",
+  "value": "example-value",
+  "success": true
+}
+```
+
+## Implementation Details
+
+### Data Structures
+
+1. **CacheEntry**
+   - Value: The stored data
+   - ExpiresAt: Expiration timestamp
+   - ReplicaIDs: List of nodes containing replicas
+
+2. **CacheNode**
+   - ID: Unique node identifier
+   - Cache: Thread-safe map of key-value pairs
+   - Peers: Connected peer nodes
+   - ReplicaCount: Number of replicas to maintain
