@@ -150,3 +150,22 @@ func (o *Orchestrator) ListContainers(w http.ResponseWriter, r *http.Request) {
 		result = append(result, container)
 	}
 
+	json.NewEncoder(w).Encode(result)
+}
+
+func (o *Orchestrator) StopContainer(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	timeout := 10 * time.Second
+	if err := o.client.ContainerStop(context.Background(), id, &timeout); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+func (o *Orchestrator) RemoveContainer(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
