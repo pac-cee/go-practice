@@ -74,3 +74,22 @@ func (o *Orchestrator) CreateContainer(w http.ResponseWriter, r *http.Request) {
 			{
 				HostIP:   "0.0.0.0",
 				HostPort: hostPort,
+			},
+		}
+		exposedPorts[containerPort] = struct{}{}
+	}
+
+	// Create container
+	resp, err := o.client.ContainerCreate(
+		context.Background(),
+		&container.Config{
+			Image:        req.Image,
+			Env:          env,
+			ExposedPorts: exposedPorts,
+		},
+		&container.HostConfig{
+			PortBindings: portBindings,
+			RestartPolicy: container.RestartPolicy{
+				Name: "unless-stopped",
+			},
+		},
