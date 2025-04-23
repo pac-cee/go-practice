@@ -131,3 +131,22 @@ func (o *Orchestrator) ListContainers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var result []Container
+	for _, c := range containers {
+		stats, err := o.getContainerStats(c.ID)
+		if err != nil {
+			log.Printf("Error getting stats for container %s: %v", c.ID, err)
+			continue
+		}
+
+		container := Container{
+			ID:        c.ID,
+			Name:      c.Names[0],
+			Image:     c.Image,
+			Status:    c.Status,
+			CreatedAt: time.Unix(c.Created, 0),
+			CPU:       stats.CPU,
+			Memory:    stats.Memory,
+		}
+		result = append(result, container)
+	}
+
