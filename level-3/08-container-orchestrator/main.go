@@ -169,3 +169,22 @@ func (o *Orchestrator) StopContainer(w http.ResponseWriter, r *http.Request) {
 func (o *Orchestrator) RemoveContainer(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
+
+	if err := o.client.ContainerRemove(context.Background(), id, types.ContainerRemoveOptions{
+		Force: true,
+	}); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	o.mutex.Lock()
+	delete(o.containers, id)
+	o.mutex.Unlock()
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+type ContainerStats struct {
+	CPU    float64
+	Memory int64
+}
