@@ -245,3 +245,22 @@ func main() {
 	orchestrator, err := NewOrchestrator()
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	// Start container monitoring
+	go orchestrator.monitorContainers()
+
+	r := mux.NewRouter()
+	r.HandleFunc("/containers", orchestrator.CreateContainer).Methods("POST")
+	r.HandleFunc("/containers", orchestrator.ListContainers).Methods("GET")
+	r.HandleFunc("/containers/{id}", orchestrator.StopContainer).Methods("POST")
+	r.HandleFunc("/containers/{id}", orchestrator.RemoveContainer).Methods("DELETE")
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	fmt.Printf("Container orchestrator starting on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
+}
