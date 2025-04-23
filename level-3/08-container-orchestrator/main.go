@@ -226,3 +226,22 @@ func (o *Orchestrator) monitorContainers() {
 		for _, c := range containers {
 			stats, err := o.getContainerStats(c.ID)
 			if err != nil {
+				log.Printf("Error getting stats for container %s: %v", c.ID, err)
+				continue
+			}
+
+			o.mutex.Lock()
+			if container, exists := o.containers[c.ID]; exists {
+				container.Status = c.Status
+				container.CPU = stats.CPU
+				container.Memory = stats.Memory
+			}
+			o.mutex.Unlock()
+		}
+	}
+}
+
+func main() {
+	orchestrator, err := NewOrchestrator()
+	if err != nil {
+		log.Fatal(err)
