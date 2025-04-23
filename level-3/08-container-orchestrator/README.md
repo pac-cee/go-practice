@@ -55,3 +55,22 @@ DELETE /containers/{id}
 
 ## Implementation Details
 
+### Container Management
+- Uses Docker Engine API
+- Supports container configuration
+- Handles port mappings
+- Manages environment variables
+- Implements restart policies
+
+### Monitoring
+- Real-time CPU usage tracking
+- Memory usage monitoring
+- Container health status
+- Automatic stats collection
+
+### Data Structures
+
+1. **Container**
+```go
+type Container struct {
+    ID           string
