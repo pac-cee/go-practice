@@ -207,3 +207,22 @@ func (o *Orchestrator) getContainerStats(id string) (*ContainerStats, error) {
 	if systemDelta > 0.0 && cpuDelta > 0.0 {
 		cpuPercent = (cpuDelta / systemDelta) * float64(len(statsJSON.CPUStats.CPUUsage.PercpuUsage)) * 100.0
 	}
+
+	return &ContainerStats{
+		CPU:    cpuPercent,
+		Memory: int64(statsJSON.MemoryStats.Usage),
+	}, nil
+}
+
+func (o *Orchestrator) monitorContainers() {
+	ticker := time.NewTicker(30 * time.Second)
+	for range ticker.C {
+		containers, err := o.client.ContainerList(context.Background(), types.ContainerListOptions{})
+		if err != nil {
+			log.Printf("Error listing containers: %v", err)
+			continue
+		}
+
+		for _, c := range containers {
+			stats, err := o.getContainerStats(c.ID)
+			if err != nil {
