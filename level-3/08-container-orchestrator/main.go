@@ -93,3 +93,22 @@ func (o *Orchestrator) CreateContainer(w http.ResponseWriter, r *http.Request) {
 				Name: "unless-stopped",
 			},
 		},
+		nil,
+		nil,
+		req.Name,
+	)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Start container
+	if err := o.client.ContainerStart(context.Background(), resp.ID, types.ContainerStartOptions{}); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	container := &Container{
+		ID:        resp.ID,
+		Name:      req.Name,
+		Image:     req.Image,
