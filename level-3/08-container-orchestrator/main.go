@@ -55,3 +55,22 @@ func NewOrchestrator() (*Orchestrator, error) {
 
 func (o *Orchestrator) CreateContainer(w http.ResponseWriter, r *http.Request) {
 	var req ContainerRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Prepare environment variables
+	var env []string
+	for k, v := range req.Env {
+		env = append(env, fmt.Sprintf("%s=%s", k, v))
+	}
+
+	// Prepare port bindings
+	portBindings := make(map[string][]types.PortBinding)
+	exposedPorts := make(map[string]struct{})
+	for containerPort, hostPort := range req.Ports {
+		portBindings[containerPort] = []types.PortBinding{
+			{
+				HostIP:   "0.0.0.0",
+				HostPort: hostPort,
