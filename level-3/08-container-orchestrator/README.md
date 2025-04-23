@@ -36,3 +36,22 @@ Content-Type: application/json
         "80/tcp": "8080"
     }
 }
+```
+
+### List Containers
+```http
+GET /containers
+```
+
+### Stop Container
+```http
+POST /containers/{id}
+```
+
+### Remove Container
+```http
+DELETE /containers/{id}
+```
+
+## Implementation Details
+
