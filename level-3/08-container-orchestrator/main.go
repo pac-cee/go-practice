@@ -188,3 +188,22 @@ type ContainerStats struct {
 	CPU    float64
 	Memory int64
 }
+
+func (o *Orchestrator) getContainerStats(id string) (*ContainerStats, error) {
+	stats, err := o.client.ContainerStats(context.Background(), id, false)
+	if err != nil {
+		return nil, err
+	}
+	defer stats.Body.Close()
+
+	var statsJSON types.StatsJSON
+	if err := json.NewDecoder(stats.Body).Decode(&statsJSON); err != nil {
+		return nil, err
+	}
+
+	cpuDelta := float64(statsJSON.CPUStats.CPUUsage.TotalUsage - statsJSON.PreCPUStats.CPUUsage.TotalUsage)
+	systemDelta := float64(statsJSON.CPUStats.SystemUsage - statsJSON.PreCPUStats.SystemUsage)
+	cpuPercent := 0.0
+	if systemDelta > 0.0 && cpuDelta > 0.0 {
+		cpuPercent = (cpuDelta / systemDelta) * float64(len(statsJSON.CPUStats.CPUUsage.PercpuUsage)) * 100.0
+	}
