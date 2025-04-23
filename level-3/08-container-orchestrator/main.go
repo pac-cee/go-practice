@@ -112,3 +112,22 @@ func (o *Orchestrator) CreateContainer(w http.ResponseWriter, r *http.Request) {
 		ID:        resp.ID,
 		Name:      req.Name,
 		Image:     req.Image,
+		Status:    "running",
+		CreatedAt: time.Now(),
+	}
+
+	o.mutex.Lock()
+	o.containers[resp.ID] = container
+	o.mutex.Unlock()
+
+	json.NewEncoder(w).Encode(container)
+}
+
+func (o *Orchestrator) ListContainers(w http.ResponseWriter, r *http.Request) {
+	containers, err := o.client.ContainerList(context.Background(), types.ContainerListOptions{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var result []Container
