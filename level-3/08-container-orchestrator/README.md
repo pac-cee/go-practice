@@ -17,3 +17,22 @@ A simple container orchestration system built in Go, demonstrating container man
 
 1. Go 1.19 or later
 2. Docker Engine installed and running
+3. Docker API access
+
+## API Endpoints
+
+### Create Container
+```http
+POST /containers
+Content-Type: application/json
+
+{
+    "name": "my-container",
+    "image": "nginx:latest",
+    "env": {
+        "KEY": "value"
+    },
+    "ports": {
+        "80/tcp": "8080"
+    }
+}
