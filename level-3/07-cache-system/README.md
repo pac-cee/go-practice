@@ -150,3 +150,24 @@ To test the system:
    - No persistence to disk
 
 2. **Network**
+   - TCP-based communication
+   - JSON serialization overhead
+   - Connection pooling for peers
+
+3. **Concurrency**
+   - Read/Write mutex for thread safety
+   - Separate goroutines for connections
+   - Lock contention under high load
+
+## Next Steps
+
+1. Add persistence layer
+2. Implement consistent hashing
+3. Add compression for network traffic
+4. Implement failure detection
+5. Add monitoring and metrics
+6. Implement cache eviction policies
+7. Add authentication and encryption
+8. Implement request batching
+9. Add support for complex data types
+10. Implement cache warming
