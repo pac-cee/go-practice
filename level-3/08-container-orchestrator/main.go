@@ -36,3 +36,22 @@ type ContainerRequest struct {
 }
 
 type Orchestrator struct {
+	client     *client.Client
+	containers map[string]*Container
+	mutex      sync.RWMutex
+}
+
+func NewOrchestrator() (*Orchestrator, error) {
+	cli, err := client.NewClientWithOpts(client.FromEnv)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Orchestrator{
+		client:     cli,
+		containers: make(map[string]*Container),
+	}, nil
+}
+
+func (o *Orchestrator) CreateContainer(w http.ResponseWriter, r *http.Request) {
+	var req ContainerRequest
