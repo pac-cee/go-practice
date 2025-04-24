@@ -131,3 +131,22 @@ type ContainerRequest struct {
    ```
 
 ## Architecture
+
+1. **Core Components**
+   - Container Manager
+   - Monitoring System
+   - REST API Server
+   - Stats Collector
+
+2. **Docker Integration**
+   - Direct Docker Engine API usage
+   - Container lifecycle management
+   - Resource monitoring
+
+3. **Monitoring System**
+   - Periodic stats collection
+   - Resource usage tracking
+   - Health monitoring
+
+## Security Considerations
+
