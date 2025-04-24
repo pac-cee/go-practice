@@ -112,3 +112,22 @@ type ContainerRequest struct {
        "ports": {
          "80/tcp": "8080"
        }
+     }'
+   ```
+
+3. List containers:
+   ```bash
+   curl http://localhost:8080/containers
+   ```
+
+4. Stop a container:
+   ```bash
+   curl -X POST http://localhost:8080/containers/{container-id}
+   ```
+
+5. Remove a container:
+   ```bash
+   curl -X DELETE http://localhost:8080/containers/{container-id}
+   ```
+
+## Architecture
