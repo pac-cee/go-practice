@@ -150,3 +150,22 @@ type ContainerRequest struct {
 
 ## Security Considerations
 
+1. API Security
+   - No authentication (should be added)
+   - No HTTPS (should be added)
+   - No rate limiting
+
+2. Container Security
+   - Default Docker security
+   - No resource limits
+   - No network isolation
+
+## Performance
+
+1. Resource Usage
+   - Lightweight monitoring
+   - Periodic stats collection
+   - In-memory container tracking
+
+2. Scalability
+   - Single node only
