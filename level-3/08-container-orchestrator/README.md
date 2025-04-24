@@ -74,3 +74,22 @@ DELETE /containers/{id}
 ```go
 type Container struct {
     ID           string
+    Name         string
+    Image        string
+    Status       string
+    CreatedAt    time.Time
+    Health       string
+    CPU          float64
+    Memory       int64
+    RestartCount int
+}
+```
+
+2. **ContainerRequest**
+```go
+type ContainerRequest struct {
+    Name  string
+    Image string
+    Env   map[string]string
+    Ports map[string]string
+}
