@@ -169,3 +169,23 @@ type ContainerRequest struct {
 
 2. Scalability
    - Single node only
+   - No clustering support
+   - Limited by Docker host
+
+## Next Steps
+
+1. Add authentication and authorization
+2. Implement HTTPS support
+3. Add resource limits
+4. Implement container networking
+5. Add volume management
+6. Implement clustering
+7. Add logging system
+8. Implement backup/restore
+9. Add container templates
+10. Implement rolling updates
+11. Add service discovery
+12. Implement load balancing
+13. Add monitoring dashboard
+14. Implement alerts
+15. Add container logs API
