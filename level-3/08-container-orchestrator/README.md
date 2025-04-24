@@ -93,3 +93,22 @@ type ContainerRequest struct {
     Env   map[string]string
     Ports map[string]string
 }
+```
+
+## How to Run
+
+1. Start the orchestrator:
+   ```bash
+   go run main.go
+   ```
+
+2. Create a container:
+   ```bash
+   curl -X POST http://localhost:8080/containers \
+     -H "Content-Type: application/json" \
+     -d '{
+       "name": "web-server",
+       "image": "nginx:latest",
+       "ports": {
+         "80/tcp": "8080"
+       }
