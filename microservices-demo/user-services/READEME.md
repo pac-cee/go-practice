@@ -245,3 +245,22 @@ import (
 
 // Product represents a product in our e-commerce system.
 type Product struct {
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
+}
+
+// In-memory product storage.
+var products = map[string]Product{
+	"p1": {"p1", "Laptop", "High performance laptop", 1299.99},
+	"p2": {"p2", "Smartphone", "Latest smartphone model", 899.99},
+}
+
+// ListProductsHandler returns all products.
+func ListProductsHandler(w http.ResponseWriter, r *http.Request) {
+	var prodList []Product
+	for _, prod := range products {
+		prodList = append(prodList, prod)
+	}
+	json.NewEncoder(w).Encode(prodList)
