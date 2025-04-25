@@ -302,3 +302,22 @@ order-service/
 
 *Example snippet in `handler.go`:*
 
+```go
+// order-service/handler.go
+package main
+
+import (
+	"encoding/json"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+// Order represents an order in our system.
+type Order struct {
+	ID       string   `json:"id"`
+	UserID   string   `json:"user_id"`
+	ProductIDs []string `json:"product_ids"`
+	Status   string   `json:"status"`
+}
+
