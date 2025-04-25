@@ -17,3 +17,22 @@ func PublishOrderCreated(order OrderCreated) error {
     if err != nil {
         return err
     }
+    defer conn.Close()
+
+    ch, err := conn.Channel()
+    if err != nil {
+        return err
+    }
+    defer ch.Close()
+
+    q, err := ch.QueueDeclare(
+        "order_created",
+        true,
+        false,
+        false,
+        false,
+        nil,
+    )
+
+    body, _ := json.Marshal(order)
+    return ch.Publish(
