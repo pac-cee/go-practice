@@ -17,3 +17,18 @@ func NewServiceRegistry() (*ServiceRegistry, error) {
     if err != nil {
         return nil, err
     }
+    return &ServiceRegistry{client: client}, nil
+}
+
+func (sr *ServiceRegistry) RegisterService(name string, port int) error {
+    reg := &consulapi.AgentServiceRegistration{
+        Name: name,
+        Port: port,
+        Check: &consulapi.AgentServiceCheck{
+            HTTP:     fmt.Sprintf("http://localhost:%d/health", port),
+            Interval: "10s",
+            Timeout:  "5s",
+        },
+    }
+    return sr.client.Agent().ServiceRegister(reg)
+}
