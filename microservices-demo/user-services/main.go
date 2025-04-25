@@ -17,3 +17,14 @@ type User struct {
 func main() {
     r := mux.NewRouter()
     r.HandleFunc("/users", GetUsers).Methods("GET")
+    r.HandleFunc("/users/{id}", GetUser).Methods("GET")
+
+    log.Fatal(http.ListenAndServe(":8081", r))
+}
+
+func GetUsers(w http.ResponseWriter, r *http.Request) {
+    users := []User{
+        {ID: "1", Name: "John Doe", Email: "john@example.com"},
+    }
+    json.NewEncoder(w).Encode(users)
+}
