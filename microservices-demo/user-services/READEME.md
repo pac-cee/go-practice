@@ -131,3 +131,22 @@ func main() {
 
 	// Start the HTTP server on port 8081 for the User Service
 	log.Println("User Service running on port 8081")
+	if err := http.ListenAndServe(":8081", router); err != nil {
+		log.Fatalf("Could not start server: %s\n", err.Error())
+	}
+}
+```
+
+#### Code Example: `handler.go`
+
+```go
+// user-service/handler.go
+package main
+
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
