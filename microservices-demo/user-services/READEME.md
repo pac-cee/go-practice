@@ -169,3 +169,22 @@ func RegisterUserHandler(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&newUser); err != nil {
 		http.Error(w, "Invalid request payload", http.StatusBadRequest)
 		return
+	}
+
+	// For simplicity, we use the username as the unique ID.
+	newUser.ID = newUser.Username
+	users[newUser.ID] = newUser
+
+	log.Printf("User registered: %+v\n", newUser)
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(newUser)
+}
+
+// LoginHandler handles user login. (Stub for demonstration)
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	// In a real application, validate user credentials here.
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "Login successful"})
+}
+
+// GetUserHandler retrieves user details based on user ID.
