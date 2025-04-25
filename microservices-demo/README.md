@@ -17,3 +17,17 @@ message UserResponse {
 
 
 
+# Build and run services
+
+cd microservices-demo
+docker-compose build
+docker-compose up
+
+# Test the API Gateway
+
+curl http://localhost:8080/users
+curl http://localhost:8080/orders
+
+# Scale a service
+
+docker-compose scale order-service=3
