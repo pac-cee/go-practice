@@ -55,3 +55,22 @@ Go (or Golang) is particularly well-suited for microservices because:
    Set your `GOPATH` and create a project directory:
    ```bash
    mkdir -p ~/go/src/github.com/yourusername/ecommerce-microservices
+   cd ~/go/src/github.com/yourusername/ecommerce-microservices
+   ```
+
+3. **Initialize a Go Module:**
+   ```bash
+   go mod init github.com/yourusername/ecommerce-microservices
+   ```
+
+4. **Install Dependencies:**  
+   For routing, we’ll use [Gorilla Mux](https://github.com/gorilla/mux):
+   ```bash
+   go get -u github.com/gorilla/mux
+   ```
+
+---
+
+## 4. Project Overview: E-Commerce Microservices <a name="project-overview"></a>
+
+We will build a simplified e-commerce system with three microservices:
