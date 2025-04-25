@@ -112,3 +112,22 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+// main initializes the router and starts the HTTP server.
+func main() {
+	// Create a new router
+	router := mux.NewRouter()
+
+	// Register routes and their handlers
+	// POST /register - to register a new user
+	router.HandleFunc("/register", RegisterUserHandler).Methods("POST")
+	// POST /login - to login a user (stub implementation)
+	router.HandleFunc("/login", LoginHandler).Methods("POST")
+	// GET /user/{id} - to retrieve user details by user ID
+	router.HandleFunc("/user/{id}", GetUserHandler).Methods("GET")
+
+	// Start the HTTP server on port 8081 for the User Service
+	log.Println("User Service running on port 8081")
