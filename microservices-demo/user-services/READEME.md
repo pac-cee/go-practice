@@ -340,3 +340,22 @@ func CreateOrderHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(newOrder)
 }
 
+// GetOrderHandler retrieves order details.
+func GetOrderHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	order, exists := orders[id]
+	if !exists {
+		http.Error(w, "Order not found", http.StatusNotFound)
+		return
+	}
+	json.NewEncoder(w).Encode(order)
+}
+```
+
+Set up your HTTP routes in `main.go` and run the Order Service on port **8083**.
+
+---
+
+## 6. Inter-Service Communication <a name="communication"></a>
