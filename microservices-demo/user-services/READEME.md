@@ -74,3 +74,22 @@ Go (or Golang) is particularly well-suited for microservices because:
 ## 4. Project Overview: E-Commerce Microservices <a name="project-overview"></a>
 
 We will build a simplified e-commerce system with three microservices:
+
+- **User Service:** Handles user registration, authentication, and profile management.
+- **Product Service:** Manages product listings and details.
+- **Order Service:** Processes customer orders and manages order status.
+
+Each service will have its own codebase, can run independently (typically on a different port), and communicate via RESTful HTTP calls (or gRPC for advanced scenarios).
+
+---
+
+## 5. Building the Services <a name="building-services"></a>
+
+In this section, we’ll start with the **User Service** as an example. Similar patterns apply to the Product and Order services.
+
+### A. User Service <a name="user-service"></a>
+
+**Features:**
+
+- Register a new user.
+- Login (authentication stub).
