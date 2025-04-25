@@ -36,3 +36,12 @@ func PublishOrderCreated(order OrderCreated) error {
 
     body, _ := json.Marshal(order)
     return ch.Publish(
+        "",
+        q.Name,
+        false,
+        false,
+        amqp.Publishing{
+            ContentType: "application/json",
+            Body:        body,
+        })
+}
