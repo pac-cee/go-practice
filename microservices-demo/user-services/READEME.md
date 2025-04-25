@@ -93,3 +93,22 @@ In this section, we’ll start with the **User Service** as an example. Similar 
 
 - Register a new user.
 - Login (authentication stub).
+- Retrieve user details.
+
+**Directory structure example:**
+
+```
+user-service/
+├── main.go
+└── handler.go
+```
+
+#### Code Example: `main.go`
+
+```go
+// user-service/main.go
+package main
+
+import (
+	"log"
+	"net/http"
