@@ -150,3 +150,22 @@ import (
 
 	"github.com/gorilla/mux"
 )
+
+// User represents a simple user model.
+type User struct {
+	ID       string `json:"id"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+}
+
+// In-memory user storage for demonstration purposes.
+var users = map[string]User{}
+
+// RegisterUserHandler handles user registration.
+func RegisterUserHandler(w http.ResponseWriter, r *http.Request) {
+	var newUser User
+
+	// Decode the JSON request body into newUser struct.
+	if err := json.NewDecoder(r.Body).Decode(&newUser); err != nil {
+		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+		return
