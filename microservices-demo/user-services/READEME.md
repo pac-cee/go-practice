@@ -188,3 +188,22 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetUserHandler retrieves user details based on user ID.
+func GetUserHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	user, exists := users[id]
+	if !exists {
+		http.Error(w, "User not found", http.StatusNotFound)
+		return
+	}
+
+	json.NewEncoder(w).Encode(user)
+}
+```
+
+*Run the service with:*
+
+```bash
+go run main.go handler.go
+```
