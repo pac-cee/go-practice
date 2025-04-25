@@ -283,3 +283,22 @@ func GetProductHandler(w http.ResponseWriter, r *http.Request) {
 Set up routes in `main.go` and run on port **8082**.
 
 ---
+
+### C. Order Service <a name="order-service"></a>
+
+**Features:**
+
+- Create new orders.
+- Retrieve order details.
+- Update order status.
+
+**Directory structure example:**
+
+```
+order-service/
+├── main.go
+└── handler.go
+```
+
+*Example snippet in `handler.go`:*
+
