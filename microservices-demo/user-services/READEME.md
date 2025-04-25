@@ -321,3 +321,22 @@ type Order struct {
 	Status   string   `json:"status"`
 }
 
+// In-memory order storage.
+var orders = map[string]Order{}
+
+// CreateOrderHandler creates a new order.
+func CreateOrderHandler(w http.ResponseWriter, r *http.Request) {
+	var newOrder Order
+	if err := json.NewDecoder(r.Body).Decode(&newOrder); err != nil {
+		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+		return
+	}
+
+	// Use a simple counter or UUID for a real implementation.
+	newOrder.ID = newOrder.UserID // For demo purposes only.
+	newOrder.Status = "Created"
+	orders[newOrder.ID] = newOrder
+
+	json.NewEncoder(w).Encode(newOrder)
+}
+
