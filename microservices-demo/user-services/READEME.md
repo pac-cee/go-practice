@@ -264,3 +264,22 @@ func ListProductsHandler(w http.ResponseWriter, r *http.Request) {
 		prodList = append(prodList, prod)
 	}
 	json.NewEncoder(w).Encode(prodList)
+}
+
+// GetProductHandler returns product details by ID.
+func GetProductHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	product, exists := products[id]
+	if !exists {
+		http.Error(w, "Product not found", http.StatusNotFound)
+		return
+	}
+	json.NewEncoder(w).Encode(product)
+}
+```
+
+Set up routes in `main.go` and run on port **8082**.
+
+---
