@@ -207,3 +207,22 @@ func GetUserHandler(w http.ResponseWriter, r *http.Request) {
 ```bash
 go run main.go handler.go
 ```
+
+The User Service is now running on port **8081**. You can test it using tools like [Postman](https://www.postman.com) or `curl`.
+
+---
+
+### B. Product Service <a name="product-service"></a>
+
+**Features:**
+
+- List all products.
+- Retrieve product details.
+- (Optionally) Create or update products.
+
+**Directory structure example:**
+
+```
+product-service/
+├── main.go
+└── handler.go
