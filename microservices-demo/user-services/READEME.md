@@ -226,3 +226,22 @@ The User Service is now running on port **8081**. You can test it using tools li
 product-service/
 ├── main.go
 └── handler.go
+```
+
+A similar pattern is followed as in the User Service. For instance, in `handler.go`, define a `Product` struct and handlers for endpoints like `/products` (GET) and `/products/{id}` (GET).
+
+*Example snippet:*
+
+```go
+// product-service/handler.go
+package main
+
+import (
+	"encoding/json"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+// Product represents a product in our e-commerce system.
+type Product struct {
