@@ -93,3 +93,22 @@ func (h *ActivityHandler) DeleteActivity(c *gin.Context) {
 
 	if err := h.service.DeleteActivity(c.Request.Context(), id); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Activity deleted"})
+}
+
+// StartActivity handles starting an activity
+func (h *ActivityHandler) StartActivity(c *gin.Context) {
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := h.service.StartActivity(c.Request.Context(), id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
