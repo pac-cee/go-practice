@@ -150,3 +150,10 @@ func TestActivityHandler_StartActivity(t *testing.T) {
 	var response models.Activity
 	err := json.Unmarshal(w.Body.Bytes(), &response)
 	if err != nil {
+		t.Fatalf("Failed to unmarshal response: %v", err)
+	}
+
+	if response.Status != "in-progress" {
+		t.Errorf("Expected status 'in-progress', got %s", response.Status)
+	}
+}
