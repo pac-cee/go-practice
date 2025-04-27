@@ -36,3 +36,22 @@ func main() {
 		scanner.Scan()
 		num1, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
+			fmt.Println("Invalid number!")
+			continue
+		}
+
+		fmt.Print("Enter second number: ")
+		scanner.Scan()
+		num2, err := strconv.ParseFloat(scanner.Text(), 64)
+		if err != nil {
+			fmt.Println("Invalid number!")
+			continue
+		}
+
+		result := calculate(choice, num1, num2)
+		fmt.Printf("Result: %.2f\n", result)
+	}
+}
+
+func isValidChoice(choice string) bool {
+	validChoices := []string{"1", "2", "3", "4"}
