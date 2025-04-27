@@ -378,3 +378,22 @@ In a microservices architecture, services often need to talk to each other. You 
 
 - **gRPC:**  
   For high performance or strongly typed communication, consider gRPC. This requires defining Protobuf files and generating code.
+
+- **Message Queues (Advanced):**  
+  Use RabbitMQ, Kafka, or NATS for asynchronous communication, especially for long-running tasks or event-driven architectures.
+
+---
+
+## 7. Advanced Topics <a name="advanced-topics"></a>
+
+### A. Service Discovery & API Gateway <a name="discovery"></a>
+
+- **Service Discovery:**  
+  Tools like [Consul](https://www.consul.io/) or [etcd](https://etcd.io/) help services find each other dynamically.
+  
+- **API Gateway:**  
+  Acts as a single entry point for clients. It can handle routing, authentication, rate limiting, and load balancing.
+
+### B. Distributed Tracing and Logging <a name="tracing"></a>
+
+- **Tracing:**  
