@@ -17,3 +17,22 @@ import (
 
 func setupTestHandler(t *testing.T) (*ActivityHandler, *gin.Engine, func()) {
 	// Connect to test database
+	client, err := mongo.Connect(nil, options.Client().ApplyURI("mongodb://localhost:27017"))
+	if err != nil {
+		t.Fatalf("Failed to connect to MongoDB: %v", err)
+	}
+
+	collection := client.Database("test_db").Collection("test_activities")
+	service := services.NewActivityService(collection)
+	handler := NewActivityHandler(service)
+
+	// Set up Gin router
+	gin.SetMode(gin.TestMode)
+	router := gin.Default()
+	handler.RegisterRoutes(router)
+
+	return handler, router, func() {
+		collection.Drop(nil)
+		client.Disconnect(nil)
+	}
+}
