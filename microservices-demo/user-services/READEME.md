@@ -397,3 +397,22 @@ In a microservices architecture, services often need to talk to each other. You 
 ### B. Distributed Tracing and Logging <a name="tracing"></a>
 
 - **Tracing:**  
+  Implement distributed tracing with tools like [Jaeger](https://www.jaegertracing.io/) or [Zipkin](https://zipkin.io/) to trace requests across services.
+  
+- **Logging:**  
+  Use structured logging libraries such as [Logrus](https://github.com/sirupsen/logrus) or [Zap](https://github.com/uber-go/zap) to maintain logs that can be aggregated and analyzed.
+
+### C. Circuit Breakers and Resilience <a name="circuit-breakers"></a>
+
+Implement circuit breakers (e.g., with the [go-resilience](https://github.com/slok/goresilience) library) to prevent cascading failures when a service is down.
+
+---
+
+## 8. Containerization and Deployment <a name="deployment"></a>
+
+- **Dockerize Each Service:**  
+  Create a `Dockerfile` for each microservice.
+  
+  *Example `Dockerfile` for the User Service:*
+  ```dockerfile
+  FROM golang:1.20-alpine
