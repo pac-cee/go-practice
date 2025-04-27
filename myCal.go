@@ -74,3 +74,12 @@ func calculate(operation string, a, b float64) float64 {
 				fmt.Println("Error: Division by zero!")
 				return 0
 			}
+			return a / b
+		},
+	}
+
+	if fn, ok := ops[operation]; ok {
+		return fn(a, b)
+	}
+	return 0
+}
