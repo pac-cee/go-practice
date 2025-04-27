@@ -359,3 +359,22 @@ Set up your HTTP routes in `main.go` and run the Order Service on port **8083**.
 ---
 
 ## 6. Inter-Service Communication <a name="communication"></a>
+
+In a microservices architecture, services often need to talk to each other. You can use:
+
+- **Synchronous REST calls:**  
+  Use Go’s `net/http` package or a client library (e.g., [go-resty](https://github.com/go-resty/resty)) to make HTTP requests between services.
+  
+  *Example:*
+  ```go
+  // Calling the Product Service from Order Service
+  resp, err := http.Get("http://localhost:8082/products/p1")
+  if err != nil {
+      // Handle error
+  }
+  defer resp.Body.Close()
+  // Process response...
+  ```
+
+- **gRPC:**  
+  For high performance or strongly typed communication, consider gRPC. This requires defining Protobuf files and generating code.
