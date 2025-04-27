@@ -55,3 +55,22 @@ func init() {
 
 func main() {
 	r := gin.Default()
+
+	// Configure CORS
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:4321"} // Astro's default port
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
+	r.Use(cors.New(config))
+
+	// Routes
+	r.POST("/api/activities", createActivity)
+	r.GET("/api/activities", getActivities)
+	r.PUT("/api/activities/:id", updateActivity)
+	r.DELETE("/api/activities/:id", deleteActivity)
+	r.PUT("/api/activities/:id/start", startActivity)
+	r.PUT("/api/activities/:id/complete", completeActivity)
+
+	log.Fatal(r.Run(":8080"))
+}
+
+func createActivity(c *gin.Context) {
