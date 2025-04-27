@@ -131,3 +131,14 @@ func (h *ActivityHandler) CompleteActivity(c *gin.Context) {
 
 	if err := h.service.CompleteActivity(c.Request.Context(), id); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	activity, err := h.service.GetActivity(c.Request.Context(), id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, activity)
+}
