@@ -435,3 +435,27 @@ Implement circuit breakers (e.g., with the [go-resilience](https://github.com/sl
   
 - **Integration Testing:**  
   Test the interactions between services. Tools like [Testify](https://github.com/stretchr/testify) can help.
+  
+- **Contract Testing:**  
+  Ensure that APIs between microservices conform to agreed contracts using tools like [Pact](https://pact.io/).
+
+---
+
+## 10. Conclusion and Further Resources <a name="conclusion"></a>
+
+This guide introduced you to building microservices in Go using a real-life e-commerce project. You learned:
+
+- How to set up a Go project and create independent services.
+- How to implement basic REST endpoints with Gorilla Mux.
+- Techniques for inter-service communication.
+- Advanced topics such as service discovery, distributed tracing, and resilience.
+
+**Further resources:**
+
+- [Go by Example](https://gobyexample.com/)
+- [Microservices in Go](https://www.manning.com/books/building-microservices-with-go)
+- [The Twelve-Factor App](https://12factor.net/)
+
+By following this tutorial and experimenting with the code, you’ll build a strong foundation in designing, developing, and deploying microservices using Go.
+
+Happy coding!
