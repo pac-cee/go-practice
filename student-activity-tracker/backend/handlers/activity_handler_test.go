@@ -112,3 +112,22 @@ func TestActivityHandler_GetActivities(t *testing.T) {
 		t.Fatalf("Failed to unmarshal response: %v", err)
 	}
 
+	if len(response) != 2 {
+		t.Errorf("Expected 2 activities, got %d", len(response))
+	}
+}
+
+func TestActivityHandler_StartActivity(t *testing.T) {
+	handler, router, cleanup := setupTestHandler(t)
+	defer cleanup()
+
+	// Create test activity
+	activity := models.Activity{
+		Title:       "Test Activity",
+		Description: "Test Description",
+		Duration:    30,
+	}
+
+	body, _ := json.Marshal(activity)
+	req := httptest.NewRequest("POST", "/api/activities", bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
