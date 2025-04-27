@@ -74,3 +74,22 @@ func TestActivityHandler_GetActivities(t *testing.T) {
 	handler, router, cleanup := setupTestHandler(t)
 	defer cleanup()
 
+	// Create test activities
+	activities := []models.Activity{
+		{
+			Title:       "Activity 1",
+			Description: "Description 1",
+			Duration:    30,
+		},
+		{
+			Title:       "Activity 2",
+			Description: "Description 2",
+			Duration:    45,
+		},
+	}
+
+	for _, activity := range activities {
+		body, _ := json.Marshal(activity)
+		req := httptest.NewRequest("POST", "/api/activities", bytes.NewBuffer(body))
+		req.Header.Set("Content-Type", "application/json")
+
