@@ -112,3 +112,22 @@ func (h *ActivityHandler) StartActivity(c *gin.Context) {
 		return
 	}
 
+	activity, err := h.service.GetActivity(c.Request.Context(), id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, activity)
+}
+
+// CompleteActivity handles completing an activity
+func (h *ActivityHandler) CompleteActivity(c *gin.Context) {
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := h.service.CompleteActivity(c.Request.Context(), id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
