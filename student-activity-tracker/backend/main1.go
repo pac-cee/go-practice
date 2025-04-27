@@ -36,3 +36,22 @@ func init() {
 	// Set up MongoDB connection
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	var err error
+	client, err = mongo.Connect(ctx, clientOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Check the connection
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	collection = client.Database("student_tracker").Collection("activities")
+}
+
+func main() {
+	r := gin.Default()
