@@ -55,3 +55,22 @@ func (h *ActivityHandler) GetActivities(c *gin.Context) {
 	activities, err := h.service.GetActivities(c.Request.Context())
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, activities)
+}
+
+// UpdateActivity handles updating an existing activity
+func (h *ActivityHandler) UpdateActivity(c *gin.Context) {
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var activity models.Activity
+	if err := c.ShouldBindJSON(&activity); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
