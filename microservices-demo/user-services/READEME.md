@@ -416,3 +416,22 @@ Implement circuit breakers (e.g., with the [go-resilience](https://github.com/sl
   *Example `Dockerfile` for the User Service:*
   ```dockerfile
   FROM golang:1.20-alpine
+  WORKDIR /app
+  COPY . .
+  RUN go mod download && go build -o user-service .
+  EXPOSE 8081
+  CMD ["./user-service"]
+  ```
+
+- **Orchestration:**  
+  Use Docker Compose or Kubernetes to manage multiple containers. A simple `docker-compose.yml` can start all services at once.
+
+---
+
+## 9. Testing Strategies <a name="testing"></a>
+
+- **Unit Testing:**  
+  Use Go’s built-in testing package (`testing`) to write unit tests for your handlers and business logic.
+  
+- **Integration Testing:**  
+  Test the interactions between services. Tools like [Testify](https://github.com/stretchr/testify) can help.
