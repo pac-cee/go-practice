@@ -93,3 +93,22 @@ func TestActivityHandler_GetActivities(t *testing.T) {
 		req := httptest.NewRequest("POST", "/api/activities", bytes.NewBuffer(body))
 		req.Header.Set("Content-Type", "application/json")
 
+		w := httptest.NewRecorder()
+		router.ServeHTTP(w, req)
+	}
+
+	// Test getting activities
+	req := httptest.NewRequest("GET", "/api/activities", nil)
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("Expected status code %d, got %d", http.StatusOK, w.Code)
+	}
+
+	var response []models.Activity
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal response: %v", err)
+	}
+
