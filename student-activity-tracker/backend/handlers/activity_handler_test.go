@@ -36,3 +36,22 @@ func setupTestHandler(t *testing.T) (*ActivityHandler, *gin.Engine, func()) {
 		client.Disconnect(nil)
 	}
 }
+
+func TestActivityHandler_CreateActivity(t *testing.T) {
+	_, router, cleanup := setupTestHandler(t)
+	defer cleanup()
+
+	// Create test activity
+	activity := models.Activity{
+		Title:       "Test Activity",
+		Description: "Test Description",
+		Duration:    30,
+	}
+
+	body, _ := json.Marshal(activity)
+	req := httptest.NewRequest("POST", "/api/activities", bytes.NewBuffer(body))
+	req.Header.Set("Content-Type", "application/json")
+
+	w := httptest.NewRecorder()
+	router.ServeHTTP(w, req)
+
