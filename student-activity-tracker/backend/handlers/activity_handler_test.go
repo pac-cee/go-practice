@@ -55,3 +55,22 @@ func TestActivityHandler_CreateActivity(t *testing.T) {
 	w := httptest.NewRecorder()
 	router.ServeHTTP(w, req)
 
+	if w.Code != http.StatusCreated {
+		t.Errorf("Expected status code %d, got %d", http.StatusCreated, w.Code)
+	}
+
+	var response models.Activity
+	err := json.Unmarshal(w.Body.Bytes(), &response)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal response: %v", err)
+	}
+
+	if response.Title != activity.Title {
+		t.Errorf("Expected title %s, got %s", activity.Title, response.Title)
+	}
+}
+
+func TestActivityHandler_GetActivities(t *testing.T) {
+	handler, router, cleanup := setupTestHandler(t)
+	defer cleanup()
+
