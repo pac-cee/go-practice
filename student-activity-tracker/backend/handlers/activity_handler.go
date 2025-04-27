@@ -17,3 +17,22 @@ type ActivityHandler struct {
 // NewActivityHandler creates a new ActivityHandler
 func NewActivityHandler(service *services.ActivityService) *ActivityHandler {
 	return &ActivityHandler{
+		service: service,
+	}
+}
+
+// RegisterRoutes registers the routes for activities
+func (h *ActivityHandler) RegisterRoutes(router *gin.Engine) {
+	api := router.Group("/api")
+	{
+		api.POST("/activities", h.CreateActivity)
+		api.GET("/activities", h.GetActivities)
+		api.PUT("/activities/:id", h.UpdateActivity)
+		api.DELETE("/activities/:id", h.DeleteActivity)
+		api.PUT("/activities/:id/start", h.StartActivity)
+		api.PUT("/activities/:id/complete", h.CompleteActivity)
+	}
+}
+
+// CreateActivity handles the creation of a new activity
+func (h *ActivityHandler) CreateActivity(c *gin.Context) {
