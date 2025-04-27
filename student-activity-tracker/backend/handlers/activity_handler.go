@@ -36,3 +36,22 @@ func (h *ActivityHandler) RegisterRoutes(router *gin.Engine) {
 
 // CreateActivity handles the creation of a new activity
 func (h *ActivityHandler) CreateActivity(c *gin.Context) {
+	var activity models.Activity
+	if err := c.ShouldBindJSON(&activity); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := h.service.CreateActivity(c.Request.Context(), &activity); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, activity)
+}
+
+// GetActivities handles retrieving all activities
+func (h *ActivityHandler) GetActivities(c *gin.Context) {
+	activities, err := h.service.GetActivities(c.Request.Context())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
