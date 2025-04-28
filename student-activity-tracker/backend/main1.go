@@ -74,3 +74,22 @@ func main() {
 }
 
 func createActivity(c *gin.Context) {
+	var activity Activity
+	if err := c.ShouldBindJSON(&activity); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	activity.ID = primitive.NewObjectID()
+	activity.Status = "planned"
+	activity.CreatedAt = time.Now()
+	activity.UpdatedAt = time.Now()
+
+	_, err := collection.InsertOne(context.Background(), activity)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, activity)
+}
