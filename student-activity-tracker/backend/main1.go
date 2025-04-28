@@ -226,3 +226,27 @@ func completeActivity(c *gin.Context) {
 		"$set": bson.M{
 			"status":    "completed",
 			"endTime":   now,
+			"updatedAt": now,
+		},
+	}
+
+	result := collection.FindOneAndUpdate(
+		context.Background(),
+		bson.M{"_id": id},
+		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	)
+
+	if result.Err() != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Err().Error()})
+		return
+	}
+
+	var activity Activity
+	if err := result.Decode(&activity); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, activity)
+}
