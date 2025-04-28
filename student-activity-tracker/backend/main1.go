@@ -112,3 +112,22 @@ func getActivities(c *gin.Context) {
 }
 
 func updateActivity(c *gin.Context) {
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	var activity Activity
+	if err := c.ShouldBindJSON(&activity); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	activity.UpdatedAt = time.Now()
+
+	update := bson.M{
+		"$set": bson.M{
+			"title":       activity.Title,
+			"description": activity.Description,
+			"duration":    activity.Duration,
