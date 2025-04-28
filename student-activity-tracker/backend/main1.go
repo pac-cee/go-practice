@@ -188,3 +188,22 @@ func startActivity(c *gin.Context) {
 	update := bson.M{
 		"$set": bson.M{
 			"status":    "in-progress",
+			"startTime": now,
+			"updatedAt": now,
+		},
+	}
+
+	result := collection.FindOneAndUpdate(
+		context.Background(),
+		bson.M{"_id": id},
+		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	)
+
+	if result.Err() != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Err().Error()})
+		return
+	}
+
+	var activity Activity
+	if err := result.Decode(&activity); err != nil {
