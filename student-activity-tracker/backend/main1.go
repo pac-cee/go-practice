@@ -93,3 +93,22 @@ func createActivity(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, activity)
 }
+
+func getActivities(c *gin.Context) {
+	cursor, err := collection.Find(context.Background(), bson.M{})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer cursor.Close(context.Background())
+
+	var activities []Activity
+	if err := cursor.All(context.Background(), &activities); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, activities)
+}
+
+func updateActivity(c *gin.Context) {
