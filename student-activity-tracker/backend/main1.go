@@ -169,3 +169,22 @@ func deleteActivity(c *gin.Context) {
 		return
 	}
 
+	if result.DeletedCount == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Activity not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Activity deleted"})
+}
+
+func startActivity(c *gin.Context) {
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	now := time.Now()
+	update := bson.M{
+		"$set": bson.M{
+			"status":    "in-progress",
