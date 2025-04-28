@@ -207,3 +207,22 @@ func startActivity(c *gin.Context) {
 
 	var activity Activity
 	if err := result.Decode(&activity); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, activity)
+}
+
+func completeActivity(c *gin.Context) {
+	id, err := primitive.ObjectIDFromHex(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	now := time.Now()
+	update := bson.M{
+		"$set": bson.M{
+			"status":    "completed",
+			"endTime":   now,
