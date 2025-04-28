@@ -131,3 +131,22 @@ func updateActivity(c *gin.Context) {
 			"title":       activity.Title,
 			"description": activity.Description,
 			"duration":    activity.Duration,
+			"updatedAt":   activity.UpdatedAt,
+		},
+	}
+
+	result := collection.FindOneAndUpdate(
+		context.Background(),
+		bson.M{"_id": id},
+		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	)
+
+	if result.Err() != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Err().Error()})
+		return
+	}
+
+	var updatedActivity Activity
+	if err := result.Decode(&updatedActivity); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
