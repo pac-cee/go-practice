@@ -17,3 +17,22 @@ func main() {
 
 	// Initialize database
 	db, err := database.NewMongoDB(cfg.MongoURI, cfg.DatabaseName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Initialize services
+	activityService := services.NewActivityService(db.Collection("activities"))
+
+	// Initialize handlers
+	activityHandler := handlers.NewActivityHandler(activityService)
+
+	// Set up Gin router
+	router := gin.Default()
+
+	// Configure CORS
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = cfg.AllowedOrigins
+	router.Use(cors.New(corsConfig))
+
