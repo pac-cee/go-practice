@@ -36,3 +36,22 @@ func TestActivityService_CreateActivity(t *testing.T) {
 		Title:       "Test Activity",
 		Description: "Test Description",
 		Duration:    30,
+	}
+
+	err := service.CreateActivity(context.Background(), activity)
+	if err != nil {
+		t.Errorf("Failed to create activity: %v", err)
+	}
+
+	if activity.ID.IsZero() {
+		t.Error("Activity ID should not be zero")
+	}
+	if activity.Status != "planned" {
+		t.Errorf("Expected status 'planned', got %s", activity.Status)
+	}
+}
+
+func TestActivityService_GetActivities(t *testing.T) {
+	collection, cleanup := setupTestDB(t)
+	defer cleanup()
+
