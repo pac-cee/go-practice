@@ -55,3 +55,22 @@ func (s *ActivityService) GetActivity(ctx context.Context, id primitive.ObjectID
 	err := s.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&activity)
 	if err != nil {
 		return nil, err
+	}
+	return &activity, nil
+}
+
+// UpdateActivity updates an existing activity
+func (s *ActivityService) UpdateActivity(ctx context.Context, id primitive.ObjectID, activity *models.Activity) error {
+	activity.UpdatedAt = time.Now()
+	update := bson.M{
+		"$set": bson.M{
+			"title":       activity.Title,
+			"description": activity.Description,
+			"duration":    activity.Duration,
+			"updatedAt":   activity.UpdatedAt,
+		},
+	}
+
+	_, err := s.collection.UpdateOne(ctx, bson.M{"_id": id}, update)
+	return err
+}
