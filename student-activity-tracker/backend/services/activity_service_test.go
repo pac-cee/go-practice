@@ -112,3 +112,22 @@ func TestActivityService_StartActivity(t *testing.T) {
 
 	// Verify activity status
 	var updatedActivity models.Activity
+	err = collection.FindOne(context.Background(), bson.M{"_id": activity.ID}).Decode(&updatedActivity)
+	if err != nil {
+		t.Fatalf("Failed to get updated activity: %v", err)
+	}
+
+	if updatedActivity.Status != "in-progress" {
+		t.Errorf("Expected status 'in-progress', got %s", updatedActivity.Status)
+	}
+	if updatedActivity.StartTime == nil {
+		t.Error("Start time should not be nil")
+	}
+}
+
+func TestActivityService_CompleteActivity(t *testing.T) {
+	collection, cleanup := setupTestDB(t)
+	defer cleanup()
+
+	service := NewActivityService(collection)
+	activity := &models.Activity{
