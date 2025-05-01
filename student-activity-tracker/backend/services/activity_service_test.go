@@ -150,3 +150,20 @@ func TestActivityService_CompleteActivity(t *testing.T) {
 	// Complete activity
 	err = service.CompleteActivity(context.Background(), activity.ID)
 	if err != nil {
+		t.Errorf("Failed to complete activity: %v", err)
+	}
+
+	// Verify activity status
+	var updatedActivity models.Activity
+	err = collection.FindOne(context.Background(), bson.M{"_id": activity.ID}).Decode(&updatedActivity)
+	if err != nil {
+		t.Fatalf("Failed to get updated activity: %v", err)
+	}
+
+	if updatedActivity.Status != "completed" {
+		t.Errorf("Expected status 'completed', got %s", updatedActivity.Status)
+	}
+	if updatedActivity.EndTime == nil {
+		t.Error("End time should not be nil")
+	}
+}
