@@ -17,3 +17,22 @@ type ActivityService struct {
 
 // NewActivityService creates a new ActivityService
 func NewActivityService(collection *mongo.Collection) *ActivityService {
+	return &ActivityService{
+		collection: collection,
+	}
+}
+
+// CreateActivity creates a new activity
+func (s *ActivityService) CreateActivity(ctx context.Context, activity *models.Activity) error {
+	activity.ID = primitive.NewObjectID()
+	activity.Status = "planned"
+	activity.CreatedAt = time.Now()
+	activity.UpdatedAt = time.Now()
+
+	_, err := s.collection.InsertOne(ctx, activity)
+	return err
+}
+
+// GetActivities retrieves all activities
+func (s *ActivityService) GetActivities(ctx context.Context) ([]models.Activity, error) {
+	cursor, err := s.collection.Find(ctx, bson.M{})
