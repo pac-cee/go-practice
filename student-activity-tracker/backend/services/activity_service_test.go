@@ -74,3 +74,22 @@ func TestActivityService_GetActivities(t *testing.T) {
 	for _, a := range activities {
 		err := service.CreateActivity(context.Background(), &a)
 		if err != nil {
+			t.Fatalf("Failed to create test activity: %v", err)
+		}
+	}
+
+	// Test getting activities
+	result, err := service.GetActivities(context.Background())
+	if err != nil {
+		t.Errorf("Failed to get activities: %v", err)
+	}
+
+	if len(result) != 2 {
+		t.Errorf("Expected 2 activities, got %d", len(result))
+	}
+}
+
+func TestActivityService_StartActivity(t *testing.T) {
+	collection, cleanup := setupTestDB(t)
+	defer cleanup()
+
