@@ -17,3 +17,22 @@ func setupTestDB(t *testing.T) (*mongo.Collection, func()) {
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
 		t.Fatalf("Failed to connect to MongoDB: %v", err)
+	}
+
+	collection := client.Database("test_db").Collection("test_activities")
+
+	return collection, func() {
+		collection.Drop(ctx)
+		client.Disconnect(ctx)
+	}
+}
+
+func TestActivityService_CreateActivity(t *testing.T) {
+	collection, cleanup := setupTestDB(t)
+	defer cleanup()
+
+	service := NewActivityService(collection)
+	activity := &models.Activity{
+		Title:       "Test Activity",
+		Description: "Test Description",
+		Duration:    30,
