@@ -55,3 +55,22 @@ func TestActivityService_GetActivities(t *testing.T) {
 	collection, cleanup := setupTestDB(t)
 	defer cleanup()
 
+	service := NewActivityService(collection)
+	
+	// Create test activities
+	activities := []models.Activity{
+		{
+			Title:       "Activity 1",
+			Description: "Description 1",
+			Duration:    30,
+		},
+		{
+			Title:       "Activity 2",
+			Description: "Description 2",
+			Duration:    45,
+		},
+	}
+
+	for _, a := range activities {
+		err := service.CreateActivity(context.Background(), &a)
+		if err != nil {
