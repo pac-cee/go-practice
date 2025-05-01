@@ -36,3 +36,22 @@ func (s *ActivityService) CreateActivity(ctx context.Context, activity *models.A
 // GetActivities retrieves all activities
 func (s *ActivityService) GetActivities(ctx context.Context) ([]models.Activity, error) {
 	cursor, err := s.collection.Find(ctx, bson.M{})
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(ctx)
+
+	var activities []models.Activity
+	if err := cursor.All(ctx, &activities); err != nil {
+		return nil, err
+	}
+
+	return activities, nil
+}
+
+// GetActivity retrieves a single activity by ID
+func (s *ActivityService) GetActivity(ctx context.Context, id primitive.ObjectID) (*models.Activity, error) {
+	var activity models.Activity
+	err := s.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&activity)
+	if err != nil {
+		return nil, err
