@@ -93,3 +93,22 @@ func TestActivityService_StartActivity(t *testing.T) {
 	collection, cleanup := setupTestDB(t)
 	defer cleanup()
 
+	service := NewActivityService(collection)
+	activity := &models.Activity{
+		Title:       "Test Activity",
+		Description: "Test Description",
+		Duration:    30,
+	}
+
+	err := service.CreateActivity(context.Background(), activity)
+	if err != nil {
+		t.Fatalf("Failed to create activity: %v", err)
+	}
+
+	err = service.StartActivity(context.Background(), activity.ID)
+	if err != nil {
+		t.Errorf("Failed to start activity: %v", err)
+	}
+
+	// Verify activity status
+	var updatedActivity models.Activity
