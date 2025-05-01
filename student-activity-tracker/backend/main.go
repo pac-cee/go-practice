@@ -36,3 +36,10 @@ func main() {
 	corsConfig.AllowOrigins = cfg.AllowedOrigins
 	router.Use(cors.New(corsConfig))
 
+	// Register routes
+	activityHandler.RegisterRoutes(router)
+
+	// Start server
+	log.Printf("Server starting on %s", cfg.ServerAddress)
+	log.Fatal(router.Run(cfg.ServerAddress))
+}
