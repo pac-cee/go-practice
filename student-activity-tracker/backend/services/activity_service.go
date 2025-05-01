@@ -93,3 +93,20 @@ func (s *ActivityService) StartActivity(ctx context.Context, id primitive.Object
 	}
 
 	_, err := s.collection.UpdateOne(ctx, bson.M{"_id": id}, update)
+	return err
+}
+
+// CompleteActivity completes an activity
+func (s *ActivityService) CompleteActivity(ctx context.Context, id primitive.ObjectID) error {
+	now := time.Now()
+	update := bson.M{
+		"$set": bson.M{
+			"status":    "completed",
+			"endTime":   now,
+			"updatedAt": now,
+		},
+	}
+
+	_, err := s.collection.UpdateOne(ctx, bson.M{"_id": id}, update)
+	return err
+}
