@@ -74,3 +74,22 @@ func (s *ActivityService) UpdateActivity(ctx context.Context, id primitive.Objec
 	_, err := s.collection.UpdateOne(ctx, bson.M{"_id": id}, update)
 	return err
 }
+
+// DeleteActivity deletes an activity
+func (s *ActivityService) DeleteActivity(ctx context.Context, id primitive.ObjectID) error {
+	_, err := s.collection.DeleteOne(ctx, bson.M{"_id": id})
+	return err
+}
+
+// StartActivity starts an activity
+func (s *ActivityService) StartActivity(ctx context.Context, id primitive.ObjectID) error {
+	now := time.Now()
+	update := bson.M{
+		"$set": bson.M{
+			"status":    "in-progress",
+			"startTime": now,
+			"updatedAt": now,
+		},
+	}
+
+	_, err := s.collection.UpdateOne(ctx, bson.M{"_id": id}, update)
