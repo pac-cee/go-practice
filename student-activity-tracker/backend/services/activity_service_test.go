@@ -131,3 +131,22 @@ func TestActivityService_CompleteActivity(t *testing.T) {
 
 	service := NewActivityService(collection)
 	activity := &models.Activity{
+		Title:       "Test Activity",
+		Description: "Test Description",
+		Duration:    30,
+	}
+
+	// Create and start activity
+	err := service.CreateActivity(context.Background(), activity)
+	if err != nil {
+		t.Fatalf("Failed to create activity: %v", err)
+	}
+
+	err = service.StartActivity(context.Background(), activity.ID)
+	if err != nil {
+		t.Fatalf("Failed to start activity: %v", err)
+	}
+
+	// Complete activity
+	err = service.CompleteActivity(context.Background(), activity.ID)
+	if err != nil {
