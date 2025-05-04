@@ -36,3 +36,22 @@ The Student Activity Tracker is a comprehensive web application designed to help
   - Daily/weekly/monthly summaries
   - Productivity patterns
   - Completion rates
+
+#### 5. User Experience
+- **Interface Features**
+  - Drag-and-drop organization
+  - Filter and search capabilities
+  - Responsive design
+  - Dark/light mode
+  - Keyboard shortcuts
+
+## 2. Detailed Tech Stack
+
+### Frontend Technologies
+
+#### 1. Astro (v4.x)
+- **Purpose**: Static Site Generator
+- **Key Features Used**:
+  - Component Islands architecture
+  - Zero-JS by default
+  - Automatic page optimization
