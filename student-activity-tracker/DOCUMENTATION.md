@@ -55,3 +55,22 @@ The Student Activity Tracker is a comprehensive web application designed to help
   - Component Islands architecture
   - Zero-JS by default
   - Automatic page optimization
+  - Built-in asset optimization
+  - TypeScript integration
+
+#### 2. React (v18.x)
+- **Purpose**: Interactive UI Components
+- **Key Features Used**:
+  - Hooks (useState, useEffect, useContext)
+  - Custom hooks for timer logic
+  - Context API for state management
+  - Error boundaries
+  - Suspense for loading states
+
+#### 3. TailwindCSS (v3.x)
+- **Purpose**: Styling Framework
+- **Key Features Used**:
+  - JIT (Just-In-Time) compilation
+  - Custom theme configuration
+  - Responsive design utilities
+  - Dark mode support
