@@ -74,3 +74,22 @@ The Student Activity Tracker is a comprehensive web application designed to help
   - Custom theme configuration
   - Responsive design utilities
   - Dark mode support
+  - Animation classes
+
+#### 4. TypeScript (v5.x)
+- **Purpose**: Type Safety
+- **Key Features Used**:
+  - Strict type checking
+  - Interface definitions
+  - Generic types
+  - Type guards
+  - Utility types
+
+### Backend Technologies
+
+#### 1. Go (v1.21)
+- **Purpose**: Server-side Language
+- **Key Features Used**:
+  - Goroutines for concurrency
+  - Channels for communication
+  - Context for cancellation
