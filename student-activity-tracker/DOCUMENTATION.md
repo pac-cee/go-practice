@@ -207,3 +207,22 @@ student-activity-tracker/
 ##### Services Layer
 - Business logic implementation
 - Transaction coordination
+- Error handling
+- Event processing
+- Data transformation
+
+##### Handlers Layer
+- Request parsing
+- Response formatting
+- Error handling
+- Authentication
+- Rate limiting
+
+### Frontend Architecture
+
+#### 1. Component Architecture
+```
+[Pages] → [Layouts] → [Feature Components] → [Base Components]
+   ↑          ↑              ↑                     ↑
+   └──────────┴──────────────┴─────────────────────┘
+        Shared Hooks and Utilities
