@@ -150,3 +150,22 @@ student-activity-tracker/
     ├── src/
     │   ├── components/
     │   │   ├── activity/      # Activity-related components
+    │   │   ├── common/        # Shared components
+    │   │   └── layout/        # Layout components
+    │   │
+    │   ├── hooks/            # Custom React hooks
+    │   │   ├── useTimer.ts
+    │   │   └── useActivity.ts
+    │   │
+    │   ├── pages/
+    │   │   ├── index.astro    # Main page
+    │   │   └── analytics.astro # Analytics page
+    │   │
+    │   ├── styles/           # Global styles
+    │   │   └── tailwind.css
+    │   │
+    │   └── utils/            # Utility functions
+    │       ├── api.ts        # API client
+    │       └── formatters.ts # Data formatters
+    │
+    └── public/              # Static assets
