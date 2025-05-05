@@ -169,3 +169,22 @@ student-activity-tracker/
     │       └── formatters.ts # Data formatters
     │
     └── public/              # Static assets
+```
+
+## 4. Architecture Details
+
+### Backend Architecture
+
+#### 1. Clean Architecture Layers
+```
+[HTTP Handlers] → [Services] → [Models] → [Database]
+     ↑              ↑            ↑           ↑
+     └──────────────┴────────────┴───────────┘
+         Dependency Injection Flow
+```
+
+#### 2. Component Responsibilities
+
+##### Config Layer
+- Environment variable management
+- Configuration validation
