@@ -93,3 +93,22 @@ The Student Activity Tracker is a comprehensive web application designed to help
   - Goroutines for concurrency
   - Channels for communication
   - Context for cancellation
+  - Error handling patterns
+  - Interface implementation
+
+#### 2. Gin Web Framework
+- **Purpose**: HTTP Router and Middleware
+- **Key Features Used**:
+  - Middleware chain
+  - Route grouping
+  - Request validation
+  - Error management
+  - Static file serving
+
+#### 3. MongoDB (v6.0)
+- **Purpose**: Database
+- **Key Features Used**:
+  - Document model
+  - Aggregation pipeline
+  - Indexing strategies
+  - Transaction support
