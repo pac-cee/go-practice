@@ -131,3 +131,22 @@ student-activity-tracker/
 │   │
 │   ├── handlers/
 │   │   ├── activity_handler.go # HTTP handlers
+│   │   ├── middleware/        # Custom middleware
+│   │   └── validators/        # Request validators
+│   │
+│   ├── models/
+│   │   ├── activity.go        # Data models
+│   │   └── interfaces/        # Model interfaces
+│   │
+│   ├── services/
+│   │   ├── activity_service.go # Business logic
+│   │   └── interfaces/        # Service interfaces
+│   │
+│   └── utils/
+│       ├── logger/            # Logging utilities
+│       └── errors/            # Error handling
+│
+└── frontend/
+    ├── src/
+    │   ├── components/
+    │   │   ├── activity/      # Activity-related components
