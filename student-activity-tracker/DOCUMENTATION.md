@@ -112,3 +112,22 @@ The Student Activity Tracker is a comprehensive web application designed to help
   - Aggregation pipeline
   - Indexing strategies
   - Transaction support
+  - Change streams
+
+## 3. Complete Project Structure
+
+### Directory Organization
+```
+student-activity-tracker/
+├── backend/
+│   ├── config/
+│   │   ├── config.go           # Configuration management
+│   │   └── config_test.go      # Configuration tests
+│   │
+│   ├── database/
+│   │   ├── mongodb.go          # MongoDB connection
+│   │   ├── migrations/         # Database migrations
+│   │   └── seeds/             # Test data seeds
+│   │
+│   ├── handlers/
+│   │   ├── activity_handler.go # HTTP handlers
