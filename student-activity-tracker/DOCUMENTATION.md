@@ -264,3 +264,22 @@ Response: (201 Created)
   "createdAt": "2025-02-08T16:34:22Z",
   "updatedAt": "2025-02-08T16:34:22Z"
 }
+```
+
+#### Get Activities
+```http
+GET /api/activities
+Query Parameters:
+- status: string (planned|in-progress|completed)
+- category: string
+- priority: string
+- startDate: ISO date
+- endDate: ISO date
+
+Response: (200 OK)
+{
+  "activities": [
+    {
+      "id": "507f1f77bcf86cd799439011",
+      "title": "Study Mathematics",
+      "description": "Chapter 5: Linear Algebra",
