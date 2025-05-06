@@ -340,3 +340,22 @@ type Activity struct {
 ```
 
 ### Database Indexes
+```javascript
+// MongoDB Indexes
+{
+  "status": 1,
+  "createdAt": -1
+}
+{
+  "category": 1,
+  "status": 1
+}
+{
+  "priority": 1,
+  "status": 1
+}
+```
+
+## 7. Testing Strategies
+
+### Backend Testing
