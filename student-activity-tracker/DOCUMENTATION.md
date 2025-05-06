@@ -302,3 +302,22 @@ Response: (200 OK)
 PUT /api/activities/:id
 Content-Type: application/json
 
+Request:
+{
+  "title": "Updated Title",
+  "description": "Updated Description",
+  "duration": 45
+}
+
+Response: (200 OK)
+{
+  "id": "507f1f77bcf86cd799439011",
+  "title": "Updated Title",
+  "description": "Updated Description",
+  "duration": 45,
+  "status": "planned",
+  "updatedAt": "2025-02-08T16:35:22Z"
+}
+```
+
+## 6. Data Models
