@@ -226,3 +226,22 @@ student-activity-tracker/
    ↑          ↑              ↑                     ↑
    └──────────┴──────────────┴─────────────────────┘
         Shared Hooks and Utilities
+```
+
+#### 2. State Management
+- Local component state
+- React Context for global state
+- Custom hooks for complex logic
+- Props for component communication
+
+## 5. API Endpoints
+
+### Activity Endpoints
+
+#### Create Activity
+```http
+POST /api/activities
+Content-Type: application/json
+
+Request:
+{
