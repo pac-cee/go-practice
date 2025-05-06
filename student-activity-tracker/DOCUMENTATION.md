@@ -321,3 +321,22 @@ Response: (200 OK)
 ```
 
 ## 6. Data Models
+
+### Activity Model
+```go
+type Activity struct {
+    ID          primitive.ObjectID `bson:"_id,omitempty" json:"id"`
+    Title       string            `bson:"title" json:"title" validate:"required,min=3,max=100"`
+    Description string            `bson:"description" json:"description" validate:"required,max=500"`
+    Duration    int               `bson:"duration" json:"duration" validate:"required,min=1"`
+    Status      string            `bson:"status" json:"status" validate:"required,oneof=planned in-progress completed"`
+    Category    string            `bson:"category" json:"category" validate:"required"`
+    Priority    string            `bson:"priority" json:"priority" validate:"required,oneof=low medium high"`
+    StartTime   *time.Time        `bson:"startTime,omitempty" json:"startTime,omitempty"`
+    EndTime     *time.Time        `bson:"endTime,omitempty" json:"endTime,omitempty"`
+    CreatedAt   time.Time         `bson:"createdAt" json:"createdAt"`
+    UpdatedAt   time.Time         `bson:"updatedAt" json:"updatedAt"`
+}
+```
+
+### Database Indexes
