@@ -283,3 +283,22 @@ Response: (200 OK)
       "id": "507f1f77bcf86cd799439011",
       "title": "Study Mathematics",
       "description": "Chapter 5: Linear Algebra",
+      "duration": 60,
+      "status": "planned",
+      "category": "study",
+      "priority": "high",
+      "createdAt": "2025-02-08T16:34:22Z",
+      "updatedAt": "2025-02-08T16:34:22Z"
+    }
+  ],
+  "total": 1,
+  "page": 1,
+  "pageSize": 10
+}
+```
+
+#### Update Activity
+```http
+PUT /api/activities/:id
+Content-Type: application/json
+
