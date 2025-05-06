@@ -359,3 +359,22 @@ type Activity struct {
 ## 7. Testing Strategies
 
 ### Backend Testing
+
+#### 1. Unit Tests
+```go
+// Example service test
+func TestActivityService_CreateActivity(t *testing.T) {
+    // Test cases
+    tests := []struct {
+        name    string
+        input   *models.Activity
+        wantErr bool
+    }{
+        {
+            name: "Valid activity",
+            input: &models.Activity{
+                Title:       "Test Activity",
+                Description: "Test Description",
+                Duration:    30,
+            },
+            wantErr: false,
