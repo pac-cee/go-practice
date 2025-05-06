@@ -245,3 +245,22 @@ Content-Type: application/json
 
 Request:
 {
+  "title": "Study Mathematics",
+  "description": "Chapter 5: Linear Algebra",
+  "duration": 60,
+  "category": "study",
+  "priority": "high"
+}
+
+Response: (201 Created)
+{
+  "id": "507f1f77bcf86cd799439011",
+  "title": "Study Mathematics",
+  "description": "Chapter 5: Linear Algebra",
+  "duration": 60,
+  "status": "planned",
+  "category": "study",
+  "priority": "high",
+  "createdAt": "2025-02-08T16:34:22Z",
+  "updatedAt": "2025-02-08T16:34:22Z"
+}
