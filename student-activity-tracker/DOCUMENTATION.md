@@ -416,3 +416,22 @@ func TestActivityHandler_CreateActivity(t *testing.T) {
         // More test cases...
     }
 
+    // Run tests
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            // Test implementation
+        })
+    }
+}
+```
+
+### Frontend Testing
+
+#### 1. Component Tests
+```typescript
+// Example React component test
+describe('ActivityForm', () => {
+    it('submits form with valid data', async () => {
+        const onSubmit = jest.fn();
+        render(<ActivityForm onSubmit={onSubmit} />);
+
