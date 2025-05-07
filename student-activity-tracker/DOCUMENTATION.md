@@ -397,3 +397,22 @@ func TestActivityService_CreateActivity(t *testing.T) {
 func TestActivityHandler_CreateActivity(t *testing.T) {
     // Setup test server
     router := setupTestRouter()
+    
+    // Test cases
+    tests := []struct {
+        name       string
+        payload    map[string]interface{}
+        wantStatus int
+    }{
+        {
+            name: "Valid request",
+            payload: map[string]interface{}{
+                "title":       "Test Activity",
+                "description": "Test Description",
+                "duration":    30,
+            },
+            wantStatus: http.StatusCreated,
+        },
+        // More test cases...
+    }
+
