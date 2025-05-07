@@ -473,3 +473,15 @@ describe('ActivityPage', () => {
             })
         );
 
+        render(<ActivityPage />);
+
+        // Wait for activities to load
+        await screen.findByText('Test Activity');
+
+        // Assertions
+        expect(screen.getByText('Test Activity')).toBeInTheDocument();
+    });
+});
+```
+
+This documentation provides a comprehensive overview of the technical aspects of the Student Activity Tracker. Each section can be further expanded based on specific needs or questions.
