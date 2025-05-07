@@ -454,3 +454,22 @@ describe('ActivityForm', () => {
 ```
 
 #### 2. Integration Tests
+```typescript
+// Example page test
+describe('ActivityPage', () => {
+    it('loads and displays activities', async () => {
+        // Mock API response
+        server.use(
+            rest.get('/api/activities', (req, res, ctx) => {
+                return res(ctx.json({
+                    activities: [
+                        {
+                            id: '1',
+                            title: 'Test Activity',
+                            // Other fields...
+                        }
+                    ]
+                }));
+            })
+        );
+
