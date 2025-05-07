@@ -378,3 +378,22 @@ func TestActivityService_CreateActivity(t *testing.T) {
                 Duration:    30,
             },
             wantErr: false,
+        },
+        // More test cases...
+    }
+
+    // Run tests
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            // Test implementation
+        })
+    }
+}
+```
+
+#### 2. Integration Tests
+```go
+// Example handler test
+func TestActivityHandler_CreateActivity(t *testing.T) {
+    // Setup test server
+    router := setupTestRouter()
