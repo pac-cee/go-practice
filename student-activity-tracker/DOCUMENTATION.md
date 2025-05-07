@@ -435,3 +435,22 @@ describe('ActivityForm', () => {
         const onSubmit = jest.fn();
         render(<ActivityForm onSubmit={onSubmit} />);
 
+        // Fill form
+        await userEvent.type(
+            screen.getByLabelText(/title/i),
+            'Test Activity'
+        );
+
+        // Submit form
+        await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+        // Assertions
+        expect(onSubmit).toHaveBeenCalledWith({
+            title: 'Test Activity',
+            // Other fields...
+        });
+    });
+});
+```
+
+#### 2. Integration Tests
