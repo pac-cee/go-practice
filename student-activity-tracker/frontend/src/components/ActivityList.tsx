@@ -74,3 +74,24 @@ export default function ActivityList({ activities, onStart, onComplete, onDelete
                   Start
                 </button>
               )}
+              {activity.status === 'in-progress' && (
+                <button
+                  onClick={() => onComplete(activity.id)}
+                  className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+                >
+                  Complete
+                </button>
+              )}
+              <button
+                onClick={() => onDelete(activity.id)}
+                className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
