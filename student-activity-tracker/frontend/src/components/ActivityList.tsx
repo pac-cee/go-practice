@@ -55,3 +55,22 @@ export default function ActivityList({ activities, onStart, onComplete, onDelete
                 </span>
               </div>
               {activity.startTime && (
+                <p className="text-sm text-gray-500">
+                  Started: {new Date(activity.startTime).toLocaleString()}
+                </p>
+              )}
+              {activity.endTime && (
+                <p className="text-sm text-gray-500">
+                  Completed: {new Date(activity.endTime).toLocaleString()}
+                </p>
+              )}
+            </div>
+            <div className="space-x-2">
+              {activity.status === 'planned' && (
+                <button
+                  onClick={() => onStart(activity.id)}
+                  className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                >
+                  Start
+                </button>
+              )}
