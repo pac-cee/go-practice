@@ -36,3 +36,22 @@ export default function ActivityList({ activities, onStart, onComplete, onDelete
       {activities.map((activity) => (
         <div
           key={activity.id}
+          className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+        >
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="text-lg font-semibold">{activity.title}</h3>
+              <p className="text-gray-600">{activity.description}</p>
+              <div className="mt-2 space-x-2">
+                <span className="text-sm text-gray-500">
+                  Duration: {activity.duration} minutes
+                </span>
+                <span
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+                    activity.status
+                  )}`}
+                >
+                  {activity.status}
+                </span>
+              </div>
+              {activity.startTime && (
