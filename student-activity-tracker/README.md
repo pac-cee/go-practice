@@ -74,3 +74,22 @@ student-activity-tracker/
     └── tailwind.config.mjs       # Tailwind configuration
 ```
 
+## Architecture
+
+### Backend Architecture
+
+1. **Config Package**
+   - Manages application configuration
+   - Environment variable handling
+   - Default configuration values
+   - Type-safe configuration structure
+
+2. **Database Package**
+   - MongoDB connection management
+   - Connection pooling
+   - Database initialization
+   - Collection management
+
+3. **Models Package**
+   - Defines data structures
+   - JSON/BSON serialization
