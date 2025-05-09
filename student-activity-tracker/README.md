@@ -93,3 +93,22 @@ student-activity-tracker/
 3. **Models Package**
    - Defines data structures
    - JSON/BSON serialization
+   - Type definitions
+   - Data validation
+
+4. **Services Package**
+   - Business logic implementation
+   - CRUD operations
+   - Activity state management
+   - Error handling
+
+5. **Handlers Package**
+   - HTTP request handling
+   - Request validation
+   - Response formatting
+   - Route management
+
+### Frontend Architecture
+
+1. **Components**
+   - Reusable React components
