@@ -36,3 +36,22 @@ A comprehensive web application that helps students manage and track their daily
   - Excellent concurrency support
   - Great for building APIs
 - **Gin**: Web framework for Go
+  - Fast HTTP routing
+  - Middleware support
+  - Built-in validation
+- **MongoDB**: NoSQL database
+  - Flexible schema
+  - Great for document-based data
+  - Excellent Go driver support
+
+## Project Structure
+
+```
+student-activity-tracker/
+├── backend/
+│   ├── config/
+│   │   └── config.go           # Application configuration
+│   ├── database/
+│   │   └── mongodb.go          # Database connection management
+│   ├── handlers/
+│   │   ├── activity_handler.go # HTTP request handlers
