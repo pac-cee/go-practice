@@ -188,3 +188,22 @@ interface Activity {
 
 1. **Prerequisites**
    ```bash
+   # Install Go
+   go version # Should be 1.21 or later
+
+   # Install Node.js
+   node --version # Should be 18 or later
+
+   # Install MongoDB
+   mongod --version # Should be 6.0 or later
+   ```
+
+2. **Backend Setup**
+   ```bash
+   cd backend
+   go mod tidy
+   go run main.go
+   ```
+
+3. **Frontend Setup**
+   ```bash
