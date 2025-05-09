@@ -55,3 +55,16 @@ func (h *TaskHandler) GetTask(c *gin.Context) {
 	c.JSON(http.StatusOK, task)
 }
 
+// ListTasks handles listing all tasks for a user
+func (h *TaskHandler) ListTasks(c *gin.Context) {
+	// TODO: Get userID from JWT token
+	userID := uint(1) // Temporary
+
+	tasks, err := h.repo.ListTasks(userID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch tasks"})
+		return
+	}
+
+	c.JSON(http.StatusOK, tasks)
+}
