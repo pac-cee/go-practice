@@ -17,3 +17,22 @@ type Claims struct {
 }
 
 type AuthRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type AuthResponse struct {
+	Token string `json:"token"`
+}
+
+func hashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+func checkPasswordHash(password, hash string) bool {
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password)) == nil
+}
+
+func register(db *gorm.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
