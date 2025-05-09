@@ -55,3 +55,22 @@ func register(db *gorm.DB) http.HandlerFunc {
 	}
 }
 
+func login(db *gorm.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req AuthRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		var user User
+		if err := db.Where("username = ?", req.Username).First(&user).Error; err != nil {
+			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+			return
+		}
+		if !checkPasswordHash(req.Password, user.Password) {
+			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+			return
+		}
+		claims := &Claims{
+			UserID: user.ID,
+			RegisteredClaims: jwt.RegisteredClaims{
