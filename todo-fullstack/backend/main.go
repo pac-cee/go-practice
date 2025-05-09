@@ -74,3 +74,16 @@ func main() {
 	}
 	db.AutoMigrate(&User{}, &Todo{})
 
+	r := mux.NewRouter()
+	r.HandleFunc("/register", register(db)).Methods("POST")
+	r.HandleFunc("/login", login(db)).Methods("POST")
+
+	r.HandleFunc("/todos", jwtMiddleware(getTodos)).Methods("GET")
+	r.HandleFunc("/todos", jwtMiddleware(createTodo)).Methods("POST")
+	r.HandleFunc("/todos/{id}", jwtMiddleware(updateTodo)).Methods("PUT")
+	r.HandleFunc("/todos/{id}", jwtMiddleware(deleteTodo)).Methods("DELETE")
+
+	handler := cors.Default().Handler(r)
+	log.Println("Backend running on :8080")
+	log.Fatal(http.ListenAndServe(":8080", handler))
+}
