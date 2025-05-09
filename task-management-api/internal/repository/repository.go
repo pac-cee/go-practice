@@ -17,3 +17,17 @@ type Repository interface {
 	CreateUser(user *models.User) error
 	GetUserByID(id uint) (*models.User, error)
 	GetUserByEmail(email string) (*models.User, error)
+	UpdateUser(user *models.User) error
+}
+
+// PostgresRepository implements Repository interface
+type PostgresRepository struct {
+	db interface{} // This will be replaced with *gorm.DB
+}
+
+// NewPostgresRepository creates a new postgres repository
+func NewPostgresRepository(db interface{}) Repository {
+	return &PostgresRepository{
+		db: db,
+	}
+}
