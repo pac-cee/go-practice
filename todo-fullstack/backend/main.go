@@ -55,3 +55,22 @@ func updateTodo(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(todo)
 }
 
+func deleteTodo(w http.ResponseWriter, r *http.Request) {
+	userID, _ := strconv.Atoi(r.Header.Get("X-User-ID"))
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+	if err := db.Where("id = ? AND user_id = ?", id, userID).Delete(&Todo{}).Error; err != nil {
+		http.NotFound(w, r)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+}
+
+func main() {
+	var err error
+	db = connectDB()
+	if err != nil {
+		log.Fatal("failed to connect database")
+	}
+	db.AutoMigrate(&User{}, &Todo{})
+
