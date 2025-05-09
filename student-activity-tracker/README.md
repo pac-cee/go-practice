@@ -17,3 +17,22 @@ A comprehensive web application that helps students manage and track their daily
 
 ### Frontend
 - **Astro**: Modern static site generator with excellent performance
+  - Server-first architecture
+  - Zero-JS by default for better performance
+  - Supports multiple UI frameworks
+- **React**: For interactive components
+  - Activity form with real-time validation
+  - Activity list with status management
+  - Timer component
+- **TailwindCSS**: Utility-first CSS framework
+  - Responsive design
+  - Modern UI components
+  - Easy customization
+- **TypeScript**: For type safety and better developer experience
+
+### Backend
+- **Go**: High-performance backend language
+  - Strong typing and compilation
+  - Excellent concurrency support
+  - Great for building APIs
+- **Gin**: Web framework for Go
