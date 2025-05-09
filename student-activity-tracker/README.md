@@ -131,3 +131,22 @@ POST /api/activities
 - Create a new activity
 - Request: { title: string, description: string, duration: number }
 - Response: Activity object
+
+GET /api/activities
+- Get all activities
+- Response: Array of Activity objects
+
+PUT /api/activities/:id
+- Update an activity
+- Request: { title?: string, description?: string, duration?: number }
+- Response: Updated Activity object
+
+DELETE /api/activities/:id
+- Delete an activity
+- Response: { message: string }
+
+PUT /api/activities/:id/start
+- Start an activity
+- Response: Updated Activity object
+
+PUT /api/activities/:id/complete
