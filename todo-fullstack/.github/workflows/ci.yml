@@ -55,3 +55,15 @@ jobs:
           echo "Deploying to production..."
           # Replace with your provider's deployment command
           docker-compose -f docker-compose.yml up -d --build
+
+  deploy-staging:
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to Staging
+        run: |
+          echo "Deploying to staging..."
+          # Replace with your provider's deployment command
+          docker-compose -f docker-compose.yml -p staging up -d --build
