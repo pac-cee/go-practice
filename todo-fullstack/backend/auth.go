@@ -36,3 +36,22 @@ func checkPasswordHash(password, hash string) bool {
 
 func register(db *gorm.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		var req AuthRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		hash, err := hashPassword(req.Password)
+		if err != nil {
+			http.Error(w, "Error hashing password", http.StatusInternalServerError)
+			return
+		}
+		user := User{Username: req.Username, Password: hash}
+		if err := db.Create(&user).Error; err != nil {
+			http.Error(w, "Username already exists", http.StatusBadRequest)
+			return
+		}
+		w.WriteHeader(http.StatusCreated)
+	}
+}
+
