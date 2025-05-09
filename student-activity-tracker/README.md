@@ -207,3 +207,22 @@ interface Activity {
 
 3. **Frontend Setup**
    ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+4. **Environment Variables**
+   ```bash
+   # Backend (.env)
+   MONGO_URI=mongodb://localhost:27017
+   DB_NAME=student_tracker
+   SERVER_ADDRESS=:8080
+   ALLOWED_ORIGIN=http://localhost:4321
+   ```
+
+## Development Workflow
+
+1. **Backend Development**
+   - Write tests first (TDD approach)
+   - Implement features
