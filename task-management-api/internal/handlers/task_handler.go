@@ -36,3 +36,22 @@ func (h *TaskHandler) CreateTask(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, task)
+}
+
+// GetTask handles getting a single task
+func (h *TaskHandler) GetTask(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid task ID"})
+		return
+	}
+
+	task, err := h.repo.GetTaskByID(uint(id))
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Task not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, task)
+}
+
