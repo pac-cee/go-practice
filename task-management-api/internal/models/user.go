@@ -17,3 +17,17 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+// HashPassword hashes the user's password using bcrypt
+func (u *User) HashPassword() error {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	u.Password = string(hashedPassword)
+	return nil
+}
+
+// CheckPassword compares the provided password with the hashed password
+func (u *User) CheckPassword(password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
+}
