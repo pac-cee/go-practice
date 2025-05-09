@@ -226,3 +226,22 @@ interface Activity {
 1. **Backend Development**
    - Write tests first (TDD approach)
    - Implement features
+   - Run tests: `go test ./...`
+   - Manual testing with API client
+
+2. **Frontend Development**
+   - Create/modify components
+   - Test in development mode
+   - Build for production
+   - Test production build
+
+## Best Practices
+
+### Backend
+- Clean Architecture principles
+- Dependency Injection
+- Error handling
+- Input validation
+- Proper logging
+- Security best practices
+
