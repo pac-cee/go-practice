@@ -150,3 +150,22 @@ PUT /api/activities/:id/start
 - Response: Updated Activity object
 
 PUT /api/activities/:id/complete
+- Complete an activity
+- Response: Updated Activity object
+```
+
+## Data Models
+
+### Activity Model
+```typescript
+interface Activity {
+  id: string;
+  title: string;
+  description: string;
+  duration: number;      // in minutes
+  status: string;        // planned, in-progress, completed
+  startTime?: Date;      // when activity was started
+  endTime?: Date;        // when activity was completed
+  createdAt: Date;
+  updatedAt: Date;
+}
