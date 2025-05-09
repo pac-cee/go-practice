@@ -169,3 +169,22 @@ interface Activity {
   createdAt: Date;
   updatedAt: Date;
 }
+```
+
+## Testing
+
+### Backend Tests
+- Unit tests for services
+- Integration tests for handlers
+- Database operation tests
+- Mock interfaces for dependencies
+
+### Frontend Tests
+- Component testing with React Testing Library
+- End-to-end testing capabilities
+- Accessibility testing
+
+## Installation and Setup
+
+1. **Prerequisites**
+   ```bash
