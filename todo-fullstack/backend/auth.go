@@ -74,3 +74,15 @@ func login(db *gorm.DB) http.HandlerFunc {
 		claims := &Claims{
 			UserID: user.ID,
 			RegisteredClaims: jwt.RegisteredClaims{
+				ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+			},
+		}
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+		tokenString, err := token.SignedString(jwtKey)
+		if err != nil {
+			http.Error(w, "Error generating token", http.StatusInternalServerError)
+			return
+		}
+		json.NewEncoder(w).Encode(AuthResponse{Token: tokenString})
+	}
+}
