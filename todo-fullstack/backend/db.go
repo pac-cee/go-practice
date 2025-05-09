@@ -17,3 +17,11 @@ func connectDB() *gorm.DB {
 			panic(fmt.Sprintf("failed to connect to Postgres: %v", err))
 		}
 		return db
+	}
+	// Default to SQLite
+	db, err := gorm.Open(sqlite.Open("todos.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect to SQLite")
+	}
+	return db
+}
