@@ -112,3 +112,22 @@ student-activity-tracker/
 
 1. **Components**
    - Reusable React components
+   - TypeScript for type safety
+   - Tailwind for styling
+   - Client-side interactivity
+
+2. **Pages**
+   - Astro pages for static generation
+   - Hybrid static/dynamic content
+   - SEO optimization
+   - Performance optimization
+
+## API Endpoints
+
+### Activities
+
+```
+POST /api/activities
+- Create a new activity
+- Request: { title: string, description: string, duration: number }
+- Response: Activity object
