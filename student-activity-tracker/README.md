@@ -55,3 +55,22 @@ student-activity-tracker/
 │   │   └── mongodb.go          # Database connection management
 │   ├── handlers/
 │   │   ├── activity_handler.go # HTTP request handlers
+│   │   └── activity_handler_test.go
+│   ├── models/
+│   │   └── activity.go         # Data models
+│   ├── services/
+│   │   ├── activity_service.go # Business logic
+│   │   └── activity_service_test.go
+│   ├── go.mod                  # Go module definition
+│   └── main.go                 # Application entry point
+└── frontend/
+    ├── src/
+    │   ├── components/
+    │   │   ├── ActivityForm.tsx  # Form for creating activities
+    │   │   └── ActivityList.tsx  # List of activities with controls
+    │   └── pages/
+    │       └── index.astro       # Main page
+    ├── astro.config.mjs          # Astro configuration
+    └── tailwind.config.mjs       # Tailwind configuration
+```
+
