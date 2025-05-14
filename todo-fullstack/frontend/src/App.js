@@ -131,3 +131,24 @@ function App() {
           required
         />
         <button type="submit">Add</button>
+      </form>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            <span
+              style={{ textDecoration: todo.done ? "line-through" : "none", cursor: "pointer" }}
+              onClick={() => toggleTodo(todo.id)}
+            >
+              {todo.task}
+            </span>
+            <button onClick={() => deleteTodo(todo.id)} style={{ marginLeft: 8 }}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
