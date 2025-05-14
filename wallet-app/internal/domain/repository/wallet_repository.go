@@ -36,3 +36,10 @@ func (r *WalletRepository) UpdateBalance(ctx context.Context, id uuid.UUID, amou
         }
 
         wallet.Balance += amount
+        if wallet.Balance < 0 {
+            return ErrInsufficientFunds
+        }
+
+        return tx.Save(&wallet).Error
+    })
+}
