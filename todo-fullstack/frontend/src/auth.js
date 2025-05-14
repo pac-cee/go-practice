@@ -17,3 +17,11 @@ export async function login(username, password) {
   const data = await res.json();
   localStorage.setItem("token", data.token);
 }
+
+export function logout() {
+  localStorage.removeItem("token");
+}
+
+export function getToken() {
+  return localStorage.getItem("token");
+}
