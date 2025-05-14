@@ -112,3 +112,22 @@ function App() {
         </form>
         <button onClick={() => setAuthMode(authMode === "login" ? "register" : "login")}
           style={{ marginTop: 8 }}>
+          {authMode === "login" ? "Need an account? Register" : "Already have an account? Login"}
+        </button>
+        {error && <div style={{ color: "red" }}>{error}</div>}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ maxWidth: 400, margin: "auto" }}>
+      <h1>Todo App</h1>
+      <button onClick={handleLogout} style={{ float: "right" }}>Logout</button>
+      <form onSubmit={addTodo}>
+        <input
+          value={task}
+          onChange={e => setTask(e.target.value)}
+          placeholder="New todo"
+          required
+        />
+        <button type="submit">Add</button>
