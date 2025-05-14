@@ -74,3 +74,20 @@ func TestRegisterLoginAndTodoCRUD(t *testing.T) {
 	updateTodo := jwtMiddleware(updateTodo)
 	updateTodo(w, r)
 	if w.Code != http.StatusOK {
+		t.Fatalf("expected 200, got %d", w.Code)
+	}
+	var updated Todo
+	_ = json.NewDecoder(w.Body).Decode(&updated)
+	if !updated.Done {
+		t.Fatal("expected todo to be done")
+	}
+	// Delete Todo
+	r = httptest.NewRequest("DELETE", "/todos/1", nil)
+	r.Header.Set("Authorization", "Bearer "+resp.Token)
+	w = httptest.NewRecorder()
+	deleteTodo := jwtMiddleware(deleteTodo)
+	deleteTodo(w, r)
+	if w.Code != http.StatusNoContent {
+		t.Fatalf("expected 204, got %d", w.Code)
+	}
+}
