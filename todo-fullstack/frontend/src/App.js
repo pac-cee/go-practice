@@ -55,3 +55,22 @@ function App() {
 
   const addTodo = async e => {
     e.preventDefault();
+    const res = await fetch(API, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`
+      },
+      body: JSON.stringify({ task, done: false })
+    });
+    const newTodo = await res.json();
+    setTodos([...todos, newTodo]);
+    setTask("");
+  };
+
+  const toggleTodo = async id => {
+    const todo = todos.find(t => t.id === id);
+    const res = await fetch(`${API}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
