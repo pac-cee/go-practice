@@ -17,3 +17,13 @@ func jwtMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		claims := &Claims{}
 		token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
 			return jwtKey, nil
+		})
+		if err != nil || !token.Valid {
+			http.Error(w, "Invalid token", http.StatusUnauthorized)
+			return
+		}
+		// Attach user ID to context if needed
+		r.Header.Set("X-User-ID", string(rune(claims.UserID)))
+		next(w, r)
+	}
+}
