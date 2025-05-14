@@ -36,3 +36,22 @@ function App() {
 
   const handleLogin = async e => {
     e.preventDefault();
+    try {
+      await login(username, password);
+      setIsLoggedIn(true);
+      setError("");
+    } catch {
+      setError("Login failed");
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsLoggedIn(false);
+    setTodos([]);
+    setUsername("");
+    setPassword("");
+  };
+
+  const addTodo = async e => {
+    e.preventDefault();
