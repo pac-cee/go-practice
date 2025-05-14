@@ -17,3 +17,22 @@ function App() {
       fetch(API, {
         headers: { Authorization: `Bearer ${getToken()}` }
       })
+        .then(res => res.json())
+        .then(setTodos);
+    }
+  }, [isLoggedIn]);
+
+  const handleRegister = async e => {
+    e.preventDefault();
+    try {
+      await register(username, password);
+      setAuthMode("login");
+      setError("");
+      alert("Registration successful! Please login.");
+    } catch {
+      setError("Registration failed");
+    }
+  };
+
+  const handleLogin = async e => {
+    e.preventDefault();
