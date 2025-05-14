@@ -36,3 +36,11 @@ func Load() (*Config, error) {
 	}
 
 	return config, nil
+}
+
+func getEnvOrDefault(key, defaultValue string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return defaultValue
+}
