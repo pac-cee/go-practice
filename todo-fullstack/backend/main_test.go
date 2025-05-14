@@ -36,3 +36,22 @@ func TestRegisterLoginAndTodoCRUD(t *testing.T) {
 	_ = json.NewDecoder(w.Body).Decode(&resp)
 	if resp.Token == "" {
 		t.Fatal("expected token")
+	}
+	// Create Todo
+	todoBody := `{"task":"Test Todo","done":false}`
+	r = httptest.NewRequest("POST", "/todos", strings.NewReader(todoBody))
+	r.Header.Set("Authorization", "Bearer "+resp.Token)
+	w = httptest.NewRecorder()
+	createTodo := jwtMiddleware(createTodo)
+	createTodo(w, r)
+	if w.Code != http.StatusOK {
+		t.Fatalf("expected 200, got %d", w.Code)
+	}
+	var todo Todo
+	_ = json.NewDecoder(w.Body).Decode(&todo)
+	if todo.Task != "Test Todo" {
+		t.Fatalf("expected task 'Test Todo', got '%s'", todo.Task)
+	}
+	// Get Todos
+	r = httptest.NewRequest("GET", "/todos", nil)
+	r.Header.Set("Authorization", "Bearer "+resp.Token)
