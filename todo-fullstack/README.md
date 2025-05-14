@@ -17,3 +17,22 @@ This project is a simple fullstack Todo application with a React frontend and a 
 
 1. Clone the repo or copy the files.
 2. In the project root, run:
+
+```sh
+docker-compose up --build
+```
+
+3. Access the frontend at [http://localhost:3000](http://localhost:3000)
+4. The backend API runs at [http://localhost:8080](http://localhost:8080)
+
+## Project Structure
+
+- `backend/` - Go REST API
+- `frontend/` - React app
+- `docker-compose.yml` - Orchestration
+
+## API Endpoints
+- GET /todos
+- POST /todos
+- PUT /todos/{id}
+- DELETE /todos/{id}
