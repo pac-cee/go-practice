@@ -74,3 +74,22 @@ function App() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`
+      },
+      body: JSON.stringify({ ...todo, done: !todo.done })
+    });
+    const updated = await res.json();
+    setTodos(todos.map(t => (t.id === id ? updated : t)));
+  };
+
+  const deleteTodo = async id => {
+    await fetch(`${API}/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+    setTodos(todos.filter(t => t.id !== id));
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div style={{ maxWidth: 400, margin: "auto" }}>
