@@ -36,3 +36,10 @@ docker-compose up --build
 - POST /todos
 - PUT /todos/{id}
 - DELETE /todos/{id}
+
+## Customization
+- You can switch the backend to use a database (e.g., SQLite or PostgreSQL) for persistence.
+- Add authentication, user accounts, etc.
+
+## License
+MIT
