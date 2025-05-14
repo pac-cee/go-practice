@@ -36,3 +36,22 @@ func main() {
 	db, err := database.NewPostgresDB(dbConfig)
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
+	}
+	defer database.CloseDB(db)
+
+	// Set Gin mode
+	if cfg.Environment == "production" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
+	// Initialize router with middleware
+	router := gin.Default()
+	router.Use(gin.Recovery())
+	router.Use(middleware.Auth())
+
+	// Initialize handlers
+	walletHandler := handlers.NewWalletHandler(db)
+
+	// Define routes
+	api := router.Group("/api/v1")
+	{
