@@ -55,3 +55,22 @@ func main() {
 	// Define routes
 	api := router.Group("/api/v1")
 	{
+		api.POST("/wallets", walletHandler.Create)
+		api.GET("/wallets/:id", walletHandler.Get)
+		api.POST("/wallets/:id/deposit", walletHandler.Deposit)
+		api.POST("/wallets/:id/withdraw", walletHandler.Withdraw)
+		api.GET("/wallets/:id/transactions", walletHandler.GetTransactions)
+	}
+
+	// Server configuration
+	srv := &http.Server{
+		Addr:         ":" + cfg.Port,
+		Handler:      router,
+		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 15 * time.Second,
+		IdleTimeout:  60 * time.Second,
+	}
+
+	// Start server in a goroutine
+	go func() {
+		log.Printf("Server starting on port %s", cfg.Port)
