@@ -36,3 +36,10 @@ func (h *WalletHandler) Create(c *gin.Context) {
     }
 
     wallet, err := h.service.CreateWallet(c.Request.Context(), userID, req.Currency)
+    if err != nil {
+        utils.ErrorResponse(c, http.StatusInternalServerError, "Failed to create wallet")
+        return
+    }
+
+    c.JSON(http.StatusCreated, wallet)
+}
