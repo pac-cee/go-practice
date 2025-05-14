@@ -93,3 +93,22 @@ function App() {
   if (!isLoggedIn) {
     return (
       <div style={{ maxWidth: 400, margin: "auto" }}>
+        <h1>Todo App</h1>
+        <form onSubmit={authMode === "login" ? handleLogin : handleRegister}>
+          <input
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <button type="submit">{authMode === "login" ? "Login" : "Register"}</button>
+        </form>
+        <button onClick={() => setAuthMode(authMode === "login" ? "register" : "login")}
+          style={{ marginTop: 8 }}>
