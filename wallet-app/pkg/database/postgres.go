@@ -74,3 +74,21 @@ func NewPostgresDB(cfg PostgresConfig) (*gorm.DB, error) {
 // CloseDB closes the database connection
 func CloseDB(db *gorm.DB) error {
     sqlDB, err := db.DB()
+    if err != nil {
+        return fmt.Errorf("failed to get database instance: %v", err)
+    }
+    return sqlDB.Close()
+}
+
+// Health checks the database connection
+func Health(db *gorm.DB) error {
+    sqlDB, err := db.DB()
+    if err != nil {
+        return fmt.Errorf("failed to get database instance: %v", err)
+    }
+
+    ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+    defer cancel()
+
+    return sqlDB.PingContext(ctx)
+}
