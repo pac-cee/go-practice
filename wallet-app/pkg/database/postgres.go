@@ -55,3 +55,22 @@ func NewPostgresDB(cfg PostgresConfig) (*gorm.DB, error) {
     if err != nil {
         return nil, fmt.Errorf("failed to get database instance: %v", err)
     }
+
+    sqlDB.SetMaxIdleConns(10)
+    sqlDB.SetMaxOpenConns(100)
+    sqlDB.SetConnMaxLifetime(time.Hour)
+
+    // Test connection
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
+
+    if err := sqlDB.PingContext(ctx); err != nil {
+        return nil, fmt.Errorf("failed to ping database: %v", err)
+    }
+
+    return db, nil
+}
+
+// CloseDB closes the database connection
+func CloseDB(db *gorm.DB) error {
+    sqlDB, err := db.DB()
