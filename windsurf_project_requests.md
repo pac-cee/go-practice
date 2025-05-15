@@ -188,3 +188,14 @@ For every project, ask your agent to:
 - Document APIs and architecture.
 - Follow secure coding practices (input validation, XSS, CSRF, SQL injection, etc.).
 
+---
+
+## How to Use
+- Copy any project brief above and give it to your Windsurf agent.
+- Specify your preferred stack/language if you want.
+- Ask for best practices, documentation, and enhancements.
+- Use these projects as references for interviews, learning, or your portfolio.
+
+---
+
+**Good luck on your software engineering journey! If you want more detailed specs or starter repos for any project, just ask.**
