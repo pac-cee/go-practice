@@ -112,3 +112,22 @@ This document contains a curated set of project requests you can give to your Wi
 - Use Docker Compose for orchestration.
 
 ---
+
+### DevOps Pipeline
+**Brief:** Set up CI/CD for any of the above projects.
+**Stack:** GitHub Actions, Docker, Kubernetes (optional)
+**Requirements:**
+- Automated build, test, and deploy.
+- Use Docker for containerization.
+- Add README with pipeline instructions.
+
+---
+
+### Data Visualization Dashboard
+**Brief:** Build a dashboard to display data from an external API.
+**Stack:** React/D3.js (frontend), Go/Node.js (backend)
+**Requirements:**
+- Fetch and display data in charts.
+- Handle large datasets efficiently.
+- Responsive design.
+
