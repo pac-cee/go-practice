@@ -36,3 +36,22 @@ This document contains a curated set of project requests you can give to your Wi
 ---
 
 ## 2. Intermediate Projects
+
+### RESTful API
+**Brief:** Create a REST API for managing tasks (CRUD).
+**Stack:** Go (net/http), Node.js (Express), Python (Flask)
+**Requirements:**
+- CRUD endpoints for tasks.
+- Use environment variables for config.
+- Modular project structure.
+- Add OpenAPI/Swagger docs.
+
+---
+
+### Todo Web App (Fullstack)
+**Brief:** Build a Todo app with a frontend and backend.
+**Stack:** React or Vue (frontend), Go/Node.js/Python (backend)
+**Requirements:**
+- REST API for todos.
+- Frontend with add, edit, delete, mark done.
+- Use Docker Compose to run both services.
