@@ -169,3 +169,22 @@ This document contains a curated set of project requests you can give to your Wi
 **Stack:** Python (FastAPI/Flask + scikit-learn/TensorFlow)
 **Requirements:**
 - Expose prediction endpoint.
+- Handle model versioning.
+- Secure endpoints.
+
+---
+
+## 5. Best Practices & Modern Developer Rules
+
+For every project, ask your agent to:
+- Use version control (Git).
+- Write a comprehensive README.md.
+- Use .env for secrets/config.
+- Write unit/integration tests.
+- Use linters and code formatters.
+- Apply SOLID, DRY, KISS principles.
+- Use Docker for containerization.
+- Set up CI/CD automation.
+- Document APIs and architecture.
+- Follow secure coding practices (input validation, XSS, CSRF, SQL injection, etc.).
+
