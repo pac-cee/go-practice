@@ -93,3 +93,22 @@ This document contains a curated set of project requests you can give to your Wi
 ---
 
 ### E-commerce Platform
+**Brief:** Create a simple e-commerce system.
+**Stack:** React/Vue (frontend), Go/Node.js/Python (backend), PostgreSQL/MongoDB
+**Requirements:**
+- Product listing, cart, checkout.
+- User authentication and roles.
+- Payment integration (mock or Stripe sandbox).
+- Admin dashboard.
+
+---
+
+### Microservices Architecture
+**Brief:** Refactor a monolithic Todo API into microservices.
+**Stack:** Go/Node.js, Docker, REST/gRPC
+**Requirements:**
+- Separate services for users, tasks, notifications.
+- API Gateway for routing.
+- Use Docker Compose for orchestration.
+
+---
