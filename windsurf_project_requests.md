@@ -74,3 +74,22 @@ This document contains a curated set of project requests you can give to your Wi
 **Brief:** Allow users to upload files via a web interface and store them on the server.
 **Stack:** Go, Node.js, Python
 **Requirements:**
+- Frontend for file selection.
+- Backend for file handling and storage.
+- Validate file types and size.
+
+---
+
+## 3. Advanced Projects
+
+### Real-Time Chat App
+**Brief:** Build a chat app with real-time messaging.
+**Stack:** Go (Gorilla WebSocket), Node.js (Socket.io), Python (websockets)
+**Requirements:**
+- User can join rooms and send messages.
+- Show online users.
+- Store chat history in a database.
+
+---
+
+### E-commerce Platform
