@@ -131,3 +131,22 @@ This document contains a curated set of project requests you can give to your Wi
 - Handle large datasets efficiently.
 - Responsive design.
 
+---
+
+## 4. Expert/Scalable Projects
+
+### Distributed Task Queue
+**Brief:** Implement a background job system.
+**Stack:** Go/Python, Redis/RabbitMQ
+**Requirements:**
+- Submit jobs via API.
+- Workers process jobs asynchronously.
+- Track job status.
+
+---
+
+### Blockchain Demo
+**Brief:** Build a basic blockchain implementation.
+**Stack:** Go, Python
+**Requirements:**
+- Create blocks, proof-of-work, and peer-to-peer networking.
