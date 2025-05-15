@@ -17,3 +17,22 @@ This document contains a curated set of project requests you can give to your Wi
 
 ### Simple Calculator
 **Brief:** Build a CLI calculator that supports addition, subtraction, multiplication, and division.
+**Stack:** Go, Python, Node.js
+**Requirements:**
+- Accept user input for numbers and operation.
+- Handle invalid input gracefully.
+- Add tests for calculator functions.
+
+---
+
+### Static Portfolio Website
+**Brief:** Build a personal portfolio website.
+**Stack:** HTML, CSS, JavaScript
+**Requirements:**
+- Responsive design.
+- About, Projects, Contact sections.
+- Use semantic HTML and CSS best practices.
+
+---
+
+## 2. Intermediate Projects
