@@ -150,3 +150,22 @@ This document contains a curated set of project requests you can give to your Wi
 **Stack:** Go, Python
 **Requirements:**
 - Create blocks, proof-of-work, and peer-to-peer networking.
+- Simple web interface to view chain.
+
+---
+
+### SaaS Multi-Tenant Platform
+**Brief:** Create a multi-tenant SaaS starter.
+**Stack:** React (frontend), Go/Node.js/Python (backend), PostgreSQL
+**Requirements:**
+- User and tenant separation.
+- Billing (mock or Stripe test).
+- Admin dashboard.
+
+---
+
+### Machine Learning API
+**Brief:** Deploy an ML model as an API.
+**Stack:** Python (FastAPI/Flask + scikit-learn/TensorFlow)
+**Requirements:**
+- Expose prediction endpoint.
