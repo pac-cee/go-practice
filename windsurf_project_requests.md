@@ -55,3 +55,22 @@ This document contains a curated set of project requests you can give to your Wi
 - REST API for todos.
 - Frontend with add, edit, delete, mark done.
 - Use Docker Compose to run both services.
+- Add tests for backend and frontend.
+
+---
+
+### Authentication System
+**Brief:** Implement user authentication with JWT.
+**Stack:** Go, Node.js, Python
+**Requirements:**
+- Register, login, logout endpoints.
+- Password hashing and JWT token issuance.
+- Protect routes with middleware.
+- Add tests for authentication.
+
+---
+
+### File Uploader
+**Brief:** Allow users to upload files via a web interface and store them on the server.
+**Stack:** Go, Node.js, Python
+**Requirements:**
