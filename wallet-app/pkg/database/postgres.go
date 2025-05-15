@@ -36,3 +36,22 @@ func NewPostgresDB(cfg PostgresConfig) (*gorm.DB, error) {
 
     // Connect to database with retry mechanism
     var db *gorm.DB
+    var err error
+    maxRetries := 5
+    for i := 0; i < maxRetries; i++ {
+        db, err = gorm.Open(postgres.Open(dsn), gormConfig)
+        if err == nil {
+            break
+        }
+        time.Sleep(time.Second * time.Duration(i+1))
+    }
+
+    if err != nil {
+        return nil, fmt.Errorf("failed to connect to database after %d retries: %v", maxRetries, err)
+    }
+
+    // Configure connection pool
+    sqlDB, err := db.DB()
+    if err != nil {
+        return nil, fmt.Errorf("failed to get database instance: %v", err)
+    }
